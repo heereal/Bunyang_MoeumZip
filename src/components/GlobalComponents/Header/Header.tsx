@@ -1,7 +1,10 @@
+import * as S from './style';
 const Header = () => {
   return (
-    <div>Header</div>
+    <>
+      <S.Wrapper>Header</S.Wrapper>
+    </>
   );
 };
- 
+
 export default Header;

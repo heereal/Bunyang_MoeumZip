@@ -1,10 +1,13 @@
-import Header from "../Header/Header";
+import Header from '../Header/Header';
+import * as S from './style';
 const Layout = ({ children }: any) => {
   return (
-    <>
-      <Header/>
-      <div>{children}</div>
-    </>
+    <S.Wrap>
+      <S.Container>
+        <Header />
+        <div> {children}</div>
+      </S.Container>
+    </S.Wrap>
   );
 };
 
