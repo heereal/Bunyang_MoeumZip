@@ -14,10 +14,17 @@ export const Logo = styled.img`
   cursor: pointer;
 `;
 
-export const TabNav = styled.div`
+export const HeaderNav = styled.div`
   font-size: 16px;
+  cursor: pointer;
 `;
 
+// 로그인 여부에 따라 바뀌는 nav
+export const Mynav = styled(HeaderNav)``;
+
+export const LogoutNav = styled(HeaderNav)``;
+
+// 검색창
 export const SearchBox = styled.div`
   input {
     width: 300px;
@@ -30,9 +37,8 @@ export const SearchBox = styled.div`
   }
 `;
 
-export const Mynav = styled.div`
-  font-size: 16px;
+export const SearchBtn = styled.button`
+  background-color: transparent;
+  border: none;
   cursor: pointer;
 `;
-
-export const LogoutNav = styled(Mynav)``;
