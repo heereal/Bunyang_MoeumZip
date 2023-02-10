@@ -1,2 +1,14 @@
-//recoil 전역 state 관리하는 곳
-export {}
+import { useEffect } from 'react';
+import { useSubscription } from '@/hooks';
+import { atom } from 'recoil';
+
+// const { testst, test2 } = useSubscription();
+
+// useEffect(() => {
+//     testst()
+// }, []);
+
+export const subscriptionList: any = atom({
+    key: 'subscriptionList',
+    default: []
+})
