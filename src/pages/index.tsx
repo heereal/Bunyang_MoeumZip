@@ -1,4 +1,6 @@
 import Head from 'next/head';
+import { useSubscription } from '@/hooks';
+import { useEffect } from 'react';
 
 // 1. 전체리스트 및 상세리스트 불러오기
 // 2. 전체리스트 + 상세리스트 합치기
@@ -6,6 +8,11 @@ import Head from 'next/head';
 // 4. 카테고리별 분류 -
 
 const MainPage = () => {
+  const { testst, test2 } = useSubscription();
+  console.log(test2);
+  useEffect(() => {
+    testst();
+  }, []);
   return (
     <>
       <Head>
