@@ -1,10 +1,18 @@
-import Header from "../Header/Header";
-const Layout = ({ children }: any) => {
+import Header from '../Header/Header';
+import * as S from './style';
+
+type PropsP = {
+  children: React.ReactNode;
+};
+
+const Layout = ({ children }: PropsP) => {
   return (
-    <>
-      <Header/>
-      <div>{children}</div>
-    </>
+    <S.Wrap>
+      <S.Container>
+        <Header />
+        <div> {children} </div>
+      </S.Container>
+    </S.Wrap>
   );
 };
 
