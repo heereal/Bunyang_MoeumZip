@@ -27,6 +27,7 @@ const Header = () => {
 
   // 로그아웃하기
   const logOutHandler = async () => {
+    // FIXME: signout?
     await signOut(auth)
       .then(() => {
         router.push('/');

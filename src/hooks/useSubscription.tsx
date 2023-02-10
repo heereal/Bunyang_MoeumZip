@@ -1,54 +1,44 @@
-import axios from "axios";
-import { currentData } from "@/common/utils";
+import axios from 'axios';
 import { useState } from 'react';
 
 const useSubscription = () => {
-
-  const [test2, setTest2] = useState<any[]>([]);
+  const [homeList, setHomeList] = useState<any>([]);
 
   const BASE_URL = 'https://api.odcloud.kr/api/ApplyhomeInfoDetailSvc/v1';
-  const METHOD = 'getAPTLttotPblancDetail';
-  const SERVICE_KEY = process.env.NEXT_PUBLIC_HOME_API_KEY
+  const METHOD_APT_ALL = 'getAPTLttotPblancDetail';
+  const METHOD_APT_DETAIL = 'getAPTLttotPblancMdl';
+  const SERVICE_KEY = process.env.NEXT_PUBLIC_HOME_API_KEY;
 
-  const today = currentData();
-
-  const getDetailInfo2 = async (PBLANC_NO: string) => {
-    return await axios
+  const homeListHandler = async () => {
+    // 공고문 리스트 가져오기
+    const defaultList = await axios
       .get(
-        `${BASE_URL}/getAPTLttotPblancMdl?page=1&perPage=10000&serviceKey=${SERVICE_KEY}`,
-      )
-      .then((res) => res.data.data);
-  };
-
-  const testst = async () => {
-    const firstData = await axios
-      .get(
-        `${BASE_URL}/${METHOD}?page=1&perPage=1500&&cond%5BRCRIT_PBLANC_DE%3A%3AGTE%5D=2023-01-01&serviceKey=${SERVICE_KEY}`,
+        `${BASE_URL}/${METHOD_APT_ALL}?page=1&perPage=1500&&cond%5BRCRIT_PBLANC_DE%3A%3AGTE%5D=2023-01-01&serviceKey=${SERVICE_KEY}`,
       )
       .then((res) => res.data.data);
 
-    const firstDataKeyArray = await firstData.map((item: any) => item.PBLANC_NO)
+    // 공고문 상세정보 전체 리스트 가져오기
+    const detailList = await axios
+      .get(
+        `${BASE_URL}/${METHOD_APT_DETAIL}?page=1&perPage=10000&serviceKey=${SERVICE_KEY}`,
+      )
+      .then((res) =>
+        res.data.data.filter((item) => item.PBLANC_NO >= 2023000000),
+      );
 
-    const secondData = await axios
-    .get(
-      `${BASE_URL}/getAPTLttotPblancMdl?page=1&perPage=10000&serviceKey=${SERVICE_KEY}`,
-    )
-    .then((res) => res.data.data);
-
-    const finalData = await secondData.filter((item: any) => item.PBLANC_NO && firstDataKeyArray.includes(item.PBLANC_NO))
-
-    // const teeeest = await Promise.all(
-    //   firstData.map(async (item: any) => {
-    //     return {
-    //       ...item,
-    //       plus: await getDetailInfo2(item.PBLANC_NO),
-    //     };
-    //   }),
-    // );
-    setTest2(finalData);
+    // Default + Detail List 합치기
+    const combineHomeList = await Promise.all(
+      defaultList.map(async (item) => {
+        return {
+          ...item,
+          detail: detailList.filter((i) => i.PBLANC_NO === item.PBLANC_NO),
+        };
+      }),
+    );
+    setHomeList(combineHomeList);
   };
 
-  return {testst, test2};
+  return { homeListHandler, homeList };
 };
 
 export default useSubscription;

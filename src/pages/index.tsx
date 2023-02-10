@@ -8,11 +8,12 @@ import { useEffect } from 'react';
 // 4. 카테고리별 분류 -
 
 const MainPage = () => {
-  const { testst, test2 } = useSubscription();
-  console.log(test2);
+  const { homeListHandler, homeList } = useSubscription();
+  console.log(homeList);
   useEffect(() => {
-    testst();
+    homeListHandler();
   }, []);
+
   return (
     <>
       <Head>
@@ -21,7 +22,21 @@ const MainPage = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div>MainPage</div>
+      <div>
+        {homeList.map(
+          (item: any) =>
+            item.detail.length !== 0 && (
+              <>
+                <div key={item.PBLANC_NO}>
+                  첫번째 {item.detail[0]?.HOUSE_TY}
+                </div>
+                <div>
+                  마지막 {item.detail[item.detail.length - 1]?.HOUSE_TY}
+                </div>
+              </>
+            ),
+        )}
+      </div>
     </>
   );
 };
