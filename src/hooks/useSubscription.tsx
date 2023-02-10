@@ -23,21 +23,20 @@ const useSubscription = () => {
         `${BASE_URL}/${METHOD_APT_DETAIL}?page=1&perPage=10000&serviceKey=${SERVICE_KEY}`,
       )
       .then((res) =>
-        res.data.data.filter((item) => item.PBLANC_NO >= 2023000000),
+        res.data.data.filter((item: any) => item.PBLANC_NO >= 2023000000),
       );
 
     // Default + Detail List 합치기
     const combineHomeList = await Promise.all(
-      defaultList.map(async (item) => {
+      defaultList.map(async (item: any) => {
         return {
           ...item,
-          detail: detailList.filter((i) => i.PBLANC_NO === item.PBLANC_NO),
+          detail: detailList.filter((i: any) => i.PBLANC_NO === item.PBLANC_NO),
         };
       }),
     );
     setHomeList(combineHomeList);
   };
-
   return { homeListHandler, homeList };
 };
 
