@@ -5,11 +5,12 @@ import { QueryClient, useQuery, useQueryClient } from 'react-query';
 import * as S from './style';
 
 const PostDetail = () => {
-  const route = useRouter();
+  const router = useRouter();
   const [details, setDetails] = useState<any>([]);
+  console.log(router.query.postid);
 
   const { data, isloading, refetch }: any = useQuery('detail', () => {
-    return getDetailPostInfo(2022000893);
+    return getDetailPostInfo(router.query.postid);
   });
 
   return (

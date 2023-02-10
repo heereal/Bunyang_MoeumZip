@@ -1,6 +1,13 @@
 import Head from 'next/head';
+import { useSubscription } from '@/hooks';
+import { useEffect } from 'react';
 
 const MainPage = () => {
+  const { testst, test2 } = useSubscription();
+  console.log(test2);
+  useEffect(() => {
+    testst();
+  }, []);
   return (
     <>
       <Head>

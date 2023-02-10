@@ -2,8 +2,7 @@ import PostDetail from '@/components/DetailPage/PostDetail/PostDetail';
 import HeadTitle from '@/components/GlobalComponents/HeadTitle/HeadTitle';
 import { useRouter } from 'next/router';
 
-const DeatilPage: any = ({ postId }: any) => {
-  console.log(postId);
+const DeatilPage: any = () => {
   return (
     <>
       <HeadTitle title="상세페이지" />
@@ -15,10 +14,8 @@ const DeatilPage: any = ({ postId }: any) => {
 };
 
 export const getServerSideProps = (context: any) => {
-  const router = useRouter();
-
   return {
-    postId: router.query,
+    props: {},
   };
 };
 
