@@ -22,7 +22,9 @@ export const HeaderNav = styled.div`
 // 로그인 여부에 따라 바뀌는 nav
 export const Mynav = styled(HeaderNav)``;
 
-export const LogoutNav = styled(HeaderNav)``;
+export const LogintNav = styled(HeaderNav)`
+  cursor: pointer;
+`;
 
 // 검색창
 export const SearchBox = styled.div`

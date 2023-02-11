@@ -3,7 +3,8 @@ import { FaSearch } from 'react-icons/fa';
 import { useRouter } from 'next/router';
 import { auth } from '../../../common/firebase';
 import { useState, KeyboardEvent } from 'react';
-import { async } from '@firebase/util';
+import { signOut } from 'firebase/auth';
+import LoginModal from '../LoginModal/LoginModal';
 
 // 1. 위치 정리
 // 2. 페이지 이동
@@ -18,7 +19,7 @@ const Header = () => {
 
   // 로그인 여부 확인 - FIXME: LoginModal이랑 연결지어야 하나
   // const isLoggedIn = localStorage.key;
-  const isLoggedIn = true;
+  const isLoggedIn = false;
 
   // 로그인 모달 open
   const openModal = () => {
@@ -49,6 +50,7 @@ const Header = () => {
   return (
     <>
       <S.Wrapper>
+        <LoginModal isOpen={isOpen}/>
         <S.Logo
           onClick={() => router.push('/')}
           src={`/candy.jpg`}
@@ -77,10 +79,10 @@ const Header = () => {
             >
               마이페이지
             </S.Mynav>
-            <S.LogoutNav onClick={logOutHandler}>로그아웃</S.LogoutNav>
+            <S.LogintNav onClick={logOutHandler}>로그아웃</S.LogintNav>
           </>
         ) : (
-          <div onClick={openModal}>로그인</div>
+          <S.LogintNav onClick={openModal}>로그인</S.LogintNav>
         )}
         {/* TODO: 로그인 모달 추가 */}
       </S.Wrapper>
