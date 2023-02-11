@@ -1,6 +1,28 @@
 import styled from 'styled-components';
 
+export const MainSection = styled.section`
+  width: 1100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+export const TabRemoteBox = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+`;
+
 // Tabs
+export const TabsSection = styled.section`
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: left;
+`;
+
 export const TabMenu = styled.ul`
   background-color: white;
   color: black;
@@ -9,13 +31,11 @@ export const TabMenu = styled.ul`
   flex-direction: row;
   align-items: center;
   list-style: none;
-  margin-bottom: 1rem;
-  margin-top: 10px;
+  margin: 1rem 0;
 
   .submenu {
     // 기본 TabMenu CSS
     display: flex;
-    justify-content: space-between;
     width: calc(100% / 5);
     padding: 10px;
     font-size: 15px;
@@ -28,8 +48,11 @@ export const TabMenu = styled.ul`
     background-color: lavender;
     color: black;
   }
+`;
 
-  /* & div.desc {
-    text-align: center;
-  } */
+// remote
+export const RemoteAside = styled.aside`
+  width: 300px;
+  height: 400px;
+  border: 1px solid lavender;
 `;

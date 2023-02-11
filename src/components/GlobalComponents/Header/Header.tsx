@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { auth } from '../../../common/firebase';
 import { useState, KeyboardEvent } from 'react';
 import { async } from '@firebase/util';
+import { signOut } from 'firebase/auth';
 
 // 1. 위치 정리
 // 2. 페이지 이동
@@ -27,7 +28,6 @@ const Header = () => {
 
   // 로그아웃하기
   const logOutHandler = async () => {
-    // FIXME: signout?
     await signOut(auth)
       .then(() => {
         router.push('/');

@@ -7,13 +7,13 @@ import * as S from './style';
 
 // 1. 전체리스트 및 상세리스트 불러오기
 // 2. 전체리스트 + 상세리스트 합치기
-// 3. Tab 분류
+// 3. Tab 분류 - 분양 리스트가 없을 때 보여줄 것 추가
 // 4. Tab 별 수 count
 // 5. 카테고리별 분류 - 지역 및 분양 형태
 
 const MainPage = () => {
   const { homeListHandler, homeList } = useSubscription();
-  const [currentTab, clickTab] = useState(0);
+  const [currentTab, SetCurrentTab] = useState(0);
 
   // 오늘 날짜 구하기
   const postTime = () => {
@@ -39,12 +39,13 @@ const MainPage = () => {
   const tabList = [
     { name: '청약 가능', content: todayList },
     { name: '청약 임박', content: comingList },
-    { name: '무순위', content: comingList },
+    // TODO: 무순위 api 추가되면 content 변경하기 - 현재는 전체리스트
+    { name: '무순위', content: homeList },
   ];
 
   // 함수가 실행되면 선택된 tab 내용으로 변경
-  const selectMenuHandler = (index: number) => {
-    clickTab(index);
+  const clickTabHandler = (index: number) => {
+    SetCurrentTab(index);
   };
 
   useEffect(() => {
@@ -59,31 +60,40 @@ const MainPage = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div>
-        <div>청약 가능</div>
-        <div>청약 임박</div>
-        <div>무순위</div>
-      </div>
+      <S.MainSection>
+        <div>
+          <div>청약 가능</div>
+          <div>청약 임박</div>
+          <div>무순위</div>
+        </div>
+        <S.TabRemoteBox>
+          {/* Tabs */}
+          <S.TabsSection>
+            <S.TabMenu>
+              {tabList.map((el, index) => (
+                <li
+                  key={el.name}
+                  className={
+                    index === currentTab ? 'submenu focused' : 'submenu'
+                  }
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => clickTabHandler(index)}
+                >
+                  {el.name}
+                </li>
+              ))}
+            </S.TabMenu>
 
-      {/* Tabs */}
-      <S.TabMenu>
-        {tabList.map((el, index) => (
-          <li
-            key={el.name}
-            className={index === currentTab ? 'submenu focused' : 'submenu'}
-            style={{ cursor: 'pointer' }}
-            onClick={() => selectMenuHandler(index)}
-          >
-            {el.name}
-          </li>
-        ))}
-      </S.TabMenu>
-      {/* 분양 리스트 */}
-      <div>
-        {tabList[currentTab].content.map((item: any) => {
-          return <HomeList key={item.PBLANC_NO} home={item} />;
-        })}
-      </div>
+            {tabList[currentTab].content.map((item: any) => {
+              // 분양 리스트
+              return <HomeList key={item.PBLANC_NO} home={item} />;
+            })}
+          </S.TabsSection>
+
+          {/* TODO: 리모콘 기능 추가 */}
+          <S.RemoteAside>리모콘</S.RemoteAside>
+        </S.TabRemoteBox>
+      </S.MainSection>
     </>
   );
 };

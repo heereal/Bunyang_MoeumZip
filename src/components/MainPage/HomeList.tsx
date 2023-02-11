@@ -5,7 +5,7 @@ const HomeList = ({ home }: any) => {
   const router = useRouter();
 
   return (
-    <S.ListWrap onClick={() => router.push(`/detail/${home.PBLANC_NO}`)}>
+    <S.ListArticle onClick={() => router.push(`/detail/${home.PBLANC_NO}`)}>
       <div>
         <div>
           <div>{home.BSNS_MBY_NM}</div>
@@ -51,7 +51,7 @@ const HomeList = ({ home }: any) => {
           {home.RCEPT_BGNDE} ~ {home.RCEPT_ENDDE}
         </div>
       </div>
-    </S.ListWrap>
+    </S.ListArticle>
   );
 };
 
