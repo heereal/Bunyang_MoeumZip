@@ -3,22 +3,17 @@ import { useSubscription } from '@/hooks';
 import { useEffect, useState } from 'react';
 import HomeList from '@/components/MainPage/HomeList';
 import HeadTitle from '@/components/GlobalComponents/HeadTitle/HeadTitle';
+import * as S from './style';
 
 // 1. 전체리스트 및 상세리스트 불러오기
 // 2. 전체리스트 + 상세리스트 합치기
-// 3. 카테고리별 분류 - 지역
-// 4. 카테고리별 분류 -
+// 3. Tab 분류
+// 4. Tab 별 수 count
+// 5. 카테고리별 분류 - 지역 및 분양 형태
 
 const MainPage = () => {
   const { homeListHandler, homeList } = useSubscription();
-  const [todayHome, setTodayHome] = useState<any>([]);
-  const [comingHome, setComingHome] = useState<any>([]);
-
-  console.log(homeList);
-
-  useEffect(() => {
-    homeListHandler();
-  }, []);
+  const [currentTab, clickTab] = useState(0);
 
   // 오늘 날짜 구하기
   const postTime = () => {
@@ -30,24 +25,31 @@ const MainPage = () => {
   };
   const today = postTime();
 
+  // 청약 가능 리스트
+  // TODO: item.RCEPT_BGNDE <= today && item.RCEPT_ENDDE >= today 로 해야 하는데
+  // 현재 결과가 없음
   const todayList = homeList.filter((item: any) => item.RCEPT_BGNDE <= today);
+  // 청약 임박 리스트
+  // TODO: 오늘 날짜보다 얼마나 더 클 때 보여줄 건지 정해야 함
+  const comingList = homeList.filter((item: any) => item.RCEPT_BGNDE > today);
+  // TODO: 무순위 리스트 - 이름 변경? -선착순..?
+  // const randomList? =
 
-  // 오늘 청약 Tab - 청약일이 오늘 날짜보다 작은 분양 리스트 가져오기
-  const todayListHandler = () => {
-    // TODO: item.RCEPT_BGNDE <= today && item.RCEPT_ENDDE >= today 로 해야 하는데
-    // 현재 결과가 없음
-    setTodayHome(todayList);
+  // Tabs(청약 가능, 청약 임박, 무순위)
+  const tabList = [
+    { name: '청약 가능', content: todayList },
+    { name: '청약 임박', content: comingList },
+    { name: '무순위', content: comingList },
+  ];
+
+  // 함수가 실행되면 선택된 tab 내용으로 변경
+  const selectMenuHandler = (index: number) => {
+    clickTab(index);
   };
 
-  console.log(todayHome);
-
-  // 청약 임박 Tab(곧 청약이 시작돼요!)
-  const comingListHandler = () => {
-    const comingList = homeList.filter((item: any) => item.RCEPT_BGNDE > today);
-    setComingHome(comingList);
-  };
-
-  console.log(comingHome);
+  useEffect(() => {
+    homeListHandler();
+  }, []);
 
   return (
     <>
@@ -58,38 +60,30 @@ const MainPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div>
-        {/* TODO: 청약 가능? */}
-        <div>오늘 청약</div>
+        <div>청약 가능</div>
         <div>청약 임박</div>
         <div>무순위</div>
       </div>
 
+      {/* Tabs */}
+      <S.TabMenu>
+        {tabList.map((el, index) => (
+          <li
+            key={el.name}
+            className={index === currentTab ? 'submenu focused' : 'submenu'}
+            style={{ cursor: 'pointer' }}
+            onClick={() => selectMenuHandler(index)}
+          >
+            {el.name}
+          </li>
+        ))}
+      </S.TabMenu>
+      {/* 분양 리스트 */}
       <div>
-        <button onClick={todayListHandler}>오늘 청약</button>
-        <button onClick={comingListHandler}>청약 임박</button>
-        <button>무순위</button>
+        {tabList[currentTab].content.map((item: any) => {
+          return <HomeList key={item.PBLANC_NO} home={item} />;
+        })}
       </div>
-      {/* TODO: props로 넘겨주지 않고 각 컴포넌트에서 실행하기? */}
-
-      {comingHome.length !== 0 ? (
-        <div>
-          {comingHome?.map((item: any) => (
-            <HomeList key={item.PBLANC_NO} home={item} />
-          ))}
-        </div>
-      ) : todayHome.length !== 0 ? (
-        <div>
-          {todayHome?.map((item: any) => (
-            <HomeList key={item.PBLANC_NO} home={item} />
-          ))}
-        </div>
-      ) : (
-        <div>
-          {todayList?.map((item: any) => (
-            <HomeList key={item.PBLANC_NO} home={item} />
-          ))}
-        </div>
-      )}
     </>
   );
 };
