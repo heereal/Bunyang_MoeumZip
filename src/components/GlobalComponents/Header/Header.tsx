@@ -21,11 +21,6 @@ const Header = () => {
   // const isLoggedIn = localStorage.key;
   const isLoggedIn = false;
 
-  // 로그인 모달 open
-  const openModal = () => {
-    setIsOpen(true);
-  };
-
   // 로그아웃하기
   const logOutHandler = async () => {
     await signOut(auth)
@@ -50,7 +45,7 @@ const Header = () => {
   return (
     <>
       <S.Wrapper>
-        <LoginModal isOpen={isOpen}/>
+        <LoginModal isOpen={isOpen} />
         <S.Logo
           onClick={() => router.push('/')}
           src={`/candy.jpg`}
@@ -82,7 +77,7 @@ const Header = () => {
             <S.LogintNav onClick={logOutHandler}>로그아웃</S.LogintNav>
           </>
         ) : (
-          <S.LogintNav onClick={openModal}>로그인</S.LogintNav>
+          <S.LogintNav onClick={() => setIsOpen(true)}>로그인</S.LogintNav>
         )}
         {/* TODO: 로그인 모달 추가 */}
       </S.Wrapper>
