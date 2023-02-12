@@ -19,8 +19,8 @@ const LoginModal = ({ isOpen }: loginModalProps) => {
   const facebookProvider = new FacebookAuthProvider();
 
   // 유저의 세션 정보 받아오기
-  const { data: session } = useSession();
-  console.log(session);
+  const { data: session, status } = useSession();
+  console.log(session, status);
 
   //FIXME: any 수정
   const loginHandler = (provider: any) => {
@@ -47,7 +47,9 @@ const LoginModal = ({ isOpen }: loginModalProps) => {
           페이스북 로그인
         </button>
         <button onClick={() => signIn('kakao')}>카카오 로그인</button>
-        <button onClick={() => signOut()}>카카오 로그아웃</button>
+        <button onClick={() => signIn('naver')}>네이버 로그인</button>
+        <button onClick={() => signOut()}>로그아웃</button>
+        {session ?  <div>{session.user?.name}님 로그인 환영합니다</div> : <div>로그아웃 상태임</div>}
       </S.ModalContainer>
     </ReactModal>
   );
