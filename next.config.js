@@ -6,6 +6,7 @@ const SERVICE_KEY = process.env.NEXT_PUBLIC_HOME_API_KEY;
 /** @type {import('next').NextConfig} */
 module.exports = {
   reactStrictMode: false,
+  // pageExtensions: ['style.tsx'],
 
   async rewrites() {
     return [
