@@ -22,6 +22,7 @@ const MainPage = ({ homeList }: any) => {
     const month = ('0' + (date.getMonth() + 1)).slice(-2);
     const day = ('0' + date.getDate()).slice(-2);
     // FIXME: addMonth 문제 - 12월의 경우 13월이 됨.. setMonth를 써야 할 듯
+    // 다음 달
     const addMonth = '' + (+('0' + (date.getMonth() + 1)).slice(-2) + 1);
 
     const today = year + '-' + month + '-' + day;
