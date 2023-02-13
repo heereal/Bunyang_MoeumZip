@@ -122,8 +122,6 @@ const MainPage = ({ homeList }: any) => {
   );
 };
 
-
-
 export default MainPage;
 
 // API 통합 데이터 사전 렌더링
@@ -135,7 +133,6 @@ export const getStaticProps: GetStaticProps = async () => {
 
   // 공고문 리스트 가져오기
   const defaultList = await axios
-    // rewrites 써서 Network창에서 API KEY 숨김
     .get(
       `${BASE_URL}/${METHOD_APT_ALL}?page=1&perPage=1500&&cond%5BRCRIT_PBLANC_DE%3A%3AGTE%5D=2023-01-01&serviceKey=${SERVICE_KEY}`,
     )
@@ -143,7 +140,6 @@ export const getStaticProps: GetStaticProps = async () => {
 
   // 공고문 상세정보 전체 리스트 가져오기
   const detailList = await axios
-    // rewrites 써서 Network창에서 API KEY 숨김
     .get(
       `${BASE_URL}/${METHOD_APT_DETAIL}?page=1&perPage=10000&serviceKey=${SERVICE_KEY}`,
     )
