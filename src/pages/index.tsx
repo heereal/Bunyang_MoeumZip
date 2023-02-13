@@ -9,7 +9,7 @@ import { async } from '@firebase/util';
 // 1. 전체리스트 및 상세리스트 불러오기
 // 2. 전체리스트 + 상세리스트 합치기
 // 3. Tab 분류 - 분양 리스트가 없을 때 보여줄 것 추가
-// 4. Tab 별 수 count
+// 4. Tab 별 수 count - Tabs랑 연결하기
 // 5. 카테고리별 분류 - 지역 및 분양 형태
 
 const MainPage = ({ homeList }: any) => {
@@ -21,8 +21,8 @@ const MainPage = ({ homeList }: any) => {
     const year = date.getFullYear();
     const month = ('0' + (date.getMonth() + 1)).slice(-2);
     const day = ('0' + date.getDate()).slice(-2);
+    // 청약 예정(오늘 날짜 + 4주)에 적용하기 위해 다음 달 구하기
     // FIXME: addMonth 문제 - 12월의 경우 13월이 됨.. setMonth를 써야 할 듯
-    // 다음 달
     const addMonth = '' + (+('0' + (date.getMonth() + 1)).slice(-2) + 1);
 
     const today = year + '-' + month + '-' + day;
@@ -31,7 +31,6 @@ const MainPage = ({ homeList }: any) => {
     return [today, todayAddMonth];
   };
   const today = postTime();
-  console.log(today[0], today[1]);
 
   // 청약 가능 리스트
   const todayList = homeList.filter(
@@ -46,10 +45,10 @@ const MainPage = ({ homeList }: any) => {
 
   // Tabs(청약 가능, 청약 임박, 무순위)
   const tabList = [
-    { name: '청약 가능', content: todayList },
-    { name: '청약 예정', content: comingList },
+    { name: '청약 가능', content: todayList, count: todayList.length },
+    { name: '청약 예정', content: comingList, count: comingList.length },
     // TODO: 무순위 api 추가되면 content 변경하기 - 현재는 전체리스트
-    { name: '무순위', content: homeList },
+    { name: '무순위', content: homeList, count: homeList.length },
   ];
 
   // 함수가 실행되면 선택된 tab 내용으로 변경
@@ -66,28 +65,37 @@ const MainPage = ({ homeList }: any) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <S.MainSection>
-        <div>
-          <div>청약 가능</div>
-          <div>청약 예정</div>
-          <div>무순위</div>
-        </div>
+        <S.CountSection>
+          {/* TODO: 두 카테고리 연결하는 부분 - 코드 중복 줄일 수 있는지? */}
+          <S.CountTabBox>
+            {tabList.map((el, index) => (
+              <S.CountTab
+                key={el.name}
+                className={index === currentTab ? 'baseTab focused' : 'baseTab'}
+                onClick={() => clickTabHandler(index)}
+              >
+                <text>{el.name}</text>
+                <S.CountTabNum>{el.count}</S.CountTabNum>
+              </S.CountTab>
+            ))}
+          </S.CountTabBox>
+        </S.CountSection>
         <S.TabRemoteBox>
           {/* Tabs */}
           <S.TabsSection>
-            <S.TabMenu>
+            <S.TabBox>
               {tabList.map((el, index) => (
-                <li
+                <S.Tab
                   key={el.name}
                   className={
-                    index === currentTab ? 'submenu focused' : 'submenu'
+                    index === currentTab ? 'baseTab focused' : 'baseTab'
                   }
-                  style={{ cursor: 'pointer' }}
                   onClick={() => clickTabHandler(index)}
                 >
-                  {el.name}
-                </li>
+                  <text>{el.name}</text>
+                </S.Tab>
               ))}
-            </S.TabMenu>
+            </S.TabBox>
 
             {tabList[currentTab].content.map((item: any) => {
               // 분양 리스트
