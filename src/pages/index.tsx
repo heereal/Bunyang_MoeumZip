@@ -21,19 +21,25 @@ const MainPage = ({ homeList }: any) => {
     const year = date.getFullYear();
     const month = ('0' + (date.getMonth() + 1)).slice(-2);
     const day = ('0' + date.getDate()).slice(-2);
-    return year + '-' + month + '-' + day;
+    // FIXME: addMonth 문제 - 12월의 경우 13월이 됨.. setMonth를 써야 할 듯
+    const addMonth = '' + (+('0' + (date.getMonth() + 1)).slice(-2) + 1);
+
+    const today = year + '-' + month + '-' + day;
+    const todayAddMonth = year + '-' + addMonth + '-' + day;
+
+    return [today, todayAddMonth];
   };
   const today = postTime();
+  console.log(today[0], today[1]);
 
-  // TODO:
-  // console.log(today + 4주 적용하기)
   // 청약 가능 리스트
-  // TODO: item.RCEPT_BGNDE <= today && item.RCEPT_ENDDE >= today 로 해야 하는데
-  // 현재 결과가 없음
-  const todayList = homeList.filter((item: any) => item.RCEPT_BGNDE <= today);
+  const todayList = homeList.filter(
+    (item: any) => item.RCEPT_BGNDE <= today[0] && item.RCEPT_ENDDE >= today[0],
+  );
   // 청약 예정 리스트
-  // && item.RCEPT_BGNDE <= today + 4주
-  const comingList = homeList.filter((item: any) => item.RCEPT_BGNDE > today);
+  const comingList = homeList.filter(
+    (item: any) => item.RCEPT_BGNDE > today[0] && item.RCEPT_BGNDE <= today[1],
+  );
   // TODO: 무순위 리스트 - 이름 변경? -선착순..?
   // const randomList? =
 
