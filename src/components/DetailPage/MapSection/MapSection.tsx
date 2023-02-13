@@ -1,12 +1,15 @@
 import Map from './Map';
+import * as S from './style';
 
 const MapSection = () => {
   return (
-    <Map
-      onLoad={() => {
-        console.log('load');
-      }}
-    />
+    <S.Section>
+      <Map
+        onLoad={() => {
+          console.log('load');
+        }}
+      />
+    </S.Section>
   );
 };
 

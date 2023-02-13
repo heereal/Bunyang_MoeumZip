@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
-export const Section = styled.section`
+export const Section = styled.div`
   border: 1px solid black;
-  width: 80vw;
-  height: 85vh;
+  width: 100%;
+  height: 40%;
 `;

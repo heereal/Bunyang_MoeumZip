@@ -44,7 +44,7 @@ const Map = ({
         src={`https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${process.env.NEXT_PUBLIC_NCP_CLIENT_ID}`}
         onReady={initializeMap}
       />
-      <div id="map" style={{ width: '40%', height: '40%' }}></div>
+      <div id="map" style={{ width: '100%', height: '100%' }}></div>
     </>
   );
 };
