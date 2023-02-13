@@ -1,9 +1,10 @@
 import Head from 'next/head';
-import { useSubscription } from '@/hooks';
 import { useEffect, useState } from 'react';
-import HomeList from '@/components/MainPage/HomeList';
+import HomeList from '@/components/MainPage/HomeList/HomeList';
 import HeadTitle from '@/components/GlobalComponents/HeadTitle/HeadTitle';
 import * as S from '../styles/main.style';
+import axios from 'axios';
+import { async } from '@firebase/util';
 
 // 1. 전체리스트 및 상세리스트 불러오기
 // 2. 전체리스트 + 상세리스트 합치기
@@ -11,8 +12,7 @@ import * as S from '../styles/main.style';
 // 4. Tab 별 수 count
 // 5. 카테고리별 분류 - 지역 및 분양 형태
 
-const MainPage = () => {
-  const { homeListHandler, homeList } = useSubscription();
+const MainPage = ({ homeList }: any) => {
   const [currentTab, SetCurrentTab] = useState(0);
 
   // 오늘 날짜 구하기
@@ -25,12 +25,14 @@ const MainPage = () => {
   };
   const today = postTime();
 
+  // TODO:
+  // console.log(today + 4주 적용하기)
   // 청약 가능 리스트
   // TODO: item.RCEPT_BGNDE <= today && item.RCEPT_ENDDE >= today 로 해야 하는데
   // 현재 결과가 없음
   const todayList = homeList.filter((item: any) => item.RCEPT_BGNDE <= today);
-  // 청약 임박 리스트
-  // TODO: 오늘 날짜보다 얼마나 더 클 때 보여줄 건지 정해야 함
+  // 청약 예정 리스트
+  // && item.RCEPT_BGNDE <= today + 4주
   const comingList = homeList.filter((item: any) => item.RCEPT_BGNDE > today);
   // TODO: 무순위 리스트 - 이름 변경? -선착순..?
   // const randomList? =
@@ -38,7 +40,7 @@ const MainPage = () => {
   // Tabs(청약 가능, 청약 임박, 무순위)
   const tabList = [
     { name: '청약 가능', content: todayList },
-    { name: '청약 임박', content: comingList },
+    { name: '청약 예정', content: comingList },
     // TODO: 무순위 api 추가되면 content 변경하기 - 현재는 전체리스트
     { name: '무순위', content: homeList },
   ];
@@ -47,10 +49,6 @@ const MainPage = () => {
   const clickTabHandler = (index: number) => {
     SetCurrentTab(index);
   };
-
-  useEffect(() => {
-    homeListHandler();
-  }, []);
 
   return (
     <>
@@ -63,7 +61,7 @@ const MainPage = () => {
       <S.MainSection>
         <div>
           <div>청약 가능</div>
-          <div>청약 임박</div>
+          <div>청약 예정</div>
           <div>무순위</div>
         </div>
         <S.TabRemoteBox>
@@ -99,3 +97,46 @@ const MainPage = () => {
 };
 
 export default MainPage;
+
+// API 통합 데이터 사전 렌더링
+export const getStaticProps = async () => {
+  const BASE_URL = 'https://api.odcloud.kr/api/ApplyhomeInfoDetailSvc/v1';
+  const METHOD_APT_ALL = 'getAPTLttotPblancDetail';
+  const METHOD_APT_DETAIL = 'getAPTLttotPblancMdl';
+  const SERVICE_KEY = process.env.NEXT_PUBLIC_HOME_API_KEY;
+
+  // 공고문 리스트 가져오기
+  const defaultList = await axios
+    // rewrites 써서 Network창에서 API KEY 숨김
+    .get(
+      `${BASE_URL}/${METHOD_APT_ALL}?page=1&perPage=1500&&cond%5BRCRIT_PBLANC_DE%3A%3AGTE%5D=2023-01-01&serviceKey=${SERVICE_KEY}`,
+    )
+    .then((res) => res.data.data);
+
+  // 공고문 상세정보 전체 리스트 가져오기
+  const detailList = await axios
+    // rewrites 써서 Network창에서 API KEY 숨김
+    .get(
+      `${BASE_URL}/${METHOD_APT_DETAIL}?page=1&perPage=10000&serviceKey=${SERVICE_KEY}`,
+    )
+    .then((res) =>
+      res.data.data.filter((item: any) => item.PBLANC_NO >= 2023000000),
+    );
+
+  // Default + Detail List 합치기
+  const combineHomeList = await Promise.all(
+    defaultList.map(async (item: any) => {
+      return {
+        ...item,
+        detail: detailList.filter((i: any) => i.PBLANC_NO === item.PBLANC_NO),
+      };
+    }),
+  );
+
+  const homeList = combineHomeList;
+  return {
+    props: { homeList },
+    // ISR - 12시간 마다 데이터 업데이트
+    revalidate: 43200,
+  };
+};

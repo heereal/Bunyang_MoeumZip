@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useSubscription } from '@/hooks';
+// import { useSubscription } from '@/hooks';
 import { atom } from 'recoil';
 
 // const { testst, test2 } = useSubscription();
@@ -8,7 +8,7 @@ import { atom } from 'recoil';
 //     testst()
 // }, []);
 
-export const subscriptionList: any = atom({
-    key: 'subscriptionList',
-    default: []
-})
+// export const subscriptionList: any = atom({
+//     key: 'subscriptionList',
+//     default: []
+// })
