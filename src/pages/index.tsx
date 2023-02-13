@@ -16,29 +16,40 @@ const MainPage = ({ homeList }: any) => {
   const [currentTab, SetCurrentTab] = useState(0);
 
   // 오늘 날짜 구하기
-  const postTime = () => {
+  const getToday = () => {
     const date = new Date();
     const year = date.getFullYear();
     const month = ('0' + (date.getMonth() + 1)).slice(-2);
     const day = ('0' + date.getDate()).slice(-2);
-    // 청약 예정(오늘 날짜 + 4주)에 적용하기 위해 다음 달 구하기
-    // FIXME: addMonth 문제 - 12월의 경우 13월이 됨.. setMonth를 써야 할 듯
-    const addMonth = '' + (+('0' + (date.getMonth() + 1)).slice(-2) + 1);
 
     const today = year + '-' + month + '-' + day;
-    const todayAddMonth = year + '-' + addMonth + '-' + day;
 
-    return [today, todayAddMonth];
+    return today;
   };
-  const today = postTime();
+  const today = getToday();
+
+  // 청약 예정일 산정 기간 - 현재 날짜 + 4주 구하기
+  const getAddMonth = () => {
+    const date = new Date();
+    date.setMonth(date.getMonth() + 1);
+
+    return date
+      .toLocaleString()
+      .slice(0, 11)
+      .split('.')
+      .join('')
+      .replace(/( )/g, '-');
+  };
+  const todayAddMonth = getAddMonth();
 
   // 청약 가능 리스트
   const todayList = homeList.filter(
-    (item: any) => item.RCEPT_BGNDE <= today[0] && item.RCEPT_ENDDE >= today[0],
+    (item: any) => item.RCEPT_BGNDE <= today && item.RCEPT_ENDDE >= today,
   );
   // 청약 예정 리스트
   const comingList = homeList.filter(
-    (item: any) => item.RCEPT_BGNDE > today[0] && item.RCEPT_BGNDE <= today[1],
+    (item: any) =>
+      item.RCEPT_BGNDE > today && item.RCEPT_BGNDE <= todayAddMonth,
   );
   // TODO: 무순위 리스트 - 이름 변경? -선착순..?
   // const randomList? =

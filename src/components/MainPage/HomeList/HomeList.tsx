@@ -31,8 +31,8 @@ const HomeList = ({ home }: any) => {
       </div>
       <div>
         <div>전용면적</div>
-        {/* TODO: m2 슬라이스해야함 2자리일때는 앞이 0.. */}
-        {home.detail[0]?.HOUSE_TY.split('.')[0]}m2 ~
+        {/* 정규식을 이용해 전용면적 숫자 왼쪽에 0이 있으면 제거 */}
+        {home.detail[0]?.HOUSE_TY.split('.')[0].replace(/(^0)/, '')}m2 ~
         {home.detail[home.detail.length - 1]?.HOUSE_TY.split('.')[0]}m2
       </div>
       <div>
