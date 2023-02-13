@@ -3,6 +3,7 @@ import { useState } from 'react';
 import HomeList from '@/components/MainPage/HomeList/HomeList';
 import HeadTitle from '@/components/GlobalComponents/HeadTitle/HeadTitle';
 import * as S from '../styles/main.style';
+import { GetStaticProps } from 'next';
 import axios from 'axios';
 
 // 1. 전체리스트 및 상세리스트 불러오기
@@ -121,10 +122,12 @@ const MainPage = ({ homeList }: any) => {
   );
 };
 
+
+
 export default MainPage;
 
 // API 통합 데이터 사전 렌더링
-export const getStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   const BASE_URL = 'https://api.odcloud.kr/api/ApplyhomeInfoDetailSvc/v1';
   const METHOD_APT_ALL = 'getAPTLttotPblancDetail';
   const METHOD_APT_DETAIL = 'getAPTLttotPblancMdl';

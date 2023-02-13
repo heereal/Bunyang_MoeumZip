@@ -3,7 +3,7 @@ import Head from 'next/head';
 const HeadTitle = ({ title }: any) => {
   return (
     <Head>
-      <title>{title}</title>
+      <title>{title} | 분양모아</title>
     </Head>
   );
 };
