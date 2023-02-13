@@ -6,8 +6,15 @@ import {
   signInWithPopup,
 } from 'firebase/auth';
 import { auth } from '@/common/firebase';
-import { getCsrfToken, signIn, useSession, signOut } from 'next-auth/react';
+import { getCsrfToken, signIn, useSession, signOut, getProviders } from 'next-auth/react';
 import { useEffect } from 'react';
+import { db } from '@/common/firebase';
+import {
+  query,
+  getDocs,
+  collection,
+  where,
+} from 'firebase/firestore';
 
 interface loginModalProps {
   isOpen: boolean;
@@ -19,7 +26,7 @@ const LoginModal = ({ isOpen }: loginModalProps) => {
   const facebookProvider = new FacebookAuthProvider();
 
   // 유저의 세션 정보 받아오기
-  const { data: session, status } = useSession();
+  const { data: session, status } = useSession();  
   console.log(session, status);
 
   //FIXME: any 수정
@@ -33,12 +40,36 @@ const LoginModal = ({ isOpen }: loginModalProps) => {
     console.log(csrfToken);
   };
 
+  const firebaseTest = async () => {
+    const q = query(
+      collection(db, 'Users'),
+      where('id', '==', 'a'),
+    );
+
+    const array: any[] = [];
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) =>
+      array.push({
+        id: doc.id,
+        ...doc.data(),
+      })
+      );
+      console.log(array);
+      if (array.length >= 1) {
+        console.log('잘 들어옴');
+      } else {
+        console.log('실패');
+      }
+      
+  }
+ 
   useEffect(() => {
-    getToken();
+    // getToken();
+    // firebaseTest()
   }, []);
 
   return (
-    <ReactModal isOpen={isOpen} style={customStyles}>
+    <ReactModal isOpen={isOpen} style={customStyles} ariaHideApp={false}>
       <S.ModalContainer>
         <button onClick={() => loginHandler(googleProvider)}>
           구글 로그인
