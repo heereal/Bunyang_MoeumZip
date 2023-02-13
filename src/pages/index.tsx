@@ -1,17 +1,71 @@
 import Head from 'next/head';
-import HomeList from '@/components/MainPage/HomeList';
+import { useState } from 'react';
+import HomeList from '@/components/MainPage/HomeList/HomeList';
 import HeadTitle from '@/components/GlobalComponents/HeadTitle/HeadTitle';
+import * as S from '../styles/main.style';
 import { GetStaticProps } from 'next';
 import axios from 'axios';
-import { useState } from 'react';
 
 // 1. 전체리스트 및 상세리스트 불러오기
 // 2. 전체리스트 + 상세리스트 합치기
-// 3. 카테고리별 분류 - 지역
-// 4. 카테고리별 분류 -
+// 3. Tab 분류 - 분양 리스트가 없을 때 보여줄 것 추가
+// 4. Tab 별 수 count - Tabs랑 연결하기
+// 5. 카테고리별 분류 - 지역 및 분양 형태
 
-const MainPage = (props: any) => {
-  const { homeList } = props;
+const MainPage = ({ homeList }: any) => {
+  const [currentTab, SetCurrentTab] = useState(0);
+
+  // 오늘 날짜 구하기
+  const getToday = () => {
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = ('0' + (date.getMonth() + 1)).slice(-2);
+    const day = ('0' + date.getDate()).slice(-2);
+
+    const today = year + '-' + month + '-' + day;
+
+    return today;
+  };
+  const today = getToday();
+
+  // 청약 예정일 산정 기간 - 현재 날짜 + 4주 구하기
+  const getAddMonth = () => {
+    const date = new Date();
+    date.setMonth(date.getMonth() + 1);
+
+    return date
+      .toLocaleString()
+      .slice(0, 11)
+      .split('.')
+      .join('')
+      .replace(/( )/g, '-');
+  };
+  const todayAddMonth = getAddMonth();
+
+  // 청약 가능 리스트
+  const todayList = homeList.filter(
+    (item: any) => item.RCEPT_BGNDE <= today && item.RCEPT_ENDDE >= today,
+  );
+  // 청약 예정 리스트
+  const comingList = homeList.filter(
+    (item: any) =>
+      item.RCEPT_BGNDE > today && item.RCEPT_BGNDE <= todayAddMonth,
+  );
+  // TODO: 무순위 리스트 - 이름 변경? -선착순..?
+  // const randomList? =
+
+  // Tabs(청약 가능, 청약 임박, 무순위)
+  const tabList = [
+    { name: '청약 가능', content: todayList, count: todayList.length },
+    { name: '청약 예정', content: comingList, count: comingList.length },
+    // TODO: 무순위 api 추가되면 content 변경하기 - 현재는 전체리스트
+    { name: '무순위', content: homeList, count: homeList.length },
+  ];
+
+  // 함수가 실행되면 선택된 tab 내용으로 변경
+  const clickTabHandler = (index: number) => {
+    SetCurrentTab(index);
+  };
 
   return (
     <>
@@ -21,27 +75,58 @@ const MainPage = (props: any) => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div>
-        <div>오늘 청약</div>
-        <div>청약 임박</div>
-        <div>무순위</div>
-      </div>
+      <S.MainSection>
+        <S.CountSection>
+          {/* TODO: 두 카테고리 연결하는 부분 - 코드 중복 줄일 수 있는지? */}
+          <S.CountTabBox>
+            {tabList.map((el, index) => (
+              <S.CountTab
+                key={el.name}
+                className={index === currentTab ? 'baseTab focused' : 'baseTab'}
+                onClick={() => clickTabHandler(index)}
+              >
+                <h4>{el.name}</h4>
+                <S.CountTabNum>{el.count}</S.CountTabNum>
+              </S.CountTab>
+            ))}
+          </S.CountTabBox>
+        </S.CountSection>
+        <S.TabRemoteBox>
+          {/* Tabs */}
+          <S.TabsSection>
+            <S.TabBox>
+              {tabList.map((el, index) => (
+                <S.Tab
+                  key={el.name}
+                  className={
+                    index === currentTab ? 'baseTab focused' : 'baseTab'
+                  }
+                  onClick={() => clickTabHandler(index)}
+                >
+                  <h4>{el.name}</h4>
+                </S.Tab>
+              ))}
+            </S.TabBox>
 
-      <div>
-        <button>오늘 청약</button>
-        <button>청약 임박</button>
-        <button>무순위</button>
-      </div>
-      <div>
-        {/* TODO: props로 넘겨주지 않고 각 컴포넌트에서 실행하기? */}
-        {homeList.map((item: any) => (
-          <HomeList key={item.PBLANC_NO} home={item} />
-        ))}
-      </div>
+            {tabList[currentTab].content.map((item: any) => {
+              // 분양 리스트
+              return <HomeList key={item.PBLANC_NO} home={item} />;
+            })}
+          </S.TabsSection>
+
+          {/* TODO: 리모콘 기능 추가 */}
+          <S.RemoteAside>리모콘</S.RemoteAside>
+        </S.TabRemoteBox>
+      </S.MainSection>
     </>
   );
 };
 
+
+
+export default MainPage;
+
+// API 통합 데이터 사전 렌더링
 export const getStaticProps: GetStaticProps = async () => {
   const BASE_URL = 'https://api.odcloud.kr/api/ApplyhomeInfoDetailSvc/v1';
   const METHOD_APT_ALL = 'getAPTLttotPblancDetail';
@@ -50,6 +135,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
   // 공고문 리스트 가져오기
   const defaultList = await axios
+    // rewrites 써서 Network창에서 API KEY 숨김
     .get(
       `${BASE_URL}/${METHOD_APT_ALL}?page=1&perPage=1500&&cond%5BRCRIT_PBLANC_DE%3A%3AGTE%5D=2023-01-01&serviceKey=${SERVICE_KEY}`,
     )
@@ -57,6 +143,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
   // 공고문 상세정보 전체 리스트 가져오기
   const detailList = await axios
+    // rewrites 써서 Network창에서 API KEY 숨김
     .get(
       `${BASE_URL}/${METHOD_APT_DETAIL}?page=1&perPage=10000&serviceKey=${SERVICE_KEY}`,
     )
@@ -75,11 +162,8 @@ export const getStaticProps: GetStaticProps = async () => {
   );
 
   return {
-    props: {
-      homeList: combineHomeList,
-    },
-    revalidate: 6000,
+    props: { homeList: combineHomeList },
+    // ISR - 12시간 마다 데이터 업데이트
+    revalidate: 43200,
   };
 };
-
-export default MainPage;
