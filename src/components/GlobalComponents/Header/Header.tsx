@@ -3,7 +3,9 @@ import { FaSearch } from 'react-icons/fa';
 import { useRouter } from 'next/router';
 import { auth } from '../../../common/firebase';
 import { useState, KeyboardEvent } from 'react';
-import { async } from '@firebase/util';
+import { signOut } from 'firebase/auth';
+import Image from 'next/image';
+import candy from '../../../assets/candy.jpg';
 
 // 1. 위치 정리
 // 2. 페이지 이동
@@ -27,6 +29,7 @@ const Header = () => {
 
   // 로그아웃하기
   const logOutHandler = async () => {
+    // FIXME: signout?
     await signOut(auth)
       .then(() => {
         router.push('/');
@@ -49,11 +52,16 @@ const Header = () => {
   return (
     <>
       <S.Wrapper>
-        <S.Logo
+        <Image
           onClick={() => router.push('/')}
-          src={`/candy.jpg`}
+          src={candy}
           alt="logoImg"
-          style={{ width: '50px', height: '50px' }}
+          width={50}
+          height={50}
+          quality={100}
+          //quelity 의 기본값은 75 입니다.
+          style={{ cursor: 'pointer' }}
+          priority={true}
         />
         <S.HeaderNav onClick={() => router.push('/')}>청약정보</S.HeaderNav>
         <S.HeaderNav onClick={() => router.push('/')}>청약캘린더</S.HeaderNav>

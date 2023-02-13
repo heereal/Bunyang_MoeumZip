@@ -11,7 +11,9 @@ export const getDetailPostInfo = async (num: any) => {
 };
 
 export const getDetailPostInfo2 = async (num: any) => {
-  return await axios.get(
-    `${BASE_URL}/getAPTLttotPblancMdl?page=1&perPage=10&cond%5BPBLANC_NO%3A%3AEQ%5D=${num}&serviceKey=${SERVICE_KEY}`,
-  );
+  return await axios
+    .get(
+      `${BASE_URL}/getAPTLttotPblancMdl?page=1&perPage=10&cond%5BPBLANC_NO%3A%3AEQ%5D=${num}&serviceKey=${SERVICE_KEY}`,
+    )
+    .then((res) => res.data);
 };

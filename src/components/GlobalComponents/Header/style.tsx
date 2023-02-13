@@ -10,10 +10,6 @@ export const Wrapper = styled.div`
   align-items: center;
 `;
 
-export const Logo = styled.img`
-  cursor: pointer;
-`;
-
 export const HeaderNav = styled.div`
   font-size: 16px;
   cursor: pointer;

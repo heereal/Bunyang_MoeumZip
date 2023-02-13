@@ -4,15 +4,12 @@ const nextConfig = {
   async redirects() {
     return [
       {
-        source: '/my',
+        source: '/admin',
         destination: '/',
         permanent: false,
       },
     ];
   },
 };
-
-const withImages = require('next-images');
-module.exports = withImages();
 
 module.exports = nextConfig;

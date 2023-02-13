@@ -1,6 +1,9 @@
+import { getDetailPostInfo } from '@/common/api';
 import PostDetail from '@/components/DetailPage/PostDetail/PostDetail';
 import HeadTitle from '@/components/GlobalComponents/HeadTitle/HeadTitle';
-import { useRouter } from 'next/router';
+import { useSubscription } from '@/hooks';
+import { GetStaticPaths, GetStaticProps } from 'next';
+import { useQuery } from 'react-query';
 
 const DeatilPage: any = () => {
   return (
@@ -13,9 +16,24 @@ const DeatilPage: any = () => {
   );
 };
 
-export const getServerSideProps = (context: any) => {
+// export const getServerSideProps = () => {
+//   return {
+//     props: {},
+//   };
+// };
+
+export const getStaticPaths: any = async () => {
   return {
-    props: {},
+    paths: [{ params: { postid: '2023000009' } }],
+    fallback: true,
+  };
+};
+
+export const getStaticProps: GetStaticProps = async () => {
+  return {
+    props: {
+      test: [{ id: '1', title: 'test1' }],
+    },
   };
 };
 
