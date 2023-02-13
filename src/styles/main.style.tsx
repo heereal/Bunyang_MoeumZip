@@ -67,7 +67,7 @@ export const CountTab = styled.li`
   box-sizing: border-box;
 `;
 
-export const CountTabNum = styled.text`
+export const CountTabNum = styled.h4`
   font-size: 24px;
 `;
 

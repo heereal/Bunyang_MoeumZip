@@ -2,7 +2,7 @@ import * as S from './style';
 import { FaSearch } from 'react-icons/fa';
 import { useRouter } from 'next/router';
 import { auth } from '../../../common/firebase';
-import { useState, KeyboardEvent } from 'react';
+import { useState, KeyboardEvent, MouseEvent } from 'react';
 import { async } from '@firebase/util';
 import { signOut } from 'firebase/auth';
 
@@ -15,7 +15,8 @@ import { signOut } from 'firebase/auth';
 
 const Header = () => {
   const router = useRouter();
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [keyword, setKeyword] = useState<string>();
 
   // 로그인 여부 확인 - FIXME: LoginModal이랑 연결지어야 하나
   // const isLoggedIn = localStorage.key;
@@ -37,13 +38,22 @@ const Header = () => {
       });
   };
 
-  // 검색
+  // 검색 리스트 - homeList의 도시와 keyword가 일치해야 함
+
+  const inputChangeHandler = (e: any) => {
+    setKeyword(e.target.value);
+  };
+
+  // 검색 기능
+  const searchHandler = () => {
+    setKeyword('');
+    router.push(`/search/${keyword}`);
+  };
 
   // enter 눌러도 검색 가능
   const OnKeyPressHandler = (e: KeyboardEvent<HTMLDivElement>): void => {
-    e.preventDefault();
     if (e.key === 'Enter') {
-      // TODO: 검색 실행 함수 추가
+      searchHandler();
     }
   };
 
@@ -62,10 +72,12 @@ const Header = () => {
         <S.SearchBox>
           <input
             type="text"
+            value={keyword}
+            onChange={inputChangeHandler}
             placeholder="관심지역을 검색해보세요."
             onKeyPress={OnKeyPressHandler}
           />
-          <S.SearchBtn>
+          <S.SearchBtn onClick={searchHandler}>
             <FaSearch style={{ fontSize: 30 }} />
           </S.SearchBtn>
         </S.SearchBox>

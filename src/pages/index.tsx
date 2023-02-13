@@ -1,10 +1,9 @@
 import Head from 'next/head';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import HomeList from '@/components/MainPage/HomeList/HomeList';
 import HeadTitle from '@/components/GlobalComponents/HeadTitle/HeadTitle';
 import * as S from '../styles/main.style';
 import axios from 'axios';
-import { async } from '@firebase/util';
 
 // 1. 전체리스트 및 상세리스트 불러오기
 // 2. 전체리스트 + 상세리스트 합치기
@@ -85,7 +84,7 @@ const MainPage = ({ homeList }: any) => {
                 className={index === currentTab ? 'baseTab focused' : 'baseTab'}
                 onClick={() => clickTabHandler(index)}
               >
-                <text>{el.name}</text>
+                <h4>{el.name}</h4>
                 <S.CountTabNum>{el.count}</S.CountTabNum>
               </S.CountTab>
             ))}
@@ -103,7 +102,7 @@ const MainPage = ({ homeList }: any) => {
                   }
                   onClick={() => clickTabHandler(index)}
                 >
-                  <text>{el.name}</text>
+                  <h4>{el.name}</h4>
                 </S.Tab>
               ))}
             </S.TabBox>
@@ -159,9 +158,8 @@ export const getStaticProps = async () => {
     }),
   );
 
-  const homeList = combineHomeList;
   return {
-    props: { homeList },
+    props: { homeList: combineHomeList },
     // ISR - 12시간 마다 데이터 업데이트
     revalidate: 43200,
   };
