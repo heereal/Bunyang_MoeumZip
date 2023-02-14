@@ -28,7 +28,7 @@ const Header = () => {
 
   return (
     <>
-      <S.Wrapper>
+      <S.Header>
         <LoginModal isOpen={isOpen} />
         <Image
           onClick={() => router.push('/')}
@@ -41,26 +41,31 @@ const Header = () => {
           style={{ cursor: 'pointer' }}
           priority={true}
         />
-        <S.HeaderNav onClick={() => router.push('/')}>청약정보</S.HeaderNav>
-        <S.HeaderNav onClick={() => router.push('/')}>청약캘린더</S.HeaderNav>
         {/* 검색창 */}
         <Search />
-        {isLoggedIn ? (
-          <>
-            <S.Mynav
-              onClick={() => {
-                router.push('/my');
-              }}
-            >
-              마이페이지
-            </S.Mynav>
-            <S.LogintNav onClick={logOutHandler}>로그아웃</S.LogintNav>
-          </>
-        ) : (
-          <S.LogintNav onClick={() => setIsOpen(true)}>로그인</S.LogintNav>
-        )}
+        <S.NavBar>
+          <S.NavContent onClick={() => router.push('/')}>청약정보</S.NavContent>
+          <S.NavContent onClick={() => router.push('/')}>
+            청약캘린더
+          </S.NavContent>
+
+          {isLoggedIn ? (
+            <>
+              <S.NavContent
+                onClick={() => {
+                  router.push('/my');
+                }}
+              >
+                마이페이지
+              </S.NavContent>
+              <S.NavContent onClick={logOutHandler}>로그아웃</S.NavContent>
+            </>
+          ) : (
+            <S.NavContent onClick={() => setIsOpen(true)}>로그인</S.NavContent>
+          )}
+        </S.NavBar>
         {/* TODO: 로그인 모달 추가 */}
-      </S.Wrapper>
+      </S.Header>
     </>
   );
 };

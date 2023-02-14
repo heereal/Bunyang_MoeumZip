@@ -4,6 +4,7 @@ import * as S from './style';
 const TopBtn = () => {
   const [showButton, setShowButton] = useState(false);
 
+  // 버튼 클릭 시 '맨 위로' 실행되는 함수
   const topBtn = () => {
     window.scroll({
       top: 0,
