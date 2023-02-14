@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { auth } from '../../../common/firebase';
 import { useState, KeyboardEvent } from 'react';
 import { signOut } from 'firebase/auth';
+import LoginModal from '../LoginModal/LoginModal';
 import Image from 'next/image';
 import candy from '../../../assets/candy.jpg';
 
@@ -21,12 +22,7 @@ const Header = () => {
 
   // 로그인 여부 확인 - FIXME: LoginModal이랑 연결지어야 하나
   // const isLoggedIn = localStorage.key;
-  const isLoggedIn = true;
-
-  // 로그인 모달 open
-  const openModal = () => {
-    setIsOpen(true);
-  };
+  const isLoggedIn = false;
 
   // 로그아웃하기
   const logOutHandler = async () => {
@@ -61,6 +57,7 @@ const Header = () => {
   return (
     <>
       <S.Wrapper>
+        <LoginModal isOpen={isOpen} />
         <Image
           onClick={() => router.push('/')}
           src={candy}
@@ -96,10 +93,10 @@ const Header = () => {
             >
               마이페이지
             </S.Mynav>
-            <S.LogoutNav onClick={logOutHandler}>로그아웃</S.LogoutNav>
+            <S.LogintNav onClick={logOutHandler}>로그아웃</S.LogintNav>
           </>
         ) : (
-          <div onClick={openModal}>로그인</div>
+          <S.LogintNav onClick={() => setIsOpen(true)}>로그인</S.LogintNav>
         )}
         {/* TODO: 로그인 모달 추가 */}
       </S.Wrapper>
