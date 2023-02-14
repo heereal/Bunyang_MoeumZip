@@ -1,10 +1,12 @@
 import Head from 'next/head';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import HomeList from '@/components/MainPage/HomeList/HomeList';
 import HeadTitle from '@/components/GlobalComponents/HeadTitle/HeadTitle';
 import * as S from '../styles/main.style';
 import { GetStaticProps } from 'next';
 import axios from 'axios';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
 
 // 1. 전체리스트 및 상세리스트 불러오기
 // 2. 전체리스트 + 상세리스트 합치기
@@ -14,6 +16,17 @@ import axios from 'axios';
 
 const MainPage = ({ homeList }: any) => {
   const [currentTab, SetCurrentTab] = useState(0);
+
+  const router = useRouter();
+  // session 여부에 따라 signUp Page로 이동
+  const { data: session, status } = useSession();
+  console.log(session?.user, status);
+
+  useEffect(() => {
+    if (session?.user?.email !== 'suk921@gmail.com') {
+      router.push('/signUp');
+    }
+  }, []);
 
   // 오늘 날짜 구하기
   const getToday = () => {
