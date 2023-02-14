@@ -28,6 +28,13 @@ export default NextAuth({
       clientSecret: process.env.NAVER_CLIENT_SECRET!,
     }),
   ],
+  // pages: {
+  //   signIn: '/signup',
+    // signOut: '/auth/signout',
+    // error: '/auth/error', // Error code passed in query string as ?error=
+    // verifyRequest: '/auth/verify-request', // (used for check email message)
+    // newUser: '/auth/new-user' // New users will be directed here on first sign in (leave the property out if not of interest)
+  // }
 //   callbacks: {
 //     async jwt(token, user, account, isNewUser) {
 //         // token = {...token.token.user}
@@ -41,7 +48,7 @@ export default NextAuth({
 //     }
 // }
 
-  callbacks: {
+  // callbacks: {
   //   async signIn({ user }) {
       
   //     const q = query(collection(db, 'Users'), where('id', '==', user.email));
@@ -64,12 +71,13 @@ export default NextAuth({
   //     }
   //   },
   // },
-  async redirect({ token, url, baseUrl }: any) {
+  // async redirect({ token, url, baseUrl }: any) {
     // Allows relative callback URLs
     // if (url.startsWith("/")) return `${baseUrl}${url}`
     // // Allows callback URLs on the same origin
     // else if (new URL(url).origin === baseUrl) return url
     // return baseUrl
-  }
+  // }
   
-}});
+// }
+});

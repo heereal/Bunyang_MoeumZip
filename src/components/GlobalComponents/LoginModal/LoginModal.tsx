@@ -17,12 +17,15 @@ import {
   addDoc,
 } from 'firebase/firestore';
 import { useState } from "react";
+import { useRouter } from 'next/router';
 
 interface loginModalProps {
   isOpen: boolean;
 }
 
 const LoginModal = ({ isOpen }: loginModalProps) => {
+
+  const router = useRouter();
   const [fireUsers, setfireUsers] = useState<any[]>([])
   const googleProvider = new GoogleAuthProvider();
   //FIXME: 배포 시 파베 페북 연결 ID 수정하기
@@ -30,7 +33,7 @@ const LoginModal = ({ isOpen }: loginModalProps) => {
 
   // 유저의 세션 정보 받아오기
   const { data: session, status } = useSession();  
-  console.log(session?.user, status);
+  // console.log(session?.user, status);
   // console.log(fireUsers);
   // const session2 = getSession()
 
@@ -65,7 +68,10 @@ const LoginModal = ({ isOpen }: loginModalProps) => {
   
   const loginHandler = async (provider: string) => {
 
-    await signIn(provider)
+    await signIn(provider, {callbackUrl: "/signup",
+    })
+      // router.push("/signup")
+    
 
     // .then(async () => {
       // if (!session) return;
