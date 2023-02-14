@@ -48,57 +48,28 @@ const LoginModal = ({ isOpen }: loginModalProps) => {
     console.log(csrfToken);
   };
 
-  const getFirestoreUsers = async (email: string) => {
-    const q = query(
-      collection(db, 'Users'),
-      where('id', '==', email),
-    );
+  // const getFirestoreUsers = async (email: string) => {
+  //   const q = query(
+  //     collection(db, 'Users'),
+  //     where('id', '==', email),
+  //   );
 
-    const array: any[] = [];
-    const querySnapshot = await getDocs(q);
-      querySnapshot.forEach((doc) =>
-        array.push({
-          // id: doc.id,
-          ...doc.data(),
-        }),
-      );
-      setfireUsers(array)
-  };
+  //   const array: any[] = [];
+  //   const querySnapshot = await getDocs(q);
+  //     querySnapshot.forEach((doc) =>
+  //       array.push({
+  //         // id: doc.id,
+  //         ...doc.data(),
+  //       }),
+  //     );
+  //     setfireUsers(array)
+  // };
 
-  
-  const loginHandler = async (provider: string) => {
-
-    await signIn(provider, {callbackUrl: "/signup",
+  // 소셜 로그인
+  const loginHandler = (provider: string) => {
+    signIn(provider, {callbackUrl: "/signup",
     })
-      // router.push("/signup")
-    
-
-    // .then(async () => {
-      // if (!session) return;
-      // getFirestoreUsers("mika013@naver.com")
-      
-      
-      //  이미 가입했다면 바로 로그인됨
-      if (fireUsers.length >= 1) {
-        console.log('이미 가입했음')
-        
-        //처음 로그인이라면 회원가입 페이지로 이동
-      } else {
-        const newUser = {
-          // userId: session.
-        }
-        // await addDoc(collection(db, 'Users'), session?.user);
-      }
-    // })
-   
-      // console.log(array);
-      // if (array.length >= 1) {
-      //   console.log('잘 들어옴');
-      // } else {
-      //   console.log('실패');
-      // }
-      
-  }
+  };
  
   useEffect(() => {
     // getToken();
@@ -108,10 +79,10 @@ const LoginModal = ({ isOpen }: loginModalProps) => {
   return (
     <ReactModal isOpen={isOpen} style={customStyles} ariaHideApp={false}>
       <S.ModalContainer>
-        <button onClick={() => loginHandler2(googleProvider)}>
+        <button onClick={() => loginHandler('google')}>
           구글 로그인
         </button>
-        <button onClick={() => loginHandler2(facebookProvider)}>
+        <button onClick={() => loginHandler('facebook')}>
           페이스북 로그인
         </button>
         <button onClick={() => loginHandler('kakao')}>카카오 로그인</button>

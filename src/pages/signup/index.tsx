@@ -9,41 +9,43 @@ import {
   addDoc,
 } from 'firebase/firestore';
 import { useQuery } from "react-query";
+import { useRouter } from "next/router";
 
 const SignUp = () => {
-  const [fireUsers, setfireUsers] = useState<any[]>([])
+
+  const router = useRouter();
 
   // 유저의 세션 정보 받아오기
   const { data: session, status } = useSession();  
   console.log("session:", session?.user, status);
 
-  const redirectUser = async (email: string) => {
+  const redirectUser = async () => {
 
-    console.log("getFirestoreUsers 함수 실행됨");
-    // if (status === 'authenticated') {
-      const q = query(
-        collection(db, 'Users'),
-        where('id', '==', email),
-      );
-      // console.log(session.email);
-  
-      const array: any[] = [];
-      const querySnapshot = await getDocs(q);
-        const ppp = querySnapshot.forEach((doc) =>
-          array.push({
-            // id: doc.id,
-            ...doc.data(),
-          }),
-        );
-        // setfireUsers(array)
+    const q = query(
+      collection(db, 'Users'),
+      where('userId', '==', session.user.email),
+    );
 
-        if (array.length >= 1) {
-          console.log('파베에 이메일 저장됨OO');
-        } else {
-          console.log('파베에 저장된 이메일 없음!!');
-        }
-        // return array;
-    // }
+    const array: any[] = [];
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) =>
+      array.push({
+        ...doc.data(),
+      }),
+    );
+    console.log(array);
+
+    const newUser = {
+      userId: session.user.email
+    }
+
+    if (array.length >= 1) {
+      console.log('이미 가입한 유저입니다!');
+      // router.push('/')
+    } else {
+      console.log('최초 로그인 유저입니다');
+      await addDoc(collection(db, 'Users'), newUser);
+    }
   };
 
   // const { data: users, isLoading } = useQuery(
@@ -51,23 +53,11 @@ const SignUp = () => {
   // );
   // console.log('users:', users);
 
-
-  const redirect = async () => {
-    console.log("redirect 함수 실행됨");
-    // await getFirestoreUsers(session.user.email);
-    if (fireUsers.length >= 1) {
-        console.log('파베에 이메일 저장됨OO');
-      } else {
-        console.log('파베에 저장된 이메일 없음!!');
-      }
-  };
-
   useEffect(() => {
+    //TODO: session이 들어오면 최초 1회만 실행되도록 하고 싶음
     if (session) {
-      redirectUser(session.user.email)
-    // redirect()
+      redirectUser()
     }
-    // setfireUsers(array)
     console.log("useEffect 실행");
   }, [session])
 
