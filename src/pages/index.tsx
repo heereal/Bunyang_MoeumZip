@@ -1,4 +1,5 @@
 import HeadTitle from '@/components/GlobalComponents/HeadTitle/HeadTitle';
+import TopBtn from '@/components/GlobalComponents/TopBtn/TopBtn';
 import CountTabs from '@/components/MainPage/CountTabs/CountTabs';
 import axios from 'axios';
 import { GetStaticProps } from 'next';
@@ -20,6 +21,7 @@ const MainPage = ({ homeList }: any) => {
 
         {/* TODO: 지도 추가 */}
       </S.MainSection>
+      <TopBtn />
     </>
   );
 };
