@@ -1,9 +1,9 @@
 const SearchResults = ({ searchResult }: any) => {
   return (
     <div>
-      <text>아파트 이름: {searchResult.HOUSE_NM}</text>
+      <div>아파트 이름: {searchResult.HOUSE_NM}</div>
       <br />
-      <text>주소: {searchResult.HSSPLY_ADRES}</text>
+      <div>주소: {searchResult.HSSPLY_ADRES}</div>
     </div>
   );
 };
