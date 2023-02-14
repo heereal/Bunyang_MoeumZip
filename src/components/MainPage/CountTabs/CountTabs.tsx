@@ -75,6 +75,7 @@ const CountTabs = ({ homeList }: any) => {
 
       {/* 분양 리스트 */}
       <S.ListSection>
+        {/* 현재 선택된 tab의 list를 map돌려서 HomeList 컴포넌트에 전달 */}
         {tabList[currentTab].content?.map((item: any) => {
           return <HomeList key={item.PBLANC_NO} home={item} />;
         })}
