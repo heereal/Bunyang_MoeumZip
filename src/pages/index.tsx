@@ -19,14 +19,14 @@ const MainPage = ({ homeList }: any) => {
 
   const router = useRouter();
   // session 여부에 따라 signUp Page로 이동
-  const { data: session, status } = useSession();
-  console.log(session?.user, status);
+  // const { data: session, status } = useSession();
+  // console.log(session?.user, status);
 
-  useEffect(() => {
-    if (session?.user?.email !== 'suk921@gmail.com') {
-      router.push('/signUp');
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (session?.user?.email !== 'suk921@gmail.com') {
+  //     router.push('/signUp');
+  //   }
+  // }, []);
 
   // 오늘 날짜 구하기
   const getToday = () => {
