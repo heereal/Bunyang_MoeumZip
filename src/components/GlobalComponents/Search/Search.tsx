@@ -12,6 +12,8 @@ const Search = () => {
   const inputChangeHandler = (e: any) => {
     setKeyword(e.target.value);
   };
+
+  // AlertUI test - TODO: 지울것
   const alertTest = () => {
     alert('성공');
   };
@@ -23,9 +25,10 @@ const Search = () => {
         customUI: ({ onClose }) => {
           return (
             <AlertUI
-              alertTitle="검색어"
               alertText="검색어를 입력해주세요."
               onClose={onClose}
+              // 아래 = AlertUI test - TODO: 지울것
+              alertTitle="검색어"
               onClick={alertTest}
               eventText="알림"
             />
@@ -51,7 +54,7 @@ const Search = () => {
         type="text"
         value={keyword}
         onChange={inputChangeHandler}
-        placeholder="관심지역을 검색해보세요."
+        placeholder="관심 지역을 검색해보세요."
         onKeyPress={OnKeyPressHandler}
       />
       <S.SearchBtn onClick={searchHandler}>

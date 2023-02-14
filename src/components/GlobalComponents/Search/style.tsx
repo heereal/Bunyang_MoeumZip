@@ -6,6 +6,9 @@ export const SearchBox = styled.div`
     width: 300px;
     height: 50px;
     border-radius: 10px;
+    padding-left: 10px;
+    box-sizing: border-box;
+    font-weight: bold;
 
     :focus-visible {
       outline: none;

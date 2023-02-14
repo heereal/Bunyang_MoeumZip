@@ -10,8 +10,10 @@ const SearchResult = ({ defaultList }: any) => {
 
   const resultsList = defaultList.filter(
     (item: any) =>
+      // 지역, 아파트명, 분양형태로 검색 가능
       keyword?.includes(item.SUBSCRPT_AREA_CODE_NM) ||
-      item.HOUSE_NM.includes(keyword),
+      item.HOUSE_NM.includes(keyword) ||
+      keyword?.includes(item.HOUSE_DTL_SECD_NM),
   );
 
   return (
