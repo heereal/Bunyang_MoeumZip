@@ -2,6 +2,8 @@ import * as S from './style';
 import { useState, KeyboardEvent } from 'react';
 import { FaSearch } from 'react-icons/fa';
 import { useRouter } from 'next/router';
+import { confirmAlert } from 'react-confirm-alert';
+import AlertUI from '../AlertUI/AlertUI';
 
 const Search = () => {
   const router = useRouter();
@@ -10,12 +12,27 @@ const Search = () => {
   const inputChangeHandler = (e: any) => {
     setKeyword(e.target.value);
   };
+  const alertTest = () => {
+    alert('성공');
+  };
 
   const searchHandler = () => {
-    //TODO: 공백을 검색했을 때도 검색 안 되게 수정하기
-    if (!keyword) {
-      // TODO: comfirm UI 적용하기
-      alert('검색어를 입력해주세요.');
+    if (keyword.trim().length === 0) {
+      // AlertUI 컴포넌트 사용
+      confirmAlert({
+        customUI: ({ onClose }) => {
+          return (
+            <AlertUI
+              alertTitle="검색어"
+              alertText="검색어를 입력해주세요."
+              onClose={onClose}
+              onClick={alertTest}
+              eventText="알림"
+            />
+          );
+        },
+      });
+      setKeyword('');
     } else {
       setKeyword('');
       router.push(`/search/${keyword}`);
