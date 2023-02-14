@@ -5,6 +5,8 @@ import { auth } from '../../../common/firebase';
 import { useState, KeyboardEvent } from 'react';
 import { signOut } from 'firebase/auth';
 import LoginModal from '../LoginModal/LoginModal';
+import Image from 'next/image';
+import candy from '../../../assets/candy.jpg';
 
 // 1. 위치 정리
 // 2. 페이지 이동
@@ -15,7 +17,8 @@ import LoginModal from '../LoginModal/LoginModal';
 
 const Header = () => {
   const router = useRouter();
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [keyword, setKeyword] = useState<string>();
 
   // 로그인 여부 확인 - FIXME: LoginModal이랑 연결지어야 하나
   // const isLoggedIn = localStorage.key;
@@ -32,13 +35,22 @@ const Header = () => {
       });
   };
 
-  // 검색
+  // 검색 리스트 - homeList의 도시와 keyword가 일치해야 함
+
+  const inputChangeHandler = (e: any) => {
+    setKeyword(e.target.value);
+  };
+
+  // 검색 기능
+  const searchHandler = () => {
+    setKeyword('');
+    router.push(`/search/${keyword}`);
+  };
 
   // enter 눌러도 검색 가능
   const OnKeyPressHandler = (e: KeyboardEvent<HTMLDivElement>): void => {
-    e.preventDefault();
     if (e.key === 'Enter') {
-      // TODO: 검색 실행 함수 추가
+      searchHandler();
     }
   };
 
@@ -46,11 +58,16 @@ const Header = () => {
     <>
       <S.Wrapper>
         <LoginModal isOpen={isOpen} />
-        <S.Logo
+        <Image
           onClick={() => router.push('/')}
-          src={`/candy.jpg`}
+          src={candy}
           alt="logoImg"
-          style={{ width: '50px', height: '50px' }}
+          width={50}
+          height={50}
+          quality={100}
+          //quelity 의 기본값은 75 입니다.
+          style={{ cursor: 'pointer' }}
+          priority={true}
         />
         <S.HeaderNav onClick={() => router.push('/')}>청약정보</S.HeaderNav>
         <S.HeaderNav onClick={() => router.push('/')}>청약캘린더</S.HeaderNav>
@@ -58,10 +75,12 @@ const Header = () => {
         <S.SearchBox>
           <input
             type="text"
+            value={keyword}
+            onChange={inputChangeHandler}
             placeholder="관심지역을 검색해보세요."
             onKeyPress={OnKeyPressHandler}
           />
-          <S.SearchBtn>
+          <S.SearchBtn onClick={searchHandler}>
             <FaSearch style={{ fontSize: 30 }} />
           </S.SearchBtn>
         </S.SearchBox>

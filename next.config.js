@@ -1,9 +1,13 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+module.exports = {
   reactStrictMode: false,
+  async redirects() {
+    return [
+      {
+        source: '/admin',
+        destination: '/',
+        permanent: false,
+      },
+    ];
+  },
 };
-
-const withImages = require('next-images');
-module.exports = withImages();
-
-module.exports = nextConfig;
