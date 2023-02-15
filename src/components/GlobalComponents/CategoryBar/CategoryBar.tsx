@@ -47,7 +47,7 @@ const CategoryBar = () => {
         {/* FIXME: 여기가 아닌 듯..?  */}
         <div>
           {categoryList[currentTab].category.map((item: any) => {
-            return <button key={item}>{item[0]}</button>;
+            return <button key={item}>{item}</button>;
           })}
         </div>
 
