@@ -29,7 +29,7 @@ const Header = () => {
   return (
     <>
       <S.Wrapper>
-        <LoginModal isOpen={isOpen} />
+        <LoginModal isOpen={isOpen} setIsOpen={setIsOpen}/>
         <Image
           onClick={() => router.push('/')}
           src={candy}
