@@ -11,7 +11,7 @@ const App = ({ Component, pageProps }: AppProps) => {
   const [queryClient] = useState(() => new QueryClient());
 
   return (
-    <SessionProvider session={pageProps.session}>
+    <SessionProvider session={pageProps.session} refetchOnWindowFocus={false}>
       <QueryClientProvider client={queryClient}>
         <RecoilRoot>
           <Layout>
