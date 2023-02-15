@@ -25,7 +25,6 @@ interface loginModalProps {
 
 const LoginModal = ({ isOpen }: loginModalProps) => {
   const router = useRouter();
-
   const [fireUsers, setfireUsers] = useState<any[]>([]);
   const googleProvider = new GoogleAuthProvider();
   //FIXME: 배포 시 파베 페북 연결 ID 수정하기
@@ -33,7 +32,6 @@ const LoginModal = ({ isOpen }: loginModalProps) => {
 
   // 유저의 세션 정보 받아오기
   const { data: session, status } = useSession();
-  console.log(session?.user, status);
   // console.log(fireUsers);
   // const session2 = getSession()
 
