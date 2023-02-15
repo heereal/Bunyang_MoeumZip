@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
+import { addDoc, collection, doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 import { db } from './firebase';
 
 const BASE_URL = 'https://api.odcloud.kr/api/ApplyhomeInfoDetailSvc/v1';
@@ -46,3 +46,9 @@ export const editComment = async ({
     updateDoc(commentsRef, newComment),
   );
 };
+
+
+// API로 받아온 data - DB에 넣기
+export const addHomeList = async (allHomeList: any) => {
+  await addDoc(collection(db, 'HomeList'), allHomeList)
+}
