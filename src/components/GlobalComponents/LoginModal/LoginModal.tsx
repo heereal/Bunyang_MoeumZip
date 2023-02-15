@@ -25,6 +25,10 @@ interface loginModalProps {
 
 const LoginModal = ({ isOpen }: loginModalProps) => {
   const router = useRouter();
+<<<<<<< HEAD
+=======
+
+>>>>>>> 641a536c85c2d2d8af3a9a998e565b5aa6db1d05
   const [fireUsers, setfireUsers] = useState<any[]>([]);
   const googleProvider = new GoogleAuthProvider();
   //FIXME: 배포 시 파베 페북 연결 ID 수정하기
@@ -32,6 +36,10 @@ const LoginModal = ({ isOpen }: loginModalProps) => {
 
   // 유저의 세션 정보 받아오기
   const { data: session, status } = useSession();
+<<<<<<< HEAD
+=======
+  console.log(session?.user, status);
+>>>>>>> 641a536c85c2d2d8af3a9a998e565b5aa6db1d05
   // console.log(fireUsers);
   // const session2 = getSession()
 
@@ -68,16 +76,16 @@ const LoginModal = ({ isOpen }: loginModalProps) => {
     // getFirestoreUsers("mika013@naver.com")
 
     //  이미 가입했다면 바로 로그인됨
-    // if (fireUsers.length >= 1) {
-    //   console.log('이미 가입했음');
+    if (fireUsers.length >= 1) {
+      console.log('이미 가입했음');
 
-    //처음 로그인이라면 회원가입 페이지로 이동
-    // } else {
-    //   const newUser = {
-    //     // userId: session.
-    //   };
-    // await addDoc(collection(db, 'Users'), session?.user);
-    // }
+      //처음 로그인이라면 회원가입 페이지로 이동
+    } else {
+      const newUser = {
+        // userId: session.
+      };
+      // await addDoc(collection(db, 'Users'), session?.user);
+    }
     // })
 
     // console.log(array);
@@ -89,6 +97,13 @@ const LoginModal = ({ isOpen }: loginModalProps) => {
   };
 
   useEffect(() => {
+    () =>
+      setTimeout(() => {
+        if (session) {
+          router.push('/signUp');
+        }
+      }, 1000);
+
     // getToken();
     // firebaseTest()
   }, []);
