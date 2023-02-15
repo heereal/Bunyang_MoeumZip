@@ -66,9 +66,16 @@ const LoginModal = ({ isOpen }: loginModalProps) => {
   // };
 
   // 소셜 로그인
-  const loginHandler = (provider: string) => {
-    signIn(provider, {callbackUrl: "/signup",
+  const loginHandler = async (provider: string) => {
+    await signIn(provider, {callbackUrl: "/signup",
     })
+    // if (result.error) {
+    //   // Handle error
+    //   router.push("/search");
+    // } else if (result.type === "first-time-login") {
+    //   router.push("/signup");
+    //   // Tell the user how to successfully log in after they sign up
+    // }
   };
  
   useEffect(() => {
