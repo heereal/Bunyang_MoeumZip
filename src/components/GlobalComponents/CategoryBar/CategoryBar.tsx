@@ -19,8 +19,8 @@ const CategoryBar = () => {
   };
 
   const categoryList = [
-    { name: '지역', city: ['서울', '경기'] },
-    { name: '분양 형태', hoseType: ['공공분양', '국민임대'] },
+    { name: '지역', category: ['서울', '경기'] },
+    { name: '분양 형태', category: ['공공분양', '국민임대'] },
   ];
 
   const selectedCategory = (index: number) => {
@@ -38,15 +38,18 @@ const CategoryBar = () => {
                 <button>전체 선택</button>
               </li>
               <li>
-                <button>{item.city}</button>
+                <button>초기화</button>
               </li>
-              {/* <li>
-                <button>경상북도</button>
-              </li> */}
             </ul>
           </li>
         ))}
-        {/* <button onClick={openToggleHandler}>{item.name}</button> */}
+
+        {/* FIXME: 여기가 아닌 듯..?  */}
+        <div>
+          {categoryList[currentTab].category.map((item: any) => {
+            return <button key={item}>{item[0]}</button>;
+          })}
+        </div>
 
         {/* <ul>
           <li>

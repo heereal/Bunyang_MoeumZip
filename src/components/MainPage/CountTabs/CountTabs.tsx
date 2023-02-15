@@ -11,14 +11,13 @@ const CountTabs = ({ homeList }: any) => {
     const year = date.getFullYear();
     const month = ('0' + (date.getMonth() + 1)).slice(-2);
     const day = ('0' + date.getDate()).slice(-2);
-
     const today = year + '-' + month + '-' + day;
 
     return today;
   };
   const today = getToday();
 
-  // 청약 예정일 산정 기간 - 현재 날짜 + 4주 구하기
+  // 청약 예정일 산정 기간 - 현재 날짜 + 4주
   const getAddMonth = () => {
     const date = new Date();
     date.setMonth(date.getMonth() + 1);

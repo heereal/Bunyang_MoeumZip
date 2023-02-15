@@ -48,6 +48,7 @@ export const getStaticProps: GetStaticProps = async () => {
       `${BASE_URL}/${METHOD_APT_DETAIL}?page=1&perPage=10000&serviceKey=${SERVICE_KEY}`,
     )
     .then((res) =>
+      // 2023년 이후 올라온 공고문 가져오기
       res.data.data.filter((item: any) => item.PBLANC_NO >= 2023000000),
     );
 
