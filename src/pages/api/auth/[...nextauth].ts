@@ -1,20 +1,10 @@
 import NextAuth from 'next-auth';
+import FacebookProvider from 'next-auth/providers/facebook';
+import GoogleProvider from 'next-auth/providers/google';
 import KakaoProvider from 'next-auth/providers/kakao';
 import NaverProvider from 'next-auth/providers/naver';
-import GoogleProvider from "next-auth/providers/google";
-import FacebookProvider from "next-auth/providers/facebook";
-import { db } from '@/common/firebase';
-import {
-  query,
-  getDocs,
-  collection,
-  where,
-} from 'firebase/firestore';
-import { useRouter } from 'next/router';
-import { getSession } from 'next-auth/react';
 
 export default NextAuth({
-
   session: {
     strategy: 'jwt',
   },
@@ -31,64 +21,12 @@ export default NextAuth({
       clientSecret: process.env.NAVER_CLIENT_SECRET!,
     }),
     GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     }),
     FacebookProvider({
-      clientId: process.env.FACEBOOK_CLIENT_ID,
-      clientSecret: process.env.FACEBOOK_CLIENT_SECRET
-    })
+      clientId: process.env.FACEBOOK_CLIENT_ID!,
+      clientSecret: process.env.FACEBOOK_CLIENT_SECRET!,
+    }),
   ],
-  // pages: {
-  //   signIn: '/signup',
-    // signOut: '/auth/signout',
-    // error: '/auth/error', // Error code passed in query string as ?error=
-    // verifyRequest: '/auth/verify-request', // (used for check email message)
-    // newUser: '/auth/new-user' // New users will be directed here on first sign in (leave the property out if not of interest)
-  // }
-//   callbacks: {
-//     async jwt(token, user, account, isNewUser) {
-//         // token = {...token.token.user}
-//         // console.log("token.name",token.name);
-//         return token;
-//     },
-//     async session(session: any, userOrToken: any) {
-//         // session.user.userId = userOrToken.userId;
-//         // session.user.test = userOrToken.test;
-//         return session
-//     }
-// }
-
-  // callbacks: {
-  //   async signIn({ user }) {
-      
-  //     const q = query(collection(db, 'Users'), where('id', '==', user.email));
-  //     const array: any[] = [];
-  //     const querySnapshot = await getDocs(q);
-  //     querySnapshot.forEach((doc) =>
-  //       array.push({
-  //         // id: doc.id,
-  //         ...doc.data(),
-  //       }),
-  //     );
-
-  //     // 이미 가입했다면 바로 로그인됨
-  //     if (array.length >= 1) {
-  //       return true;
-  //       //처음 로그인이라면 회원가입 페이지로 이동-로그인은 안 됨
-  //     } else {
-  //       // test()
-  //       return '/signup';
-  //     }
-  //   },
-  // },
-  // async redirect({ token, url, baseUrl }: any) {
-    // Allows relative callback URLs
-    // if (url.startsWith("/")) return `${baseUrl}${url}`
-    // // Allows callback URLs on the same origin
-    // else if (new URL(url).origin === baseUrl) return url
-    // return baseUrl
-  // }
-  
-// }
 });
