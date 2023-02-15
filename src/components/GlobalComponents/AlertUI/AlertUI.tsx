@@ -18,10 +18,11 @@ const AlertUI: React.FC<{
   // });
 
   return (
-    <S.AlertBody>
+    // TODO: semantic 태그로 변경하기
+    <S.AlertSection>
       <S.AlertBox>
         <S.TextBox>
-          <div>{props.alertTitle}</div>
+          <title>{props.alertTitle}</title>
           <S.AlertText>{props.alertText}</S.AlertText>
         </S.TextBox>
         <S.BtnBox>
@@ -35,7 +36,7 @@ const AlertUI: React.FC<{
           )}
         </S.BtnBox>
       </S.AlertBox>
-    </S.AlertBody>
+    </S.AlertSection>
   );
 };
 

@@ -1,23 +1,29 @@
 import styled from 'styled-components';
 
-export const Wrapper = styled.div`
+export const Header = styled.header`
   width: 100%;
-  height: 120px;
+  height: 80px;
   background-color: lightslategray;
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
+  padding: 0 30px;
+  position: relative;
+  z-index: 1000;
 `;
 
-export const HeaderNav = styled.div`
+// Nav bar
+export const NavBar = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
+// 청약 캘린더, 청약 정보
+export const NavContent = styled.nav`
   font-size: 16px;
-  cursor: pointer;
-`;
-
-// 로그인 여부에 따라 바뀌는 nav
-export const Mynav = styled(HeaderNav)``;
-
-export const LogintNav = styled(HeaderNav)`
+  padding: 0 10px;
+  box-sizing: border-box;
   cursor: pointer;
 `;

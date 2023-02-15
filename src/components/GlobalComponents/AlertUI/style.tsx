@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const AlertBody = styled.div`
+export const AlertSection = styled.section`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -28,7 +28,7 @@ export const TextBox = styled.div`
   margin-top: 25px;
 `;
 
-export const AlertText = styled.p`
+export const AlertText = styled.text`
   font-size: 20px;
   font-weight: 800;
 `;

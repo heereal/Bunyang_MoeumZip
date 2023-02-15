@@ -23,6 +23,7 @@ const HomeList = ({ home }: any) => {
         <div>분양세대</div>
         {home.TOT_SUPLY_HSHLDCO} 세대
       </div>
+      {/* TODO: data가 없을 경우 보여줄 화면 추가 */}
       {/* {home.detail.length !== 0 ? ():()} */}
       <div>
         <div>분양면적</div>
@@ -33,14 +34,18 @@ const HomeList = ({ home }: any) => {
         <div>전용면적</div>
         {/* 정규식을 이용해 전용면적 숫자 왼쪽에 0이 있으면 제거 */}
         {home.detail[0]?.HOUSE_TY.split('.')[0].replace(/(^0)/, '')}m2 ~
-        {home.detail[home.detail.length - 1]?.HOUSE_TY.split('.')[0].replace(/(^0)/, '')}m2
+        {home.detail[home.detail.length - 1]?.HOUSE_TY.split('.')[0].replace(
+          /(^0)/,
+          '',
+        )}
+        m2
       </div>
       <div>
         <div>분양가격</div>
         {home.detail[0]?.LTTOT_TOP_AMOUNT}만원 ~
         {home.detail[home.detail.length - 1]?.LTTOT_TOP_AMOUNT}만원
       </div>
-      {/*  */}
+
       <div>
         <div>
           <div>특별 청약일</div>
