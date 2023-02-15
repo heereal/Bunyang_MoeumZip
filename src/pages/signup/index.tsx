@@ -53,7 +53,11 @@ const SignUp = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [session]);
 
-  return <div>SignUp</div>;
+  return (
+    <>
+      <h1>회원가입</h1>
+    </>
+  );
 };
 
 export default SignUp;
