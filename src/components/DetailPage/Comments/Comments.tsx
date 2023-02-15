@@ -1,69 +1,73 @@
-import { db } from '@/common/firebase';
-import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
+import { addComment, getComments } from '@/common/api';
+import { arrayUnion } from 'firebase/firestore';
+import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
+import HeeR from '../Comment/HeeR';
 import * as S from './style';
-import { uuidv4 } from '@firebase/util';
 
 const Comments = ({ postId }: any) => {
-  const [input, setInput] = useState<any>();
+  const [input, setInput] = useState<any>('');
   const [comments, setComments] = useState<any>();
+  const queryClient = useQueryClient();
+  const [user, setUser] = useState<any>();
+  const session: any = useSession();
 
-  const getComments = async () => {
-    const docRef = doc(db, 'Comments', postId);
-    const docSnap = await getDoc(docRef);
-
-    if (docSnap.exists()) {
-      return setComments(docSnap?.data());
-    } else {
-      console.log('no data');
-    }
-  };
+  const { data } = useQuery<any>('comments', () => {
+    return getComments(postId);
+  });
 
   useEffect(() => {
-    getComments();
-  }, []);
+    setComments(data?.list);
+    setUser(session.data?.user);
+  }, [data, session]);
 
-  console.log(comments?.comments);
-
-  const commentUpdateHandler = async () => {
-    const commentsRef = doc(db, 'Comments', postId);
-    const id = uuidv4();
-    await setDoc(
-      commentsRef,
-      {
-        comments: [
-          ...comments?.comments,
-          {
-            userId: id,
-            contents: input,
-            date: Date.now(),
-            nickName: 'userNickName',
-          },
-        ],
-      },
-      { merge: true },
-    );
-    console.log('댓글 등록 완료 !');
+  const addCommentHandler = async () => {
+    const newComment = {
+      list: arrayUnion({
+        contents: input,
+        date: Date.now(),
+        nickName: user.name,
+        userEmail: user.email,
+      }),
+    };
+    addMutation.mutate({ postId, newComment });
+    setInput('');
   };
 
+  const addMutation = useMutation(addComment, {
+    onSuccess: () => queryClient.invalidateQueries('comments'),
+  });
+
+  comments?.sort((a: any, b: any) => a.date - b.date);
   return (
     <S.Section>
       <S.CommentHeader>댓글</S.CommentHeader>
       <S.Container>
         <div>
-          <S.UserNameBox>세모네모</S.UserNameBox>
+          <S.UserNameBox>{user?.name}</S.UserNameBox>
           <S.InputBox>
-            <S.Input onChange={(e) => setInput(e.currentTarget.value)} />
-            <S.Btn onClick={commentUpdateHandler}>등록</S.Btn>
+            <S.Input
+              onChange={(e) => setInput(e.currentTarget.value)}
+              value={input}
+            />
+            <S.Btn onClick={addCommentHandler}>등록</S.Btn>
           </S.InputBox>
         </div>
         <div>
-          {comments?.comments.map((comment: any) => {
+          {comments?.map((comment: any, index: any) => {
             return (
-              <div key={comment.userId}>
-                <S.UserNameBox>{comment.userId}</S.UserNameBox>
-                <S.CommentsBox>{comment.contents} </S.CommentsBox>
-              </div>
+              <HeeR
+                comment={comment}
+                index={index}
+                key={index}
+                postId={postId}
+                input={input}
+                user={user}
+                queryClient={queryClient}
+                comments={comments}
+                setComments={setComments}
+              />
             );
           })}
         </div>

@@ -1,5 +1,5 @@
 import Comments from '@/components/DetailPage/Comments/Comments';
-import MapSection from '@/components/DetailPage/MapSection/MapSection';
+import MapSection from '@/components/GlobalComponents/MapSection/MapSection';
 import PostDetail from '@/components/DetailPage/PostDetail/PostDetail';
 import HeadTitle from '@/components/GlobalComponents/HeadTitle/HeadTitle';
 import { useRouter } from 'next/router';
