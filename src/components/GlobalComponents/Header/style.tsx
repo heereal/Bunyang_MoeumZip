@@ -10,6 +10,7 @@ export const Header = styled.header`
   align-items: center;
   padding: 0 30px;
   position: relative;
+  z-index: 1000;
 `;
 
 // Nav bar

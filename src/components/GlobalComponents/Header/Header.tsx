@@ -1,4 +1,5 @@
 import { signOut } from 'firebase/auth';
+import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
@@ -12,8 +13,9 @@ const Header = () => {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  // 로그인 여부 확인 - TODO: 로그인 기능 완성 후 수정
-  const isLoggedIn = false;
+  // user 로그인 여부에 따라 header Nav 변경
+  const session = useSession();
+  const isLoggedIn = session.data;
 
   // 로그아웃하기
   const logOutHandler = async () => {
@@ -64,7 +66,6 @@ const Header = () => {
             <S.NavContent onClick={() => setIsOpen(true)}>로그인</S.NavContent>
           )}
         </S.NavBar>
-        {/* TODO: 로그인 모달 추가 */}
       </S.Header>
     </>
   );

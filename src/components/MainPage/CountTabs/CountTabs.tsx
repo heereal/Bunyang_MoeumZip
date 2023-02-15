@@ -44,7 +44,7 @@ const CountTabs = ({ homeList }: any) => {
   // TODO: 무순위 리스트 - 이름 변경? -선착순..?
   // const randomList? =
 
-  // Tabs(청약 가능, 청약 예정, 무순위)
+  // Count Tabs
   const tabList = [
     { name: '청약 가능', content: todayList, count: todayList?.length },
     { name: '청약 예정', content: comingList, count: comingList?.length },
@@ -59,7 +59,7 @@ const CountTabs = ({ homeList }: any) => {
   return (
     <>
       <S.CountSection>
-        <S.CountTabBox>
+        <S.CountTabList>
           {tabList.map((el, index) => (
             <S.CountTab
               key={el.name}
@@ -70,7 +70,7 @@ const CountTabs = ({ homeList }: any) => {
               <S.CountTabNum>{el.count}</S.CountTabNum>
             </S.CountTab>
           ))}
-        </S.CountTabBox>
+        </S.CountTabList>
       </S.CountSection>
 
       {/* 분양 리스트 */}

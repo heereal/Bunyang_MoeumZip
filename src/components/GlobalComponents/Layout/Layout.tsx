@@ -1,3 +1,4 @@
+import CategoryBar from '../CategoryBar/CategoryBar';
 import Header from '../Header/Header';
 import * as S from './style';
 
@@ -10,6 +11,7 @@ const Layout = ({ children }: PropsP) => {
     <S.Wrap>
       <S.Container>
         <Header />
+        <CategoryBar />
         <div> {children} </div>
       </S.Container>
     </S.Wrap>

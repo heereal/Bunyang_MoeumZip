@@ -7,7 +7,7 @@ export const CountSection = styled.section`
   margin-bottom: 10px;
 `;
 
-export const CountTabBox = styled.ul`
+export const CountTabList = styled.ul`
   background-color: white;
   width: 100%;
   height: 80%;
