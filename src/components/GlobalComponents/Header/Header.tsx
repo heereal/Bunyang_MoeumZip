@@ -1,10 +1,8 @@
-import { signOut } from 'firebase/auth';
-import { useSession } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import candy from '../../../assets/candy.jpg';
-import { auth } from '../../../common/firebase';
 import LoginModal from '../LoginModal/LoginModal';
 import Search from '../Search/Search';
 import * as S from './style';
@@ -16,17 +14,6 @@ const Header = () => {
   // user 로그인 여부에 따라 header Nav 변경
   const session = useSession();
   const isLoggedIn = session.data;
-
-  // 로그아웃하기
-  const logOutHandler = async () => {
-    await signOut(auth)
-      .then(() => {
-        router.push('/');
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  };
 
   return (
     <>
@@ -60,7 +47,7 @@ const Header = () => {
               >
                 마이페이지
               </S.NavContent>
-              <S.NavContent onClick={logOutHandler}>로그아웃</S.NavContent>
+              <S.NavContent onClick={() => signOut()}>로그아웃</S.NavContent>
             </>
           ) : (
             <S.NavContent onClick={() => setIsOpen(true)}>로그인</S.NavContent>
