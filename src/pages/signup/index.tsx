@@ -5,9 +5,10 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import * as S from "../../styles/signup.style"
 
-const regionArray = ["서울", "강원", "대전", "충남", "세종", "충북", "인천", "경기", "광주", "전남", "전북", "부산", "경남", "울산", "제주", "대구", "경북"]
-
+//TODO: 회원가입 페이지 새로고침 할 때 "작성한 정보가 모두 사라집니다" alert 주기
 const SignUp = () => {
+  const regionArray = ["서울", "강원", "대전", "충남", "세종", "충북", "인천", "경기", "광주", "전남", "전북", "부산", "경남", "울산", "제주", "대구", "경북"]
+  const typesArray = ["국민임대", "장기전세", "민간분양", "일반 민간임대", "10년 공공임대", "영구임대", "5년 공공임대", "공공분양", "5년 민간임대", "뉴스테이", "행복주택"]
   const router = useRouter();
 
   // 유저의 세션 정보 받아오기
@@ -17,6 +18,8 @@ const SignUp = () => {
   const [nickname, setNickname] = useState("");
   const [email, setEmail] = useState("");
   const [userData, setUserData] = useState<any[]>([])
+  const [myRegionArray, setMyRegionArray] = useState<any[]>([])
+  const [myTypeArray, setMyTypeArray] = useState<any[]>([])
 
   // 현재 로그인한 유저의 정보가 firestore 'Users' collection에 존재하는지 비교함
   const redirectUser = async () => {
@@ -75,18 +78,21 @@ const SignUp = () => {
     }
   };
 
+  //TODO: 카테고리 선택 안하면 전체 카테고리 선택돼서 들어감
+  // 최소 몇 개 이상 선택 조건은 없음
   // [회원가입 완료] 버튼 클릭 시 작동
   const signupHandler = async () => {
     const updateUser = {
       userName: nickname,
-      regions: [],
-      types: []
+      regions: myRegionArray,
+      types: myTypeArray
     }
 
     await updateDoc(doc(db, 'Users', email), updateUser);
     // router.push('/');
     console.log('유저 정보 수정 완료!');
   };
+  console.log(myRegionArray);
 
   useEffect(() => {
     // session(유저 정보)가 들어왔을 때만 함수를 실행함
@@ -105,9 +111,25 @@ const SignUp = () => {
       <input value={nickname} onChange={(e) => setNickname(e.target.value)}></input>
       <button onClick={checkNicknameHandler}>닉네임 중복 확인</button>
       <button onClick={signupHandler}>회원가입 완료</button>
-      <h3>관심지역 선택</h3>
+      {/* 관심 지역 카테고리 선택 */}
+      <h3>관심 지역 선택</h3>
       <S.CategoryContainer>
-
+        {regionArray.map((region, index) => (
+          region && myRegionArray.includes(region) ? 
+          <S.CatrgoryBtn onClick={() => setMyRegionArray(myRegionArray.filter((item) => item !== region))} key={index} bg={"lightblue"}>{region}</S.CatrgoryBtn> :
+          <S.CatrgoryBtn onClick={() => setMyRegionArray([...myRegionArray, region])} key={index} bg={"transparent"}>{region}</S.CatrgoryBtn>
+        ))
+        }
+      </S.CategoryContainer>
+      {/* 관심 분양 형태 카테고리 선택 */}
+      <h3>관심 분양 형태 선택</h3>
+      <S.CategoryContainer>
+        {typesArray.map((type, index) => (
+          type && myTypeArray.includes(type) ? 
+          <S.CatrgoryBtn onClick={() => setMyTypeArray(myTypeArray.filter((item) => item !== type))} key={index} bg={"lightblue"}>{type}</S.CatrgoryBtn> :
+          <S.CatrgoryBtn onClick={() => setMyTypeArray([...myTypeArray, type])} key={index} bg={"transparent"}>{type}</S.CatrgoryBtn>
+        ))
+        }
       </S.CategoryContainer>
     </div>
   );
