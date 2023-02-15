@@ -10,7 +10,7 @@ interface loginModalProps {
 const LoginModal = ({ isOpen, setIsOpen }: loginModalProps) => {
   // 소셜 로그인-로그인 시 회원가입 페이지로 이동함
   const loginHandler = async (provider: string) => {
-    await signIn(provider, { callbackUrl: '/signup' });
+    await signIn(provider, { callbackUrl: '/loading' });
   };
 
   return (

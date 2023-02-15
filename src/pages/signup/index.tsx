@@ -19,7 +19,6 @@ const SignUp = () => {
 
   // 유저의 세션 정보 받아오기
   const { data: session, status } = useSession();
-  console.log(session);
 
   // 닉네임 중복 검사 시 사용
   const [isValidNickname, setIsValidNickname] = useState(false);
@@ -32,10 +31,9 @@ const SignUp = () => {
   const [email, setEmail] = useState<any>('');
   const [userData, setUserData] = useState<any[]>([]);
 
-  // 현재 로그인한 유저의 정보가 firestore 'Users' collection에 존재하는지 비교함
-  const redirectUser = async () => {
+  // firestore에서 'Users' 데이터 볼러 옴
+  const getUsersList = async () => {
     const array: any[] = [];
-    let email2: any = '';
 
     const q = query(collection(db, 'Users'));
 
@@ -47,24 +45,6 @@ const SignUp = () => {
     );
 
     setUserData(array);
-
-    const newUser = {
-      userEmail: session?.user?.email,
-      userName: session?.user?.name,
-      userImage: session?.user?.image,
-      regions: regionArray,
-      types: typesArray,
-    };
-
-    email2 = session?.user?.email;
-
-    // 이미 가입한 유저라면 메인으로 이동,
-    // 최초 로그인한 유저라면 firestior에 유저 정보를 새로 저장함
-    if (array.filter((user) => user.userEmail === email2).length >= 1) {
-      router.push('/');
-    } else {
-      await setDoc(doc(db, 'Users', email2), newUser);
-    }
   };
 
   // [닉네임 중복 확인] 버튼 클릭 시 작동
@@ -93,13 +73,14 @@ const SignUp = () => {
     };
 
     await updateDoc(doc(db, 'Users', email), updateUser);
+    alert('회원가입이 완료되었습니다.')
     router.push('/');
   };
 
   useEffect(() => {
     // session(유저 정보)가 들어왔을 때만 함수를 실행함
     if (session) {
-      redirectUser();
+      getUsersList();
       setNickname(session?.user?.name);
       setEmail(session?.user?.email);
     }
