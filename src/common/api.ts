@@ -1,15 +1,5 @@
 import axios from 'axios';
-import {
-  collection,
-  doc,
-  getDoc,
-  getDocs,
-  orderBy,
-  query,
-  setDoc,
-  updateDoc,
-  where,
-} from 'firebase/firestore';
+import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 import { db } from './firebase';
 
 const BASE_URL = 'https://api.odcloud.kr/api/ApplyhomeInfoDetailSvc/v1';
@@ -43,9 +33,7 @@ export const addComment = async ({ postId, newComment }: CommentP) => {
 
 export const deleteComment = async ({ postId, comment }: CommentP) => {
   const commentsRef = doc(db, 'Comments', postId);
-  await updateDoc(commentsRef, comment).catch(() =>
-    setDoc(commentsRef, comment),
-  );
+  await updateDoc(commentsRef, comment);
 };
 
 export const editComment = async ({
@@ -57,5 +45,4 @@ export const editComment = async ({
   await updateDoc(commentsRef, comment).then(() =>
     updateDoc(commentsRef, newComment),
   );
-  console.log('댓글 등록 완료 !');
 };

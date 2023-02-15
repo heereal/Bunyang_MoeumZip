@@ -1,19 +1,15 @@
 import HeadTitle from '@/components/GlobalComponents/HeadTitle/HeadTitle';
 import CountTabs from '@/components/MainPage/CountTabs/CountTabs';
 import axios from 'axios';
-<<<<<<< HEAD
-import MapSection from '@/components/GlobalComponents/MapSection/MapSection';
 
 // 1. 전체리스트 및 상세리스트 불러오기
 // 2. 전체리스트 + 상세리스트 합치기
 // 3. Tab 분류 - 분양 리스트가 없을 때 보여줄 것 추가
 // 4. Tab 별 수 count - Tabs랑 연결하기
 // 5. 카테고리별 분류 - 지역 및 분양 형태
-=======
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import * as S from '../styles/main.style';
->>>>>>> 641a536c85c2d2d8af3a9a998e565b5aa6db1d05
 
 const MainPage = ({ homeList }: any) => {
   return (
@@ -28,21 +24,7 @@ const MainPage = ({ homeList }: any) => {
         {/* CountTabs(+HomeList 컴포넌트) */}
         <CountTabs homeList={homeList} />
 
-<<<<<<< HEAD
-            {tabList[currentTab].content.map((item: any) => {
-              // 분양 리스트
-              return <HomeList key={item.PBLANC_NO} home={item} />;
-            })}
-          </S.TabsSection>
-
-          {/* TODO: 리모콘 기능 추가 */}
-          <S.RemoteAside>
-            <MapSection />
-          </S.RemoteAside>
-        </S.TabRemoteBox>
-=======
         {/* TODO: 지도 추가 */}
->>>>>>> 641a536c85c2d2d8af3a9a998e565b5aa6db1d05
       </S.MainSection>
     </>
   );
