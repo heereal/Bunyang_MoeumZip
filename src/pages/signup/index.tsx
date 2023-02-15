@@ -1,105 +1,107 @@
 import { db } from '@/common/firebase';
-import { addDoc, collection, doc, getDocs, query, setDoc, updateDoc, where } from 'firebase/firestore';
+import {
+  collection,
+  doc,
+  getDocs,
+  query,
+  setDoc,
+  updateDoc,
+} from 'firebase/firestore';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import * as S from "../../styles/signup.style"
+import * as S from '../../styles/signup.style';
+import { regionArray, typesArray } from '@/common/categoryList';
 
 //TODO: 회원가입 페이지 새로고침 할 때 "작성한 정보가 모두 사라집니다" alert 주기
 const SignUp = () => {
-  const regionArray = ["서울", "강원", "대전", "충남", "세종", "충북", "인천", "경기", "광주", "전남", "전북", "부산", "경남", "울산", "제주", "대구", "경북"]
-  const typesArray = ["국민임대", "장기전세", "민간분양", "일반 민간임대", "10년 공공임대", "영구임대", "5년 공공임대", "공공분양", "5년 민간임대", "뉴스테이", "행복주택"]
   const router = useRouter();
 
   // 유저의 세션 정보 받아오기
   const { data: session, status } = useSession();
   console.log(session);
 
-  const [nickname, setNickname] = useState("");
-  const [email, setEmail] = useState("");
-  const [userData, setUserData] = useState<any[]>([])
-  const [myRegionArray, setMyRegionArray] = useState<any[]>([])
-  const [myTypeArray, setMyTypeArray] = useState<any[]>([])
+  // 닉네임 중복 검사 시 사용
+  const [isValidNickname, setIsValidNickname] = useState(false);
+
+  // 유저가 선택한 카테고리 필터링 리스트
+  const [myRegionArray, setMyRegionArray] = useState<any[]>([]);
+  const [myTypeArray, setMyTypeArray] = useState<any[]>([]);
+
+  const [nickname, setNickname] = useState<any>('');
+  const [email, setEmail] = useState<any>('');
+  const [userData, setUserData] = useState<any[]>([]);
 
   // 현재 로그인한 유저의 정보가 firestore 'Users' collection에 존재하는지 비교함
   const redirectUser = async () => {
     const array: any[] = [];
-    let email2: any = "";
+    let email2: any = '';
 
-    const q = query(
-      collection(db, 'Users'),
-      // where('userEmail', '==', session?.user?.email),
-    );
+    const q = query(collection(db, 'Users'));
 
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) =>
       array.push({
-        // id: doc.id,
         ...doc.data(),
       }),
     );
 
-    setUserData(array)
+    setUserData(array);
 
     const newUser = {
       userEmail: session?.user?.email,
       userName: session?.user?.name,
       userImage: session?.user?.image,
-      regions: [],
-      types: [],
+      regions: regionArray,
+      types: typesArray,
     };
 
-    email2 = session?.user?.email
-
-    // const filteredArray = array.filter((user) => user.userEmail === session?.user?.email)
+    email2 = session?.user?.email;
 
     // 이미 가입한 유저라면 메인으로 이동,
     // 최초 로그인한 유저라면 firestior에 유저 정보를 새로 저장함
     if (array.filter((user) => user.userEmail === email2).length >= 1) {
-      // router.push('/');
-      console.log('이미 가입한 유저임');
+      router.push('/');
     } else {
-      console.log('최초 로그인 유저임');
-      // await addDoc(collection(db, 'Users'), newUser);
-      await setDoc(doc(db, "Users", email2), newUser);
+      await setDoc(doc(db, 'Users', email2), newUser);
     }
   };
 
   // [닉네임 중복 확인] 버튼 클릭 시 작동
   const checkNicknameHandler = () => {
     const checkNickname = userData.find((user) => user.userName === nickname);
-    console.log(checkNickname);
     if (!checkNickname) {
-      alert("사용 가능한 닉네임입니다.")
-      return true;
+      alert('사용 가능한 닉네임입니다.');
+      setIsValidNickname(true);
     } else {
-      alert("이미 존재하는 닉네임입니다. 다시 입력해주세요.")
-      return false;
+      alert('이미 존재하는 닉네임입니다. 다시 입력해주세요.');
+      setIsValidNickname(false);
     }
   };
 
-  //TODO: 카테고리 선택 안하면 전체 카테고리 선택돼서 들어감
-  // 최소 몇 개 이상 선택 조건은 없음
   // [회원가입 완료] 버튼 클릭 시 작동
   const signupHandler = async () => {
+    if (!isValidNickname) {
+      alert('닉네임 중복 검사를 완료해주세요');
+      return;
+    }
+    // 관심 카테고리 선택하지 않으면 전체 리스트를 선택한 것으로 간주함
     const updateUser = {
       userName: nickname,
-      regions: myRegionArray,
-      types: myTypeArray
-    }
+      regions: myRegionArray.length === 0 ? regionArray : myRegionArray,
+      types: myTypeArray.length === 0 ? typesArray : myTypeArray,
+    };
 
     await updateDoc(doc(db, 'Users', email), updateUser);
-    // router.push('/');
-    console.log('유저 정보 수정 완료!');
+    router.push('/');
   };
-  console.log(myRegionArray);
 
   useEffect(() => {
     // session(유저 정보)가 들어왔을 때만 함수를 실행함
     if (session) {
       redirectUser();
       setNickname(session?.user?.name);
-      setEmail(session?.user?.email)
+      setEmail(session?.user?.email);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [session]);
@@ -108,28 +110,71 @@ const SignUp = () => {
     <div style={{ flexDirection: 'column' }}>
       <h1>회원가입</h1>
       <h4>닉네임</h4>
-      <input value={nickname} onChange={(e) => setNickname(e.target.value)}></input>
+      <input
+        value={nickname}
+        onChange={(e) => setNickname(e.target.value)}
+      ></input>
       <button onClick={checkNicknameHandler}>닉네임 중복 확인</button>
       <button onClick={signupHandler}>회원가입 완료</button>
+
       {/* 관심 지역 카테고리 선택 */}
       <h3>관심 지역 선택</h3>
       <S.CategoryContainer>
-        {regionArray.map((region, index) => (
-          region && myRegionArray.includes(region) ? 
-          <S.CatrgoryBtn onClick={() => setMyRegionArray(myRegionArray.filter((item) => item !== region))} key={index} bg={"lightblue"}>{region}</S.CatrgoryBtn> :
-          <S.CatrgoryBtn onClick={() => setMyRegionArray([...myRegionArray, region])} key={index} bg={"transparent"}>{region}</S.CatrgoryBtn>
-        ))
-        }
+        {regionArray.map((region, index) =>
+          region && myRegionArray.includes(region) ? (
+            <S.CatrgoryBtn
+              onClick={() =>
+                setMyRegionArray(
+                  myRegionArray.filter((item) => item !== region),
+                )
+              }
+              key={index}
+              bg={'lightblue'}
+            >
+              {region}
+            </S.CatrgoryBtn>
+          ) : (
+            <S.CatrgoryBtn
+              onClick={() => setMyRegionArray([...myRegionArray, region])}
+              key={index}
+              bg={'transparent'}
+            >
+              {region}
+            </S.CatrgoryBtn>
+          ),
+        )}
+        <S.CatrgoryBtn bg={'transparent'} onClick={() => setMyRegionArray([])}>
+          전체 초기화
+        </S.CatrgoryBtn>
       </S.CategoryContainer>
+
       {/* 관심 분양 형태 카테고리 선택 */}
       <h3>관심 분양 형태 선택</h3>
       <S.CategoryContainer>
-        {typesArray.map((type, index) => (
-          type && myTypeArray.includes(type) ? 
-          <S.CatrgoryBtn onClick={() => setMyTypeArray(myTypeArray.filter((item) => item !== type))} key={index} bg={"lightblue"}>{type}</S.CatrgoryBtn> :
-          <S.CatrgoryBtn onClick={() => setMyTypeArray([...myTypeArray, type])} key={index} bg={"transparent"}>{type}</S.CatrgoryBtn>
-        ))
-        }
+        {typesArray.map((type, index) =>
+          type && myTypeArray.includes(type) ? (
+            <S.CatrgoryBtn
+              onClick={() =>
+                setMyTypeArray(myTypeArray.filter((item) => item !== type))
+              }
+              key={index}
+              bg={'lightblue'}
+            >
+              {type}
+            </S.CatrgoryBtn>
+          ) : (
+            <S.CatrgoryBtn
+              onClick={() => setMyTypeArray([...myTypeArray, type])}
+              key={index}
+              bg={'transparent'}
+            >
+              {type}
+            </S.CatrgoryBtn>
+          ),
+        )}
+        <S.CatrgoryBtn bg={'transparent'} onClick={() => setMyTypeArray([])}>
+          전체 초기화
+        </S.CatrgoryBtn>
       </S.CategoryContainer>
     </div>
   );

@@ -7,7 +7,7 @@ export const CategoryContainer = styled.div`
   padding: 10px;
 `;
 
-export const CatrgoryBtn = styled.button<{bg: string}>`
+export const CatrgoryBtn = styled.button<{ bg: string }>`
   height: 30px;
   width: 100px;
   background-color: ${(props) => props.bg};
