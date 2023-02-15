@@ -12,136 +12,161 @@ const MustHaveToDo = ({ aptList, aptRandomList, officeList }: any) => {
   const queryClient = useQueryClient();
   const [aptData, setAptData] = useState<any>();
 
-  // console.log('aptList :>> ', aptList);
-  // console.log('aptRandomList :>> ', aptRandomList);
-  // console.log('officeList :>> ', officeList);
-  // const allList: any = [];
-  // const combineData = () => {
-  //   aptList.map((item: any) => allList.push(item));
-  //   aptRandomList.map((item: any) => allList.push(item));
-  //   officeList.map((item: any) => allList.push(item));
-
-  //   return allList;
-  // };
-  // combineData();
-  // console.log(allList);
-
-  // const allDataList = {
-  //   SUPLY_AR: '',
-  //   HOUSE_TY: '',
-  //   LTTOT_TOP_AMOUNT: '',
-  //   SPSPLY_HSHLDCO: '',
-  //   SUPLY_HSHLDCO: '',
-  //   TOT_SUPLY_HSHLDCO: '',
-  //   HOUSE_NM: '',
-  //   HOUSE_SECD_NM: '',
-  //   HOUSE_DTL_SECD_NM: '',
-  //   HSSPLY_ADRES: '',
-  //   SUBSCRPT_AREA_CODE_NM: '',
-  //   RCEPT_BGNDE: '',
-  //   RCEPT_ENDDE: '',
-  //   SPSPLY_RCEPT_BGNDE: '',
-  //   SPSPLY_RCEPT_ENDDE: '',
-
-  //   RCRIT_PBLANC_DE: '',
-  //   PRZWNER_PRESNATN_DE: '',
-  //   CNSTRCT_ENTRPS_NM: '',
-  //   BSNS_MBY_NM: '',
-  //   MDHS_TELNO: '',
-  //   CNTRCT_CNCLS_BGNDE: '',
-  //   CNTRCT_CNCLS_ENDDE: '',
-  //   MVN_PREARNGE_YM: '',
-  //   SPECLT_RDN_EARTH_AT: '',
-  //   MDAT_TRGET_AREA_SECD: '',
-  //   PBLANC_URL: '',
-  // };
-
-  // console.log(allDataList.HOUSE_NM = );
-
   // useEffect(() => {
-  //   aptList.map((item: any) => setAptData(item));
-  // }, []);
+  //   if (aptList) {
+  //     setAptData(aptData);
+  //   }
+  // }, [aptList]);
 
-  // console.log(aptList);
+  // 청약홈 전체 API 통합 리스트
+  const allHomeList: any = [];
+  aptList.map((item: any) => allHomeList.push(item));
+  aptRandomList.map((item: any) => allHomeList.push(item));
+  officeList.map((item: any) => allHomeList.push(item));
 
-  // const test: any = [];
-  // const testste = aptList.map((item: any) => {
-  //   allDataList.HOUSE_NM = item.HOUSE_NM;
-  // });
-  // console.log(testste);
+  // FIXME: 주소의 앞부분을 slice하면 경상남도..가 걸림. 기본 데이터는 경남.
+  // TODO: replace?
+  // TODO: 무순위나 오피스텔 100몇개 전체 데이터 불러와서 주소 살펴보기
+  console.log(
+    allHomeList.map((item: any) =>
+      item.SUBSCRPT_AREA_CODE_NM
+        ? item.SUBSCRPT_AREA_CODE_NM
+        : item.HSSPLY_ADRES.slice(0, 2),
+    ),
+  );
+  // console.log(
+  //   allHomeList.map((item: any) => (item.detail[0]?.TP ? item.detail.TP : '')),
+  // );
 
-  // SUPLY_AR: item.detail
-  // HOUSE_TY: item.HOUSE_TY,
-  // LTTOT_TOP_AMOUNT: item.LTTOT_TOP_AMOUNT,
-  // SPSPLY_HSHLDCO: item.SPSPLY_HSHLDCO,
-  // SUPLY_HSHLDCO: item.SUPLY_HSHLDCO,
-  // TOT_SUPLY_HSHLDCO: item.TOT_SUPLY_HSHLDCO,
-  // HOUSE_NM: item.HOUSE_NM,
-  // HOUSE_SECD_NM: item.HOUSE_SECD_NM,
-  // HOUSE_DTL_SECD_NM: item.HOUSE_DTL_SECD_NM,
-  // HSSPLY_ADRES: item.HSSPLY_ADRES,
-  // SUBSCRPT_AREA_CODE_NM: item.SUBSCRPT_AREA_CODE_NM,
-  // RCEPT_BGNDE: item.RCEPT_BGNDE,
-  // RCEPT_ENDDE: item.RCEPT_ENDDE,
-  // SPSPLY_RCEPT_BGNDE: item.SPSPLY_RCEPT_BGNDE,
-  // SPSPLY_RCEPT_ENDDE: item.SPSPLY_RCEPT_ENDDE,
-
-  // RCRIT_PBLANC_DE: item.RCRIT_PBLANC_DE,
-  // PRZWNER_PRESNATN_DE: item.PRZWNER_PRESNATN_DE,
-  // CNSTRCT_ENTRPS_NM: item.CNSTRCT_ENTRPS_NM,
-  // BSNS_MBY_NM: item.BSNS_MBY_NM,
-  // MDHS_TELNO: item.MDHS_TELNO,
-  // CNTRCT_CNCLS_BGNDE: item.CNTRCT_CNCLS_BGNDE,
-  // CNTRCT_CNCLS_ENDDE: item.CNTRCT_CNCLS_ENDDE,
-  // MVN_PREARNGE_YM: item.MVN_PREARNGE_YM,
-  // SPECLT_RDN_EARTH_AT: item.SPECLT_RDN_EARTH_AT,
-  // MDAT_TRGET_AREA_SECD: item.MDAT_TRGET_AREA_SECD,
-  // PBLANC_URL: item.PBLANC_URL,
-
+  // FIXME: 버튼을 처음 누를 때 undefined
   // 버튼 클릭 시 전체 API data가 firebase에 들어감
   const apiCallHandler = async () => {
-    // aptList.map((item: any) => setAptData(item));
-    // const newData = { aptList };
+    const test: any = [];
+    allHomeList.map((item: any) => {
+      test.push({
+        MIN_SUPLY_AR:
+          item?.detail.length === 0
+            ? ''
+            : item?.detail[0]?.SUPLY_AR
+            ? item?.detail[0]?.SUPLY_AR?.split('.')[0].replace(/(^0)/, '')
+            : '',
 
-    aptList.map((item: any) => {
-      const allList = [
-        {
-          // SUPLY_AR: item.SUPLY_AR,
-          // HOUSE_TY: item.HOUSE_TY,
-          // LTTOT_TOP_AMOUNT: item.LTTOT_TOP_AMOUNT,
-          // SPSPLY_HSHLDCO: item.SPSPLY_HSHLDCO,
-          // SUPLY_HSHLDCO: item.SUPLY_HSHLDCO,
-          TOT_SUPLY_HSHLDCO: item.TOT_SUPLY_HSHLDCO,
-          HOUSE_NM: item.HOUSE_NM,
-          HOUSE_SECD_NM: item.HOUSE_SECD_NM,
-          HOUSE_DTL_SECD_NM: item.HOUSE_DTL_SECD_NM,
-          HSSPLY_ADRES: item.HSSPLY_ADRES,
-          SUBSCRPT_AREA_CODE_NM: item.SUBSCRPT_AREA_CODE_NM,
-          RCEPT_BGNDE: item.RCEPT_BGNDE,
-          RCEPT_ENDDE: item.RCEPT_ENDDE,
-          SPSPLY_RCEPT_BGNDE: item.SPSPLY_RCEPT_BGNDE,
-          SPSPLY_RCEPT_ENDDE: item.SPSPLY_RCEPT_ENDDE,
+        MAX_SUPLY_AR:
+          item?.detail.length === 0
+            ? ''
+            : item?.detail[0]?.SUPLY_AR
+            ? item?.detail[item?.detail?.length - 1].SUPLY_AR?.split(
+                '.',
+              )[0]?.replace(/(^0)/, '')
+            : '',
 
-          // RCRIT_PBLANC_DE: item.RCRIT_PBLANC_DE,
-          // PRZWNER_PRESNATN_DE: item.PRZWNER_PRESNATN_DE,
-          // CNSTRCT_ENTRPS_NM: item.CNSTRCT_ENTRPS_NM,
-          // BSNS_MBY_NM: item.BSNS_MBY_NM,
-          // MDHS_TELNO: item.MDHS_TELNO,
-          // CNTRCT_CNCLS_BGNDE: item.CNTRCT_CNCLS_BGNDE,
-          // CNTRCT_CNCLS_ENDDE: item.CNTRCT_CNCLS_ENDDE,
-          // MVN_PREARNGE_YM: item.MVN_PREARNGE_YM,
-          // SPECLT_RDN_EARTH_AT: item.SPECLT_RDN_EARTH_AT,
-          // MDAT_TRGET_AREA_SECD: item.MDAT_TRGET_AREA_SECD,
-          // PBLANC_URL: item.PBLANC_URL,
-        },
-      ];
+        MIN_HOUSE_TY:
+          item?.detail.length === 0
+            ? ''
+            : item?.detail[0]?.EXCLUSE_AR
+            ? Math.floor(item?.detail[0]?.EXCLUSE_AR)
+            : item?.detail[0]?.HOUSE_TY.split('.')[0].replace(/(^0)/, ''),
 
-      setAptData(allList);
+        MAX_HOUSE_TY:
+          item?.detail.length === 0
+            ? ''
+            : item?.detail[item?.detail?.length - 1]?.EXCLUSE_AR
+            ? Math.floor(item?.detail[0]?.EXCLUSE_AR)
+            : item?.detail[item?.detail?.length - 1]?.HOUSE_TY.split(
+                '.',
+              )[0].replace(/(^0)/, ''),
+
+        MIN_LTTOT_TOP_AMOUNT:
+          item?.detail.length === 0
+            ? ''
+            : item?.detail[0]?.LTTOT_TOP_AMOUNT
+            ? item?.detail[0]?.LTTOT_TOP_AMOUNT
+            : item?.detail[0]?.SUPLY_AMOUNT,
+
+        MAX_LTTOT_TOP_AMOUNT:
+          item?.detail.length === 0
+            ? ''
+            : item?.detail[item?.detail.length - 1]?.LTTOT_TOP_AMOUNT
+            ? item?.detail[item?.detail.length - 1]?.LTTOT_TOP_AMOUNT
+            : item?.detail[item?.detail.length - 1]?.SUPLY_AMOUNT,
+
+        SPSPLY_HSHLDCO: item.SPSPLY_HSHLDCO ? item.SPSPLY_HSHLDCO : '',
+        SUPLY_HSHLDCO: item.SUPLY_HSHLDCO ? item.SUPLY_HSHLDCO : '',
+        TOT_SUPLY_HSHLDCO: item.TOT_SUPLY_HSHLDCO,
+        HOUSE_NM: item.HOUSE_NM,
+        HOUSE_SECD: item.HOUSE_SECD,
+        HOUSE_SECD_NM: item.HOUSE_SECD_NM,
+        HOUSE_DTL_SECD: item.HOUSE_DTL_SECD ? item.HOUSE_DTL_SECD : '',
+        HOUSE_DTL_SECD_NM: item.HOUSE_DTL_SECD_NM ? item.HOUSE_DTL_SECD_NM : '',
+        HSSPLY_ADRES: item.HSSPLY_ADRES,
+        SUBSCRPT_AREA_CODE: item.UBSCRPT_AREA_CODE
+          ? item.UBSCRPT_AREA_CODE
+          : '',
+        // FIXME: 주소를 슬라이스 하면 경상남도 -> 경상이 됨.
+        SUBSCRPT_AREA_CODE_NM: item.SUBSCRPT_AREA_CODE_NM
+          ? item.SUBSCRPT_AREA_CODE_NM
+          : item.HSSPLY_ADRES.slice(0, 2),
+
+        RCEPT_BGNDE: item.RCEPT_BGNDE
+          ? item.RCEPT_BGNDE
+          : item.SUBSCRPT_RCEPT_BGNDE,
+        RCEPT_ENDDE: item.RCEPT_ENDDE
+          ? item.RCEPT_ENDDE
+          : item.SUBSCRPT_RCEPT_ENDDE,
+        SPSPLY_RCEPT_BGNDE: item.SPSPLY_RCEPT_BGNDE
+          ? item.SPSPLY_RCEPT_BGNDE
+          : '',
+        SPSPLY_RCEPT_ENDDE: item.SPSPLY_RCEPT_ENDDE
+          ? item.SPSPLY_RCEPT_ENDDE
+          : '',
+        GNRL_RNK1_CRSPAREA_RCEPT_PD: item.GNRL_RNK1_CRSPAREA_RCEPT_PD
+          ? item.GNRL_RNK1_CRSPAREA_RCEPT_PD
+          : '',
+        GNRL_RNK1_ETC_GG_RCPTDE_PD: item.GNRL_RNK1_ETC_GG_RCPTDE_PD
+          ? item.GNRL_RNK1_ETC_GG_RCPTDE_PD
+          : '',
+        GNRL_RNK1_ETC_AREA_RCPTDE_PD: item.GNRL_RNK1_ETC_AREA_RCPTDE_PD
+          ? item.GNRL_RNK1_ETC_AREA_RCPTDE_PD
+          : '',
+        GNRL_RNK2_CRSPAREA_RCEPT_PD: item.GNRL_RNK2_CRSPAREA_RCEPT_PD
+          ? item.GNRL_RNK2_CRSPAREA_RCEPT_PD
+          : '',
+        GNRL_RNK2_ETC_GG_RCPTDE_PD: item.GNRL_RNK2_ETC_GG_RCPTDE_PD
+          ? item.GNRL_RNK2_ETC_GG_RCPTDE_PD
+          : '',
+        GNRL_RNK2_ETC_AREA_RCPTDE_PD: item.GNRL_RNK2_ETC_AREA_RCPTDE_PD
+          ? item.GNRL_RNK2_ETC_AREA_RCPTDE_PD
+          : '',
+        HMPG_ADRES: item.HMPG_ADRES,
+        RCRIT_PBLANC_DE: item.RCRIT_PBLANC_DE,
+        PRZWNER_PRESNATN_DE: item.PRZWNER_PRESNATN_DE,
+        CNSTRCT_ENTRPS_NM: item.CNSTRCT_ENTRPS_NM ? item.CNSTRCT_ENTRPS_NM : '',
+        BSNS_MBY_NM: item.BSNS_MBY_NM,
+        MDHS_TELNO: item.MDHS_TELNO,
+        CNTRCT_CNCLS_BGNDE: item.CNTRCT_CNCLS_BGNDE,
+        CNTRCT_CNCLS_ENDDE: item.CNTRCT_CNCLS_ENDDE,
+        MVN_PREARNGE_YM: item.MVN_PREARNGE_YM,
+        SPECLT_RDN_EARTH_AT: item.SPECLT_RDN_EARTH_AT
+          ? item.SPECLT_RDN_EARTH_AT
+          : '',
+        MDAT_TRGET_AREA_SECD: item.MDAT_TRGET_AREA_SECD
+          ? item.MDAT_TRGET_AREA_SECD
+          : '',
+        PBLANC_URL: item.PBLANC_URL,
+        PBLANC_NO: item.PBLANC_NO,
+        GNRL_RCEPT_BGNDE: item.GNRL_RCEPT_BGNDE ? item.GNRL_RCEPT_BGNDE : '',
+        GNRL_RCEPT_ENDDE: item.GNRL_RCEPT_ENDDE ? item.GNRL_RCEPT_ENDDE : '',
+        // TODO: 아래 두개는 데이터 콘솔 찍어보고 수정
+        // SUBSCRPT_REQST_AMOUNT:item.detail.SUBSCRPT_REQST_AMOUNT,
+        TP: item.detail.TP ? item.detail.TP : '',
+      });
+      setAptData(test);
     });
-    addHomeListMutate.mutate(aptData);
+    addHomeListMutate.mutate({ aptData });
+    console.log(aptData);
     console.log('데이터 업로드 완료!');
   };
-  console.log(aptData);
+
   const addHomeListMutate = useMutation(addHomeList, {
     onSuccess: () => {
       queryClient.invalidateQueries('HomeList');
@@ -177,7 +202,7 @@ const ApiCallBtn = styled.button`
   border: none;
 `;
 
-// 청약홈 API 전체 데이터 사전 렌더링
+// 청약홈 API 전체 데이터
 export const getStaticProps: GetStaticProps = async () => {
   const BASE_URL = 'https://api.odcloud.kr/api/ApplyhomeInfoDetailSvc/v1';
   // APT
@@ -195,19 +220,19 @@ export const getStaticProps: GetStaticProps = async () => {
   // 공고문 기본 정보 리스트 가져오기(2023년 이후 공고)
   const aptDefaultList = await axios
     .get(
-      `${BASE_URL}/${METHOD_APT_DEFAULT}?page=1&perPage=1500&&cond%5BRCRIT_PBLANC_DE%3A%3AGTE%5D=2023-01-01&serviceKey=${SERVICE_KEY}`,
+      `${BASE_URL}/${METHOD_APT_DEFAULT}?page=1&perPage=100&&cond%5BRCRIT_PBLANC_DE%3A%3AGTE%5D=2023-01-01&serviceKey=${SERVICE_KEY}`,
     )
     .then((res) => res.data.data);
 
   const aptRandomDefaultList = await axios
     .get(
-      `${BASE_URL}/${METHOD_RANDOM_DEFAULT}?page=1&perPage=1500&&cond%5BRCRIT_PBLANC_DE%3A%3AGTE%5D=2023-01-01&serviceKey=${SERVICE_KEY}`,
+      `${BASE_URL}/${METHOD_RANDOM_DEFAULT}?page=1&perPage=100&&cond%5BRCRIT_PBLANC_DE%3A%3AGTE%5D=2023-01-01&serviceKey=${SERVICE_KEY}`,
     )
     .then((res) => res.data.data);
 
   const officeDefaultList = await axios
     .get(
-      `${BASE_URL}/${METHOD_OFFICE_DEFAULT}?page=1&perPage=1500&&cond%5BRCRIT_PBLANC_DE%3A%3AGTE%5D=2023-01-01&serviceKey=${SERVICE_KEY}`,
+      `${BASE_URL}/${METHOD_OFFICE_DEFAULT}?page=1&perPage=100&&cond%5BRCRIT_PBLANC_DE%3A%3AGTE%5D=2023-01-01&serviceKey=${SERVICE_KEY}`,
     )
     .then((res) => res.data.data);
 
@@ -236,7 +261,7 @@ export const getStaticProps: GetStaticProps = async () => {
       res.data.data.filter((item: any) => item.PBLANC_NO >= 2023000000),
     );
 
-  // APT Default + Detail List
+  // APT Default + Detail 통합 List
   const aptCombineList = await Promise.all(
     aptDefaultList.map(async (item: any) => {
       return {
@@ -248,7 +273,7 @@ export const getStaticProps: GetStaticProps = async () => {
     }),
   );
 
-  // APT 무순위 Default + Detail List
+  // APT 무순위 Default + Detail 통합 List
   const aptRandomCombineList = await Promise.all(
     aptRandomDefaultList.map(async (item: any) => {
       return {
@@ -260,7 +285,7 @@ export const getStaticProps: GetStaticProps = async () => {
     }),
   );
 
-  // 오피스텔/도시형/민간임대 Default + Detail List
+  // 오피스텔/도시형/민간임대 Default + Detail 통합 List
   const officeCombineList = await Promise.all(
     officeDefaultList.map(async (item: any) => {
       return {
