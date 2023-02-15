@@ -1,8 +1,7 @@
 import { useEffect } from 'react';
-// import { useSubscription } from '@/hooks';
 import { atom } from 'recoil';
 
-// const { testst, test2 } = useSubscription();
+
 
 // useEffect(() => {
 //     testst()
@@ -12,3 +11,6 @@ import { atom } from 'recoil';
 //     key: 'subscriptionList',
 //     default: []
 // })
+
+
+// 여기서 getStaticProps 사용 가능?? 

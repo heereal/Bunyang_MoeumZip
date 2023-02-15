@@ -6,17 +6,17 @@ import {
   signInWithPopup,
 } from 'firebase/auth';
 import { auth } from '@/common/firebase';
-import { getCsrfToken, signIn, useSession, signOut, getProviders } from 'next-auth/react';
+import {
+  getCsrfToken,
+  signIn,
+  useSession,
+  signOut,
+  getProviders,
+} from 'next-auth/react';
 import { useEffect } from 'react';
 import { db } from '@/common/firebase';
-import {
-  query,
-  getDocs,
-  collection,
-  where,
-  addDoc,
-} from 'firebase/firestore';
-import { useState } from "react";
+import { query, getDocs, collection, where, addDoc } from 'firebase/firestore';
+import { useState } from 'react';
 import { useRouter } from 'next/router';
 
 interface loginModalProps {
@@ -32,8 +32,8 @@ const LoginModal = ({ isOpen }: loginModalProps) => {
   const facebookProvider = new FacebookAuthProvider();
 
   // 유저의 세션 정보 받아오기
-  const { data: session, status } = useSession();  
-  // console.log(session?.user, status);
+  const { data: session, status } = useSession();
+  console.log(session?.user, status);
   // console.log(fireUsers);
   // const session2 = getSession()
 
@@ -79,6 +79,13 @@ const LoginModal = ({ isOpen }: loginModalProps) => {
   };
  
   useEffect(() => {
+    () =>
+      setTimeout(() => {
+        if (session) {
+          router.push('/signUp');
+        }
+      }, 1000);
+
     // getToken();
     // firebaseTest()
   }, []);
@@ -95,7 +102,11 @@ const LoginModal = ({ isOpen }: loginModalProps) => {
         <button onClick={() => loginHandler('kakao')}>카카오 로그인</button>
         <button onClick={() => loginHandler('naver')}>네이버 로그인</button>
         <button onClick={() => signOut()}>로그아웃</button>
-        {session ?  <div>{session.user?.name}님 로그인 환영합니다</div> : <div>로그아웃 상태임</div>}
+        {session ? (
+          <div>{session.user?.name}님 로그인 환영합니다</div>
+        ) : (
+          <div>로그아웃 상태임</div>
+        )}
       </S.ModalContainer>
     </ReactModal>
   );

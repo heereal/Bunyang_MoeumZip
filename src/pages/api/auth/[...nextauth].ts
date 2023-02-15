@@ -11,6 +11,7 @@ import {
   where,
 } from 'firebase/firestore';
 import { useRouter } from 'next/router';
+import { getSession } from 'next-auth/react';
 
 export default NextAuth({
 
