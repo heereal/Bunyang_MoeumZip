@@ -15,7 +15,12 @@ const LoginModal = ({ isOpen, setIsOpen }: loginModalProps) => {
   };
 
   return (
-    <ReactModal isOpen={isOpen} style={customStyles} ariaHideApp={false}>
+    <ReactModal
+      isOpen={isOpen}
+      style={customStyles}
+      ariaHideApp={false}
+      onRequestClose={() => setIsOpen(false)}
+    >
       <S.ModalContainer>
         <button onClick={() => loginHandler('google')}>구글 로그인</button>
         <button onClick={() => loginHandler('facebook')}>
