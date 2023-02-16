@@ -2,15 +2,11 @@ import { addHomeList } from '@/common/api';
 import { db } from '@/common/firebase';
 import HeadTitle from '@/components/GlobalComponents/HeadTitle/HeadTitle';
 import axios from 'axios';
-import {
-  collection,
-  deleteDoc,
-  doc, getDocs
-} from 'firebase/firestore';
+import { collection, deleteDoc, doc, getDocs } from 'firebase/firestore';
 import { GetStaticProps } from 'next';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import { useMutation, useQueryClient } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import styled from 'styled-components';
 import theButton from '../../assets/apiCallButton.jpg';
 
@@ -18,6 +14,8 @@ const MustHaveToDo = ({
   aptList,
   aptRandomList,
   officeList,
+  lhNoticeAList,
+  lhDetailst,
   lhRegisterList,
   lhDefaultList,
   lhCombineList,
@@ -25,16 +23,13 @@ const MustHaveToDo = ({
   const queryClient = useQueryClient();
   const [aptData, setAptData] = useState<any>();
   const newList: any = [];
-  // console.log(lhRegisterList);
   const [testList, setTestList] = useState<any>();
+  const [whatever, setWhatever] = useState<any>();
 
-  // const testHome = useRecoilValue(homeData);
-  // console.log(testHome);
+  console.log(lhDetailst);
 
-  // console.log('Recoil', testHome);
-
+  // firebase data 가져오기 TEST
   const getHomeList = async () => {
-    // const q = query(collection(db, 'HomeList'), orderBy('date', 'desc'));
     const abc: any = [];
     const querySnapshot = await getDocs(collection(db, 'HomeList'));
     querySnapshot.forEach((doc) => {
@@ -46,19 +41,34 @@ const MustHaveToDo = ({
   useEffect(() => {
     getHomeList();
   }, []);
+  // console.log('testList :>> ', testList);
 
-  console.log('testList :>> ', testList);
   // LH
   // 기본 정보 map을 돌려서 얻은 3개의 인자를 url에 넣기
 
-  // const LH_BASE_URL = 'https://apis.data.go.kr/B552555';
-  // const METHOD_LH_DETAIL = 'lhLeaseNoticeDtlInfo1/getLeaseNoticeDtlInfo1';
+  const LH_BASE_URL = 'https://apis.data.go.kr/B552555';
+  const METHOD_LH_DETAIL = 'lhLeaseNoticeDtlInfo1/getLeaseNoticeDtlInfo1';
 
-  // const SERVICE_KEY = process.env.NEXT_PUBLIC_HOME_API_KEY;
+  const SERVICE_KEY = process.env.NEXT_PUBLIC_HOME_API_KEY;
 
-  // // TODO: api콜을 10번 한 다음 5초 있다 다시 하기 - or lhDefaultList 추가로 나눠서 가져오기
-  // // ex. 전체 / 공고중 / 접수중 or 더 적게 가져와보기
-  // const lhDetailst = lhRegisterList.map((item: any) => {
+  // const lalala = async () => {
+  //   const lhDetailst = await Promise.all(
+  //     lhNoticeAList.map((item: any) => {
+  //       const list = axios
+  //         .get(
+  //           `${LH_BASE_URL}/${METHOD_LH_DETAIL}?serviceKey=${SERVICE_KEY}&SPL_INF_TP_CD=${item.SPL_INF_TP_CD}&CCR_CNNT_SYS_DS_CD=${item.CCR_CNNT_SYS_DS_CD}&PAN_ID=${item.PAN_ID}`,
+  //         )
+  //         .then((res) => res.data);
+  //       return list;
+  //     }),
+  //   );
+  //   return lhDetailst;
+  // };
+  // console.log(lalala());
+
+  // promise에서 값을 가져오고 싶어..................
+  // // const treuer: any = async () => {
+  // const lhDetailst = lhNoticeAList.map((item: any) => {
   //   const list = axios
   //     .get(
   //       `${LH_BASE_URL}/${METHOD_LH_DETAIL}?serviceKey=${SERVICE_KEY}&SPL_INF_TP_CD=${item.SPL_INF_TP_CD}&CCR_CNNT_SYS_DS_CD=${item.CCR_CNNT_SYS_DS_CD}&PAN_ID=${item.PAN_ID}`,
@@ -66,18 +76,55 @@ const MustHaveToDo = ({
   //     .then((res) => res.data);
   //   return list;
   // });
+  // // setWhatever(lhDetailst);
+  // };
 
-  // console.log('getLHDetail:', lhDetailst);
+  // useEffect(() => treuer(), []);
+
+  // console.log(lhDetailst);
 
   // LH 통합 데이터
-  // const lhCombineList = await Promise.all(
+  // const lhCombineList2 = await Promise.all(
   //   lhDefaultList.map(async (item: any) => {
   //     return {
   //       ...item,
-  //       detail: lhDetailList.filter((i: any) => i?.dsSch?.PAN_ID),
+  //       detail: lhNoticeAList.filter((i: any) => i?.dsSch?.PAN_ID),
   //     };
   //   }),
   // );
+
+  console.log(lhNoticeAList);
+
+  // const wowow1 = async () => {
+  //   return await axios
+  //     .get(
+  //       `${LH_BASE_URL}/${METHOD_LH_DETAIL}?serviceKey=${SERVICE_KEY}&SPL_INF_TP_CD=060&CCR_CNNT_SYS_DS_CD=02&PAN_ID="0000060291"`,
+  //     )
+  //     .then((res) => res.data);
+  // };
+
+  // const { data: real } = useQuery('whateve', wowow1);
+
+  // console.log('rel:', real);
+
+  // const wowow2 = async () => {
+  //   return await axios
+  //     .get(
+  //       `${LH_BASE_URL}/${METHOD_LH_DETAIL}?serviceKey=${SERVICE_KEY}&SPL_INF_TP_CD=062&CCR_CNNT_SYS_DS_CD=03&PAN_ID=2015122300013125`,
+  //     )
+  //     .then((res) => res.data);
+  // };
+
+  // const { data: real2 } = useQuery('whateve22', wowow2);
+
+  // console.log('rel2:', real2);
+
+  // const arrrrr: any = [];
+  // // real.map((item: any) => arrrrr.push(item));
+  // // real2.map((item: any) => arrrrr.push(item));
+  // arrrrr.push(real);
+  // arrrrr.push(real2);
+  // console.log(arrrrr);
 
   // 청약홈 전체 API 통합 리스트
   const allHomeList: any = [];
@@ -113,7 +160,6 @@ const MustHaveToDo = ({
   const apiCallHandler = async () => {
     allHomeList.map((item: any) => {
       newList.push({
-        date: new Date(),
         // TODO: 좌표 추가하기
         coordinates: 'x:, y:',
         MIN_SUPLY_AR:
@@ -338,11 +384,12 @@ export const getStaticProps: GetStaticProps = async () => {
 
   // LH - 공고중 + 접수중
   // const lhDefaultList
+  // TODO: 지역까지 넣어서 리스트 가져와야 할 경우 map 돌려서 해보기.. 지역을 빈 배열에 넣어서!
 
-  // LH - 2023년 이후 + 공고중 + 서울 -> TODO: 변경하기 => 분양주택, 임대주택, 신혼희망타운
-  const lhNoticeSeoulList = await axios
+  // LH - 2023년 이후 + 공고중 + 임대주택 -> TODO: 변경하기 => 분양주택, 임대주택, 신혼희망타운
+  const lhNoticeAList = await axios
     .get(
-      `${LH_BASE_URL}/${METHOD_LH_DEFAULT}?serviceKey=${SERVICE_KEY}&PG_SZ=1000&PAGE=1&PAN_ST_DT=20230101&PAN_SS="공고중"&CNP_CD=11
+      `${LH_BASE_URL}/${METHOD_LH_DEFAULT}?serviceKey=${SERVICE_KEY}&PG_SZ=1000&PAGE=1&PAN_ST_DT=20230101&PAN_SS="공고중"&UPP_AIS_TP_CD=06
     `,
     )
     .then((res) => res.data[1].dsList);
@@ -411,15 +458,30 @@ export const getStaticProps: GetStaticProps = async () => {
     }),
   );
 
-  // LH Default + Detail 통합 List
+  // FIXME: 오류.. pp배열에 넣으니 오류는 해결됐는데 값을 어떻게 뱉어야 할지...
+  const lhDetailst = lhNoticeAList.map((item: any) => {
+    const pp: any = [];
+    const list = axios
+      .get(
+        `${LH_BASE_URL}/${METHOD_LH_DETAIL}?serviceKey=${SERVICE_KEY}&SPL_INF_TP_CD=${item.SPL_INF_TP_CD}&CCR_CNNT_SYS_DS_CD=${item.CCR_CNNT_SYS_DS_CD}&PAN_ID=${item.PAN_ID}`,
+      )
+      .then((res) => {
+        // console.log(res.data);
+        pp.push(res.data);
+      });
+    return pp;
+  });
 
+  // LH Default + Detail 통합 List
   return {
     props: {
       aptList: aptCombineList,
       aptRandomList: aptRandomCombineList,
       officeList: officeCombineList,
+      lhNoticeAList: lhNoticeAList,
+      lhDetailst: lhDetailst,
       // lhDefaultList: lhDefaultList,
-      lhRegisterList: lhRegisterList,
+      // lhRegisterList: lhRegisterList,
     },
     // ISR - 12시간 마다 데이터 업데이트
     revalidate: 43200,
