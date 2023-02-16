@@ -8,15 +8,55 @@ import styled from 'styled-components';
 import theButton from '../../assets/apiCallButton.jpg';
 import { useState, useEffect } from 'react';
 
-const MustHaveToDo = ({ aptList, aptRandomList, officeList }: any) => {
+const MustHaveToDo = async ({
+  aptList,
+  aptRandomList,
+  officeList,
+  lhDefaultList,
+  lhCombineList,
+}: any) => {
   const queryClient = useQueryClient();
   const [aptData, setAptData] = useState<any>();
+  const newList: any = [];
 
-  // useEffect(() => {
-  //   if (aptList) {
-  //     setAptData(aptData);
-  //   }
-  // }, [aptList]);
+  // console.log(lhDefaultList.map((item: any) => item.PAN_ID));
+  // console.log(lhDetailList.map((item: any) => item?.dsSch));
+
+  // console.log('lhDetailList :>> ', lhDetailList[0].dsSch[0].PAN_ID);
+
+  // console.log(
+  //   lhCombineList.map((item: any) =>
+  //     item.PAN_ID === '2015122300013125' ? item : '',
+  //   ),
+  // );
+
+  const arr: any = [];
+  const test = () => {
+    // const id = lhDefaultList.map((item: any) => item.PAN_ID);
+    // const ccr = lhDefaultList.map((item: any) => item.CCR_CNNT_SYS_DS_CD);
+    // const spl = lhDefaultList.map((item: any) => item.SPL_INF_TP_CD);
+    // arr.push(id, ccr, spl);
+    // console.log('id:', id[0]);
+  };
+
+  // LH
+  // 기본 정보 map을 돌려서 얻은 3개의 인자를 url에 넣기
+  const LH_BASE_URL = 'https://apis.data.go.kr/B552555';
+  const METHOD_LH_DETAIL = 'lhLeaseNoticeDtlInfo1/getLeaseNoticeDtlInfo1';
+
+  const SERVICE_KEY = process.env.NEXT_PUBLIC_HOME_API_KEY;
+
+  const id = lhDefaultList.map((item: any) => item.PAN_ID);
+  const ccr = lhDefaultList.map((item: any) => item.CCR_CNNT_SYS_DS_CD);
+  const spl = lhDefaultList.map((item: any) => item.SPL_INF_TP_CD);
+
+  const lhDetailURL = `${LH_BASE_URL}/${METHOD_LH_DETAIL}?serviceKey=${SERVICE_KEY}&SPL_INF_TP_CD=${spl[0]}&CCR_CNNT_SYS_DS_CD=${ccr[0]}&PAN_ID=${id[0]}`;
+
+  const lhDetailList = await axios.get(lhDetailURL).then((res) => res.data);
+  console.log(lhDetailList);
+
+  // test();
+  // console.log('arr:', arr[0]);
 
   // 청약홈 전체 API 통합 리스트
   const allHomeList: any = [];
@@ -24,16 +64,23 @@ const MustHaveToDo = ({ aptList, aptRandomList, officeList }: any) => {
   aptRandomList.map((item: any) => allHomeList.push(item));
   officeList.map((item: any) => allHomeList.push(item));
 
+  // TODO: LH 리스트 추가
+
+  // useEffect(() => {
+  //   console.log('useEffect 안:', aptData);
+  //   setAptData(newList);
+  // }, []);
+
   // FIXME: 주소의 앞부분을 slice하면 경상남도..가 걸림. 기본 데이터는 경남.
   // TODO: replace?
   // TODO: 무순위나 오피스텔 100몇개 전체 데이터 불러와서 주소 살펴보기
-  console.log(
-    allHomeList.map((item: any) =>
-      item.SUBSCRPT_AREA_CODE_NM
-        ? item.SUBSCRPT_AREA_CODE_NM
-        : item.HSSPLY_ADRES.slice(0, 2),
-    ),
-  );
+  // console.log(
+  //   allHomeList.map((item: any) =>
+  //     item.SUBSCRPT_AREA_CODE_NM
+  //       ? item.SUBSCRPT_AREA_CODE_NM
+  //       : item.HSSPLY_ADRES.slice(0, 2),
+  //   ),
+  // );
   // console.log(
   //   allHomeList.map((item: any) => (item.detail[0]?.TP ? item.detail.TP : '')),
   // );
@@ -41,9 +88,8 @@ const MustHaveToDo = ({ aptList, aptRandomList, officeList }: any) => {
   // FIXME: 버튼을 처음 누를 때 undefined
   // 버튼 클릭 시 전체 API data가 firebase에 들어감
   const apiCallHandler = async () => {
-    const test: any = [];
     allHomeList.map((item: any) => {
-      test.push({
+      newList.push({
         MIN_SUPLY_AR:
           item?.detail.length === 0
             ? ''
@@ -98,6 +144,8 @@ const MustHaveToDo = ({ aptList, aptRandomList, officeList }: any) => {
         HOUSE_SECD_NM: item.HOUSE_SECD_NM,
         HOUSE_DTL_SECD: item.HOUSE_DTL_SECD ? item.HOUSE_DTL_SECD : '',
         HOUSE_DTL_SECD_NM: item.HOUSE_DTL_SECD_NM ? item.HOUSE_DTL_SECD_NM : '',
+        // TODO: 주소가 괄호 안에 있는 것만 쓰거나 알파벳 등이 없어야 좌표가 찍힘
+        // 정규식을 써서 주소의 알파벳을 없애기??
         HSSPLY_ADRES: item.HSSPLY_ADRES,
         SUBSCRPT_AREA_CODE: item.UBSCRPT_AREA_CODE
           ? item.UBSCRPT_AREA_CODE
@@ -160,10 +208,10 @@ const MustHaveToDo = ({ aptList, aptRandomList, officeList }: any) => {
         // SUBSCRPT_REQST_AMOUNT:item.detail.SUBSCRPT_REQST_AMOUNT,
         TP: item.detail.TP ? item.detail.TP : '',
       });
-      setAptData(test);
+      setAptData(newList);
     });
     addHomeListMutate.mutate({ aptData });
-    console.log(aptData);
+    console.log('버튼 누른 후:', aptData);
     console.log('데이터 업로드 완료!');
   };
 
@@ -204,7 +252,12 @@ const ApiCallBtn = styled.button`
 
 // 청약홈 API 전체 데이터
 export const getStaticProps: GetStaticProps = async () => {
+  // 청약홈
   const BASE_URL = 'https://api.odcloud.kr/api/ApplyhomeInfoDetailSvc/v1';
+  // LH
+  const LH_BASE_URL = 'https://apis.data.go.kr/B552555';
+
+  // 청약홈
   // APT
   const METHOD_APT_DEFAULT = 'getAPTLttotPblancDetail';
   const METHOD_APT_DETAIL = 'getAPTLttotPblancMdl';
@@ -215,9 +268,14 @@ export const getStaticProps: GetStaticProps = async () => {
   const METHOD_OFFICE_DEFAULT = 'getUrbtyOfctlLttotPblancDetail';
   const METHOD_OFFICE_DETAIL = 'getUrbtyOfctlLttotPblancMdl';
 
+  // LH TODO: 다시 살펴보기
+  const METHOD_LH_DEFAULT = 'lhLeaseNoticeInfo1/lhLeaseNoticeInfo1';
+  const METHOD_LH_DETAIL = 'lhLeaseNoticeDtlInfo1/getLeaseNoticeDtlInfo1';
+
   const SERVICE_KEY = process.env.NEXT_PUBLIC_HOME_API_KEY;
 
   // 공고문 기본 정보 리스트 가져오기(2023년 이후 공고)
+  // 청약홈
   const aptDefaultList = await axios
     .get(
       `${BASE_URL}/${METHOD_APT_DEFAULT}?page=1&perPage=100&&cond%5BRCRIT_PBLANC_DE%3A%3AGTE%5D=2023-01-01&serviceKey=${SERVICE_KEY}`,
@@ -236,7 +294,15 @@ export const getStaticProps: GetStaticProps = async () => {
     )
     .then((res) => res.data.data);
 
+  // LH
+  const lhDefaultList = await axios
+    .get(
+      `${LH_BASE_URL}/${METHOD_LH_DEFAULT}?serviceKey=${SERVICE_KEY}&PG_SZ=1000&PAGE=1&PAN_ST_DT=20230101`,
+    )
+    .then((res) => res.data[1].dsList);
+
   // 공고문 상세정보 전체 리스트 가져오기
+  // 청약홈
   const aptDetailList = await axios
     .get(
       `${BASE_URL}/${METHOD_APT_DETAIL}?page=1&perPage=10000&serviceKey=${SERVICE_KEY}`,
@@ -297,13 +363,29 @@ export const getStaticProps: GetStaticProps = async () => {
     }),
   );
 
+  // const lhCombineList = await Promise.all(
+  //   lhDefaultList.map(async (item: any) => {
+  //     return {
+  //       ...item,
+  //       detail: lhDetailList.filter((i: any) => i?.dsSch?.PAN_ID),
+  //     };
+  //   }),
+  // );
+
   return {
     props: {
       aptList: aptCombineList,
       aptRandomList: aptRandomCombineList,
       officeList: officeCombineList,
+      lhDefaultList: lhDefaultList,
+      // lhDetailList: lhDetailList,
+      // lhCombineList: lhCombineList,
     },
     // ISR - 12시간 마다 데이터 업데이트
     revalidate: 43200,
   };
 };
+
+// LH 기본 데이터
+
+// LH 상세 데이터
