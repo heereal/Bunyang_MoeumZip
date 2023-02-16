@@ -217,7 +217,7 @@ const MustHaveToDo = ({
         HOUSE_DTL_SECD: item.HOUSE_DTL_SECD ? item.HOUSE_DTL_SECD : '',
         HOUSE_DTL_SECD_NM: item.HOUSE_DTL_SECD_NM ? item.HOUSE_DTL_SECD_NM : '',
         // TODO: 주소가 괄호 안에 있는 것만 쓰거나 알파벳 등이 없어야 좌표가 찍힘
-        // 정규식을 써서 주소의 알파벳을 없애기??
+        // 정규식을 써서 주소의 알파벳을 없애기?? - 슬라이스로 괄호 뒤 자르기
         HSSPLY_ADRES: item.HSSPLY_ADRES,
         SUBSCRPT_AREA_CODE: item.UBSCRPT_AREA_CODE
           ? item.UBSCRPT_AREA_CODE
