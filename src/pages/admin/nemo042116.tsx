@@ -8,7 +8,7 @@ import styled from 'styled-components';
 import theButton from '../../assets/apiCallButton.jpg';
 import { useState, useEffect } from 'react';
 
-const MustHaveToDo = async ({
+const MustHaveToDo = ({
   aptList,
   aptRandomList,
   officeList,
@@ -19,57 +19,51 @@ const MustHaveToDo = async ({
   const [aptData, setAptData] = useState<any>();
   const newList: any = [];
 
-  // console.log(lhDefaultList.map((item: any) => item.PAN_ID));
-  // console.log(lhDetailList.map((item: any) => item?.dsSch));
-
-  // console.log('lhDetailList :>> ', lhDetailList[0].dsSch[0].PAN_ID);
-
-  // console.log(
-  //   lhCombineList.map((item: any) =>
-  //     item.PAN_ID === '2015122300013125' ? item : '',
-  //   ),
-  // );
-
-  const arr: any = [];
-  const test = () => {
-    // const id = lhDefaultList.map((item: any) => item.PAN_ID);
-    // const ccr = lhDefaultList.map((item: any) => item.CCR_CNNT_SYS_DS_CD);
-    // const spl = lhDefaultList.map((item: any) => item.SPL_INF_TP_CD);
-    // arr.push(id, ccr, spl);
-    // console.log('id:', id[0]);
-  };
-
   // LH
   // 기본 정보 map을 돌려서 얻은 3개의 인자를 url에 넣기
+
   const LH_BASE_URL = 'https://apis.data.go.kr/B552555';
   const METHOD_LH_DETAIL = 'lhLeaseNoticeDtlInfo1/getLeaseNoticeDtlInfo1';
 
   const SERVICE_KEY = process.env.NEXT_PUBLIC_HOME_API_KEY;
 
-  const id = lhDefaultList.map((item: any) => item.PAN_ID);
-  const ccr = lhDefaultList.map((item: any) => item.CCR_CNNT_SYS_DS_CD);
-  const spl = lhDefaultList.map((item: any) => item.SPL_INF_TP_CD);
+  const getURLTest = lhDefaultList.map((item: any) => {
+    const listTest = `${item.SPL_INF_TP_CD}, ${item.CCR_CNNT_SYS_DS_CD}, ${item.PAN_ID}`;
+    return listTest;
+  });
+  console.log('getURLTest :>> ', getURLTest);
 
-  const lhDetailURL = `${LH_BASE_URL}/${METHOD_LH_DETAIL}?serviceKey=${SERVICE_KEY}&SPL_INF_TP_CD=${spl[0]}&CCR_CNNT_SYS_DS_CD=${ccr[0]}&PAN_ID=${id[0]}`;
+  // TODO: api콜을 10번 한 다음 5초 있다 다시 하기 - or lhDefaultList 추가로 나눠서 가져오기
+  // ex. 전체 / 공고중 / 접수중 or 더 적게 가져와보기
+  const lhDetailst = lhDefaultList.map((item: any) => {
+    const list = axios
+      .get(
+        `${LH_BASE_URL}/${METHOD_LH_DETAIL}?serviceKey=${SERVICE_KEY}&SPL_INF_TP_CD=${item.SPL_INF_TP_CD}&CCR_CNNT_SYS_DS_CD=${item.CCR_CNNT_SYS_DS_CD}&PAN_ID=${item.PAN_ID}`,
+      )
+      .then((res) => res.data);
+    return list;
+  });
 
-  const lhDetailList = await axios.get(lhDetailURL).then((res) => res.data);
-  console.log(lhDetailList);
+  console.log('getLHDetail:', lhDetailst);
 
-  // test();
-  // console.log('arr:', arr[0]);
+  // const lhDetailList = await axios.get(lhDetailURL).then((res) => res.data);
+  // console.log('Detail:', lhDetailList);
+
+  // LH 통합 데이터
+  // const lhCombineList = await Promise.all(
+  //   lhDefaultList.map(async (item: any) => {
+  //     return {
+  //       ...item,
+  //       detail: lhDetailList.filter((i: any) => i?.dsSch?.PAN_ID),
+  //     };
+  //   }),
+  // );
 
   // 청약홈 전체 API 통합 리스트
   const allHomeList: any = [];
   aptList.map((item: any) => allHomeList.push(item));
   aptRandomList.map((item: any) => allHomeList.push(item));
   officeList.map((item: any) => allHomeList.push(item));
-
-  // TODO: LH 리스트 추가
-
-  // useEffect(() => {
-  //   console.log('useEffect 안:', aptData);
-  //   setAptData(newList);
-  // }, []);
 
   // FIXME: 주소의 앞부분을 slice하면 경상남도..가 걸림. 기본 데이터는 경남.
   // TODO: replace?
@@ -84,6 +78,11 @@ const MustHaveToDo = async ({
   // console.log(
   //   allHomeList.map((item: any) => (item.detail[0]?.TP ? item.detail.TP : '')),
   // );
+
+  // useEffect(() => {
+  //   console.log('useEffect 안:', aptData);
+  //   setAptData(newList);
+  // }, []);
 
   // FIXME: 버튼을 처음 누를 때 undefined
   // 버튼 클릭 시 전체 API data가 firebase에 들어감
@@ -250,7 +249,7 @@ const ApiCallBtn = styled.button`
   border: none;
 `;
 
-// 청약홈 API 전체 데이터
+//API 전체 데이터
 export const getStaticProps: GetStaticProps = async () => {
   // 청약홈
   const BASE_URL = 'https://api.odcloud.kr/api/ApplyhomeInfoDetailSvc/v1';
@@ -294,12 +293,14 @@ export const getStaticProps: GetStaticProps = async () => {
     )
     .then((res) => res.data.data);
 
-  // LH
+  // LH - 2023년 이후 공고문 전체 리스트 - 없애고 공고중 + 모집중 리스트 만들기
   const lhDefaultList = await axios
     .get(
       `${LH_BASE_URL}/${METHOD_LH_DEFAULT}?serviceKey=${SERVICE_KEY}&PG_SZ=1000&PAGE=1&PAN_ST_DT=20230101`,
     )
     .then((res) => res.data[1].dsList);
+
+  // LH -
 
   // 공고문 상세정보 전체 리스트 가져오기
   // 청약홈
@@ -326,6 +327,8 @@ export const getStaticProps: GetStaticProps = async () => {
     .then((res) =>
       res.data.data.filter((item: any) => item.PBLANC_NO >= 2023000000),
     );
+
+  //LH detailList -
 
   // APT Default + Detail 통합 List
   const aptCombineList = await Promise.all(
@@ -363,14 +366,7 @@ export const getStaticProps: GetStaticProps = async () => {
     }),
   );
 
-  // const lhCombineList = await Promise.all(
-  //   lhDefaultList.map(async (item: any) => {
-  //     return {
-  //       ...item,
-  //       detail: lhDetailList.filter((i: any) => i?.dsSch?.PAN_ID),
-  //     };
-  //   }),
-  // );
+  // LH Default + Detail 통합 List
 
   return {
     props: {
@@ -378,14 +374,8 @@ export const getStaticProps: GetStaticProps = async () => {
       aptRandomList: aptRandomCombineList,
       officeList: officeCombineList,
       lhDefaultList: lhDefaultList,
-      // lhDetailList: lhDetailList,
-      // lhCombineList: lhCombineList,
     },
     // ISR - 12시간 마다 데이터 업데이트
     revalidate: 43200,
   };
 };
-
-// LH 기본 데이터
-
-// LH 상세 데이터
