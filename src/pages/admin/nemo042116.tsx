@@ -1,53 +1,73 @@
 import { addHomeList } from '@/common/api';
+import { db } from '@/common/firebase';
 import HeadTitle from '@/components/GlobalComponents/HeadTitle/HeadTitle';
 import axios from 'axios';
+import {
+  collection,
+  deleteDoc,
+  doc, getDocs
+} from 'firebase/firestore';
 import { GetStaticProps } from 'next';
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 import styled from 'styled-components';
 import theButton from '../../assets/apiCallButton.jpg';
-import { useState, useEffect } from 'react';
 
 const MustHaveToDo = ({
   aptList,
   aptRandomList,
   officeList,
+  lhRegisterList,
   lhDefaultList,
   lhCombineList,
 }: any) => {
   const queryClient = useQueryClient();
   const [aptData, setAptData] = useState<any>();
   const newList: any = [];
+  // console.log(lhRegisterList);
+  const [testList, setTestList] = useState<any>();
 
+  // const testHome = useRecoilValue(homeData);
+  // console.log(testHome);
+
+  // console.log('Recoil', testHome);
+
+  const getHomeList = async () => {
+    // const q = query(collection(db, 'HomeList'), orderBy('date', 'desc'));
+    const abc: any = [];
+    const querySnapshot = await getDocs(collection(db, 'HomeList'));
+    querySnapshot.forEach((doc) => {
+      abc.push(doc.data());
+    });
+    setTestList(abc);
+  };
+
+  useEffect(() => {
+    getHomeList();
+  }, []);
+
+  console.log('testList :>> ', testList);
   // LH
   // 기본 정보 map을 돌려서 얻은 3개의 인자를 url에 넣기
 
-  const LH_BASE_URL = 'https://apis.data.go.kr/B552555';
-  const METHOD_LH_DETAIL = 'lhLeaseNoticeDtlInfo1/getLeaseNoticeDtlInfo1';
+  // const LH_BASE_URL = 'https://apis.data.go.kr/B552555';
+  // const METHOD_LH_DETAIL = 'lhLeaseNoticeDtlInfo1/getLeaseNoticeDtlInfo1';
 
-  const SERVICE_KEY = process.env.NEXT_PUBLIC_HOME_API_KEY;
+  // const SERVICE_KEY = process.env.NEXT_PUBLIC_HOME_API_KEY;
 
-  const getURLTest = lhDefaultList.map((item: any) => {
-    const listTest = `${item.SPL_INF_TP_CD}, ${item.CCR_CNNT_SYS_DS_CD}, ${item.PAN_ID}`;
-    return listTest;
-  });
-  console.log('getURLTest :>> ', getURLTest);
+  // // TODO: api콜을 10번 한 다음 5초 있다 다시 하기 - or lhDefaultList 추가로 나눠서 가져오기
+  // // ex. 전체 / 공고중 / 접수중 or 더 적게 가져와보기
+  // const lhDetailst = lhRegisterList.map((item: any) => {
+  //   const list = axios
+  //     .get(
+  //       `${LH_BASE_URL}/${METHOD_LH_DETAIL}?serviceKey=${SERVICE_KEY}&SPL_INF_TP_CD=${item.SPL_INF_TP_CD}&CCR_CNNT_SYS_DS_CD=${item.CCR_CNNT_SYS_DS_CD}&PAN_ID=${item.PAN_ID}`,
+  //     )
+  //     .then((res) => res.data);
+  //   return list;
+  // });
 
-  // TODO: api콜을 10번 한 다음 5초 있다 다시 하기 - or lhDefaultList 추가로 나눠서 가져오기
-  // ex. 전체 / 공고중 / 접수중 or 더 적게 가져와보기
-  const lhDetailst = lhDefaultList.map((item: any) => {
-    const list = axios
-      .get(
-        `${LH_BASE_URL}/${METHOD_LH_DETAIL}?serviceKey=${SERVICE_KEY}&SPL_INF_TP_CD=${item.SPL_INF_TP_CD}&CCR_CNNT_SYS_DS_CD=${item.CCR_CNNT_SYS_DS_CD}&PAN_ID=${item.PAN_ID}`,
-      )
-      .then((res) => res.data);
-    return list;
-  });
-
-  console.log('getLHDetail:', lhDetailst);
-
-  // const lhDetailList = await axios.get(lhDetailURL).then((res) => res.data);
-  // console.log('Detail:', lhDetailList);
+  // console.log('getLHDetail:', lhDetailst);
 
   // LH 통합 데이터
   // const lhCombineList = await Promise.all(
@@ -64,6 +84,10 @@ const MustHaveToDo = ({
   aptList.map((item: any) => allHomeList.push(item));
   aptRandomList.map((item: any) => allHomeList.push(item));
   officeList.map((item: any) => allHomeList.push(item));
+
+  const deleteDataHandler = async () => {
+    await deleteDoc(doc(db, 'HomeList', '2u9sNbdQACaqz16rC4RG'));
+  };
 
   // FIXME: 주소의 앞부분을 slice하면 경상남도..가 걸림. 기본 데이터는 경남.
   // TODO: replace?
@@ -89,6 +113,9 @@ const MustHaveToDo = ({
   const apiCallHandler = async () => {
     allHomeList.map((item: any) => {
       newList.push({
+        date: new Date(),
+        // TODO: 좌표 추가하기
+        coordinates: 'x:, y:',
         MIN_SUPLY_AR:
           item?.detail.length === 0
             ? ''
@@ -293,14 +320,32 @@ export const getStaticProps: GetStaticProps = async () => {
     )
     .then((res) => res.data.data);
 
-  // LH - 2023년 이후 공고문 전체 리스트 - 없애고 공고중 + 모집중 리스트 만들기
-  const lhDefaultList = await axios
+  // LH - 2023년 이후 공고중 리스트
+  const lhNoticeList = await axios
     .get(
-      `${LH_BASE_URL}/${METHOD_LH_DEFAULT}?serviceKey=${SERVICE_KEY}&PG_SZ=1000&PAGE=1&PAN_ST_DT=20230101`,
+      `${LH_BASE_URL}/${METHOD_LH_DEFAULT}?serviceKey=${SERVICE_KEY}&PG_SZ=1000&PAGE=1&PAN_ST_DT=20230101&PAN_SS="공고중"
+      `,
     )
     .then((res) => res.data[1].dsList);
 
-  // LH -
+  // LH - 2023년 이후 접수중 리스트
+  const lhRegisterList = await axios
+    .get(
+      `${LH_BASE_URL}/${METHOD_LH_DEFAULT}?serviceKey=${SERVICE_KEY}&PG_SZ=1000&PAGE=1&PAN_ST_DT=20230101&PAN_SS="접수중"
+  `,
+    )
+    .then((res) => res.data[1].dsList);
+
+  // LH - 공고중 + 접수중
+  // const lhDefaultList
+
+  // LH - 2023년 이후 + 공고중 + 서울 -> TODO: 변경하기 => 분양주택, 임대주택, 신혼희망타운
+  const lhNoticeSeoulList = await axios
+    .get(
+      `${LH_BASE_URL}/${METHOD_LH_DEFAULT}?serviceKey=${SERVICE_KEY}&PG_SZ=1000&PAGE=1&PAN_ST_DT=20230101&PAN_SS="공고중"&CNP_CD=11
+    `,
+    )
+    .then((res) => res.data[1].dsList);
 
   // 공고문 상세정보 전체 리스트 가져오기
   // 청약홈
@@ -373,7 +418,8 @@ export const getStaticProps: GetStaticProps = async () => {
       aptList: aptCombineList,
       aptRandomList: aptRandomCombineList,
       officeList: officeCombineList,
-      lhDefaultList: lhDefaultList,
+      // lhDefaultList: lhDefaultList,
+      lhRegisterList: lhRegisterList,
     },
     // ISR - 12시간 마다 데이터 업데이트
     revalidate: 43200,

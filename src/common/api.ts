@@ -48,7 +48,7 @@ export const editComment = async ({
 };
 
 
-// API로 받아온 data - DB에 넣기
+// API로 받아온 data - DB에 추가
 export const addHomeList = async (allHomeList: any) => {
-  await addDoc(collection(db, 'HomeList'), allHomeList)
+  await setDoc(doc(db, 'HomeList', 'homeData'), allHomeList)
 }
