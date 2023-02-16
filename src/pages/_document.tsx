@@ -5,6 +5,7 @@ import Document, {
   NextScript,
   DocumentContext,
 } from 'next/document';
+import Script from 'next/script';
 import { ServerStyleSheet } from 'styled-components';
 
 class MyDocument extends Document {
@@ -37,11 +38,14 @@ class MyDocument extends Document {
   render() {
     return (
       <Html>
-        <Head> 
-        </Head>
+        <Head></Head>
         <body>
           <Main />
           <NextScript />
+          <Script
+            strategy="beforeInteractive"
+            src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_MAP_KEY}&libraries=services,clusterer&autoload=false`}
+          />
         </body>
       </Html>
     );

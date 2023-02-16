@@ -9,10 +9,7 @@ const MapSection = ({ homeList }: any) => {
   useEffect(() => {
     // setTimeout(() => {
     locationMaker(homeList);
-    console.log('셋타임:', arr);
     // }, 100);
-    console.log('유즈이펙트:', arr);
-    console.log('marker:', markers);
   }, []);
 
   const locationMaker = async (homeList: any) => {
@@ -23,10 +20,12 @@ const MapSection = ({ homeList }: any) => {
       }
     };
     for (let i = 0; i < homeList.length; i++) {
-      await geocoder.addressSearch(homeList[i].HSSPLY_ADRES, callback);
+      geocoder.addressSearch(homeList[i].HSSPLY_ADRES, callback);
+      setMarkers(arr);
     }
-    console.log('함수안:', arr);
   };
+
+  console.log('markers:', markers);
 
   const test = [
     { lat: '37.2769009099865', lng: '127.021909087615' },
@@ -39,15 +38,13 @@ const MapSection = ({ homeList }: any) => {
     { lat: '37.4274340999713', lng: '126.654086157635' },
   ];
 
-  console.log('밖:', arr);
-
   return (
     <Map
       center={{ lat: 36.5171433799167, lng: 128.05261753988 }}
       style={{ width: '100%', height: '360px' }}
       level={13}
     >
-      {test?.map((list: any, i: number) => {
+      {markers?.map((list: any, i: number) => {
         return (
           <div key={i}>
             <MapMarker

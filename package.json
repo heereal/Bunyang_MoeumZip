@@ -30,6 +30,7 @@
     "react-confirm-alert": "^3.0.6",
     "react-dom": "18.2.0",
     "react-icons": "^4.7.1",
+    "react-kakao-maps-sdk": "^1.1.6",
     "react-modal": "^3.16.1",
     "react-query": "^3.39.3",
     "react-tabs": "^6.0.0",

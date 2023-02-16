@@ -1,4 +1,5 @@
 import HeadTitle from '@/components/GlobalComponents/HeadTitle/HeadTitle';
+import MapSection from '@/components/GlobalComponents/MapSection/MapSection';
 import TopBtn from '@/components/GlobalComponents/TopBtn/TopBtn';
 import CountTabs from '@/components/MainPage/CountTabs/CountTabs';
 import axios from 'axios';
@@ -22,6 +23,7 @@ const MainPage = ({ homeList }: any) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <S.MainSection>
+        <MapSection homeList={homeList} />
         {/* CountTabs(+HomeList 컴포넌트) */}
         <CountTabs homeList={homeList} />
 
