@@ -21,12 +21,9 @@ const MustHaveToDo = ({
   lhCombineList,
 }: any) => {
   const queryClient = useQueryClient();
-  const [aptData, setAptData] = useState<any>();
+  const [allHomeData, setAllHomeData] = useState<any>();
   const newList: any = [];
-  const [testList, setTestList] = useState<any>();
-  const [whatever, setWhatever] = useState<any>();
-
-  console.log(lhDetailst);
+  const [dbHomeList, setDbHomeList] = useState<any>();
 
   // firebase data 가져오기 TEST
   const getHomeList = async () => {
@@ -35,106 +32,19 @@ const MustHaveToDo = ({
     querySnapshot.forEach((doc) => {
       abc.push(doc.data());
     });
-    setTestList(abc);
+    setDbHomeList(abc);
   };
 
   useEffect(() => {
     getHomeList();
   }, []);
-  // console.log('testList :>> ', testList);
-
-  // LH
-  // 기본 정보 map을 돌려서 얻은 3개의 인자를 url에 넣기
-
-  const LH_BASE_URL = 'https://apis.data.go.kr/B552555';
-  const METHOD_LH_DETAIL = 'lhLeaseNoticeDtlInfo1/getLeaseNoticeDtlInfo1';
-
-  const SERVICE_KEY = process.env.NEXT_PUBLIC_HOME_API_KEY;
-
-  // const lalala = async () => {
-  //   const lhDetailst = await Promise.all(
-  //     lhNoticeAList.map((item: any) => {
-  //       const list = axios
-  //         .get(
-  //           `${LH_BASE_URL}/${METHOD_LH_DETAIL}?serviceKey=${SERVICE_KEY}&SPL_INF_TP_CD=${item.SPL_INF_TP_CD}&CCR_CNNT_SYS_DS_CD=${item.CCR_CNNT_SYS_DS_CD}&PAN_ID=${item.PAN_ID}`,
-  //         )
-  //         .then((res) => res.data);
-  //       return list;
-  //     }),
-  //   );
-  //   return lhDetailst;
-  // };
-  // console.log(lalala());
-
-  // promise에서 값을 가져오고 싶어..................
-  // // const treuer: any = async () => {
-  // const lhDetailst = lhNoticeAList.map((item: any) => {
-  //   const list = axios
-  //     .get(
-  //       `${LH_BASE_URL}/${METHOD_LH_DETAIL}?serviceKey=${SERVICE_KEY}&SPL_INF_TP_CD=${item.SPL_INF_TP_CD}&CCR_CNNT_SYS_DS_CD=${item.CCR_CNNT_SYS_DS_CD}&PAN_ID=${item.PAN_ID}`,
-  //     )
-  //     .then((res) => res.data);
-  //   return list;
-  // });
-  // // setWhatever(lhDetailst);
-  // };
-
-  // useEffect(() => treuer(), []);
-
-  // console.log(lhDetailst);
-
-  // LH 통합 데이터
-  // const lhCombineList2 = await Promise.all(
-  //   lhDefaultList.map(async (item: any) => {
-  //     return {
-  //       ...item,
-  //       detail: lhNoticeAList.filter((i: any) => i?.dsSch?.PAN_ID),
-  //     };
-  //   }),
-  // );
-
-  console.log(lhNoticeAList);
-
-  // const wowow1 = async () => {
-  //   return await axios
-  //     .get(
-  //       `${LH_BASE_URL}/${METHOD_LH_DETAIL}?serviceKey=${SERVICE_KEY}&SPL_INF_TP_CD=060&CCR_CNNT_SYS_DS_CD=02&PAN_ID="0000060291"`,
-  //     )
-  //     .then((res) => res.data);
-  // };
-
-  // const { data: real } = useQuery('whateve', wowow1);
-
-  // console.log('rel:', real);
-
-  // const wowow2 = async () => {
-  //   return await axios
-  //     .get(
-  //       `${LH_BASE_URL}/${METHOD_LH_DETAIL}?serviceKey=${SERVICE_KEY}&SPL_INF_TP_CD=062&CCR_CNNT_SYS_DS_CD=03&PAN_ID=2015122300013125`,
-  //     )
-  //     .then((res) => res.data);
-  // };
-
-  // const { data: real2 } = useQuery('whateve22', wowow2);
-
-  // console.log('rel2:', real2);
-
-  // const arrrrr: any = [];
-  // // real.map((item: any) => arrrrr.push(item));
-  // // real2.map((item: any) => arrrrr.push(item));
-  // arrrrr.push(real);
-  // arrrrr.push(real2);
-  // console.log(arrrrr);
+  // console.log('dbHomeList :>> ', dbHomeList);
 
   // 청약홈 전체 API 통합 리스트
   const allHomeList: any = [];
   aptList.map((item: any) => allHomeList.push(item));
   aptRandomList.map((item: any) => allHomeList.push(item));
   officeList.map((item: any) => allHomeList.push(item));
-
-  const deleteDataHandler = async () => {
-    await deleteDoc(doc(db, 'HomeList', '2u9sNbdQACaqz16rC4RG'));
-  };
 
   // FIXME: 주소의 앞부분을 slice하면 경상남도..가 걸림. 기본 데이터는 경남.
   // TODO: replace?
@@ -150,12 +60,12 @@ const MustHaveToDo = ({
   //   allHomeList.map((item: any) => (item.detail[0]?.TP ? item.detail.TP : '')),
   // );
 
+  // FIXME: 버튼을 처음 누를 때 undefined
   // useEffect(() => {
-  //   console.log('useEffect 안:', aptData);
-  //   setAptData(newList);
+  //   console.log('useEffect 안:', allHomeData);
+  //   setAllHomeData(newList);
   // }, []);
 
-  // FIXME: 버튼을 처음 누를 때 undefined
   // 버튼 클릭 시 전체 API data가 firebase에 들어감
   const apiCallHandler = async () => {
     allHomeList.map((item: any) => {
@@ -280,10 +190,10 @@ const MustHaveToDo = ({
         // SUBSCRPT_REQST_AMOUNT:item.detail.SUBSCRPT_REQST_AMOUNT,
         TP: item.detail.TP ? item.detail.TP : '',
       });
-      setAptData(newList);
+      setAllHomeData(newList);
     });
-    addHomeListMutate.mutate({ aptData });
-    console.log('버튼 누른 후:', aptData);
+    addHomeListMutate.mutate({ allHomeData });
+    console.log('버튼 누른 후:', allHomeData);
     console.log('데이터 업로드 완료!');
   };
 
@@ -473,6 +383,15 @@ export const getStaticProps: GetStaticProps = async () => {
   });
 
   // LH Default + Detail 통합 List
+  // const lhCombineList2 = await Promise.all(
+  //   lhDefaultList.map(async (item: any) => {
+  //     return {
+  //       ...item,
+  //       detail: lhNoticeAList.filter((i: any) => i?.dsSch?.PAN_ID),
+  //     };
+  //   }),
+  // );
+
   return {
     props: {
       aptList: aptCombineList,
@@ -487,3 +406,20 @@ export const getStaticProps: GetStaticProps = async () => {
     revalidate: 43200,
   };
 };
+
+// promise에서 값을 가져오고 싶어..................
+// // const treuer: any = async () => {
+// const lhDetailst = lhNoticeAList.map((item: any) => {
+//   const list = axios
+//     .get(
+//       `${LH_BASE_URL}/${METHOD_LH_DETAIL}?serviceKey=${SERVICE_KEY}&SPL_INF_TP_CD=${item.SPL_INF_TP_CD}&CCR_CNNT_SYS_DS_CD=${item.CCR_CNNT_SYS_DS_CD}&PAN_ID=${item.PAN_ID}`,
+//     )
+//     .then((res) => res.data);
+//   return list;
+// });
+// // setWhatever(lhDetailst);
+// };
+
+// useEffect(() => treuer(), []);
+
+// console.log(lhDetailst);
