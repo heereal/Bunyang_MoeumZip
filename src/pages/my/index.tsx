@@ -1,5 +1,5 @@
 import { useSession } from 'next-auth/react';
-import { db } from '@/common/firebase';
+import { db, storage } from '@/common/firebase';
 import {
   collection,
   doc,
@@ -11,6 +11,9 @@ import {
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { uuidv4 } from '@firebase/util';
+import transparentProfile from "../../../public/transparentProfile.png"
 
 const MyPage = () => {
   const router = useRouter();
@@ -18,6 +21,9 @@ const MyPage = () => {
   const [isInputOpen, setIsInputOpen] = useState(false);
   const [nickname, setNickname] = useState<any>('');
   const [email, setEmail] = useState<any>('');
+
+  // 파일 업로드 시 업로드한 파일을 담아둘 state
+  const [imageUpload, setImageUpload] = useState(null);
 
   // 유저의 세션 정보 받아오기
   const { data: session, status } = useSession();
@@ -56,6 +62,28 @@ const MyPage = () => {
     alert('닉네임 수정 완료!');
   };
 
+  // [프사 수정 완료] 버튼 클릭 시 작동
+  const uploadImage = async () => {
+    // 이미지를 업로드하지 않았다면 작동하지 않음
+    if (imageUpload === null) return;
+
+    const imageTitle = uuidv4();
+
+    const imageRef = ref(storage, `profileImages/${imageTitle}`);
+    // Storage에 이미지 업로드
+    await uploadBytes(imageRef, imageUpload)
+    // 업로드한 이미지의 url 가져오기
+    const downloadUrl = await getDownloadURL(imageRef);
+    
+    // 업로드한 이미지 url로 Firestore 정보 업데이트
+    const updateUser = {
+      userImage: downloadUrl,
+    };
+    await updateDoc(doc(db, 'Users', email), updateUser);
+
+    alert("프로필 이미지 업로드가 완료되었습니다.")
+  };
+
   // 비로그인 유저일 경우 접근 제한
   useEffect(() => {
     if (status === 'unauthenticated') router.push('/');
@@ -81,7 +109,8 @@ const MyPage = () => {
       ) : null}
       <h4>프로필 사진</h4>
       <Image
-        src={usersList[0]?.userImage}
+        // 프로필 정보 불러오기 전에는 투명한 이미지를 보여줌(엑박 뜨지 않도록)
+        src={usersList.length === 0 ? transparentProfile : usersList[0]?.userImage}
         alt="profile"
         width={100}
         height={100}
@@ -89,7 +118,10 @@ const MyPage = () => {
         style={{ borderRadius: 60 }}
         priority={true}
       />
-      <button>프로필 사진 변경</button>
+      <input type="file" onChange={(event: any) => {
+          setImageUpload(event.target.files[0]);
+        }}/>
+      <button onClick={uploadImage}>프사 수정 완료</button>
     </>
   );
 };
