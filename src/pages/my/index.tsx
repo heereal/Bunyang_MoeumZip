@@ -1,4 +1,4 @@
-import { useSession } from "next-auth/react";
+import { useSession } from 'next-auth/react';
 import { db } from '@/common/firebase';
 import {
   collection,
@@ -8,11 +8,11 @@ import {
   updateDoc,
   where,
 } from 'firebase/firestore';
-import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import Image from 'next/image';
 
 const MyPage = () => {
-
   const router = useRouter();
   const [usersList, setUsersList] = useState<any[]>([]);
   const [isInputOpen, setIsInputOpen] = useState(false);
@@ -37,34 +37,34 @@ const MyPage = () => {
         ...doc.data(),
       }),
     );
-    setUsersList(array)
-    setNickname(usersList[0]?.userName)
-    setEmail(usersList[0]?.userEmail)
+    setUsersList(array);
+    setNickname(usersList[0]?.userName);
+    setEmail(usersList[0]?.userEmail);
   };
 
   // [닉네임 수정 완료] 버튼 클릭 시 작동
   const changeNicknameHandler = async () => {
     const checkNickname = usersList.find((user) => user.userName === nickname);
     if (checkNickname) {
-      alert('이미 존재하는 닉네임입니다. 다시 입력해주세요.')
+      alert('이미 존재하는 닉네임입니다. 다시 입력해주세요.');
       return;
     }
     const updateUser = {
       userName: nickname,
-    }
+    };
     await updateDoc(doc(db, 'Users', email), updateUser);
-    alert('닉네임 수정 완료!')
+    alert('닉네임 수정 완료!');
   };
 
   // 비로그인 유저일 경우 접근 제한
   useEffect(() => {
-    if (status === "unauthenticated") router.push('/')
-  }, [status])
-  
+    if (status === 'unauthenticated') router.push('/');
+  }, [status]);
+
   // session(유저 정보)가 들어오면 getUsersList 함수 실행
   useEffect(() => {
     if (session) getUsersList();
-  }, [session])
+  }, [session]);
 
   return (
     <>
@@ -72,13 +72,26 @@ const MyPage = () => {
       <button onClick={() => setIsInputOpen(!isInputOpen)}>닉네임 수정</button>
       {isInputOpen ? (
         <>
-          <input value={nickname} onChange={(e) => setNickname(e.target.value)}/>
+          <input
+            value={nickname}
+            onChange={(e) => setNickname(e.target.value)}
+          />
           <button onClick={changeNicknameHandler}>닉네임 수정 완료</button>
         </>
-      
       ) : null}
+      <h4>프로필 사진</h4>
+      <Image
+        src={usersList[0]?.userImage}
+        alt="profile"
+        width={100}
+        height={100}
+        quality={75}
+        style={{ borderRadius: 60 }}
+        priority={true}
+      />
+      <button>프로필 사진 변경</button>
     </>
-  )
+  );
 };
 
 export default MyPage;
