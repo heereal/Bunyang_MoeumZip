@@ -21,7 +21,7 @@ const CountTabs = ({ homeList }: any) => {
   const getAddMonth = () => {
     const date = new Date();
     date.setMonth(date.getMonth() + 1);
-
+    // FIXME: 다른 방법은 없는지?
     return date
       .toLocaleString()
       .slice(0, 11)
@@ -31,6 +31,7 @@ const CountTabs = ({ homeList }: any) => {
   };
   const todayAddMonth = getAddMonth();
 
+  // TODO: 카테고리 클릭 시 변경되는 리스트로 다시 만들기
   // 청약 가능 리스트
   const todayList = homeList?.filter(
     (item: any) => item.RCEPT_BGNDE <= today && item.RCEPT_ENDDE >= today,
@@ -45,6 +46,7 @@ const CountTabs = ({ homeList }: any) => {
 
   // Count Tabs
   const tabList = [
+    // TODO: 카테고리 선택 시마다 변경되는 List로 바꾸기
     { name: '청약 가능', content: todayList, count: todayList?.length },
     { name: '청약 예정', content: comingList, count: comingList?.length },
     { name: '무순위', content: randomList, count: randomList?.length },
