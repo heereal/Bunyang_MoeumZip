@@ -128,6 +128,9 @@ const SignUp = () => {
         <S.CatrgoryBtn bg={'transparent'} onClick={() => setMyRegionArray([])}>
           전체 초기화
         </S.CatrgoryBtn>
+        <S.CatrgoryBtn bg={'transparent'} onClick={() => setMyRegionArray(regionArray)}>
+          전체 선택
+        </S.CatrgoryBtn>
       </S.CategoryContainer>
 
       {/* 관심 분양 형태 카테고리 선택 */}
@@ -156,6 +159,9 @@ const SignUp = () => {
         )}
         <S.CatrgoryBtn bg={'transparent'} onClick={() => setMyTypeArray([])}>
           전체 초기화
+        </S.CatrgoryBtn>
+        <S.CatrgoryBtn bg={'transparent'} onClick={() => setMyTypeArray(typesArray)}>
+          전체 선택
         </S.CatrgoryBtn>
       </S.CategoryContainer>
     </div>
