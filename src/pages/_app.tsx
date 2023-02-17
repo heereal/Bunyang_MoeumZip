@@ -9,9 +9,15 @@ import MapSection from '@/components/GlobalComponents/MapSection/MapSection';
 import { useRouter } from 'next/router';
 
 const App = ({ Component, pageProps }: AppProps) => {
-  // 서로 다른 사용자와 요청 사이에 데이터가 공유되지 않음
-  const [queryClient] = useState(() => new QueryClient());
   const router = useRouter();
+  // 화면에 포커스 갈 때마다 refetch되지 않도록 설정
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        refetchOnWindowFocus: false,
+      },
+    },
+  });
 
   return (
     <SessionProvider session={pageProps.session} refetchOnWindowFocus={false}>

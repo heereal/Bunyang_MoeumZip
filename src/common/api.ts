@@ -1,5 +1,13 @@
 import axios from 'axios';
-import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
+import {
+  doc,
+  getDoc,
+  setDoc,
+  updateDoc,
+  collection,
+  query,
+  getDocs,
+} from 'firebase/firestore';
 import { db } from './firebase';
 
 const BASE_URL = 'https://api.odcloud.kr/api/ApplyhomeInfoDetailSvc/v1';
@@ -49,4 +57,20 @@ export const editComment = async ({
 
 export const getDummyData = async () => {
   return axios.get('/dummy.json').then((res) => res.data);
+  // firestore에서 'Users' 데이터 볼러 옴
+};
+
+export const getUsersList = async () => {
+  const array: any[] = [];
+
+  const q = query(collection(db, 'Users'));
+
+  const querySnapshot = await getDocs(q);
+  querySnapshot.forEach((doc) =>
+    array.push({
+      ...doc.data(),
+    }),
+  );
+
+  return array;
 };
