@@ -34,7 +34,7 @@ const Header = () => {
         <Search />
         <S.NavBar>
           <S.NavContent onClick={() => router.push('/')}>청약정보</S.NavContent>
-          <S.NavContent onClick={() => router.push('/')}>
+          <S.NavContent onClick={() => router.push('/calender')}>
             청약캘린더
           </S.NavContent>
 
