@@ -15,7 +15,6 @@ const CategoryBar = () => {
   // const [myRegionArray, setMyRegionArray] = useState<any[]>([]);
   // const [myTypeArray, setMyTypeArray] = useState<any[]>([]);
 
-  // TODO: 필터 적용 한 것 로컬스토리지에 저장 - CountTabs 컴포넌트에서 불러오기
   const [selectedUsersCategory, setSelectedUsersCategory] = useState<any[]>([]);
   console.log(selectedUsersCategory);
 
