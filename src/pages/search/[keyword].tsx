@@ -30,6 +30,7 @@ const SearchResult = ({ defaultList }: any) => {
 
 export default SearchResult;
 
+// TODO: firebase 통합리스트 가져오기
 // 기본 정보만 불러옴 - TODO: 오피스텔, 무순위, LH 추가하기
 export const getServerSideProps: GetServerSideProps = async () => {
   const BASE_URL = 'https://api.odcloud.kr/api/ApplyhomeInfoDetailSvc/v1';

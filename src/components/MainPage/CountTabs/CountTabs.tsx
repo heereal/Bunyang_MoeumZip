@@ -41,14 +41,13 @@ const CountTabs = ({ homeList }: any) => {
       item.RCEPT_BGNDE > today && item.RCEPT_BGNDE <= todayAddMonth,
   );
   // TODO: 무순위 리스트 - 이름 변경? -선착순..?
-  // const randomList? =
+  const randomList = homeList.filter((item: any) => item.HOUSE_SECD === '04');
 
   // Count Tabs
   const tabList = [
     { name: '청약 가능', content: todayList, count: todayList?.length },
     { name: '청약 예정', content: comingList, count: comingList?.length },
-    // TODO: 무순위 api 추가되면 content 변경하기 - 현재는 전체리스트
-    { name: '무순위', content: homeList, count: homeList?.length },
+    { name: '무순위', content: randomList, count: randomList?.length },
   ];
 
   // 함수가 실행되면 선택된 tab 내용으로 변경

@@ -29,7 +29,7 @@ const MainPage = ({ HomeListDB }: any) => {
 
 export default MainPage;
 
-// API 통합 데이터 불러오기
+// Firebase에서 API 통합 데이터 불러오기
 export const getStaticProps: GetStaticProps = async () => {
   const docRef = doc(db, 'HomeList', 'homeData');
   const docSnap = await getDoc(docRef);

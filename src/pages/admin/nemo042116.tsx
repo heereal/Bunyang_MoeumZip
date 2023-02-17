@@ -143,7 +143,7 @@ const MustHaveToDo = ({ aptList, aptRandomList, officeList }: any) => {
         GNRL_RCEPT_BGNDE: item.GNRL_RCEPT_BGNDE ? item.GNRL_RCEPT_BGNDE : '',
         GNRL_RCEPT_ENDDE: item.GNRL_RCEPT_ENDDE ? item.GNRL_RCEPT_ENDDE : '',
         SUBSCRPT_REQST_AMOUNT: item.detail[0]?.SUBSCRPT_REQST_AMOUNT
-          ? item.detail[0]?.SUBSCRPT_REQST_AMOUNT
+          ? item.detail[0]?.SUBSCRPT_REQST_AMOUNT + '만원'
           : '',
       });
       setAllHomeData(newList);
