@@ -59,34 +59,36 @@ const MapSection = () => {
           markers: markers,
           gridSize: 35,
           averageCenter: true,
-          minLevel: 6,
+          minLevel: 10,
           disableClickZoom: true,
           styles: [
             {
-              width: '53px',
-              height: '52px',
-              // background: 'url(cluster.png) no-repeat',
-              color: 'black',
+              width: '50px',
+              height: '50px',
+              background: 'black',
+              borderRadius: '30px',
+              color: 'white',
               textAlign: 'center',
               lineHeight: '54px',
+              opacity: 0.7,
             },
           ],
         });
 
         clusterer.addMarkers(markers);
 
-        for (let i = 0; i < coordnates?.length; i++) {
-          const markerPosition = new kakao.maps.LatLng(
-            coordnates[i]?.COORDINATES[0].Y,
-            coordnates[i]?.COORDINATES[0].X,
-          );
-          const marker = new kakao.maps.Marker({
-            map: map,
-            position: markerPosition,
-            clickable: true,
-          });
-          marker.setMap(map);
-        }
+        // for (let i = 0; i < coordnates?.length; i++) {
+        //   const markerPosition = new kakao.maps.LatLng(
+        //     coordnates[i]?.COORDINATES[0].Y,
+        //     coordnates[i]?.COORDINATES[0].X,
+        //   );
+        //   const marker = new kakao.maps.Marker({
+        //     map: map,
+        //     position: markerPosition,
+        //     clickable: true,
+        //   });
+        //   marker.setMap(map);
+        // }
       }
     });
   }, [mapLoaded, coordnates, router]);
