@@ -1,9 +1,6 @@
 import styled from 'styled-components';
 
-export const Section = styled.section`
-  border: 1px solid blue;
-  width: 100%;
-`;
+export const Section = styled.section``;
 
 export const CommentHeader = styled.div`
   font-size: 30px;

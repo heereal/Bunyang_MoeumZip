@@ -4,7 +4,6 @@ import styled from 'styled-components';
 export const CountSection = styled.section`
   width: 600px;
   height: 100px;
-  margin-bottom: 10px;
 `;
 
 export const CountTabList = styled.ul`
@@ -58,9 +57,10 @@ export const CountTabNum = styled.h4`
 
 // 리스트
 export const ListSection = styled.section`
-  width: 600px;
+  width: 80%;
   display: flex;
   flex-direction: column;
   align-items: left;
   justify-content: left;
+  overflow-y: scroll;
 `;

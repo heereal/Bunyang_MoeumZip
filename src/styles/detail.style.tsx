@@ -1,10 +1,11 @@
 import styled from 'styled-components';
 
 export const DetailBody = styled.div`
-  border: 1px solid red;
-  min-width: 600px;
+  width: 60%;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  overflow-y: scroll;
 `;
