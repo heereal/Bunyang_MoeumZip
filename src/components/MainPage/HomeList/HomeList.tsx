@@ -13,7 +13,7 @@ const HomeList = ({ home }: any) => {
           <div>{home.HSSPLY_ADRES}</div>
           <div>
             {home.HOUSE_DTL_SECD_NM} {home.HOUSE_SECD_NM}
-            {home.SUBSCRPT_AREA_CODE_NM} {}
+            {home.SUBSCRPT_AREA_CODE_NM}
           </div>
         </div>
         <div>작은 사진</div>

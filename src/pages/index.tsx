@@ -1,8 +1,10 @@
+import { db } from '@/common/firebase';
 import HeadTitle from '@/components/GlobalComponents/HeadTitle/HeadTitle';
 import MapSection from '@/components/GlobalComponents/MapSection/MapSection';
 import TopBtn from '@/components/GlobalComponents/TopBtn/TopBtn';
 import CountTabs from '@/components/MainPage/CountTabs/CountTabs';
 import axios from 'axios';
+import { doc, getDoc } from 'firebase/firestore';
 
 // 1. 전체리스트 및 상세리스트 불러오기
 // 2. 전체리스트 + 상세리스트 합치기
@@ -13,7 +15,9 @@ import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import * as S from '../styles/main.style';
 
-const MainPage = ({ homeList }: any) => {
+const MainPage = ({ homeList, getHomeList }: any) => {
+  console.log(getHomeList.allHomeData);
+
   return (
     <>
       <Head>
@@ -25,7 +29,6 @@ const MainPage = ({ homeList }: any) => {
       <S.MainSection>
         {/* CountTabs(+HomeList 컴포넌트) */}
         <CountTabs homeList={homeList} />
-        {/* TODO: 지도 추가 */}
       </S.MainSection>
       <TopBtn />
     </>
@@ -40,6 +43,10 @@ export const getStaticProps: GetStaticProps = async () => {
   const METHOD_APT_ALL = 'getAPTLttotPblancDetail';
   const METHOD_APT_DETAIL = 'getAPTLttotPblancMdl';
   const SERVICE_KEY = process.env.NEXT_PUBLIC_HOME_API_KEY;
+
+  const docRef = doc(db, 'HomeList', 'homeData');
+  const docSnap = await getDoc(docRef);
+  const getHomeList = docSnap.data();
 
   // 공고문 리스트 가져오기
   const defaultList = await axios
@@ -69,7 +76,8 @@ export const getStaticProps: GetStaticProps = async () => {
   );
 
   return {
-    props: { homeList: combineHomeList },
+    props: { homeList: combineHomeList, getHomeList: getHomeList },
+
     // ISR - 12시간 마다 데이터 업데이트
     revalidate: 43200,
   };
