@@ -1,3 +1,5 @@
+// TODO: WireFrame대로 수정하기
+
 const SearchResults = ({ searchResult }: any) => {
   return (
     <div>

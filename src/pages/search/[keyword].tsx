@@ -8,8 +8,11 @@ import * as S from '../../styles/search.style';
 
 const SearchResult = ({ HomeListDB }: any) => {
   const router = useRouter();
+
+  // Search 컴포넌트에 있는 검색창에서 router로 받아 온 검색어
   const keyword = router.query.keyword;
 
+  // 검색한 결과 리스트
   const resultsList = HomeListDB.allHomeData.filter(
     (item: any) =>
       // TODO: data 참고해서 필터 다시 분류
@@ -25,6 +28,7 @@ const SearchResult = ({ HomeListDB }: any) => {
         {keyword} 의 검색 결과는 {resultsList.length} 건입니다.
       </div>
       {resultsList.map((item: any) => (
+        // 검색 결과 리스트
         <SearchResults key={item.PBLANC_NO} searchResult={item} />
       ))}
     </S.Section>
@@ -33,8 +37,7 @@ const SearchResult = ({ HomeListDB }: any) => {
 
 export default SearchResult;
 
-// TODO: firebase 통합리스트 가져오기
-// 기본 정보만 불러옴 - TODO: 오피스텔, 무순위, LH 추가하기
+// Firebase에서 API 통합 데이터 불러오기
 export const getServerSideProps: GetServerSideProps = async () => {
   const docRef = doc(db, 'HomeList', 'homeData');
   const docSnap = await getDoc(docRef);
