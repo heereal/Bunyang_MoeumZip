@@ -46,6 +46,28 @@ const MustHaveToDo = ({
   aptRandomList.map((item: any) => allHomeList.push(item));
   officeList.map((item: any) => allHomeList.push(item));
 
+  console.log('all', allHomeList);
+
+  console.log(
+    'SUPLY_AR',
+    allHomeList.map((item: any) =>
+      item?.detail[0]?.SUPLY_AR
+        ? item?.detail[item?.detail?.length - 1]?.SUPLY_AR?.split(
+            '.',
+          )[0]?.replace(/(^0)/, '')
+        : '',
+    ),
+  );
+
+  console.log(
+    'HOUSE_TY',
+    allHomeList.map((item: any) =>
+      item?.detail[0]?.EXCLUSE_AR
+        ? item?.detail[0]?.EXCLUSE_AR
+        : item?.detail[0]?.HOUSE_TY,
+    ),
+  );
+
   // FIXME: 주소의 앞부분을 slice하면 경상남도..가 걸림. 기본 데이터는 경남.
   // TODO: replace?
   // TODO: 무순위나 오피스텔 100몇개 전체 데이터 불러와서 주소 살펴보기
@@ -72,31 +94,25 @@ const MustHaveToDo = ({
       newList.push({
         // TODO: 좌표 추가하기
         coordinates: 'x:, y:',
-        MIN_SUPLY_AR:
-          item?.detail.length === 0
-            ? ''
-            : item?.detail[0]?.SUPLY_AR
-            ? item?.detail[0]?.SUPLY_AR?.split('.')[0].replace(/(^0)/, '')
-            : '',
+        MIN_SUPLY_AR: item?.detail[0]?.SUPLY_AR
+          ? item?.detail[0]?.SUPLY_AR?.split('.')[0].replace(/(^0)/, '')
+          : '',
 
-        MAX_SUPLY_AR:
-          item?.detail.length === 0
-            ? ''
-            : item?.detail[0]?.SUPLY_AR
-            ? item?.detail[item?.detail?.length - 1].SUPLY_AR?.split(
-                '.',
-              )[0]?.replace(/(^0)/, '')
-            : '',
+        MAX_SUPLY_AR: item?.detail[0]?.SUPLY_AR
+          ? item?.detail[item?.detail?.length - 1]?.SUPLY_AR?.split(
+              '.',
+            )[0]?.replace(/(^0)/, '')
+          : '',
 
         MIN_HOUSE_TY:
-          item?.detail.length === 0
+          item.detail.length === 0
             ? ''
             : item?.detail[0]?.EXCLUSE_AR
             ? Math.floor(item?.detail[0]?.EXCLUSE_AR)
             : item?.detail[0]?.HOUSE_TY.split('.')[0].replace(/(^0)/, ''),
 
         MAX_HOUSE_TY:
-          item?.detail.length === 0
+          item.detail.length === 0
             ? ''
             : item?.detail[item?.detail?.length - 1]?.EXCLUSE_AR
             ? Math.floor(item?.detail[0]?.EXCLUSE_AR)
@@ -105,18 +121,18 @@ const MustHaveToDo = ({
               )[0].replace(/(^0)/, ''),
 
         MIN_LTTOT_TOP_AMOUNT:
-          item?.detail.length === 0
+          item.detail.length === 0
             ? ''
             : item?.detail[0]?.LTTOT_TOP_AMOUNT
             ? item?.detail[0]?.LTTOT_TOP_AMOUNT
             : item?.detail[0]?.SUPLY_AMOUNT,
 
         MAX_LTTOT_TOP_AMOUNT:
-          item?.detail.length === 0
+          item.detail.length === 0
             ? ''
-            : item?.detail[item?.detail.length - 1]?.LTTOT_TOP_AMOUNT
-            ? item?.detail[item?.detail.length - 1]?.LTTOT_TOP_AMOUNT
-            : item?.detail[item?.detail.length - 1]?.SUPLY_AMOUNT,
+            : item?.detail[item?.detail?.length - 1]?.LTTOT_TOP_AMOUNT
+            ? item?.detail[item?.detail?.length - 1]?.LTTOT_TOP_AMOUNT
+            : item?.detail[item?.detail?.length - 1]?.SUPLY_AMOUNT,
 
         SPSPLY_HSHLDCO: item.SPSPLY_HSHLDCO ? item.SPSPLY_HSHLDCO : '',
         SUPLY_HSHLDCO: item.SUPLY_HSHLDCO ? item.SUPLY_HSHLDCO : '',
@@ -186,9 +202,9 @@ const MustHaveToDo = ({
         PBLANC_NO: item.PBLANC_NO,
         GNRL_RCEPT_BGNDE: item.GNRL_RCEPT_BGNDE ? item.GNRL_RCEPT_BGNDE : '',
         GNRL_RCEPT_ENDDE: item.GNRL_RCEPT_ENDDE ? item.GNRL_RCEPT_ENDDE : '',
-        // TODO: 아래 두개는 데이터 콘솔 찍어보고 수정
-        // SUBSCRPT_REQST_AMOUNT:item.detail.SUBSCRPT_REQST_AMOUNT,
-        TP: item.detail.TP ? item.detail.TP : '',
+        SUBSCRPT_REQST_AMOUNT: item.detail[0]?.SUBSCRPT_REQST_AMOUNT
+          ? item.detail[0]?.SUBSCRPT_REQST_AMOUNT
+          : '',
       });
       setAllHomeData(newList);
     });
