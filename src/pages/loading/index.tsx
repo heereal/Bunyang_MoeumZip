@@ -41,7 +41,7 @@ const Loading = () => {
     email = session?.user?.email;
 
     // 이미 가입한 유저라면 메인으로 이동,
-    // 최초 로그인한 유저라면 firestior에 유저 정보를 새로 저장함
+    // 최초 로그인한 유저라면 firestore에 유저 정보를 새로 저장함
     if (array.length >= 1) {
       router.push('/');
     } else {
