@@ -46,27 +46,43 @@ const MustHaveToDo = ({
   aptRandomList.map((item: any) => allHomeList.push(item));
   officeList.map((item: any) => allHomeList.push(item));
 
-  console.log('all', allHomeList);
+  // console.log('all', allHomeList);
+
+  // const
 
   console.log(
-    'SUPLY_AR',
-    allHomeList.map((item: any) =>
-      item?.detail[0]?.SUPLY_AR
-        ? item?.detail[item?.detail?.length - 1]?.SUPLY_AR?.split(
-            '.',
-          )[0]?.replace(/(^0)/, '')
-        : '',
+    'ADRES',
+    allHomeList.map(
+      (item: any) =>
+        item.HSSPLY_ADRES.split(',')[0].split('외')[0].replace(/[A-Z]/g, ''),
+      // .slice('동')[0],
     ),
   );
 
   console.log(
-    'HOUSE_TY',
-    allHomeList.map((item: any) =>
-      item?.detail[0]?.EXCLUSE_AR
-        ? item?.detail[0]?.EXCLUSE_AR
-        : item?.detail[0]?.HOUSE_TY,
-    ),
+    'SPLIT2',
+    allHomeList.map((item: any) => item.HSSPLY_ADRES.split(/[$동]/g)[0]),
   );
+
+  const sliceDong = allHomeList.map(
+    (item: any) => item.HSSPLY_ADRES.split(/[$동]/g)[0],
+  );
+
+  // console.log(dbHomeList[0].allHomeData);
+
+  // console.log(
+  //   'DB',
+  //   dbHomeList[0]?.allHomeData?.map((item: any) => item.HSSPLY_ADRES),
+  // );
+
+  // console.log(
+  //   'HOUSE_TY',
+  //   allHomeList.map((item: any) =>
+  //     item?.detail[0]?.EXCLUSE_AR
+  //       ? item?.detail[0]?.EXCLUSE_AR
+  //       : item?.detail[0]?.HOUSE_TY,
+  //   ),
+  // );
 
   // FIXME: 주소의 앞부분을 slice하면 경상남도..가 걸림. 기본 데이터는 경남.
   // TODO: replace?
@@ -93,7 +109,10 @@ const MustHaveToDo = ({
     allHomeList.map((item: any) => {
       newList.push({
         // TODO: 좌표 추가하기
-        coordinates: 'x:, y:',
+        COORDINATES: 'x:, y:',
+        //  좌표 구할 주소
+        MAP_ADRES: '',
+
         MIN_SUPLY_AR: item?.detail[0]?.SUPLY_AR
           ? item?.detail[0]?.SUPLY_AR?.split('.')[0].replace(/(^0)/, '')
           : '',
