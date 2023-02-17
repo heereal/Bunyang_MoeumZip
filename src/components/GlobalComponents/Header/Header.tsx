@@ -12,8 +12,7 @@ const Header = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   // user 로그인 여부에 따라 header Nav 변경
-  const session = useSession();
-  const isLoggedIn = session.data;
+  const { data: session } = useSession();
 
   return (
     <>
@@ -38,7 +37,7 @@ const Header = () => {
             청약캘린더
           </S.NavContent>
 
-          {isLoggedIn ? (
+          {session ? (
             <>
               <S.NavContent
                 onClick={() => {
