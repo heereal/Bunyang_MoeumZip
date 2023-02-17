@@ -8,10 +8,13 @@ const MapSection = () => {
   const [mapLoaded, setMapLoaded] = useState<boolean>(false);
   const router: any = useRouter();
 
-  console.log(router.pathname);
-
   const { data } = useQuery('dummy', getDummyData);
   const [coordnates, setCoordnate] = useState<any>([]);
+  const [center, setCenter] = useState({
+    y: 36.3171433799167,
+    x: 127.65261753988,
+  });
+  const [zoomLevel, setZoomLevel] = useState(12);
 
   // 최초 로드
   useEffect(() => {
@@ -29,8 +32,8 @@ const MapSection = () => {
       console.log('로드 완료!');
       let container = document.getElementById('map');
       let options = {
-        center: new kakao.maps.LatLng(36.3171433799167, 127.05261753988),
-        level: 13,
+        center: new kakao.maps.LatLng(center.y, center.x),
+        level: zoomLevel,
       };
       // router.asPath.length < 3 ? 13 : 5,
       if (container !== null) {
@@ -59,6 +62,11 @@ const MapSection = () => {
                 ? router.push(marker.getTitle())
                 : router.push(marker.getTitle().split('/')[1]);
             }, 100);
+            setCenter({
+              y: result.COORDINATES[0].Y,
+              x: result.COORDINATES[0].X,
+            });
+            setZoomLevel(6);
           });
         });
 
