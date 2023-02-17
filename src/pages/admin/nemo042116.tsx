@@ -48,7 +48,10 @@ const MustHaveToDo = ({
 
   // console.log('all', allHomeList);
 
-  // const
+  console.log(
+    'allADRES',
+    allHomeList.map((item: any) => item.HSSPLY_ADRES),
+  );
 
   console.log(
     'ADRES',
@@ -59,16 +62,21 @@ const MustHaveToDo = ({
     ),
   );
 
-  console.log(
-    'SPLIT2',
-    allHomeList.map((item: any) => item.HSSPLY_ADRES.split(/[$동]/g)[0]),
-  );
+  // console.log(
+  //   'SPLIT2',
+  //   allHomeList.map((item: any) => item.HSSPLY_ADRES.split(/[$동]/g)[0]),
+  // );
 
-  const sliceDong = allHomeList.map(
-    (item: any) => item.HSSPLY_ADRES.split(/[$동]/g)[0],
-  );
+  // const sliceDong = allHomeList.map(
+  //   (item: any) => item.HSSPLY_ADRES.split(/[$동]/g)[0],
+  // );
 
-  // console.log(dbHomeList[0].allHomeData);
+  // const sliceDNum = allHomeList.map(
+  //   (item: any) => item.HSSPLY_ADRES.split(/[$동]/g)[1],
+  // );
+
+  // console.log('sliceDnum', sliceDNum);
+  // // console.log(dbHomeList[0].allHomeData);
 
   // console.log(
   //   'DB',
