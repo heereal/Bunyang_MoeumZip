@@ -1,69 +1,17 @@
 import { addHomeList } from '@/common/api';
-import { db } from '@/common/firebase';
 import HeadTitle from '@/components/GlobalComponents/HeadTitle/HeadTitle';
 import axios from 'axios';
-import {
-  collection,
-  deleteDoc,
-  doc,
-  getDocs,
-  getDoc,
-} from 'firebase/firestore';
 import { GetStaticProps } from 'next';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
-import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { useState } from 'react';
+import { useMutation, useQueryClient } from 'react-query';
 import styled from 'styled-components';
 import theButton from '../../assets/apiCallButton.jpg';
 
-const MustHaveToDo = ({
-  aptList,
-  aptRandomList,
-  officeList,
-  lhNoticeAList,
-  lhDetailst,
-  lhRegisterList,
-  lhDefaultList,
-  lhCombineList,
-}: any) => {
+const MustHaveToDo = ({ aptList, aptRandomList, officeList }: any) => {
   const queryClient = useQueryClient();
   const [allHomeData, setAllHomeData] = useState<any>();
   const newList: any = [];
-  const [dbHomeList, setDbHomeList] = useState<any>();
-
-  // firebase data 가져오기 TEST
-  // const getHomeList = async () => {
-  //   // const abc: any = [];
-  //   const querySnapshot = await getDocs(
-  //     collection(db, 'HomeList'),
-  //   );
-  //   querySnapshot.forEach((doc) => {
-  //     return doc.data();
-  //     // abc.push(doc.data());
-  //   });
-  //   // setDbHomeList(abc);
-  // };
-  // console.log(getHomeList());
-  // // console.log('dbHomeList :>> ', dbHomeList[0]?.allHomeData);
-
-  const getHomeList = async () => {
-    const docRef = doc(db, 'HomeList', 'homeData');
-    const docSnap = await getDoc(docRef);
-    return docSnap.data();
-  };
-
-  const { data: homeList } = useQuery('ddd', getHomeList);
-  console.log(homeList);
-
-  // useEffect(() => {
-  //   getHomeList();
-  //   setDbHomeList(getHomeList());
-  // }, []);
-
-  // console.log(dbHomeList);
-
-  // const { data: homeD } = useQuery('homeDD', getHomeList);
-  // console.log(homeD);
 
   // 청약홈 전체 API 통합 리스트
   const allHomeList: any = [];
@@ -71,9 +19,7 @@ const MustHaveToDo = ({
   aptRandomList.map((item: any) => allHomeList.push(item));
   officeList.map((item: any) => allHomeList.push(item));
 
-  // console.log('all', allHomeList);
-
-  // FIXME: 버튼을 처음 누를 때 undefined
+  // FIXME: 버튼을 처음 누를 때 undefined - list를 버튼 누르기 전에 실행?
   // useEffect(() => {
   //   console.log('useEffect 안:', allHomeData);
   //   setAllHomeData(newList);
@@ -89,48 +35,49 @@ const MustHaveToDo = ({
         FOR_COORDINATES_ADRES: item.HSSPLY_ADRES.split(',')[0].split('외')[0],
 
         MIN_SUPLY_AR: item?.detail[0]?.SUPLY_AR
-          ? item?.detail[0]?.SUPLY_AR?.split('.')[0].replace(/(^0)/, '')
+          ? item?.detail[0]?.SUPLY_AR?.split('.')[0].replace(/(^0)/, '') + 'm2'
           : '',
 
         MAX_SUPLY_AR: item?.detail[0]?.SUPLY_AR
           ? item?.detail[item?.detail?.length - 1]?.SUPLY_AR?.split(
               '.',
-            )[0]?.replace(/(^0)/, '')
+            )[0]?.replace(/(^0)/, '') + 'm2'
           : '',
 
         MIN_HOUSE_TY:
           item.detail.length === 0
             ? ''
             : item?.detail[0]?.EXCLUSE_AR
-            ? Math.floor(item?.detail[0]?.EXCLUSE_AR)
-            : item?.detail[0]?.HOUSE_TY.split('.')[0].replace(/(^0)/, ''),
+            ? Math.floor(item?.detail[0]?.EXCLUSE_AR) + 'm2'
+            : item?.detail[0]?.HOUSE_TY.split('.')[0].replace(/(^0)/, '') +
+              'm2',
 
         MAX_HOUSE_TY:
           item.detail.length === 0
             ? ''
             : item?.detail[item?.detail?.length - 1]?.EXCLUSE_AR
-            ? Math.floor(item?.detail[0]?.EXCLUSE_AR)
+            ? Math.floor(item?.detail[0]?.EXCLUSE_AR) + 'm2'
             : item?.detail[item?.detail?.length - 1]?.HOUSE_TY.split(
                 '.',
-              )[0].replace(/(^0)/, ''),
+              )[0].replace(/(^0)/, '') + 'm2',
 
         MIN_LTTOT_TOP_AMOUNT:
           item.detail.length === 0
             ? ''
             : item?.detail[0]?.LTTOT_TOP_AMOUNT
-            ? item?.detail[0]?.LTTOT_TOP_AMOUNT
-            : item?.detail[0]?.SUPLY_AMOUNT,
+            ? item?.detail[0]?.LTTOT_TOP_AMOUNT + '만원'
+            : item?.detail[0]?.SUPLY_AMOUNT + '만원',
 
         MAX_LTTOT_TOP_AMOUNT:
           item.detail.length === 0
             ? ''
             : item?.detail[item?.detail?.length - 1]?.LTTOT_TOP_AMOUNT
-            ? item?.detail[item?.detail?.length - 1]?.LTTOT_TOP_AMOUNT
-            : item?.detail[item?.detail?.length - 1]?.SUPLY_AMOUNT,
+            ? item?.detail[item?.detail?.length - 1]?.LTTOT_TOP_AMOUNT + '만원'
+            : item?.detail[item?.detail?.length - 1]?.SUPLY_AMOUNT + '만원',
 
-        SPSPLY_HSHLDCO: item.SPSPLY_HSHLDCO ? item.SPSPLY_HSHLDCO : '',
-        SUPLY_HSHLDCO: item.SUPLY_HSHLDCO ? item.SUPLY_HSHLDCO : '',
-        TOT_SUPLY_HSHLDCO: item.TOT_SUPLY_HSHLDCO,
+        SPSPLY_HSHLDCO: item.SPSPLY_HSHLDCO ? item.SPSPLY_HSHLDCO + '세대' : '',
+        SUPLY_HSHLDCO: item.SUPLY_HSHLDCO ? item.SUPLY_HSHLDCO + '세대' : '',
+        TOT_SUPLY_HSHLDCO: item.TOT_SUPLY_HSHLDCO + '세대',
         HOUSE_NM: item.HOUSE_NM,
         HOUSE_SECD: item.HOUSE_SECD,
         HOUSE_SECD_NM: item.HOUSE_SECD_NM,
@@ -141,6 +88,7 @@ const MustHaveToDo = ({
           ? item.UBSCRPT_AREA_CODE
           : '',
         // FIXME: HSSPLY_ADRES.slice(0, 4)의 경우 - '부산광역, 충청남도, 서울특별'로 들어간다.
+        // TODO: 검색할 때 유의할 것 + LH 추가 시 고려하기
         SUBSCRPT_AREA_CODE_NM: item.SUBSCRPT_AREA_CODE_NM
           ? item.SUBSCRPT_AREA_CODE_NM
           : item.HSSPLY_ADRES.slice(0, 4),
