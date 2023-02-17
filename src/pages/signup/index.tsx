@@ -14,6 +14,7 @@ import * as S from '../../styles/signup.style';
 import { regionArray, typesArray } from '@/common/categoryList';
 
 //TODO: 회원가입 페이지 새로고침 할 때 "작성한 정보가 모두 사라집니다" alert 주기
+// TODO: isSignedUp이라는 속성을 하나 추가할까? 회원가입 완료해야 true가 됨 (닉네임 중복 검사해야되기 때문에)
 const SignUp = () => {
   const router = useRouter();
 
@@ -73,7 +74,7 @@ const SignUp = () => {
     };
 
     await updateDoc(doc(db, 'Users', email), updateUser);
-    alert('회원가입이 완료되었습니다.')
+    alert('회원가입이 완료되었습니다.');
     router.push('/');
   };
 
@@ -127,6 +128,9 @@ const SignUp = () => {
         <S.CatrgoryBtn bg={'transparent'} onClick={() => setMyRegionArray([])}>
           전체 초기화
         </S.CatrgoryBtn>
+        <S.CatrgoryBtn bg={'transparent'} onClick={() => setMyRegionArray(regionArray)}>
+          전체 선택
+        </S.CatrgoryBtn>
       </S.CategoryContainer>
 
       {/* 관심 분양 형태 카테고리 선택 */}
@@ -155,6 +159,9 @@ const SignUp = () => {
         )}
         <S.CatrgoryBtn bg={'transparent'} onClick={() => setMyTypeArray([])}>
           전체 초기화
+        </S.CatrgoryBtn>
+        <S.CatrgoryBtn bg={'transparent'} onClick={() => setMyTypeArray(typesArray)}>
+          전체 선택
         </S.CatrgoryBtn>
       </S.CategoryContainer>
     </div>

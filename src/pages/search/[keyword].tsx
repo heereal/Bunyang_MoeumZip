@@ -17,14 +17,14 @@ const SearchResult = ({ defaultList }: any) => {
   );
 
   return (
-    <>
+    <S.Section>
       <div>
         {keyword} 의 검색 결과는 {resultsList.length} 건입니다.
       </div>
       {resultsList.map((item: any) => (
         <SearchResults key={item.PBLANC_NO} searchResult={item} />
       ))}
-    </>
+    </S.Section>
   );
 };
 

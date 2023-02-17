@@ -1,4 +1,5 @@
 import HeadTitle from '@/components/GlobalComponents/HeadTitle/HeadTitle';
+import MapSection from '@/components/GlobalComponents/MapSection/MapSection';
 import TopBtn from '@/components/GlobalComponents/TopBtn/TopBtn';
 import CountTabs from '@/components/MainPage/CountTabs/CountTabs';
 import axios from 'axios';
@@ -24,7 +25,6 @@ const MainPage = ({ homeList }: any) => {
       <S.MainSection>
         {/* CountTabs(+HomeList 컴포넌트) */}
         <CountTabs homeList={homeList} />
-
         {/* TODO: 지도 추가 */}
       </S.MainSection>
       <TopBtn />
