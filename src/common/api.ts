@@ -7,6 +7,8 @@ import {
   collection,
   query,
   getDocs,
+  where,
+  collectionGroup,
 } from 'firebase/firestore';
 import { db } from './firebase';
 
@@ -14,16 +16,11 @@ const BASE_URL = 'https://api.odcloud.kr/api/ApplyhomeInfoDetailSvc/v1';
 const METHOD = 'getAPTLttotPblancDetail';
 const SERVICE_KEY = process.env.NEXT_PUBLIC_HOME_API_KEY;
 
-export const getPostInfo = async (num: string) => {
-  return await axios.get(
-    `${BASE_URL}/${METHOD}?page=1&perPage=10&cond%5BPBLANC_NO%3A%3AEQ%5D=${num}&serviceKey=${SERVICE_KEY}`,
-  );
-};
-
-export const getDetailPostInfo = async (num: string) => {
-  return await axios.get(
-    `${BASE_URL}/getAPTLttotPblancMdl?page=1&perPage=10&cond%5BPBLANC_NO%3A%3AEQ%5D=${num}&serviceKey=${SERVICE_KEY}`,
-  );
+// allHomeData get 하는 함수
+export const getHomeList = async () => {
+  const docRef = doc(db, 'HomeList', 'homeData');
+  const docSnap = await getDoc(docRef);
+  return docSnap.data();
 };
 
 export const getComments = async (postId: string) => {
@@ -55,11 +52,10 @@ export const editComment = async ({
   );
 };
 
-
 // API로 받아온 data - DB에 추가
 export const addHomeList = async (allHomeList: any) => {
-  await setDoc(doc(db, 'HomeList', 'homeData'), allHomeList)
-}
+  await setDoc(doc(db, 'HomeList', 'homeData'), allHomeList);
+};
 
 // Dummy Data
 export const getDummyData = async () => {

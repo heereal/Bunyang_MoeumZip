@@ -1,25 +1,24 @@
-import { getPostInfo, getDetailPostInfo } from '@/common/api';
-import { useRouter } from 'next/router';
+import { getHomeList } from '@/common/api';
 import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import * as S from './style';
 
 const PostDetail = ({ postId }: any) => {
   const [home, setHome] = useState<any>();
-  const [detail, setDetail] = useState<any>();
 
-  const { data }: any = useQuery('detail', () => {
-    return getPostInfo(postId);
+  const { data, refetch }: any = useQuery('detail', () => {
+    return getHomeList();
   });
 
-  const { data: data2 }: any = useQuery('detail2', () => {
-    return getDetailPostInfo(postId);
-  });
+  const detail = data?.allHomeData.find(
+    (home: any) => home.PBLANC_NO === parseInt(postId),
+  );
 
   useEffect(() => {
-    setHome(data?.data.data[0]);
-    setDetail(data2?.data.data);
-  }, [data, data2]);
+    setHome(detail);
+    refetch();
+  }, [data]);
+  console.log(home);
 
   return (
     <S.Section>
