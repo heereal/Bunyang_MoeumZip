@@ -2,7 +2,13 @@ import { addHomeList } from '@/common/api';
 import { db } from '@/common/firebase';
 import HeadTitle from '@/components/GlobalComponents/HeadTitle/HeadTitle';
 import axios from 'axios';
-import { collection, deleteDoc, doc, getDocs } from 'firebase/firestore';
+import {
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+  getDoc,
+} from 'firebase/firestore';
 import { GetStaticProps } from 'next';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
@@ -26,19 +32,38 @@ const MustHaveToDo = ({
   const [dbHomeList, setDbHomeList] = useState<any>();
 
   // firebase data 가져오기 TEST
+  // const getHomeList = async () => {
+  //   // const abc: any = [];
+  //   const querySnapshot = await getDocs(
+  //     collection(db, 'HomeList'),
+  //   );
+  //   querySnapshot.forEach((doc) => {
+  //     return doc.data();
+  //     // abc.push(doc.data());
+  //   });
+  //   // setDbHomeList(abc);
+  // };
+  // console.log(getHomeList());
+  // // console.log('dbHomeList :>> ', dbHomeList[0]?.allHomeData);
+
   const getHomeList = async () => {
-    const abc: any = [];
-    const querySnapshot = await getDocs(collection(db, 'HomeList'));
-    querySnapshot.forEach((doc) => {
-      abc.push(doc.data());
-    });
-    setDbHomeList(abc);
+    const docRef = doc(db, 'HomeList', 'homeData');
+    const docSnap = await getDoc(docRef);
+    return docSnap.data();
   };
 
-  useEffect(() => {
-    getHomeList();
-  }, []);
-  // console.log('dbHomeList :>> ', dbHomeList);
+  const { data: homeList } = useQuery('ddd', getHomeList);
+  console.log(homeList);
+
+  // useEffect(() => {
+  //   getHomeList();
+  //   setDbHomeList(getHomeList());
+  // }, []);
+
+  // console.log(dbHomeList);
+
+  // const { data: homeD } = useQuery('homeDD', getHomeList);
+  // console.log(homeD);
 
   // 청약홈 전체 API 통합 리스트
   const allHomeList: any = [];
@@ -47,64 +72,6 @@ const MustHaveToDo = ({
   officeList.map((item: any) => allHomeList.push(item));
 
   // console.log('all', allHomeList);
-
-  console.log(
-    'allADRES',
-    allHomeList.map((item: any) => item.HSSPLY_ADRES),
-  );
-
-  console.log(
-    'ADRES',
-    allHomeList.map(
-      (item: any) =>
-        item.HSSPLY_ADRES.split(',')[0].split('외')[0].replace(/[A-Z]/g, ''),
-      // .slice('동')[0],
-    ),
-  );
-
-  // console.log(
-  //   'SPLIT2',
-  //   allHomeList.map((item: any) => item.HSSPLY_ADRES.split(/[$동]/g)[0]),
-  // );
-
-  // const sliceDong = allHomeList.map(
-  //   (item: any) => item.HSSPLY_ADRES.split(/[$동]/g)[0],
-  // );
-
-  // const sliceDNum = allHomeList.map(
-  //   (item: any) => item.HSSPLY_ADRES.split(/[$동]/g)[1],
-  // );
-
-  // console.log('sliceDnum', sliceDNum);
-  // // console.log(dbHomeList[0].allHomeData);
-
-  // console.log(
-  //   'DB',
-  //   dbHomeList[0]?.allHomeData?.map((item: any) => item.HSSPLY_ADRES),
-  // );
-
-  // console.log(
-  //   'HOUSE_TY',
-  //   allHomeList.map((item: any) =>
-  //     item?.detail[0]?.EXCLUSE_AR
-  //       ? item?.detail[0]?.EXCLUSE_AR
-  //       : item?.detail[0]?.HOUSE_TY,
-  //   ),
-  // );
-
-  // FIXME: 주소의 앞부분을 slice하면 경상남도..가 걸림. 기본 데이터는 경남.
-  // TODO: replace?
-  // TODO: 무순위나 오피스텔 100몇개 전체 데이터 불러와서 주소 살펴보기
-  // console.log(
-  //   allHomeList.map((item: any) =>
-  //     item.SUBSCRPT_AREA_CODE_NM
-  //       ? item.SUBSCRPT_AREA_CODE_NM
-  //       : item.HSSPLY_ADRES.slice(0, 2),
-  //   ),
-  // );
-  // console.log(
-  //   allHomeList.map((item: any) => (item.detail[0]?.TP ? item.detail.TP : '')),
-  // );
 
   // FIXME: 버튼을 처음 누를 때 undefined
   // useEffect(() => {
@@ -118,8 +85,8 @@ const MustHaveToDo = ({
       newList.push({
         // TODO: 좌표 추가하기
         COORDINATES: 'x:, y:',
-        //  좌표 구할 주소
-        MAP_ADRES: '',
+
+        FOR_COORDINATES_ADRES: item.HSSPLY_ADRES.split(',')[0].split('외')[0],
 
         MIN_SUPLY_AR: item?.detail[0]?.SUPLY_AR
           ? item?.detail[0]?.SUPLY_AR?.split('.')[0].replace(/(^0)/, '')
@@ -169,17 +136,14 @@ const MustHaveToDo = ({
         HOUSE_SECD_NM: item.HOUSE_SECD_NM,
         HOUSE_DTL_SECD: item.HOUSE_DTL_SECD ? item.HOUSE_DTL_SECD : '',
         HOUSE_DTL_SECD_NM: item.HOUSE_DTL_SECD_NM ? item.HOUSE_DTL_SECD_NM : '',
-        // TODO: 주소가 괄호 안에 있는 것만 쓰거나 알파벳 등이 없어야 좌표가 찍힘
-        // 정규식을 써서 주소의 알파벳을 없애기?? - 슬라이스로 괄호 뒤 자르기
         HSSPLY_ADRES: item.HSSPLY_ADRES,
         SUBSCRPT_AREA_CODE: item.UBSCRPT_AREA_CODE
           ? item.UBSCRPT_AREA_CODE
           : '',
-        // FIXME: 주소를 슬라이스 하면 경상남도 -> 경상이 됨.
-        // switch ? 경상남도 => 경상으로?
+        // FIXME: HSSPLY_ADRES.slice(0, 4)의 경우 - '부산광역, 충청남도, 서울특별'로 들어간다.
         SUBSCRPT_AREA_CODE_NM: item.SUBSCRPT_AREA_CODE_NM
           ? item.SUBSCRPT_AREA_CODE_NM
-          : item.HSSPLY_ADRES.slice(0, 2),
+          : item.HSSPLY_ADRES.slice(0, 4),
 
         RCEPT_BGNDE: item.RCEPT_BGNDE
           ? item.RCEPT_BGNDE

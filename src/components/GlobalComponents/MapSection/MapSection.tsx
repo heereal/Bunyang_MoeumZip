@@ -45,14 +45,14 @@ const MapSection = () => {
           });
         });
         // 주소 => 좌표 찾아주는 함수
-        geocoder.addressSearch(
-          '전라북도 익산시 부송4 도시개발사업지구 내 B블록',
-          (result: any, status: any) => {
-            if (status === kakao.maps.services.Status.OK) {
-              console.log(result[0]);
-            }
-          },
-        );
+        // geocoder.addressSearch(
+        //   '서울시 은평구 진관동 149-4 일원(은평뉴타운 3-14)',
+        //   (result: any, status: any) => {
+        //     if (status === kakao.maps.services.Status.OK) {
+        //       console.log(result[0]);
+        //     }
+        //   },
+        // );
 
         const clusterer = new kakao.maps.MarkerClusterer({
           map: map,
