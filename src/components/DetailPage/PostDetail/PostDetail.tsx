@@ -8,7 +8,7 @@ const PostDetail = ({ postId }: any) => {
   const [home, setHome] = useState<any>();
   const [detail, setDetail] = useState<any>();
 
-  const { data }: any = useQuery('detail', () => {
+  const { data, refetch }: any = useQuery('detail', () => {
     return getPostInfo(postId);
   });
 
@@ -19,6 +19,7 @@ const PostDetail = ({ postId }: any) => {
   useEffect(() => {
     setHome(data?.data.data[0]);
     setDetail(data2?.data.data);
+    refetch();
   }, [data, data2]);
 
   return (
