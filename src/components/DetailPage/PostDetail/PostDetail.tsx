@@ -18,7 +18,6 @@ const PostDetail = ({ postId }: any) => {
     setHome(detail);
     refetch();
   }, [data]);
-  console.log(home);
 
   return (
     <S.Section>

@@ -1,11 +1,19 @@
+import { pathState } from '@/store/selectors';
 import { useRouter } from 'next/router';
+import { useRecoilState } from 'recoil';
 import * as S from './style';
 
 const HomeList = ({ home }: any) => {
   const router = useRouter();
+  const [path, setPath] = useRecoilState(pathState);
+
+  const pathHandler = () => {
+    router.push(`/detail/${home.PBLANC_NO}`);
+    setPath(home.PBLANC_NO);
+  };
 
   return (
-    <S.ListArticle onClick={() => router.push(`/detail/${home.PBLANC_NO}`)}>
+    <S.ListArticle onClick={pathHandler}>
       <div>
         <div>
           <div>{home.BSNS_MBY_NM}</div>

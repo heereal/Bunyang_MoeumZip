@@ -1,14 +1,19 @@
 import { getDummyData } from '@/common/api';
+import { pathState } from '@/store/selectors';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
+import { useRecoilState } from 'recoil';
 import { Section } from './style';
 const MapSection = () => {
   // 맵 로드 시 제어할 boolean state
   const [mapLoaded, setMapLoaded] = useState<boolean>(false);
   const router: any = useRouter();
+  const [path] = useRecoilState(pathState);
 
   const { data } = useQuery('dummy', getDummyData);
+  const detail = data?.data.find((home: any) => home.PBLANC_NO === path);
+
   const [coordnates, setCoordnate] = useState<any>([]);
   const [center, setCenter] = useState({
     y: 36.3171433799167,
@@ -24,6 +29,20 @@ const MapSection = () => {
     document.head.appendChild($script);
     setCoordnate(data?.data);
   }, [data]);
+
+  // path 값이 바뀌면  센터와 줌레벨 이 바뀜
+  useEffect(() => {
+    if (path !== '/') {
+      setCenter({ y: detail?.COORDINATES[0].Y, x: detail?.COORDINATES[0].X });
+      setZoomLevel(6);
+    } else {
+      setCenter({
+        y: 36.3171433799167,
+        x: 127.65261753988,
+      });
+      setZoomLevel(13);
+    }
+  }, [path]);
 
   // 로드 완료 시 useEffect
   useEffect(() => {
@@ -56,6 +75,8 @@ const MapSection = () => {
             clickable: true,
           });
           marker.setMap(map);
+
+          // 마커 클릭시 센터 변경 및 줌 레벨 변경됨
           kakao.maps.event.addListener(marker, 'click', () => {
             setTimeout(() => {
               router.pathname === '/'

@@ -5,6 +5,8 @@ import { useRouter } from 'next/router';
 import * as S from '../../styles/detail.style';
 import CommentsList from '@/components/DetailPage/Comments/CommentsList';
 import axios from 'axios';
+import { useRecoilState } from 'recoil';
+import { pathState } from '@/store/selectors';
 
 const DeatilPage = () => {
   const router = useRouter();
