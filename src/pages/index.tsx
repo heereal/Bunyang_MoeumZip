@@ -24,11 +24,7 @@ const MainPage = ({ homeList }: any) => {
       </Head>
       <S.MainSection>
         {/* CountTabs(+HomeList 컴포넌트) */}
-        <div>
-          <CountTabs homeList={homeList} />
-        </div>
-        <MapSection homeList={homeList} />
-
+        <CountTabs homeList={homeList} />
         {/* TODO: 지도 추가 */}
       </S.MainSection>
       <TopBtn />

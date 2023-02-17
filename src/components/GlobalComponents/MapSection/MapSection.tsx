@@ -3,10 +3,11 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { Section } from './style';
-const MapSection = ({ homeList }: any) => {
+const MapSection = () => {
   // 맵 로드 시 제어할 boolean state
   const [mapLoaded, setMapLoaded] = useState<boolean>(false);
   const router = useRouter();
+
   const { data } = useQuery('dummy', getDummyData);
   const [coordnates, setCoordnate] = useState<any>([]);
 
@@ -28,9 +29,9 @@ const MapSection = ({ homeList }: any) => {
       let container = document.getElementById('map');
       let options = {
         center: new kakao.maps.LatLng(36.5171433799167, 128.05261753988),
-        level: router.asPath.length < 3 ? 13 : 5,
+        level: 13,
       };
-
+      // router.asPath.length < 3 ? 13 : 5,
       if (container !== null) {
         let map = new kakao.maps.Map(container, options);
         const geocoder = new kakao.maps.services.Geocoder();
@@ -43,6 +44,15 @@ const MapSection = ({ homeList }: any) => {
             ),
           });
         });
+        // 주소 => 좌표 찾아주는 함수
+        // geocoder.addressSearch(
+        //   ' 인천광역시 미추홀구 주안동 1545-2번지 일대 ',
+        //   (result: any, status: any) => {
+        //     if (status === kakao.maps.services.Status.OK) {
+        //       console.log(result[0]);
+        //     }
+        //   },
+        // );
 
         const clusterer = new kakao.maps.MarkerClusterer({
           map: map,
@@ -64,10 +74,8 @@ const MapSection = ({ homeList }: any) => {
         });
 
         clusterer.addMarkers(markers);
-        console.log(coordnates[1]?.COORDINATES[0].X);
-        console.log(coordnates[1]?.COORDINATES[0].Y);
 
-        for (let i = 0; i < homeList?.length; i++) {
+        for (let i = 0; i < coordnates?.length; i++) {
           const markerPosition = new kakao.maps.LatLng(
             coordnates[i]?.COORDINATES[0].Y,
             coordnates[i]?.COORDINATES[0].X,
@@ -81,13 +89,7 @@ const MapSection = ({ homeList }: any) => {
         }
       }
     });
-  }, [mapLoaded, homeList, router]);
-
-  // const callback = (result: any, status: any) => {
-  //   if (status === kakao.maps.services.Status.OK) {
-
-  //   }
-  // };
+  }, [mapLoaded, coordnates, router]);
 
   // for (let i = 0; i < homeList?.length; i++) {
   //   geocoder.addressSearch(
@@ -116,7 +118,7 @@ const MapSection = ({ homeList }: any) => {
 
   return (
     <>
-      <Section id="map"></Section>
+      <Section id="map" />
     </>
   );
 };

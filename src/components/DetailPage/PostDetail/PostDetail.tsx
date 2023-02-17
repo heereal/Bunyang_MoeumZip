@@ -16,8 +16,6 @@ const PostDetail = ({ postId }: any) => {
     return getDetailPostInfo(postId);
   });
 
-  console.log(home);
-
   useEffect(() => {
     setHome(data?.data.data[0]);
     setDetail(data2?.data.data);

@@ -1,10 +1,8 @@
 import styled from 'styled-components';
 
 export const MainSection = styled.section`
-  width: 100%;
+  width: 60%;
   display: flex;
-  /* flex-direction: row; */
-  /* align-items: cente
-  r; */
-  border: 1px solid red;
+  flex-direction: column;
+  align-items: center;
 `;
