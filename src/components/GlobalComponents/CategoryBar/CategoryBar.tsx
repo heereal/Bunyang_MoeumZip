@@ -12,11 +12,8 @@ const CategoryBar = () => {
   const [currentTab, SetCurrentTab] = useState(0);
 
   // 유저가 선택한 카테고리 필터링 리스트
-  // const [myRegionArray, setMyRegionArray] = useState<any[]>([]);
-  // const [myTypeArray, setMyTypeArray] = useState<any[]>([]);
-
-  const [selectedUsersCategory, setSelectedUsersCategory] = useState<any[]>([]);
-  console.log(selectedUsersCategory);
+  const [myRegionArray, setMyRegionArray] = useState<any[]>([]);
+  const [myTypeArray, setMyTypeArray] = useState<any[]>([]);
 
   // 지역, 분양형태를 클릭하면 카테고리 선택 창이 열림
   const openToggleHandler = () => {
@@ -53,71 +50,80 @@ const CategoryBar = () => {
           </li>
         ))}
         <S.CategoryContainer>
-          {categoryList[currentTab].category.map((type, index) =>
-            type && selectedUsersCategory.includes(type) ? (
-              <S.CatrgoryBtn
-                onClick={() =>
-                  setSelectedUsersCategory(
-                    selectedUsersCategory.filter((item) => item !== type),
-                  )
-                }
-                key={index}
-                bg={'lightblue'}
-              >
-                {type}
-              </S.CatrgoryBtn>
-            ) : (
-              <S.CatrgoryBtn
-                onClick={() =>
-                  setSelectedUsersCategory([...selectedUsersCategory, type])
-                }
-                key={index}
-                bg={'transparent'}
-              >
-                {type}
-              </S.CatrgoryBtn>
-            ),
-          )}
           {categoryList[currentTab].category === regionArray ? (
+            // 지역 카테고리 선택
             <>
-              {/* TODO:  초기화 시 리스트에서 지역만 없애기 */}
+              {regionArray.map((region, index) =>
+                region && myRegionArray.includes(region) ? (
+                  <S.CatrgoryBtn
+                    onClick={() =>
+                      setMyRegionArray(
+                        myRegionArray.filter((item) => item !== region),
+                      )
+                    }
+                    key={index}
+                    bg={'lightblue'}
+                  >
+                    {region}
+                  </S.CatrgoryBtn>
+                ) : (
+                  <S.CatrgoryBtn
+                    onClick={() => setMyRegionArray([...myRegionArray, region])}
+                    key={index}
+                    bg={'transparent'}
+                  >
+                    {region}
+                  </S.CatrgoryBtn>
+                ),
+              )}
               <S.CatrgoryBtn
                 bg={'transparent'}
-                onClick={
-                  () => setSelectedUsersCategory([])
-                  // selectedUsersCategory.filter((item) =>
-                  //   regionArray.includes(item),
-                  // ),
-                }
+                onClick={() => setMyRegionArray([])}
               >
                 전체 초기화
               </S.CatrgoryBtn>
-              {/* TODO: 전체 선택 시 기존 리스트 유지 + 전체 지역 */}
               <S.CatrgoryBtn
                 bg={'transparent'}
-                onClick={() =>
-                  setSelectedUsersCategory(
-                    // ...selectedUsersCategory,
-                    regionArray,
-                  )
-                }
+                onClick={() => setMyRegionArray(regionArray)}
               >
                 전체 선택
               </S.CatrgoryBtn>
             </>
           ) : (
+            // 분양 형태 카테고리 선택
             <>
-              {/* TODO:  초기화 시 리스트에서 분양형태만 없애기 */}
-
+              {typesArray.map((type, index) =>
+                type && myTypeArray.includes(type) ? (
+                  <S.CatrgoryBtn
+                    onClick={() =>
+                      setMyTypeArray(
+                        myTypeArray.filter((item) => item !== type),
+                      )
+                    }
+                    key={index}
+                    bg={'lightblue'}
+                  >
+                    {type}
+                  </S.CatrgoryBtn>
+                ) : (
+                  <S.CatrgoryBtn
+                    onClick={() => setMyTypeArray([...myTypeArray, type])}
+                    key={index}
+                    bg={'transparent'}
+                  >
+                    {type}
+                  </S.CatrgoryBtn>
+                ),
+              )}
               <S.CatrgoryBtn
                 bg={'transparent'}
-                onClick={() => setSelectedUsersCategory([])}
+                onClick={() => setMyTypeArray([])}
               >
                 전체 초기화
               </S.CatrgoryBtn>
               <S.CatrgoryBtn
                 bg={'transparent'}
-                onClick={() => setSelectedUsersCategory(typesArray)}
+                onClick={() => setMyTypeArray(typesArray)}
               >
                 전체 선택
               </S.CatrgoryBtn>
