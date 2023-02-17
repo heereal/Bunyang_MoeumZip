@@ -8,14 +8,18 @@ interface loginModalProps {
 }
 
 const LoginModal = ({ isOpen, setIsOpen }: loginModalProps) => {
-  //TODO: 모달 닫는 버튼, 밖에 누르면 닫히게
   // 소셜 로그인-로그인 시 회원가입 페이지로 이동함
   const loginHandler = async (provider: string) => {
-    await signIn(provider, { callbackUrl: '/signup' });
+    await signIn(provider, { callbackUrl: '/loading' });
   };
 
   return (
-    <ReactModal isOpen={isOpen} style={customStyles} ariaHideApp={false}>
+    <ReactModal
+      isOpen={isOpen}
+      style={customStyles}
+      ariaHideApp={false}
+      onRequestClose={() => setIsOpen(false)}
+    >
       <S.ModalContainer>
         <button onClick={() => loginHandler('google')}>구글 로그인</button>
         <button onClick={() => loginHandler('facebook')}>

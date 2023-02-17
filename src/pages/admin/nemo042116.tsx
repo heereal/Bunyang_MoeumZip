@@ -168,6 +168,7 @@ const MustHaveToDo = ({
           ? item.UBSCRPT_AREA_CODE
           : '',
         // FIXME: 주소를 슬라이스 하면 경상남도 -> 경상이 됨.
+        // switch ? 경상남도 => 경상으로?
         SUBSCRPT_AREA_CODE_NM: item.SUBSCRPT_AREA_CODE_NM
           ? item.SUBSCRPT_AREA_CODE_NM
           : item.HSSPLY_ADRES.slice(0, 2),

@@ -40,5 +40,4 @@ import { atom, selector } from 'recoil';
 //     default: []
 // })
 
-
-// 여기서 getStaticProps 사용 가능?? 
+// 여기서 getStaticProps 사용 가능??
