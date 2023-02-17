@@ -2,10 +2,11 @@ import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import timeGridPlugin from '@fullcalendar/timegrid';
+import * as S from '../../styles/claendar.style';
 
 const Calender = () => {
   return (
-    <div style={{ width: '100vw' }}>
+    <S.CalendarContainer>
       <FullCalendar
         plugins={[dayGridPlugin, interactionPlugin, timeGridPlugin]}
         headerToolbar={{
@@ -19,10 +20,10 @@ const Calender = () => {
         editable={true}
         selectable={true}
         // aspectRatio={2} // 종횡비-너비가 높이의 두 배
-        height={'90%'}
+        // height={"90%"}
         initialEvents={[{ title: 'nice event', start: new Date() }]}
       />
-    </div>
+    </S.CalendarContainer>
   );
 };
 
