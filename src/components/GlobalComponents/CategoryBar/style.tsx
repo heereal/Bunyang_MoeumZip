@@ -9,11 +9,16 @@ export const CategorySection = styled.section`
   z-index: 1000;
 `;
 
+// TODO: Main Tabs CSS 참고해서 변경
 export const CategoryTabList = styled.ul`
   display: flex;
   flex-direction: row;
 `;
 
-export const CategoryTab = styled.li`
+export const CategoryTabs = styled.li`
   list-style: none;
+`;
+
+export const CategoryTab = styled.button`
+  width: 80px;
 `;

@@ -1,12 +1,11 @@
 // TODO: 카테고리 컴포넌트 분리 후 수정하기
 // import * as S from './style';
+import { regionArray, typesArray } from '@/common/categoryList';
+import { selectedCategoryList } from '@/store/selectors';
+import { useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
 import * as S from '../../../styles/signup.style';
 import * as S2 from './style';
-import { useState, useEffect } from 'react';
-import { regionArray, typesArray } from '@/common/categoryList';
-import { useRouter } from 'next/router';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { selectedCategoryList } from '@/store/selectors';
 
 const CategoryBar = () => {
   const [isToggleOpen, setIsToggleOpen] = useState<boolean>(false);
@@ -51,12 +50,14 @@ const CategoryBar = () => {
     <S2.CategorySection>
       <S2.CategoryTabList>
         {categoryList.map((item, index) => (
-          <S2.CategoryTab
+          <S2.CategoryTabs
             key={item.name}
             onClick={() => selectedCategory(index)}
           >
-            <button onClick={openToggleHandler}>{item.name}</button>
-          </S2.CategoryTab>
+            <S2.CategoryTab onClick={openToggleHandler}>
+              {item.name}
+            </S2.CategoryTab>
+          </S2.CategoryTabs>
         ))}
       </S2.CategoryTabList>
       {/*  지역 카테고리 선택 */}

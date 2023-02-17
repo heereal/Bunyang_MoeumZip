@@ -10,9 +10,6 @@ import * as S from '../../styles/search.style';
 const SearchResult = ({ HomeListDB }: any) => {
   const router = useRouter();
 
-  const [selectedCtList] = useRecoilState(selectedCategoryList);
-  console.log('selectedCtList', selectedCtList);
-
   // Search 컴포넌트에 있는 검색창에서 router로 받아 온 검색어
   const keyword = router.query.keyword;
 

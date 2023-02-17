@@ -1,9 +1,18 @@
+import { selectedCategoryList } from '@/store/selectors';
 import { useState } from 'react';
+import { useRecoilState } from 'recoil';
 import HomeList from '../HomeList/HomeList';
 import * as S from './style';
 
 const CountTabs = ({ homeList }: any) => {
   const [currentTab, SetCurrentTab] = useState(0);
+
+  // 선택된 지역, 분양 형태 리스트 가져오기
+  const [selectedCtList] = useRecoilState(selectedCategoryList);
+  console.log('selectedCtList', selectedCtList);
+
+  // 1. 유저가 있을 때 없을 때 초기화면 구분
+  // 2. 카테고리 반영 된 리스트 구하기
 
   // 오늘 날짜 구하기
   const getToday = () => {
