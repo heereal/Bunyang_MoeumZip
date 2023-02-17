@@ -46,3 +46,7 @@ export const editComment = async ({
     updateDoc(commentsRef, newComment),
   );
 };
+
+export const getDummyData = async () => {
+  return axios.get('/dummy.json').then((res) => res.data);
+};

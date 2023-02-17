@@ -1,8 +1,13 @@
 import { getPostInfo, getDetailPostInfo } from '@/common/api';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import * as S from './style';
 
 const PostDetail = ({ postId }: any) => {
+  const [home, setHome] = useState<any>();
+  const [detail, setDetail] = useState<any>();
+
   const { data }: any = useQuery('detail', () => {
     return getPostInfo(postId);
   });
@@ -11,8 +16,12 @@ const PostDetail = ({ postId }: any) => {
     return getDetailPostInfo(postId);
   });
 
-  const detail = data2?.data.data;
-  const home = data?.data.data[0];
+  console.log(home);
+
+  useEffect(() => {
+    setHome(data?.data.data[0]);
+    setDetail(data2?.data.data);
+  }, [data, data2]);
 
   return (
     <S.Section>

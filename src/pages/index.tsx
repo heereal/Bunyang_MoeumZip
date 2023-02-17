@@ -23,9 +23,11 @@ const MainPage = ({ homeList }: any) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <S.MainSection>
-        <MapSection homeList={homeList} />
         {/* CountTabs(+HomeList 컴포넌트) */}
-        <CountTabs homeList={homeList} />
+        <div>
+          <CountTabs homeList={homeList} />
+        </div>
+        <MapSection homeList={homeList} />
 
         {/* TODO: 지도 추가 */}
       </S.MainSection>
