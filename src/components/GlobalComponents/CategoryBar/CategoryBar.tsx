@@ -18,30 +18,32 @@ const CategoryBar = () => {
   const [selectedUsersCategory, setSelectedUsersCategory] = useState<any[]>([]);
   console.log(selectedUsersCategory);
 
+  // 지역, 분양형태를 클릭하면 카테고리 선택 창이 열림
   const openToggleHandler = () => {
     setIsToggleOpen(true);
   };
 
   // TODO: 토글 밖을 클릭 했을 때 토글 닫히게...
-  // 선택 완료 시 토글 닫힘
+  // 선택 완료 시 토글 닫힘??
   const chooseDoneHandler = () => {
     setIsToggleOpen(false);
   };
 
-  // 카테고리 분류
+  // 카테고리 Tab 분류
   const categoryList = [
     { name: '지역', category: regionArray },
     { name: '분양 형태', category: typesArray },
   ];
 
-  // 선택한 카테고리로 변경시켜주는 함수
+  // 선택한 카테고리 Tab으로 변경시켜주는 함수
   const selectedCategory = (index: number) => {
     SetCurrentTab(index);
   };
 
-  {
-    /* TODO: 카테고리 선택 - 컴포넌트 분리 -> 회원가입, 마이페이지, 카테고리바에서 쓰임 */
-  }
+  // TODO: 카테고리 선택 - 컴포넌트 분리 -> 회원가입, 마이페이지, 카테고리바에서 쓰임
+  // FIXME: 컴포넌트 하나로 썼을 때 전체 선택, 초기화 문제
+  // 1. 컴포넌트 하나로 쓰기 2. 각각 따로 하기(원본 필터) -> 컴포넌트 분리
+
   return (
     <S2.CategorySection>
       <div>
@@ -50,7 +52,6 @@ const CategoryBar = () => {
             <button>{item.name}</button>
           </li>
         ))}
-        {/* FIXME: 전체 선택, 초기화 문제 - 1. 컴포넌트 하나로 쓰기 2. 각각 따로 하기(원본 필터) -> 컴포넌트 분리  */}
         <S.CategoryContainer>
           {categoryList[currentTab].category.map((type, index) =>
             type && selectedUsersCategory.includes(type) ? (
