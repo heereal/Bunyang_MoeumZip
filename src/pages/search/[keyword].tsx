@@ -1,13 +1,18 @@
 import { db } from '@/common/firebase';
 import SearchResults from '@/components/SearchPage/SearchResults';
+import { selectedCategoryList } from '@/store/selectors';
 import axios from 'axios';
 import { doc, getDoc } from 'firebase/firestore';
 import { GetServerSideProps, GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import * as S from '../../styles/search.style';
 
 const SearchResult = ({ HomeListDB }: any) => {
   const router = useRouter();
+
+  const [ddat] = useRecoilState(selectedCategoryList);
+  console.log('ddat', ddat);
 
   // Search 컴포넌트에 있는 검색창에서 router로 받아 온 검색어
   const keyword = router.query.keyword;
