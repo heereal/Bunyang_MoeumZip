@@ -1,4 +1,4 @@
-import { atom, selector } from 'recoil';
+import { atom } from 'recoil';
 
 // categoryBar에서 선택된 categoryList
 export const selectedCategoryList: any = atom({

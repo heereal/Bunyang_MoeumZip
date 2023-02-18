@@ -1,5 +1,5 @@
 import * as S from './style';
-import { useState, KeyboardEvent } from 'react';
+import { useState, KeyboardEvent, ChangeEvent } from 'react';
 import { FaSearch } from 'react-icons/fa';
 import { useRouter } from 'next/router';
 import { confirmAlert } from 'react-confirm-alert';
@@ -9,7 +9,7 @@ const Search = () => {
   const router = useRouter();
   const [keyword, setKeyword] = useState<string>('');
 
-  const inputChangeHandler = (e: any) => {
+  const inputChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setKeyword(e.target.value);
   };
 
@@ -48,13 +48,14 @@ const Search = () => {
       searchHandler();
     }
   };
+
   return (
     <S.SearchBox>
       <input
         type="text"
         value={keyword}
         onChange={inputChangeHandler}
-        placeholder="관심 지역을 검색해보세요."
+        placeholder="분양 정보를 검색해보세요."
         onKeyPress={OnKeyPressHandler}
       />
       <S.SearchBtn onClick={searchHandler}>

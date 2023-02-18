@@ -5,7 +5,11 @@ import { useRecoilState } from 'recoil';
 import HomeList from '../HomeList/HomeList';
 import * as S from './style';
 
-const CountTabs = ({ allHomeList }: any) => {
+interface AllHomeListJ {
+  allHomeList: {}[];
+}
+
+const CountTabs = ({ allHomeList }: AllHomeListJ) => {
   const [currentTab, SetCurrentTab] = useState<number>(0);
 
   // 선택된 지역, 분양 형태 리스트 가져오기
@@ -13,7 +17,6 @@ const CountTabs = ({ allHomeList }: any) => {
   console.log('selectedCtList', selectedCtList);
 
   const { data: user } = useSession();
-  console.log('user', user);
 
   // 1. 유저가 있을 때 없을 때 초기화면 구분
   // 2. 카테고리 반영 된 리스트 구하기
@@ -45,6 +48,9 @@ const CountTabs = ({ allHomeList }: any) => {
   const todayAddMonth = getAddMonth();
 
   // TODO: 카테고리 클릭 시 변경되는 리스트로 다시 만들기
+  // 1. 카테고리 선택 리스트 2. 유저 관심 리스트(firebase User 정보 불러오기) 3. 기본리스르
+
+  // 로그인 안 했을 때 보이는 기본 리스트
   // 청약 가능 리스트
   const todayList = allHomeList.filter(
     (item: any) => item.RCEPT_BGNDE <= today && item.RCEPT_ENDDE >= today,
@@ -64,6 +70,7 @@ const CountTabs = ({ allHomeList }: any) => {
     // TODO: 카테고리 선택 시마다 변경되는 List로 바꾸기
     {
       name: '청약 가능',
+      // 카테고리리스트 ? 카테고리리스트 : user? userList : 전체리스트
       content: user ? todayList : allHomeList,
       count: user ? todayList?.length : allHomeList.length,
     },
@@ -103,8 +110,8 @@ const CountTabs = ({ allHomeList }: any) => {
       {/* 분양 리스트 */}
       <S.ListSection>
         {/* 현재 선택된 tab의 list를 map돌려서 HomeList 컴포넌트에 전달 */}
-        {tabList[currentTab].content?.map((item: any) => {
-          return <HomeList key={item.PBLANC_NO} home={item} />;
+        {tabList[currentTab].content?.map((item: ItemJ) => {
+          return <HomeList key={item.PBLANC_NO} list={item} />;
         })}
       </S.ListSection>
     </>

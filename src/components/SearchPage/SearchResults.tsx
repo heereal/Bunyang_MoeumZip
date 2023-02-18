@@ -1,26 +1,28 @@
 // TODO: WireFrame대로 수정하기
 
-const SearchResults = ({ searchResult }: any) => {
+const Lists = ({ list }: PropsListJ) => {
+  console.log('list', list);
+
   return (
     <div>
       <br />
       <div>사진</div>
-      <div>아파트 이름: {searchResult.HOUSE_NM}</div>
-      <div>주소: {searchResult.HSSPLY_ADRES}</div>
+      <div>아파트 이름: {list.HOUSE_NM}</div>
+      <div>주소: {list.HSSPLY_ADRES}</div>
       <div>
-        {searchResult.HOUSE_DTL_SECD_NM} {searchResult.HOUSE_SECD_NM}
-        {searchResult.SUBSCRPT_AREA_CODE_NM}
+        {list.HOUSE_DTL_SECD_NM} {list.HOUSE_SECD_NM}
+        {list.SUBSCRPT_AREA_CODE_NM}
       </div>
       <div>좋아요</div>
 
       <div>
         <div>
           <div>특별 청약일</div>
-          {searchResult.SPSPLY_RCEPT_BGNDE} ~ {searchResult.SPSPLY_RCEPT_ENDDE}
+          {list.SPSPLY_RCEPT_BGNDE} ~ {list.SPSPLY_RCEPT_ENDDE}
         </div>
         <div>
           <div>청약 접수일</div>
-          {searchResult.RCEPT_BGNDE} ~ {searchResult.RCEPT_ENDDE}
+          {list.RCEPT_BGNDE} ~ {list.RCEPT_ENDDE}
         </div>
       </div>
       <br />
@@ -28,4 +30,4 @@ const SearchResults = ({ searchResult }: any) => {
   );
 };
 
-export default SearchResults;
+export default Lists;

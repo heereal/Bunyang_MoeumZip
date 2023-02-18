@@ -12,14 +12,14 @@ const CategoryBar = () => {
   const [currentTab, SetCurrentTab] = useState(0);
 
   // 유저가 선택한 카테고리 필터링 리스트
-  const [myRegionArray, setMyRegionArray] = useState<any[]>([]);
-  const [myTypeArray, setMyTypeArray] = useState<any[]>([]);
+  const [myRegionArray, setMyRegionArray] = useState<{}[]>([]);
+  const [myTypeArray, setMyTypeArray] = useState<{}[]>([]);
 
   // 유저가 선택한 지역, 분양형태가 바뀔 때마다 recoil defaultValue를 combineUserCtList로 업데이트
   const [selectedList, setSelectedList] = useRecoilState(selectedCategoryList);
 
   // 유저가 선택한 카테고리 통합 리스트
-  const combineUserCtList: any = [];
+  const combineUserCtList: {}[] = [];
   myRegionArray.map((item) => combineUserCtList.push(item));
   myTypeArray.map((item) => combineUserCtList.push(item));
 

@@ -8,16 +8,16 @@ import { useMutation, useQueryClient } from 'react-query';
 import styled from 'styled-components';
 import theButton from '../../assets/apiCallButton.jpg';
 
-const MustHaveToDo = ({ aptList, aptRandomList, officeList }: any) => {
+const MustHaveToDo = ({ aptList, aptRandomList, officeList }: ListPropsJ) => {
   const queryClient = useQueryClient();
-  const [allHomeData, setAllHomeData] = useState<any>();
-  const newList: any = [];
+  const [allHomeData, setAllHomeData] = useState<{}[]>([]);
+  const newList: {}[] = [];
 
   // 청약홈 전체 API 통합 리스트
-  const allHomeList: any = [];
-  aptList.map((item: any) => allHomeList.push(item));
-  aptRandomList.map((item: any) => allHomeList.push(item));
-  officeList.map((item: any) => allHomeList.push(item));
+  const allHomeList: {}[] = [];
+  aptList.map((item: ItemJ) => allHomeList.push(item));
+  aptRandomList.map((item: ItemJ) => allHomeList.push(item));
+  officeList.map((item: ItemJ) => allHomeList.push(item));
 
   // FIXME: 버튼을 처음 누를 때 undefined - list를 버튼 누르기 전에 실행?
   // useEffect(() => {
