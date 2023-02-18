@@ -52,6 +52,9 @@ const Calender = () => {
         // height={"90%"}
         // initialEvents={[{ title: 'nice event', start: new Date() }]}
         events={array}
+        // eventDisplay={'list-item'}
+        // eventColor='#efb33f'
+        // eventMouseEnter={(e)=>e.target.style={}}
         // events={[
         //   {
         //     title: '최종프로젝트',
