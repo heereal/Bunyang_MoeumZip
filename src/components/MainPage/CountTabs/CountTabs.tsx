@@ -1,4 +1,5 @@
 import { selectedCategoryList } from '@/store/selectors';
+import { useSession } from 'next-auth/react';
 import { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import HomeList from '../HomeList/HomeList';
@@ -9,7 +10,10 @@ const CountTabs = ({ allHomeList }: any) => {
 
   // 선택된 지역, 분양 형태 리스트 가져오기
   const [selectedCtList] = useRecoilState(selectedCategoryList);
-  // console.log('selectedCtList', selectedCtList);
+  console.log('selectedCtList', selectedCtList);
+
+  const { data: user } = useSession();
+  console.log('user', user);
 
   // 1. 유저가 있을 때 없을 때 초기화면 구분
   // 2. 카테고리 반영 된 리스트 구하기
@@ -58,9 +62,21 @@ const CountTabs = ({ allHomeList }: any) => {
   // Count Tabs
   const tabList = [
     // TODO: 카테고리 선택 시마다 변경되는 List로 바꾸기
-    { name: '청약 가능', content: todayList, count: todayList?.length },
-    { name: '청약 예정', content: comingList, count: comingList?.length },
-    { name: '무순위', content: randomList, count: randomList?.length },
+    {
+      name: '청약 가능',
+      content: user ? todayList : allHomeList,
+      count: user ? todayList?.length : allHomeList.length,
+    },
+    {
+      name: '청약 예정',
+      content: user ? comingList : allHomeList,
+      count: user ? comingList?.length : allHomeList.length,
+    },
+    {
+      name: '무순위',
+      content: user ? randomList : allHomeList,
+      count: user ? randomList?.length : allHomeList.length,
+    },
   ];
 
   // 함수가 실행되면 선택된 tab 내용으로 변경

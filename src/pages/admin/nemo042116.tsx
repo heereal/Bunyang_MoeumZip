@@ -139,7 +139,7 @@ const MustHaveToDo = ({ aptList, aptRandomList, officeList }: any) => {
           ? item.MDAT_TRGET_AREA_SECD
           : '',
         PBLANC_URL: item.PBLANC_URL,
-        PBLANC_NO: item.PBLANC_NO,
+        PBLANC_NO: `${item.PBLANC_NO}`,
         GNRL_RCEPT_BGNDE: item.GNRL_RCEPT_BGNDE ? item.GNRL_RCEPT_BGNDE : '',
         GNRL_RCEPT_ENDDE: item.GNRL_RCEPT_ENDDE ? item.GNRL_RCEPT_ENDDE : '',
         SUBSCRPT_REQST_AMOUNT: item.detail[0]?.SUBSCRPT_REQST_AMOUNT
