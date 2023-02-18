@@ -4,12 +4,12 @@ import { useRecoilState } from 'recoil';
 import HomeList from '../HomeList/HomeList';
 import * as S from './style';
 
-const CountTabs = ({ homeList }: any) => {
-  const [currentTab, SetCurrentTab] = useState(0);
+const CountTabs = ({ allHomeList }: any) => {
+  const [currentTab, SetCurrentTab] = useState<number>(0);
 
   // 선택된 지역, 분양 형태 리스트 가져오기
   const [selectedCtList] = useRecoilState(selectedCategoryList);
-  console.log('selectedCtList', selectedCtList);
+  // console.log('selectedCtList', selectedCtList);
 
   // 1. 유저가 있을 때 없을 때 초기화면 구분
   // 2. 카테고리 반영 된 리스트 구하기
@@ -42,16 +42,18 @@ const CountTabs = ({ homeList }: any) => {
 
   // TODO: 카테고리 클릭 시 변경되는 리스트로 다시 만들기
   // 청약 가능 리스트
-  const todayList = homeList?.filter(
+  const todayList = allHomeList.filter(
     (item: any) => item.RCEPT_BGNDE <= today && item.RCEPT_ENDDE >= today,
   );
   // 청약 예정 리스트
-  const comingList = homeList?.filter(
+  const comingList = allHomeList.filter(
     (item: any) =>
       item.RCEPT_BGNDE > today && item.RCEPT_BGNDE <= todayAddMonth,
   );
   // TODO: 무순위 리스트 - 이름 변경? -선착순..?
-  const randomList = homeList.filter((item: any) => item.HOUSE_SECD === '04');
+  const randomList = allHomeList.filter(
+    (item: any) => item.HOUSE_SECD === '04',
+  );
 
   // Count Tabs
   const tabList = [

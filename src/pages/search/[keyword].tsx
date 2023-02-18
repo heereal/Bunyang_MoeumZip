@@ -9,12 +9,13 @@ import * as S from '../../styles/search.style';
 
 const SearchResult = ({ HomeListDB }: any) => {
   const router = useRouter();
+  const allHomeList = HomeListDB.allHomeData;
 
   // Search 컴포넌트에 있는 검색창에서 router로 받아 온 검색어
   const keyword = router.query.keyword;
 
   // 검색한 결과 리스트
-  const resultsList = HomeListDB.allHomeData.filter(
+  const resultsList = allHomeList.filter(
     (item: any) =>
       // TODO: data 참고해서 필터 다시 분류
       // 지역, 아파트명, 분양형태로 검색 가능

@@ -8,7 +8,13 @@ import Head from 'next/head';
 import * as S from '../styles/main.style';
 
 const MainPage = ({ HomeListDB }: any) => {
-  const homeList = HomeListDB.allHomeData;
+  const allHomeList = HomeListDB.allHomeData;
+
+  // // DB로 가져온 분양 전체 리스트를 Recoil에 담아 전역으로 사용
+  // const [homeData, setHomeData] = useRecoilState(allHomeList);
+
+  // // TODO: useEffect 쓸 필요가 있나? 이미 사전 렌더링 된 값들만 가져오는데??
+  // setHomeData(homeList);
 
   return (
     <>
@@ -20,7 +26,8 @@ const MainPage = ({ HomeListDB }: any) => {
       </Head>
       <S.MainSection>
         {/* CountTabs(+HomeList 컴포넌트) */}
-        <CountTabs homeList={homeList} />
+        {/* TODO: 지우기 */}
+        <CountTabs allHomeList={allHomeList} />
       </S.MainSection>
       <TopBtn />
     </>
