@@ -11,15 +11,20 @@ const EditComment = ({
   user,
   queryClient,
   comments,
-}: any) => {
+}: CommentPropsP) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [editInput, setEditInput] = useState<any>('');
-  const [date, setDate] = useState(comment?.date);
+  const [editInput, setEditInput] = useState<string | undefined>('');
+  const [date] = useState(comment?.date);
 
-  const deleteCommentHandler = async (index: number) => {
+  const deleteCommentHandler = async (index: number | undefined) => {
     const decision = confirm('삭제하시겠습니까?');
 
-    if (decision) {
+    if (
+      decision &&
+      typeof comments === 'object' &&
+      typeof postId === 'string' &&
+      typeof index === 'number'
+    ) {
       const comment = {
         list: arrayRemove(comments[index]),
       };
@@ -27,26 +32,31 @@ const EditComment = ({
     }
   };
 
-  const editCommentHandler = async (index: number) => {
+  const editCommentHandler = async (index: number | undefined) => {
     if (editInput === '') {
       alert('1글자 이상 입력해주세요.');
       return;
     }
-
-    const comment = {
-      list: arrayRemove(comments[index]),
-    };
-    const newComment = {
-      list: arrayUnion({
-        contents: editInput,
-        date: date,
-        nickName: user.name,
-        userEmail: user.email,
-      }),
-    };
-    editMutation.mutate({ postId, comment, newComment });
-    setEditInput('');
-    setIsOpen(false);
+    if (
+      typeof comments === 'object' &&
+      typeof postId === 'string' &&
+      typeof index === 'number'
+    ) {
+      const comment = {
+        list: arrayRemove(comments[index]),
+      };
+      const newComment = {
+        list: arrayUnion({
+          contents: editInput,
+          date: date,
+          nickName: user?.name,
+          userEmail: user?.email,
+        }),
+      };
+      editMutation.mutate({ postId, comment, newComment });
+      setEditInput('');
+      setIsOpen(false);
+    }
   };
   const deleteMutation = useMutation(deleteComment, {
     onSuccess: () => queryClient.invalidateQueries('comments'),
@@ -59,18 +69,18 @@ const EditComment = ({
     e: KeyboardEvent<HTMLDivElement>,
     type: string,
   ): void => {
-    if (e.key === 'Enter' && type === 'edit') {
+    if (e.key === 'Enter' && type === 'edit' && typeof index === 'number') {
       editCommentHandler(index);
     }
   };
 
   return (
     <div>
-      {!isOpen && user?.email === comment.userEmail && (
+      {!isOpen && user?.email === comment?.userEmail && (
         <>
           <S.Btn
             onClick={() => {
-              setIsOpen(true), setEditInput(comment.contents);
+              setIsOpen(true), setEditInput(comment?.contents);
             }}
           >
             수정
@@ -78,23 +88,23 @@ const EditComment = ({
           <S.Btn onClick={() => deleteCommentHandler(index)}>삭제</S.Btn>
         </>
       )}
-      {isOpen && user?.email === comment.userEmail && (
+      {isOpen && user?.email === comment?.userEmail && (
         <>
           <S.Btn onClick={() => setIsOpen(false)}>취소</S.Btn>
           <S.Btn onClick={() => editCommentHandler(index)}>완료</S.Btn>
           <S.Input
             onChange={(e) => setEditInput(e.currentTarget.value)}
-            defaultValue={comment.contents}
+            defaultValue={comment?.contents}
             autoFocus
             onKeyPress={(e) => OnKeyPressHandler(e, 'edit')}
           />
         </>
       )}
 
-      <S.CommentsBox>{comment.contents}</S.CommentsBox>
+      <S.CommentsBox>{comment?.contents}</S.CommentsBox>
 
-      <S.UserNameBox>{comment.nickName}</S.UserNameBox>
-      <S.UserNameBox>{comment.userEmail}</S.UserNameBox>
+      <S.UserNameBox>{comment?.nickName}</S.UserNameBox>
+      <S.UserNameBox>{comment?.userEmail}</S.UserNameBox>
     </div>
   );
 };

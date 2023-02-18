@@ -6,19 +6,22 @@ import AddComment from './AddComment';
 import EditComment from './EditComment';
 import * as S from './style';
 
-const CommentsList = ({ postId }: any) => {
-  const [comments, setComments] = useState<any>();
+const CommentsList = ({ postId }: DetailPagePropsP) => {
+  const [comments, setComments] = useState<[]>();
   const queryClient = useQueryClient();
-  const [user, setUser] = useState<any>();
-  const session: any = useSession();
+  const [user, setUser] = useState<object>();
+  // 유저의 세션 정보 받아오기
+  const { data: session } = useSession();
 
-  const { data } = useQuery<any>('comments', () => {
-    return getComments(postId);
+  const { data } = useQuery('comments', () => {
+    if (typeof postId === 'string') {
+      return getComments(postId);
+    }
   });
 
   useEffect(() => {
     setComments(data?.list);
-    setUser(session.data?.user);
+    setUser(session?.user);
   }, [data, session]);
 
   return (
@@ -27,7 +30,7 @@ const CommentsList = ({ postId }: any) => {
       <S.Container>
         <AddComment user={user} postId={postId} queryClient={queryClient} />
         <div>
-          {comments?.map((comment: any, index: any) => {
+          {comments?.map((comment: CommentP, index: number) => {
             return (
               <EditComment
                 comment={comment}

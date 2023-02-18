@@ -4,8 +4,9 @@ import { KeyboardEvent, useState } from 'react';
 import { useMutation } from 'react-query';
 import * as S from './style';
 
-const AddComment = ({ user, postId, queryClient }: any) => {
-  const [input, setInput] = useState<any>('');
+const AddComment = ({ user, postId, queryClient }: CommentPropsP) => {
+  const [input, setInput] = useState<string>('');
+  console.log(queryClient);
 
   const addCommentHandler = async () => {
     if (input === '') {
@@ -16,11 +17,13 @@ const AddComment = ({ user, postId, queryClient }: any) => {
       list: arrayUnion({
         contents: input,
         date: Date.now(),
-        nickName: user.name,
-        userEmail: user.email,
+        nickName: user?.name,
+        userEmail: user?.email,
       }),
     };
-    addMutation.mutate({ postId, newComment });
+    if (typeof postId === 'string') {
+      addMutation.mutate({ postId, newComment });
+    }
     setInput('');
   };
 

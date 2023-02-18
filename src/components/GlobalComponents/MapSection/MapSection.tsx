@@ -8,18 +8,21 @@ import { Section } from './style';
 const MapSection = () => {
   // 맵 로드 시 제어할 boolean state
   const [mapLoaded, setMapLoaded] = useState<boolean>(false);
-  const router: any = useRouter();
+  const router = useRouter();
   const [path] = useRecoilState(pathState);
 
   const { data } = useQuery('dummy', getDummyData);
-  const detail = data?.data.find((home: any) => home.PBLANC_NO === path);
+  const detail = data?.data.find((home: HomeP) => home.PBLANC_NO === path);
 
-  const [coordnates, setCoordnate] = useState<any>([]);
+  const [coordnates, setCoordnate] = useState<[]>([]);
   const [center, setCenter] = useState({
     y: 36.3171433799167,
     x: 127.65261753988,
   });
   const [zoomLevel, setZoomLevel] = useState(12);
+  const [isOpen, setIsOpen] = useState(false);
+
+  console.log(isOpen);
 
   // 최초 로드
   useEffect(() => {
@@ -44,6 +47,14 @@ const MapSection = () => {
     }
   }, [path]);
 
+  useEffect(() => {
+    if (zoomLevel < 10) {
+      setIsOpen(true);
+    } else {
+      setIsOpen(false);
+    }
+  }, [zoomLevel]);
+
   // 로드 완료 시 useEffect
   useEffect(() => {
     if (!mapLoaded) return;
@@ -60,8 +71,25 @@ const MapSection = () => {
         const geocoder = new kakao.maps.services.Geocoder();
         var zoomControl = new kakao.maps.ZoomControl();
         map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+        kakao.maps.event.addListener(map, 'zoom_changed', () => {
+          const level = map.getLevel();
+          setZoomLevel(level);
+        });
 
-        coordnates.map((result: any) => {
+        // 지도가 이동, 확대, 축소로 인해 중심좌표가 변경되면 마지막 파라미터로 넘어온 함수를 호출하도록 이벤트를 등록합니다
+
+        // 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
+        const mapTypeControl = new kakao.maps.MapTypeControl();
+
+        // 지도에 컨트롤을 추가해야 지도위에 표시됩니다
+        // kakao.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
+        map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
+        // kakao.maps.event.addListener(map, 'center_changed', () => {
+        //   // 지도의 중심좌표를 얻어옵니다
+        //   var latlng: any = map.getCenter();
+        //   setCenter({ x: latlng.La, y: latlng.Ma });
+        // });
+        coordnates.map((result: HomeP) => {
           const marker = new kakao.maps.Marker({
             map: map,
             position: new kakao.maps.LatLng(
@@ -74,7 +102,6 @@ const MapSection = () => {
             zIndex: 99,
             clickable: true,
           });
-          marker.setMap(map);
 
           // 마커 클릭시 센터 변경 및 줌 레벨 변경됨
           kakao.maps.event.addListener(marker, 'click', () => {
@@ -89,10 +116,23 @@ const MapSection = () => {
             });
             setZoomLevel(6);
           });
+
+          if (isOpen) {
+            const iwContent =
+              '<div style="padding:5px;">Hello World! <br><a href="https://map.kakao.com/link/map/Hello World!" style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kakao.com/link/to/Hello World!" style="color:blue" target="_blank">길찾기</a></div>'; // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+
+            // 인포윈도우를 생성합니다
+            const infowindow = new kakao.maps.InfoWindow({
+              content: iwContent,
+            });
+
+            // 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
+            infowindow.open(map, marker);
+          }
         });
 
         // 클러스터에 들어갈 마커 배열
-        const markers = coordnates.map((result: any) => {
+        const markers = coordnates.map((result: HomeP) => {
           return new kakao.maps.Marker({
             position: new kakao.maps.LatLng(
               result.COORDINATES[0].Y,
@@ -130,7 +170,7 @@ const MapSection = () => {
         kakao.maps.event.addListener(
           clusterer,
           'clusterclick',
-          (cluster: any) => {
+          (cluster: kakao.maps.Cluster) => {
             // 현재 지도 레벨에서 1레벨 확대한 레벨
             var level = map.getLevel() - 1;
 
@@ -150,7 +190,7 @@ const MapSection = () => {
         // );
       }
     });
-  }, [mapLoaded, coordnates, router]);
+  }, [mapLoaded, coordnates, router, isOpen]);
 
   return (
     <>
