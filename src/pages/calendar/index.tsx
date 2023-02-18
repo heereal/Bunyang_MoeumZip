@@ -29,6 +29,7 @@ const Calender = () => {
       id: item.PBLANC_NO,
     }),
   );
+  console.log(array);
 
   useEffect(() => {
     if (data) setHomeList(data.allHomeData);
@@ -45,7 +46,7 @@ const Calender = () => {
         }}
         initialView="dayGridMonth"
         nowIndicator={true}
-        editable={true} // 이 속성 없으면 cursor: pointer가 안 됨 ㅠㅠ
+        // editable={true} // 이 속성 없으면 cursor: pointer가 안 됨 ㅠㅠ
         selectable={true}
         locale={'ko'} // 한글 표기
         // aspectRatio={2} // 종횡비-너비가 높이의 두 배
