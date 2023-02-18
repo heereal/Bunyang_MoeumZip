@@ -16,8 +16,8 @@ const Header = () => {
 
   return (
     <>
+      {isOpen && <LoginModal isOpen={isOpen} setIsOpen={setIsOpen} />}
       <S.Header>
-        <LoginModal isOpen={isOpen} setIsOpen={setIsOpen} />
         <Image
           onClick={() => router.push('/')}
           src={candy}

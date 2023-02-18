@@ -38,7 +38,7 @@ const Calender = () => {
   return (
     <S.CalendarContainer>
       <FullCalendar
-        plugins={[dayGridPlugin, interactionPlugin, timeGridPlugin]}
+        plugins={[dayGridPlugin, interactionPlugin]}
         headerToolbar={{
           left: 'prev',
           center: 'title',
@@ -54,7 +54,7 @@ const Calender = () => {
         // initialEvents={[{ title: 'nice event', start: new Date() }]}
         events={array}
         // eventDisplay={'list-item'}
-        // eventColor='#efb33f'
+        eventColor = "#6096B4"
         // eventMouseEnter={(e)=>e.target.style={}}
         // events={[
         //   {

@@ -1,6 +1,7 @@
 import { signIn } from 'next-auth/react';
 import ReactModal from 'react-modal';
 import * as S from './style';
+import { GrClose } from 'react-icons/gr';
 
 interface loginModalProps {
   isOpen: boolean;
@@ -14,12 +15,24 @@ const LoginModal = ({ isOpen, setIsOpen }: loginModalProps) => {
   };
 
   return (
-    <ReactModal
-      isOpen={isOpen}
-      style={customStyles}
-      ariaHideApp={false}
-      onRequestClose={() => setIsOpen(false)}
-    >
+    // <ReactModal
+
+    //   isOpen={isOpen}
+    //   style={customStyles}
+    //   // style={{
+    //   //   overlay: {
+    //   //     backgroundColor: 'papayawhip'
+    //   //   },
+    //   //   content: {
+    //   //     color: 'lightsteelblue'
+    //   //   }
+    //   // }}
+    //   ariaHideApp={false}
+    //   onRequestClose={() => setIsOpen(false)}
+    //   // className="Modal"
+    //   // overlayClassName="Overlay"
+    // >
+    <S.ModalBackground>
       <S.ModalContainer>
         <button onClick={() => loginHandler('google')}>구글 로그인</button>
         <button onClick={() => loginHandler('facebook')}>
@@ -27,9 +40,13 @@ const LoginModal = ({ isOpen, setIsOpen }: loginModalProps) => {
         </button>
         <button onClick={() => loginHandler('kakao')}>카카오 로그인</button>
         <button onClick={() => loginHandler('naver')}>네이버 로그인</button>
-        <button onClick={() => setIsOpen(false)}>닫기</button>
+        <S.CloseIcon>
+          <GrClose size="30" onClick={() => setIsOpen(false)} />
+        </S.CloseIcon>
+        {/* <button onClick={() => setIsOpen(false)}>닫기</button> */}
       </S.ModalContainer>
-    </ReactModal>
+    </S.ModalBackground>
+    // </ReactModal>
   );
 };
 
@@ -43,5 +60,6 @@ const customStyles = {
     bottom: 'auto',
     // marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
+    // overlay: { zIndex: 2000},
   },
 };
