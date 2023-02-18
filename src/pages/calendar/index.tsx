@@ -19,9 +19,16 @@ const Calender = () => {
         nowIndicator={true}
         editable={true}
         selectable={true}
+        locale={'ko'} // 한글 표기
         // aspectRatio={2} // 종횡비-너비가 높이의 두 배
         // height={"90%"}
         initialEvents={[{ title: 'nice event', start: new Date() }]}
+        events={[
+          {
+            title: '최종프로젝트',
+            date: '2023-02-01',
+          },
+        ]}
       />
     </S.CalendarContainer>
   );
