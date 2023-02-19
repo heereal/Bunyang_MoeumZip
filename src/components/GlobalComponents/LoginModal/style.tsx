@@ -20,10 +20,3 @@ export const ModalContainer = styled.div`
   padding: 20px;
   border-radius: 10px;
 `;
-
-export const CloseIcon = styled.div`
-  cursor: pointer;
-  position: relative;
-  top: 5px;
-  right: 5px;
-`
