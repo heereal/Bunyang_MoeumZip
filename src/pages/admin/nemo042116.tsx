@@ -350,6 +350,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
   return {
     props: {
+      // TODO: key랑 value통일하기
       aptList: aptCombineList,
       aptRandomList: aptRandomCombineList,
       officeList: officeCombineList,

@@ -5,15 +5,14 @@ import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import * as S from '../../styles/search.style';
 
-const SearchResult = ({ HomeListDB }: HomeListDBPropsJ) => {
+const SearchResult = ({ homeList }: HomeListDBPropsJ) => {
   const router = useRouter();
-  const allHomeList = HomeListDB.allHomeData;
+  const allHomeList = homeList.allHomeData;
 
   // Search 컴포넌트에 있는 검색창에서 router로 받아 온 검색어
   const keyword: string | string[] | undefined = router.query.keyword;
 
   // 검색한 결과 리스트
-
   const resultsList = allHomeList.filter(
     (item: ItemJ) =>
       // 지역, 아파트명, 분양형태로 검색 가능
@@ -42,9 +41,9 @@ export default SearchResult;
 export const getServerSideProps: GetServerSideProps = async () => {
   const docRef = doc(db, 'HomeList', 'homeData');
   const docSnap = await getDoc(docRef);
-  const HomeList = docSnap.data();
+  const homeList = docSnap.data();
 
   return {
-    props: { HomeListDB: HomeList },
+    props: { homeList },
   };
 };

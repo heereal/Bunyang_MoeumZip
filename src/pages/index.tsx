@@ -7,8 +7,8 @@ import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import * as S from '../styles/main.style';
 
-const MainPage = ({ HomeListDB }: HomeListDBPropsJ) => {
-  const allHomeList = HomeListDB.allHomeData;
+const MainPage = ({ homeList }: HomeListDBPropsJ) => {
+  const allHomeList = homeList.allHomeData;
 
   return (
     <>
@@ -33,10 +33,10 @@ export default MainPage;
 export const getStaticProps: GetStaticProps = async () => {
   const docRef = doc(db, 'HomeList', 'homeData');
   const docSnap = await getDoc(docRef);
-  const HomeList = docSnap.data();
+  const homeList = docSnap.data();
 
   return {
-    props: { HomeListDB: HomeList },
+    props: { homeList },
 
     // ISR - 12시간 마다 데이터 업데이트
     revalidate: 43200,

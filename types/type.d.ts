@@ -7,7 +7,7 @@ declare interface CommentP {
 
 // Firebase에서 가져온 data type
 interface HomeListDBPropsJ {
-  HomeListDB: {
+  homeList: {
     allHomeData: {}[];
   };
 }
