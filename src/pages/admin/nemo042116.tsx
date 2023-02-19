@@ -5,10 +5,13 @@ import axios from 'axios';
 import { doc, getDoc } from 'firebase/firestore';
 import { GetStaticProps } from 'next';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 import styled from 'styled-components';
-import theButton from '../../assets/apiCallButton.jpg';
+import firsDbtButton from '../../assets/apiCallButton_red.png';
+import coordinatesBtn from '../../assets/apiCallButton_blue.png';
+import lastDbButton from '../../assets/apiCallButton_green.png';
+import * as S from '../../styles/admin.style';
 
 const MustHaveToDo = ({
   aptCombineList,
@@ -22,6 +25,7 @@ const MustHaveToDo = ({
   );
   const newList: {}[] = [];
   const filteredArr: {}[] = [];
+  const [btnTime, setBtnTime] = useState<string>('');
 
   // 지역이름이 없는 APT 무순위, 오피스텔 리스트 합치기
   const randomOfficeList: { [key: string]: string }[] = [];
@@ -262,37 +266,63 @@ const MustHaveToDo = ({
     console.log('데이터 업로드 완료!');
   };
 
+  // TODO: 새로고침 해야 날짜가 바뀜!!
+  useEffect(() => setBtnTime(homeListDB[0]?.BUTTON_DATE), [btnTime]);
+
   return (
     <>
       <HeadTitle title={'관리자페이지'} />
-      <div>
-        <ApiCallBtn>
-          <Image
-            onClick={apiCallHandler}
-            src={theButton}
-            alt="APICallButton"
-            width={300}
-            height={300}
-            quality={100}
-            style={{ cursor: 'pointer' }}
-            priority={true}
-          />
-        </ApiCallBtn>
-        <button onClick={locationHandler}>좌표메이커</button>
-        <button onClick={updateInfoHandler}>다시파베로 넣기</button>
-        <div>{homeListDB[0]?.BUTTON_DATE}</div>
-      </div>
+      <S.AdminSection>
+        <S.TitleBox>
+          <S.DbTimeTitle>{btnTime}</S.DbTimeTitle>
+        </S.TitleBox>
+        <S.BtnSection>
+          <S.ApiCallBtn>
+            <Image
+              onClick={apiCallHandler}
+              src={firsDbtButton}
+              alt="APICallButton"
+              width={300}
+              height={300}
+              quality={100}
+              style={{ cursor: 'pointer' }}
+              priority={true}
+            />
+            <S.BtnText>DB에 넣기</S.BtnText>
+          </S.ApiCallBtn>
+          <S.ApiCallBtn>
+            <Image
+              onClick={locationHandler}
+              src={coordinatesBtn}
+              alt="coordinatesBtn"
+              width={300}
+              height={300}
+              quality={100}
+              style={{ cursor: 'pointer' }}
+              priority={true}
+            />
+            <S.BtnText>좌표 생성</S.BtnText>
+          </S.ApiCallBtn>
+          <S.ApiCallBtn>
+            <Image
+              onClick={updateInfoHandler}
+              src={lastDbButton}
+              alt="APICallButton"
+              width={300}
+              height={300}
+              quality={100}
+              style={{ cursor: 'pointer' }}
+              priority={true}
+            />
+            <S.BtnText>다시 DB에 넣기</S.BtnText>
+          </S.ApiCallBtn>
+        </S.BtnSection>
+      </S.AdminSection>
     </>
   );
 };
 
 export default MustHaveToDo;
-
-// styled component
-const ApiCallBtn = styled.button`
-  background-color: transparent;
-  border: none;
-`;
 
 //API 전체 데이터
 export const getStaticProps: GetStaticProps = async () => {
