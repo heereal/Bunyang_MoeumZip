@@ -1,14 +1,27 @@
 import { db } from '@/common/firebase';
+import { pathState } from '@/store/selectors';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import FullCalendar from '@fullcalendar/react';
 import { doc, getDoc } from 'firebase/firestore';
 import { GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
+import { EventHandler } from 'react';
+import { useRecoilState } from 'recoil';
 import * as S from '../../styles/claendar.style';
 
-const Calender = ({homeList}: any) => {
+const Calender = ({ homeList }: any) => {
   const router = useRouter();
+  const [path, setPath] = useRecoilState(pathState);
+
+  const pathHandler = (e: any) => {
+    setTimeout(() => {
+      router.push(`/detail/${e.event.id}`);
+    }, 300);
+    setTimeout(() => {
+      setPath(e.event.id);
+    }, 500);
+  };
 
   const array: any = [];
   homeList.allHomeData.map((item: any) =>
@@ -39,7 +52,7 @@ const Calender = ({homeList}: any) => {
         // eventDisplay={'list-item'}
         eventColor="#6096B4"
         // eventMouseEnter={(e)=>e.target.style={}}
-        eventClick={(e) => router.push(`/detail/${e.event.id}`)}
+        eventClick={(e) => pathHandler(e)}
       />
     </S.CalendarContainer>
   );
@@ -50,7 +63,7 @@ export default Calender;
 export const getStaticProps: GetStaticProps = async () => {
   const docRef = doc(db, 'HomeList', 'homeData');
   const docSnap = await getDoc(docRef);
-  const homeList = docSnap.data()
+  const homeList = docSnap.data();
 
   return {
     props: { homeList },
