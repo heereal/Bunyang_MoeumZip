@@ -9,6 +9,7 @@ export const ListArticle = styled.article`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  text-align: center;
 
   cursor: pointer;
 `;

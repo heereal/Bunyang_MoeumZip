@@ -62,17 +62,6 @@ const MustHaveToDo = ({ aptList, aptRandomList, officeList }: ListPropsJ) => {
 
   console.log(allHomeList);
 
-  // const aptCombineList = await Promise.all(
-  //   aptDefaultList.map(async (item: any) => {
-  //     return {
-  //       ...item,
-  //       detail: aptDetailList.filter(
-  //         (i: any) => i.PBLANC_NO === item.PBLANC_NO,
-  //       ),
-  //     };
-  //   }),
-  // );
-
   // FIXME: 버튼을 처음 누를 때 undefined - list를 버튼 누르기 전에 실행?
   // useEffect(() => {
   //   console.log('useEffect 안:', allHomeData);
