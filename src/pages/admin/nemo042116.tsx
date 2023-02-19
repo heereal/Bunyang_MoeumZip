@@ -55,12 +55,26 @@ const MustHaveToDo = ({ aptList, aptRandomList, officeList }: ListPropsJ) => {
     };
   });
 
+  const getToday = () => {
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = ('0' + (date.getMonth() + 1)).slice(-2);
+    const day = ('0' + date.getDate()).slice(-2);
+    const today = year + '-' + month + '-' + day;
+
+    return today;
+  };
+  const today = getToday();
+
   // 청약홈 전체 API 통합 리스트
   const allHomeList: {}[] = [];
   aptList.map((item: ItemJ) => allHomeList.push(item));
   replaceAreaNameAptOfficeList.map((item: ItemJ) => allHomeList.push(item));
 
-  console.log(allHomeList);
+  // 청약 마감일이 지나지 않은 전체 리스트
+  const possibleAllHomeList = allHomeList.filter(
+    (item: ItemJ) => item.RCEPT_ENDDE >= today,
+  );
 
   // FIXME: 버튼을 처음 누를 때 undefined - list를 버튼 누르기 전에 실행?
   // useEffect(() => {
@@ -77,7 +91,7 @@ const MustHaveToDo = ({ aptList, aptRandomList, officeList }: ListPropsJ) => {
 
   // 버튼 클릭 시 전체 API data가 firebase에 들어감
   const apiCallHandler = async () => {
-    allHomeList.map((item: any) => {
+    possibleAllHomeList.map((item: any) => {
       newList.push({
         COORDINATES: 'x:, y:',
 
