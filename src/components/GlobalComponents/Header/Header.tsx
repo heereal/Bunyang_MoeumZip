@@ -24,7 +24,7 @@ const Header = () => {
 
   return (
     <>
-      {isOpen && <LoginModal isOpen={isOpen} setIsOpen={setIsOpen} />}
+      {isOpen && <LoginModal setIsOpen={setIsOpen} />}
       <S.Header>
         <Image
           onClick={pathHandler}

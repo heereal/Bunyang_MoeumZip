@@ -49,3 +49,12 @@ interface CommentP {
   userEmail: string;
   index?: number;
 }
+
+// 'Users' 컬렉션 map 돌렸을 때
+interface userProps {
+  regions: string[];
+  types: string[];
+  userEmail: string;
+  userName: string;
+  userImage: string;
+}
