@@ -15,14 +15,8 @@ export const ModalBackground = styled.div`
 
 export const ModalContainer = styled.div`
   height: 200px;
-  width: 800px;
+  width: 700px;
   background-color: white;
   padding: 20px;
+  border-radius: 10px;
 `;
-
-export const CloseIcon = styled.div`
-  cursor: pointer;
-  position: relative;
-  top: 5px;
-  right: 5px;
-`
