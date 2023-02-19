@@ -1,9 +1,18 @@
 import { useSession } from 'next-auth/react';
 import { db } from '@/common/firebase';
-import { collection, doc, getDocs, query, setDoc, where } from 'firebase/firestore';
+import {
+  collection,
+  doc,
+  getDocs,
+  query,
+  setDoc,
+  where,
+} from 'firebase/firestore';
 import { useRouter } from 'next/router';
-import { useEffect} from 'react';
+import { useEffect } from 'react';
 import { regionArray, typesArray } from '@/common/categoryList';
+import spinner from '../../assets/spinner.gif';
+import Image from 'next/image';
 
 // 로그인 후 회원가입 페이지로 이동 전에 보여지는 로딩 페이지
 // 최초 로그인이라면 회원가입 페이지로 이동, 아니면 메인 페이지로 이동
@@ -58,7 +67,18 @@ const Loading = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [session]);
 
-  return <div>로딩 중입니다....</div>;
+  return (
+    <div style={{ margin: 'auto' }}>
+      <Image
+        src={spinner}
+        alt="spinner"
+        width={120}
+        height={120}
+        quality={75}
+        priority={true}
+      />
+    </div>
+  );
 };
 
 export default Loading;
