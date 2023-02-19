@@ -10,8 +10,11 @@ import theButton from '../../assets/apiCallButton.jpg';
 
 const MustHaveToDo = ({ aptList, aptRandomList, officeList }: ListPropsJ) => {
   const queryClient = useQueryClient();
-  const [allHomeData, setAllHomeData] = useState<{}[]>([]);
+  const [allHomeData, setAllHomeData] = useState<{ [key: string]: string }[]>(
+    [],
+  );
   const newList: {}[] = [];
+  const filteredArr: any = [];
 
   // 청약홈 전체 API 통합 리스트
   const allHomeList: {}[] = [];
@@ -159,6 +162,32 @@ const MustHaveToDo = ({ aptList, aptRandomList, officeList }: ListPropsJ) => {
     },
   });
 
+  const locationHandler = async () => {
+    console.log('전:', allHomeData);
+    for (let i = 0; i < allHomeData.length; i++) {
+      const geocoder = new kakao.maps.services.Geocoder();
+      await geocoder.addressSearch(
+        allHomeData[i].FOR_COORDINATES_ADRES,
+        (result: any, status: any) => {
+          if (status === kakao.maps.services.Status.OK) {
+            filteredArr.push({
+              ...allHomeData[i],
+              COORDINATES: { x: result[0].x, y: result[0].y },
+            });
+          }
+        },
+      );
+    }
+    return setAllHomeData(filteredArr);
+  };
+
+  const updateInfoHandler = async () => {
+    console.log(allHomeData);
+    addHomeListMutate.mutate({ allHomeData });
+    console.log('버튼 누른 후:', allHomeData);
+    console.log('데이터 업로드 완료!');
+  };
+
   return (
     <>
       <HeadTitle title={'관리자페이지'} />
@@ -168,13 +197,15 @@ const MustHaveToDo = ({ aptList, aptRandomList, officeList }: ListPropsJ) => {
             onClick={apiCallHandler}
             src={theButton}
             alt="APICallButton"
-            width={500}
-            height={500}
+            width={300}
+            height={300}
             quality={100}
             style={{ cursor: 'pointer' }}
             priority={true}
           />
         </ApiCallBtn>
+        <button onClick={locationHandler}>좌표메이커</button>
+        <button onClick={updateInfoHandler}>다시파베로 넣기</button>
       </div>
     </>
   );

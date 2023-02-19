@@ -3,22 +3,21 @@ import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import * as S from './style';
 
-const PostDetail = ({ postId }: any) => {
-  const [home, setHome] = useState<any>();
+const PostDetail = ({ postId }: DetailPagePropsP) => {
+  const [home, setHome] = useState<HomeP>();
 
-  const { data, refetch }: any = useQuery('detail', () => {
+  const { data, refetch } = useQuery('detail', () => {
     return getHomeList();
   });
 
   const detail = data?.allHomeData.find(
-    (home: any) => home.PBLANC_NO === parseInt(postId),
+    (home: { PBLANC_NO: string }) => `${home.PBLANC_NO}` === postId,
   );
 
   useEffect(() => {
     setHome(detail);
     refetch();
-  }, [data]);
-  console.log(home);
+  }, [detail]);
 
   return (
     <S.Section>

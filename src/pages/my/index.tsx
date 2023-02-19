@@ -19,9 +19,10 @@ const MyPage = () => {
   const [editNickname, setEditNickname] = useState<any>('');
   const [email, setEmail] = useState<any>('');
   const [profileImg, setProfileImg] = useState('');
+  const [currentUser, setCurrentUser] = useState<any>('');
 
   // 파일 업로드 시 업로드한 파일을 담아둘 state
-  const [imageUpload, setImageUpload] = useState<any>(null);
+  const [imageUpload, setImageUpload] = useState<any>('');
 
   // 유저의 세션 정보 받아오기
   const { data: session, status } = useSession();
@@ -29,7 +30,7 @@ const MyPage = () => {
   // [닉네임 수정 완료] 버튼 클릭 시 작동
   const changeNicknameHandler = async () => {
     const checkNickname = users.find(
-      (user: any) => user.userName === editNickname,
+      (user: userProps) => user.userName === editNickname,
     );
     if (checkNickname) {
       alert('이미 존재하는 닉네임입니다. 다시 입력해주세요.');
@@ -38,10 +39,10 @@ const MyPage = () => {
     const updateUser = {
       userName: editNickname,
     };
-    await updateDoc(doc(db, 'Users', email), updateUser).then(() =>
-      setNickname(editNickname),
-    );
-    alert('닉네임 수정 완료!');
+    await updateDoc(doc(db, 'Users', email), updateUser).then(() => {
+      setNickname(editNickname);
+      alert('닉네임 수정 완료!');
+    });
   };
 
   // 이미지 업로드 시 이미지 미리보기 바로 반영됨
@@ -78,15 +79,22 @@ const MyPage = () => {
     const updateUser = {
       userImage: downloadUrl,
     };
-    await updateDoc(doc(db, 'Users', email), updateUser);
-    // setProfileImg(downloadUrl)
-
-    alert('프로필 이미지 업로드가 완료되었습니다.');
+    await updateDoc(doc(db, 'Users', email), updateUser).then(() =>
+      alert('프로필 이미지 업로드가 완료되었습니다.'),
+    );
   };
 
   // Users 데이터 불러오기
   const { data: users, isLoading }: any = useQuery('users', getUsersList, {
     enabled: !!session, // session이 true인 경우에만 useQuery를 실행함
+    // users를 불러오는 데 성공하면 현재 로그인한 유저의 정보를 찾아서 setCurrentUser에 담음
+    onSuccess: (users) => {
+      setCurrentUser(
+        users.find(
+          (user: userProps) => user.userEmail === session?.user?.email,
+        ),
+      );
+    },
   });
 
   // 닉네임 변경
@@ -99,16 +107,18 @@ const MyPage = () => {
   useEffect(() => {
     // 비로그인 유저일 경우 접근 제한
     if (status === 'unauthenticated') router.push('/');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [session]);
 
   // firestore에서 유저 정보 불러오면 state에 저장함
   useEffect(() => {
     if (users) {
-      setNickname(users[0]?.userName);
-      setEmail(users[0]?.userEmail);
-      setProfileImg(users[0]?.userImage);
-      setEditNickname(users[0]?.userName);
+      setNickname(currentUser.userName);
+      setEmail(currentUser.userEmail);
+      setProfileImg(currentUser.userImage);
+      setEditNickname(currentUser.userName);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [users]);
 
   return (

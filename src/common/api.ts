@@ -29,14 +29,14 @@ export const getComments = async (postId: string) => {
   return docSnap.data();
 };
 
-export const addComment = async ({ postId, newComment }: CommentP) => {
+export const addComment = async ({ postId, newComment }: AddCommentP) => {
   const commentsRef = doc(db, 'Comments', postId);
   await updateDoc(commentsRef, newComment).catch(() =>
     setDoc(commentsRef, newComment),
   );
 };
 
-export const deleteComment = async ({ postId, comment }: CommentP) => {
+export const deleteComment = async ({ postId, comment }: AddCommentP) => {
   const commentsRef = doc(db, 'Comments', postId);
   await updateDoc(commentsRef, comment);
 };
@@ -45,7 +45,7 @@ export const editComment = async ({
   postId,
   comment,
   newComment,
-}: CommentP) => {
+}: AddCommentP) => {
   const commentsRef = doc(db, 'Comments', postId);
   await updateDoc(commentsRef, comment).then(() =>
     updateDoc(commentsRef, newComment),

@@ -6,28 +6,37 @@ import AddComment from './AddComment';
 import EditComment from './EditComment';
 import * as S from './style';
 
-const CommentsList = ({ postId }: any) => {
-  const [comments, setComments] = useState<any>();
+const CommentsList = ({ postId }: DetailPagePropsP) => {
+  const [comments, setComments] = useState<[]>();
   const queryClient = useQueryClient();
-  const [user, setUser] = useState<any>();
-  const session: any = useSession();
+  const [user, setUser] = useState<object>();
+  // 유저의 세션 정보 받아오기
+  const { data: session } = useSession();
 
-  const { data } = useQuery<any>('comments', () => {
-    return getComments(postId);
+  const { data, refetch } = useQuery('comments', () => {
+    if (typeof postId === 'string') {
+      return getComments(postId);
+    }
   });
 
   useEffect(() => {
     setComments(data?.list);
-    setUser(session.data?.user);
-  }, [data, session]);
+    setUser(session?.user);
+    refetch();
+  }, [data, session, postId]);
 
   return (
     <S.Section>
       <S.CommentHeader>댓글</S.CommentHeader>
       <S.Container>
-        <AddComment user={user} postId={postId} queryClient={queryClient} />
+        <AddComment
+          user={user}
+          postId={postId}
+          queryClient={queryClient}
+          refetch={refetch}
+        />
         <div>
-          {comments?.map((comment: any, index: any) => {
+          {comments?.map((comment: CommentP, index: number) => {
             return (
               <EditComment
                 comment={comment}
@@ -37,6 +46,7 @@ const CommentsList = ({ postId }: any) => {
                 user={user}
                 queryClient={queryClient}
                 comments={comments}
+                refetch={refetch}
               />
             );
           })}

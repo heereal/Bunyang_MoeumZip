@@ -1,25 +1,19 @@
 import { signIn } from 'next-auth/react';
-import ReactModal from 'react-modal';
+import { GrClose } from 'react-icons/gr';
 import * as S from './style';
 
 interface loginModalProps {
-  isOpen: boolean;
   setIsOpen: any;
 }
 
-const LoginModal = ({ isOpen, setIsOpen }: loginModalProps) => {
-  // 소셜 로그인-로그인 시 회원가입 페이지로 이동함
+const LoginModal = ({ setIsOpen }: loginModalProps) => {
+  // 소셜 로그인-로그인 시 로딩 페이지로 이동함
   const loginHandler = async (provider: string) => {
     await signIn(provider, { callbackUrl: '/loading' });
   };
 
   return (
-    <ReactModal
-      isOpen={isOpen}
-      style={customStyles}
-      ariaHideApp={false}
-      onRequestClose={() => setIsOpen(false)}
-    >
+    <S.ModalBackground>
       <S.ModalContainer>
         <button onClick={() => loginHandler('google')}>구글 로그인</button>
         <button onClick={() => loginHandler('facebook')}>
@@ -27,21 +21,14 @@ const LoginModal = ({ isOpen, setIsOpen }: loginModalProps) => {
         </button>
         <button onClick={() => loginHandler('kakao')}>카카오 로그인</button>
         <button onClick={() => loginHandler('naver')}>네이버 로그인</button>
-        <button onClick={() => setIsOpen(false)}>닫기</button>
+        <GrClose
+          size="30"
+          onClick={() => setIsOpen(false)}
+          style={{ cursor: 'pointer' }}
+        />
       </S.ModalContainer>
-    </ReactModal>
+    </S.ModalBackground>
   );
 };
 
 export default LoginModal;
-
-const customStyles = {
-  content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    // marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-  },
-};
