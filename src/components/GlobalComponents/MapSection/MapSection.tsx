@@ -10,7 +10,7 @@ const MapSection = () => {
   const [mapLoaded, setMapLoaded] = useState<boolean>(false);
   const router = useRouter();
   const [path, setPath] = useRecoilState(pathState);
-  const { data } = useQuery('dummy', getHomeList);
+  const { data } = useQuery('homelist', getHomeList);
   const detail = data?.allHomeData.find(
     (home: HomeP) => home.PBLANC_NO === path,
   );
