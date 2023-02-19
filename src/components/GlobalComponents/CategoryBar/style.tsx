@@ -5,7 +5,8 @@ export const CategorySection = styled.section`
   height: 50px;
   background-color: bisque;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-between;
   z-index: 1000;
 `;
 
