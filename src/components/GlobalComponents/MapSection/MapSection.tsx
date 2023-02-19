@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { useRecoilState } from 'recoil';
 import { Section } from './style';
+
 const MapSection = () => {
   // 맵 로드 시 제어할 boolean state
   const [mapLoaded, setMapLoaded] = useState<boolean>(false);
@@ -14,7 +15,6 @@ const MapSection = () => {
   const detail = data?.allHomeData.find(
     (home: HomeP) => home.PBLANC_NO === path,
   );
-
   const [coordnates, setCoordnates] = useState<[]>([]);
   const [center, setCenter] = useState({
     y: 36.3171433799167,
@@ -22,23 +22,33 @@ const MapSection = () => {
   });
   const [zoomLevel, setZoomLevel] = useState(12);
 
+  const pathHadnler = (marker: any) => {
+    if (router.pathname === '/') {
+      router.push(marker.getTitle());
+    } else {
+      router.push(marker.getTitle().split('/')[1]);
+    }
+    setTimeout(() => {
+      setPath(marker.getTitle());
+    }, 300);
+  };
+
   // 최초 로드
   useEffect(() => {
     const $script = document.createElement('script');
     $script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_MAP_KEY}&libraries=services,clusterer&autoload=false`;
     $script.addEventListener('load', () => setMapLoaded(true));
     document.head.appendChild($script);
-    setCoordnates(data?.allHomeData);
-  }, [data]);
-
-  // path 값이 바뀌면  센터와 줌레벨 이 바뀜
-  useEffect(() => {
+    if (data) {
+      setCoordnates(data?.allHomeData);
+    }
+    // path 값이 바뀌면  센터와 줌레벨 이 바뀜
     if (path !== '/') {
       setCenter({
         y: Number(detail?.COORDINATES.y),
         x: Number(detail?.COORDINATES.x),
       });
-      setZoomLevel(6);
+      setZoomLevel(4);
     } else {
       setCenter({
         y: 36.3171433799167,
@@ -46,20 +56,7 @@ const MapSection = () => {
       });
       setZoomLevel(13);
     }
-  }, [path]);
-
-  const pathHadnler = (marker: any) => {
-    setTimeout(() => {
-      if (router.pathname === '/') {
-        router.push(marker.getTitle());
-      } else {
-        router.push(marker.getTitle().split('/')[1]);
-      }
-    }, 300);
-    setTimeout(() => {
-      setPath(marker.getTitle());
-    }, 500);
-  };
+  }, [data, path]);
 
   // 로드 완료 시 useEffect
   useEffect(() => {
