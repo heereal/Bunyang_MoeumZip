@@ -12,6 +12,7 @@ module.exports = {
     ],
 },
   reactStrictMode: false,
+  // swcMinify: true, // 코드 압축하여 성능 개선
   async redirects() {
     return [
       {
