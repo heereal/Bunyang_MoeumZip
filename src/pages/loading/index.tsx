@@ -43,6 +43,7 @@ const Loading = () => {
       userEmail: session?.user?.email,
       userName: session?.user?.name,
       userImage: session?.user?.image,
+      bookmarkList: [],
       regions: regionArray,
       types: typesArray,
     };

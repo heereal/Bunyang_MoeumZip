@@ -8,7 +8,7 @@ import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { uuidv4 } from '@firebase/util';
 import transparentProfile from '../../../public/transparentProfile.png';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
-import { getUsersList } from '@/common/api';
+import { getUsersList, getHomeList } from '@/common/api';
 
 const MyPage = () => {
   const router = useRouter();
@@ -97,12 +97,18 @@ const MyPage = () => {
     },
   });
 
+  const { data: homeList } = useQuery('HomeList', getHomeList)
+  console.log("test:",currentUser?.bookmarkList);
+
   // 닉네임 변경
   const editNicknameMutation: any = useMutation(changeNicknameHandler, {
     onSuccess: () => {
       queryClient.invalidateQueries('users');
     },
   });
+
+  const myBookmarkList = homeList?.allHomeData?.filter((item: any) => item.PBLANC_NO && currentUser?.bookmarkList?.includes(item.PBLANC_NO))
+console.log('myBookmarkList:', myBookmarkList);
 
   useEffect(() => {
     // 비로그인 유저일 경우 접근 제한
@@ -122,7 +128,7 @@ const MyPage = () => {
   }, [users]);
 
   return (
-    <>
+    <div style={{display: "flex", flexDirection: "column", margin: "auto"}}>
       <div>닉네임: {nickname}</div>
       <button onClick={() => setIsInputOpen(!isInputOpen)}>닉네임 수정</button>
       {isInputOpen ? (
@@ -149,7 +155,17 @@ const MyPage = () => {
       />
       <input type="file" accept="images/*" onChange={(e) => onImageChange(e)} />
       <button onClick={uploadImage}>프사 수정 완료</button>
-    </>
+      <h2>나의 북마크 목록</h2>
+      <div style={{display: "flex", flexDirection: "column"}}>
+
+      {myBookmarkList?.map((item: any, index: number)=> {
+        return (
+          <div key={item.PBLANC_NO}>북마크{index+1}번: {item.HOUSE_NM}</div>
+        )
+      })}
+
+      </div>
+    </div>
   );
 };
 
