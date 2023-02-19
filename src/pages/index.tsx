@@ -1,7 +1,7 @@
 import { db } from '@/common/firebase';
 import HeadTitle from '@/components/GlobalComponents/HeadTitle/HeadTitle';
 import TopBtn from '@/components/GlobalComponents/TopBtn/TopBtn';
-import CountTabs from '@/components/MainPage/CountTabs/CountTabs';
+import CountTabs from '@/components/MainPage/CountTabs';
 import { doc, getDoc } from 'firebase/firestore';
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
@@ -38,7 +38,7 @@ export const getStaticProps: GetStaticProps = async () => {
   return {
     props: { homeList },
 
-    // ISR - 12시간 마다 데이터 업데이트
-    revalidate: 43200,
+    // ISR - 6시간 마다 데이터 업데이트
+    revalidate: 12600,
   };
 };

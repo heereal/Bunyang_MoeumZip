@@ -57,10 +57,10 @@ export const CountTabNum = styled.h4`
 
 // 리스트
 export const ListSection = styled.section`
-  width: 80%;
   display: flex;
-  flex-direction: column;
-  align-items: left;
-  justify-content: left;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
   overflow-y: scroll;
 `;
