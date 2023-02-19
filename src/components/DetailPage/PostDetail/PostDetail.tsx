@@ -1,13 +1,49 @@
-import { getHomeList } from '@/common/api';
+import { getHomeList, getBookmarksList } from '@/common/api';
+import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
-import { useQuery } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import * as S from './style';
+import { useBookmark } from '@/hooks';
 
 const PostDetail = ({ postId }: DetailPagePropsP) => {
-  const [home, setHome] = useState<HomeP>();
+  const queryClient = useQueryClient();
 
-  const { data, refetch } = useQuery('detail', () => {
-    return getHomeList();
+  // 유저의 세션 정보 받아오기
+  const { data: session, status } = useSession();
+
+  // 디테일 페이지에서 사용할 특정한 분양 정보
+  const [home, setHome] = useState<HomeP>();
+  const [email, setEmail] = useState<any>('');
+
+  // 북마크 리스트 볼러오기
+  const { data: bookmarksList } = useQuery(
+    'Bookmarks',
+    () => {
+      if (home) {
+        return getBookmarksList(home.PBLANC_NO);
+      }
+    },
+    {
+      enabled: !!home,
+    },
+  );
+
+  // 커스텀 훅 실행
+  const { onClickBookmarkBtnHandler } = useBookmark(
+    status,
+    email,
+    bookmarksList,
+    home?.PBLANC_NO,
+  );
+
+  // 분양 정보 모두 불러온 후에 setHome 실행
+  const { data, refetch } = useQuery('detail', getHomeList);
+
+  // [북마크] 버튼 클릭 시 작동
+  const editBookmark = useMutation('Bookmarks', onClickBookmarkBtnHandler, {
+    onSuccess: () => {
+      queryClient.invalidateQueries('Bookmarks');
+    },
   });
 
   const detail = data?.allHomeData.find(
@@ -17,7 +53,16 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
   useEffect(() => {
     setHome(detail);
     refetch();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [detail]);
+
+  // firestore에서 유저 정보 불러오면 state에 저장함
+  useEffect(() => {
+    if (session) {
+      setEmail(session?.user?.email);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [session]);
 
   return (
     <S.Section>
@@ -34,6 +79,13 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
       <div>모집공고일: {home?.RCRIT_PBLANC_DE}</div>
       <div>청약접수</div>
       <div>공급금액, 입주 예정월</div>
+      <button onClick={() => editBookmark.mutate()} style={{ color: 'red' }}>
+        북마크 버튼
+      </button>
+      <div>
+        북마크 count:
+        {bookmarksList?.usersList ? bookmarksList?.usersList?.length : '0'}
+      </div>
     </S.Section>
   );
 };
