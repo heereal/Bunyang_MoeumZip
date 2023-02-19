@@ -1,11 +1,11 @@
 import { addComment } from '@/common/api';
 import { arrayUnion } from 'firebase/firestore';
 import { KeyboardEvent, useState } from 'react';
-import { useMutation } from 'react-query';
+import { useMutation, useQueries } from 'react-query';
 import * as S from './style';
 
-const AddComment = ({ user, postId, queryClient }: any) => {
-  const [input, setInput] = useState<any>('');
+const AddComment = ({ user, postId, queryClient, refetch }: CommentPropsP) => {
+  const [input, setInput] = useState<string>('');
 
   const addCommentHandler = async () => {
     if (input === '') {
@@ -16,16 +16,20 @@ const AddComment = ({ user, postId, queryClient }: any) => {
       list: arrayUnion({
         contents: input,
         date: Date.now(),
-        nickName: user.name,
-        userEmail: user.email,
+        nickName: user?.name,
+        userEmail: user?.email,
       }),
     };
-    addMutation.mutate({ postId, newComment });
+    if (typeof postId === 'string') {
+      addMutation.mutate({ postId, newComment });
+    }
     setInput('');
   };
 
   const addMutation = useMutation(addComment, {
-    onSuccess: () => queryClient.invalidateQueries('comments'),
+    onSuccess: () => {
+      return queryClient.invalidateQueries('comments'), refetch();
+    },
   });
 
   //엔터키 누르면 등록되는 함수

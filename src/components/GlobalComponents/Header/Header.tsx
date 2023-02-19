@@ -1,7 +1,9 @@
+import { pathState } from '@/store/selectors';
 import { signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import { useRecoilState } from 'recoil';
 import candy from '../../../assets/candy.jpg';
 import LoginModal from '../LoginModal/LoginModal';
 import Search from '../Search/Search';
@@ -10,6 +12,12 @@ import * as S from './style';
 const Header = () => {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [path, setPath] = useRecoilState(pathState);
+
+  const pathHandler = () => {
+    router.push('/');
+    setPath('/');
+  };
 
   // user 로그인 여부에 따라 header Nav 변경
   const { data: session } = useSession();
@@ -19,7 +27,7 @@ const Header = () => {
       {isOpen && <LoginModal setIsOpen={setIsOpen} />}
       <S.Header>
         <Image
-          onClick={() => router.push('/')}
+          onClick={pathHandler}
           src={candy}
           alt="logoImg"
           width={50}
