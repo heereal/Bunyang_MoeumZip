@@ -18,7 +18,7 @@ import * as S from './style';
 
 const PostDetail = ({ postId }: DetailPagePropsP) => {
   // 유저의 세션 정보 받아오기
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
 
   const queryClient = useQueryClient();
 
@@ -37,6 +37,10 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
 
   // [좋아요] 버튼 클릭 시 작동
   const addBookmark = async () => {
+    if (status === 'unauthenticated') {
+      alert('로그인 후 북마크 기능을 이용할 수 있습니다.')
+      return;
+    }
     // 좋아요를 취소할 때
     if (bookmarksList?.usersList.includes(session.user.email)) {
       const nemBookmark: any = {
