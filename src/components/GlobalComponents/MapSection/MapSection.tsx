@@ -182,7 +182,12 @@ const MapSection = () => {
 
   return (
     <>
-      <Section id="map" />
+      <Section
+        style={{
+          display: router.asPath === '/admin/nemo042116' ? 'none' : 'block',
+        }}
+        id="map"
+      />
     </>
   );
 };
