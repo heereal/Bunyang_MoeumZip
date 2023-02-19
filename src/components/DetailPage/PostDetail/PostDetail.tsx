@@ -79,10 +79,10 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
       <div>청약접수</div>
       <div>공급금액, 입주 예정월</div>
       <button onClick={() => editBookmark.mutate()} style={{ color: 'red' }}>
-        좋아요 버튼
+        북마크 버튼
       </button>
       <div>
-        좋아요 count:
+        북마크 count:
         {bookmarksList?.usersList ? bookmarksList?.usersList?.length : '0'}
       </div>
     </S.Section>
