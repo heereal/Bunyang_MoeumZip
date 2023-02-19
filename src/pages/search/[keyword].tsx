@@ -9,27 +9,11 @@ const SearchResult = ({ homeList }: HomeListDBPropsJ) => {
   const router = useRouter();
   const allHomeList = homeList.allHomeData;
 
-  const getToday = () => {
-    const date = new Date();
-    const year = date.getFullYear();
-    const month = ('0' + (date.getMonth() + 1)).slice(-2);
-    const day = ('0' + date.getDate()).slice(-2);
-    const today = year + '-' + month + '-' + day;
-
-    return today;
-  };
-  const today = getToday();
-
   // Search 컴포넌트에 있는 검색창에서 router로 받아 온 검색어
   const keyword: string | string[] | undefined = router.query.keyword;
 
-  // 전체 리스트 중 청약 가능 및 청약 예정 리스트 필터링
-  const possibleHomeList = allHomeList.filter(
-    (item: ItemJ) => item.RCEPT_ENDDE >= today,
-  );
-
   // 검색한 결과 리스트
-  const resultsList = possibleHomeList.filter(
+  const resultsList = allHomeList.filter(
     (item: ItemJ) =>
       // 지역, 아파트명, 분양형태로 검색 가능
       (typeof keyword === 'string' &&

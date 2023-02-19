@@ -94,7 +94,7 @@ const MustHaveToDo = ({ aptList, aptRandomList, officeList }: ListPropsJ) => {
     possibleAllHomeList.map((item: any) => {
       newList.push({
         COORDINATES: 'x:, y:',
-
+        BUTTON_DATE: new Date().toLocaleString(),
         FOR_COORDINATES_ADRES: item.HSSPLY_ADRES.split(',')[0].split('외')[0],
 
         MIN_SUPLY_AR: item?.detail[0]?.SUPLY_AR
@@ -273,6 +273,7 @@ const MustHaveToDo = ({ aptList, aptRandomList, officeList }: ListPropsJ) => {
         </ApiCallBtn>
         <button onClick={locationHandler}>좌표메이커</button>
         <button onClick={updateInfoHandler}>다시파베로 넣기</button>
+        <div>{allHomeData[0].BUTTON_DATE}</div>
       </div>
     </>
   );
