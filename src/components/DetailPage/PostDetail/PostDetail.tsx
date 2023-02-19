@@ -1,13 +1,74 @@
 import { getHomeList } from '@/common/api';
+import { db } from '@/common/firebase';
+import {
+  arrayRemove,
+  arrayUnion,
+  collection,
+  doc,
+  getDoc,
+  query,
+  setDoc,
+  updateDoc,
+  where,
+} from 'firebase/firestore';
+import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
-import { useQuery } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import * as S from './style';
 
 const PostDetail = ({ postId }: DetailPagePropsP) => {
+  // 유저의 세션 정보 받아오기
+  const { data: session } = useSession();
+
+  const queryClient = useQueryClient();
+
   const [home, setHome] = useState<HomeP>();
 
   const { data, refetch } = useQuery('detail', () => {
     return getHomeList();
+  });
+
+  // 북마크 리스트 불러오기
+  const getBookmarksList = async () => {
+    const docRef = doc(db, 'Bookmarks', home.PBLANC_NO);
+    const docSnap = await getDoc(docRef);
+    return docSnap.data();
+  };
+
+  // [좋아요] 버튼 클릭 시 작동
+  const addBookmark = async () => {
+    // 좋아요를 취소할 때
+    if (bookmarksList?.usersList.includes(session.user.email)) {
+      const nemBookmark: any = {
+        usersList: arrayRemove(session.user.email),
+      };
+      const bookmarksRef = doc(db, 'Bookmarks', home.PBLANC_NO);
+      await updateDoc(bookmarksRef, nemBookmark);
+      alert('좋아요가 삭제되었습니다');
+      // 좋아요를 추가할 때
+    } else {
+      const nemBookmark: any = {
+        usersList: arrayUnion(session.user.email),
+      };
+
+      const bookmarksRef = doc(db, 'Bookmarks', home.PBLANC_NO);
+      await updateDoc(bookmarksRef, nemBookmark).catch(() =>
+        setDoc(bookmarksRef, nemBookmark),
+      );
+      alert('좋아요 추가 완료');
+    }
+  };
+
+  // 북마크 리스트 볼러오기
+  const { data: bookmarksList } = useQuery('Bookmarks', getBookmarksList, {
+    enabled: !!home,
+  });
+  console.log('bookmarksList:', bookmarksList);
+
+  const editBookmark = useMutation('Bookmarks', addBookmark, {
+    onSuccess: () => {
+      queryClient.invalidateQueries('Bookmarks');
+    },
   });
 
   const detail = data?.allHomeData.find(
@@ -34,6 +95,10 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
       <div>모집공고일: {home?.RCRIT_PBLANC_DE}</div>
       <div>청약접수</div>
       <div>공급금액, 입주 예정월</div>
+      <button onClick={() => editBookmark.mutate()} style={{ color: 'red' }}>
+        좋아요 버튼
+      </button>
+      <div>좋아요 count: {bookmarksList?.usersList.length}</div>
     </S.Section>
   );
 };
