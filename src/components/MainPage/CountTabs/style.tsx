@@ -59,7 +59,8 @@ export const CountTabNum = styled.h4`
 export const ListSection = styled.section`
   width: 80%;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
   align-items: left;
   justify-content: left;
   overflow-y: scroll;
