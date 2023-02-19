@@ -6,7 +6,6 @@ import FullCalendar from '@fullcalendar/react';
 import { doc, getDoc } from 'firebase/firestore';
 import { GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
-import { EventHandler } from 'react';
 import { useRecoilState } from 'recoil';
 import * as S from '../../styles/claendar.style';
 
@@ -17,8 +16,6 @@ const Calender = ({ homeList }: any) => {
   const pathHandler = (e: any) => {
     setTimeout(() => {
       router.push(`/detail/${e.event.id}`);
-    }, 300);
-    setTimeout(() => {
       setPath(e.event.id);
     }, 500);
   };

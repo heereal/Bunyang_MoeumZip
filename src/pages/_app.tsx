@@ -28,7 +28,6 @@ const App = ({ Component, pageProps }: AppProps) => {
                 width: '100vw',
                 height: '85vh',
                 display: 'flex',
-
               }}
             >
               <Component {...pageProps} />
