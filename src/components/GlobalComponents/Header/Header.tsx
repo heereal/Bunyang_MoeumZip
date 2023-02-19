@@ -24,8 +24,8 @@ const Header = () => {
 
   return (
     <>
+      {isOpen && <LoginModal isOpen={isOpen} setIsOpen={setIsOpen} />}
       <S.Header>
-        <LoginModal isOpen={isOpen} setIsOpen={setIsOpen} />
         <Image
           onClick={pathHandler}
           src={candy}
@@ -41,7 +41,7 @@ const Header = () => {
         <Search />
         <S.NavBar>
           <S.NavContent onClick={() => router.push('/')}>청약정보</S.NavContent>
-          <S.NavContent onClick={() => router.push('/')}>
+          <S.NavContent onClick={() => router.push('/calendar')}>
             청약캘린더
           </S.NavContent>
 
