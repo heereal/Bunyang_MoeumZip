@@ -1,12 +1,11 @@
 import { addComment } from '@/common/api';
 import { arrayUnion } from 'firebase/firestore';
 import { KeyboardEvent, useState } from 'react';
-import { useMutation } from 'react-query';
+import { useMutation, useQueries } from 'react-query';
 import * as S from './style';
 
-const AddComment = ({ user, postId, queryClient }: CommentPropsP) => {
+const AddComment = ({ user, postId, queryClient, refetch }: CommentPropsP) => {
   const [input, setInput] = useState<string>('');
-  console.log(queryClient);
 
   const addCommentHandler = async () => {
     if (input === '') {
@@ -28,7 +27,9 @@ const AddComment = ({ user, postId, queryClient }: CommentPropsP) => {
   };
 
   const addMutation = useMutation(addComment, {
-    onSuccess: () => queryClient.invalidateQueries('comments'),
+    onSuccess: () => {
+      return queryClient.invalidateQueries('comments'), refetch();
+    },
   });
 
   //엔터키 누르면 등록되는 함수

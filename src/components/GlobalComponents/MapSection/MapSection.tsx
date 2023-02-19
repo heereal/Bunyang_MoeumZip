@@ -1,4 +1,4 @@
-import { getDummyData } from '@/common/api';
+import { getHomeList } from '@/common/api';
 import { pathState } from '@/store/selectors';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -9,20 +9,18 @@ const MapSection = () => {
   // 맵 로드 시 제어할 boolean state
   const [mapLoaded, setMapLoaded] = useState<boolean>(false);
   const router = useRouter();
-  const [path] = useRecoilState(pathState);
+  const [path, setPath] = useRecoilState(pathState);
+  const { data } = useQuery('dummy', getHomeList);
+  const detail = data?.allHomeData.find(
+    (home: HomeP) => home.PBLANC_NO === path,
+  );
 
-  const { data } = useQuery('dummy', getDummyData);
-  const detail = data?.data.find((home: HomeP) => home.PBLANC_NO === path);
-
-  const [coordnates, setCoordnate] = useState<[]>([]);
+  const [coordnates, setCoordnates] = useState<[]>([]);
   const [center, setCenter] = useState({
     y: 36.3171433799167,
     x: 127.65261753988,
   });
   const [zoomLevel, setZoomLevel] = useState(12);
-  const [isOpen, setIsOpen] = useState(false);
-
-  console.log(isOpen);
 
   // 최초 로드
   useEffect(() => {
@@ -30,13 +28,16 @@ const MapSection = () => {
     $script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_MAP_KEY}&libraries=services,clusterer&autoload=false`;
     $script.addEventListener('load', () => setMapLoaded(true));
     document.head.appendChild($script);
-    setCoordnate(data?.data);
+    setCoordnates(data?.allHomeData);
   }, [data]);
 
   // path 값이 바뀌면  센터와 줌레벨 이 바뀜
   useEffect(() => {
     if (path !== '/') {
-      setCenter({ y: detail?.COORDINATES[0].Y, x: detail?.COORDINATES[0].X });
+      setCenter({
+        y: Number(detail?.COORDINATES.y),
+        x: Number(detail?.COORDINATES.x),
+      });
       setZoomLevel(6);
     } else {
       setCenter({
@@ -47,13 +48,18 @@ const MapSection = () => {
     }
   }, [path]);
 
-  useEffect(() => {
-    if (zoomLevel < 10) {
-      setIsOpen(true);
-    } else {
-      setIsOpen(false);
-    }
-  }, [zoomLevel]);
+  const pathHadnler = (marker: any) => {
+    setTimeout(() => {
+      if (router.pathname === '/') {
+        router.push(marker.getTitle());
+      } else {
+        router.push(marker.getTitle().split('/')[1]);
+      }
+    }, 300);
+    setTimeout(() => {
+      setPath(marker.getTitle());
+    }, 500);
+  };
 
   // 로드 완료 시 useEffect
   useEffect(() => {
@@ -65,8 +71,8 @@ const MapSection = () => {
         center: new kakao.maps.LatLng(center.y, center.x),
         level: zoomLevel,
       };
-      // router.asPath.length < 3 ? 13 : 5,
-      if (container !== null) {
+
+      if (container !== null && coordnates) {
         let map = new kakao.maps.Map(container, options);
         const geocoder = new kakao.maps.services.Geocoder();
         var zoomControl = new kakao.maps.ZoomControl();
@@ -84,17 +90,18 @@ const MapSection = () => {
         // 지도에 컨트롤을 추가해야 지도위에 표시됩니다
         // kakao.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
         map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
+
         // kakao.maps.event.addListener(map, 'center_changed', () => {
         //   // 지도의 중심좌표를 얻어옵니다
         //   var latlng: any = map.getCenter();
         //   setCenter({ x: latlng.La, y: latlng.Ma });
         // });
-        coordnates.map((result: HomeP) => {
+        coordnates?.map((result: any) => {
           const marker = new kakao.maps.Marker({
             map: map,
             position: new kakao.maps.LatLng(
-              result.COORDINATES[0].Y,
-              result.COORDINATES[0].X,
+              Number(result.COORDINATES.y),
+              Number(result.COORDINATES.x),
             ),
 
             title: `detail/${result.PBLANC_NO}`,
@@ -105,38 +112,32 @@ const MapSection = () => {
 
           // 마커 클릭시 센터 변경 및 줌 레벨 변경됨
           kakao.maps.event.addListener(marker, 'click', () => {
-            setTimeout(() => {
-              router.pathname === '/'
-                ? router.push(marker.getTitle())
-                : router.push(marker.getTitle().split('/')[1]);
-            }, 100);
+            pathHadnler(marker);
             setCenter({
-              y: result.COORDINATES[0].Y,
-              x: result.COORDINATES[0].X,
+              y: Number(result.COORDINATES.y),
+              x: Number(result.COORDINATES.x),
             });
-            setZoomLevel(6);
           });
 
-          if (isOpen) {
-            const iwContent =
-              '<div style="padding:5px;">Hello World! <br><a href="https://map.kakao.com/link/map/Hello World!" style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kakao.com/link/to/Hello World!" style="color:blue" target="_blank">길찾기</a></div>'; // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+          // const iwContent =
+          //   //인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+          //   `<div style="padding:3px;">Hello World!</div>`;
 
-            // 인포윈도우를 생성합니다
-            const infowindow = new kakao.maps.InfoWindow({
-              content: iwContent,
-            });
+          // // 인포윈도우를 생성합니다
+          // const infowindow = new kakao.maps.InfoWindow({
+          //   content: iwContent,
+          // });
 
-            // 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
-            infowindow.open(map, marker);
-          }
+          // // 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
+          // infowindow.open(map, marker);
         });
 
         // 클러스터에 들어갈 마커 배열
-        const markers = coordnates.map((result: HomeP) => {
+        const markers = coordnates?.map((result: any) => {
           return new kakao.maps.Marker({
             position: new kakao.maps.LatLng(
-              result.COORDINATES[0].Y,
-              result.COORDINATES[0].X,
+              Number(result.COORDINATES.y),
+              Number(result.COORDINATES.x),
             ),
             clickable: true,
           });
@@ -178,19 +179,9 @@ const MapSection = () => {
             map.setLevel(level, { anchor: cluster.getCenter() });
           },
         );
-
-        // 주소 => 좌표 찾아주는 함수
-        // geocoder.addressSearch(
-        //   ' 인천광역시 미추홀구 주안동 1545-2번지 일대 ',
-        //   (result: any, status: any) => {
-        //     if (status === kakao.maps.services.Status.OK) {
-        //       console.log(result[0]);
-        //     }
-        //   },
-        // );
       }
     });
-  }, [mapLoaded, coordnates, router, isOpen]);
+  }, [mapLoaded, coordnates, router]);
 
   return (
     <>

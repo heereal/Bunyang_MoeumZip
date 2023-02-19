@@ -34,7 +34,8 @@ const App = ({ Component, pageProps }: AppProps) => {
               <Component {...pageProps} />
               {router.asPath === '/' ||
               router.asPath.includes('detail') ||
-              router.asPath.includes('search') ? (
+              router.asPath.includes('search') ||
+              router.asPath.includes('admin') ? (
                 <MapSection />
               ) : null}
             </div>

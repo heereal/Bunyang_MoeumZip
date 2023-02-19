@@ -23,6 +23,7 @@ interface CommentPropsP {
   };
   index?: number;
   comments?: [];
+  refetch?: refetch;
 }
 
 //DetailPage Props

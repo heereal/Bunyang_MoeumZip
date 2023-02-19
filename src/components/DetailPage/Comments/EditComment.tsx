@@ -11,6 +11,7 @@ const EditComment = ({
   user,
   queryClient,
   comments,
+  refetch,
 }: CommentPropsP) => {
   const [isOpen, setIsOpen] = useState(false);
   const [editInput, setEditInput] = useState<string | undefined>('');
@@ -59,10 +60,14 @@ const EditComment = ({
     }
   };
   const deleteMutation = useMutation(deleteComment, {
-    onSuccess: () => queryClient.invalidateQueries('comments'),
+    onSuccess: () => {
+      return queryClient.invalidateQueries('comments'), refetch();
+    },
   });
   const editMutation = useMutation(editComment, {
-    onSuccess: () => queryClient.invalidateQueries('comments'),
+    onSuccess: () => {
+      return queryClient.invalidateQueries('comments'), refetch();
+    },
   });
 
   const OnKeyPressHandler = (

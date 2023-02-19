@@ -11,17 +11,13 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
   });
 
   const detail = data?.allHomeData.find(
-    (home: { PBLANC_NO: string }) => home.PBLANC_NO === postId,
+    (home: { PBLANC_NO: string }) => `${home.PBLANC_NO}` === postId,
   );
-  console.log(typeof postId);
-  console.log(data);
-
-  console.log(detail);
 
   useEffect(() => {
     setHome(detail);
     refetch();
-  }, [data]);
+  }, [detail]);
 
   return (
     <S.Section>

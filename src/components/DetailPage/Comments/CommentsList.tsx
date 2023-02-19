@@ -13,7 +13,7 @@ const CommentsList = ({ postId }: DetailPagePropsP) => {
   // 유저의 세션 정보 받아오기
   const { data: session } = useSession();
 
-  const { data } = useQuery('comments', () => {
+  const { data, refetch } = useQuery('comments', () => {
     if (typeof postId === 'string') {
       return getComments(postId);
     }
@@ -22,13 +22,19 @@ const CommentsList = ({ postId }: DetailPagePropsP) => {
   useEffect(() => {
     setComments(data?.list);
     setUser(session?.user);
-  }, [data, session]);
+    refetch();
+  }, [data, session, postId]);
 
   return (
     <S.Section>
       <S.CommentHeader>댓글</S.CommentHeader>
       <S.Container>
-        <AddComment user={user} postId={postId} queryClient={queryClient} />
+        <AddComment
+          user={user}
+          postId={postId}
+          queryClient={queryClient}
+          refetch={refetch}
+        />
         <div>
           {comments?.map((comment: CommentP, index: number) => {
             return (
@@ -40,6 +46,7 @@ const CommentsList = ({ postId }: DetailPagePropsP) => {
                 user={user}
                 queryClient={queryClient}
                 comments={comments}
+                refetch={refetch}
               />
             );
           })}
