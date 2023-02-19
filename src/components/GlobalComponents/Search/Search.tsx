@@ -13,10 +13,10 @@ const Search = () => {
     setKeyword(e.target.value);
   };
 
-  // AlertUI test - TODO: 지울것
-  const alertTest = () => {
-    alert('성공');
-  };
+  // // AlertUI test - TODO: 지울것
+  // const alertTest = () => {
+  //   alert('성공');
+  // };
 
   const searchHandler = () => {
     if (keyword.trim().length === 0) {
@@ -28,9 +28,9 @@ const Search = () => {
               alertText="검색어를 입력해주세요."
               onClose={onClose}
               // 아래 = AlertUI test - TODO: 지울것
-              alertTitle="검색어"
-              onClick={alertTest}
-              eventText="알림"
+              // alertTitle="검색어"
+              // onClick={alertTest}
+              // eventText="알림"
             />
           );
         },

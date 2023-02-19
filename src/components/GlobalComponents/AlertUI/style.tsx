@@ -1,5 +1,15 @@
 import styled from 'styled-components';
 
+export const AlertBack = styled.div`
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  z-index: 1000;
+  top: 0%;
+  left: 0%;
+`;
+
 export const AlertSection = styled.section`
   display: flex;
   justify-content: center;
@@ -17,7 +27,7 @@ export const AlertBox = styled.div`
   background-color: #fff;
   position: relative;
   bottom: 80px;
-  box-shadow: 2px 2px 15px 2px blue;
+  box-shadow: 2px 2px 15px 2px lightblue;
 `;
 
 export const TextBox = styled.div`
