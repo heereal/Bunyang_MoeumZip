@@ -86,7 +86,7 @@ const MyPage = () => {
 
   // Users 데이터 불러오기
   const { data: users, isLoading }: any = useQuery('users', getUsersList, {
-    enabled: !!session, // session이 ture인 경우에만 useQuery를 실행함
+    enabled: !!session, // session이 true인 경우에만 useQuery를 실행함
   });
 
   // 닉네임 변경

@@ -1,25 +1,17 @@
+import { getUsersList } from '@/common/api';
 import { selectedCategoryList } from '@/store/selectors';
 import { useSession } from 'next-auth/react';
 import { useState } from 'react';
+import { useQuery } from 'react-query';
 import { useRecoilState } from 'recoil';
 import HomeList from '../HomeList/HomeList';
 import * as S from './style';
 
-interface AllHomeListJ {
-  allHomeList: {}[];
-}
-
-const CountTabs = ({ allHomeList }: AllHomeListJ) => {
+const CountTabs = ({ list }: CountTabPropsListJ) => {
   const [currentTab, SetCurrentTab] = useState<number>(0);
 
   // 선택된 지역, 분양 형태 리스트 가져오기
-  const [selectedCtList] = useRecoilState(selectedCategoryList);
-  console.log('selectedCtList', selectedCtList);
-
-  const { data: user } = useSession();
-
-  // 1. 유저가 있을 때 없을 때 초기화면 구분
-  // 2. 카테고리 반영 된 리스트 구하기
+  const [selectedCtList] = useRecoilState<{}[]>(selectedCategoryList);
 
   // 오늘 날짜 구하기
   const getToday = () => {
@@ -47,42 +39,125 @@ const CountTabs = ({ allHomeList }: AllHomeListJ) => {
   };
   const todayAddMonth = getAddMonth();
 
-  // TODO: 카테고리 클릭 시 변경되는 리스트로 다시 만들기
-  // 1. 카테고리 선택 리스트 2. 유저 관심 리스트(firebase User 정보 불러오기) 3. 기본리스르
+  // 로그인 여부 확인
+  const { data: session } = useSession();
 
-  // 로그인 안 했을 때 보이는 기본 리스트
-  // 청약 가능 리스트
-  const todayList = allHomeList.filter(
-    (item: any) => item.RCEPT_BGNDE <= today && item.RCEPT_ENDDE >= today,
+  // Users 데이터 불러오기
+  const { data: users, isLoading }: any = useQuery('users', getUsersList, {
+    enabled: !!session, // session이 true인 경우에만 useQuery를 실행함
+  });
+
+  // 현재 유저의 데이터 불러오기
+  const currentUser = users?.find(
+    (item: ItemJ) => item.userEmail === session?.user?.email,
   );
-  // 청약 예정 리스트
-  const comingList = allHomeList.filter(
+
+  // 현재 유저의 관심 지역 및 분양 형태 통합 리스트
+  const currentUserList: {}[] = [];
+  currentUser?.regions?.map((item: ItemJ) => currentUserList.push(item));
+  currentUser?.types?.map((item: ItemJ) => currentUserList.push(item));
+
+  // 현재 유저의 관심 지역과 분양 형태를 반영해 필터링한 리스트
+  const userList = list.filter(
+    (item: ItemJ) =>
+      currentUserList.includes(item.HOUSE_DTL_SECD_NM) ||
+      currentUserList.includes(item.SUBSCRPT_AREA_CODE_NM),
+  );
+
+  // 로그인 했을 때 보이는 유저의 관심 지역 및 분양형태가 반영 된 리스트
+  // 현재 유저 - 청약 가능 리스트
+  const userTodayList = userList.filter(
+    (item: ItemJ) =>
+      item.RCEPT_BGNDE <= today &&
+      item.RCEPT_ENDDE >= today &&
+      item.HOUSE_SECD !== '04',
+  );
+  // 현재 유저 - 청약 예정 리스트
+  const userComingList = userList.filter(
+    (item: ItemJ) =>
+      item.RCEPT_BGNDE > today &&
+      item.RCEPT_BGNDE <= todayAddMonth &&
+      item.HOUSE_SECD !== '04',
+  );
+
+  // 로그인 안 했을 때 보이는 기본(전체) 리스트
+  // 기본(전체) - 청약 가능 리스트
+  const todayList = list.filter(
+    (item: ItemJ) =>
+      item.RCEPT_BGNDE <= today &&
+      item.RCEPT_ENDDE >= today &&
+      item.HOUSE_SECD !== '04',
+  );
+  // 기본(전체) - 청약 예정 리스트
+  const comingList = list.filter(
+    (item: ItemJ) =>
+      item.RCEPT_BGNDE > today &&
+      item.RCEPT_BGNDE <= todayAddMonth &&
+      item.HOUSE_SECD !== '04',
+  );
+  // 기본(전체) - TODO: 무순위 리스트 - 이름 변경? -선착순..?
+  const randomList = list.filter(
+    (item: ItemJ) => item.HOUSE_SECD === '04' && item.RCEPT_BGNDE >= today,
+  );
+
+  // 로그인 관계없이 카테고리를 선택했을 때 보이는 리스트
+  // 카테고리 선택이 반영된 필터링 리스트
+  const categoryList = list.filter(
+    (item: ItemJ) =>
+      selectedCtList.includes(item.HOUSE_DTL_SECD_NM) ||
+      selectedCtList.includes(item.SUBSCRPT_AREA_CODE_NM),
+  );
+
+  // 카테고리 - 청약 가능 리스트
+  const categoryTodayList = categoryList.filter(
+    (item: ItemJ) =>
+      item.RCEPT_BGNDE <= today &&
+      item.RCEPT_ENDDE >= today &&
+      item.HOUSE_SECD !== '04',
+  );
+  // 카테고리 - 청약 예정 리스트
+  const categoryComingList = categoryList.filter(
     (item: any) =>
-      item.RCEPT_BGNDE > today && item.RCEPT_BGNDE <= todayAddMonth,
-  );
-  // TODO: 무순위 리스트 - 이름 변경? -선착순..?
-  const randomList = allHomeList.filter(
-    (item: any) => item.HOUSE_SECD === '04',
+      item.RCEPT_BGNDE > today &&
+      item.RCEPT_BGNDE <= todayAddMonth &&
+      item.HOUSE_SECD !== '04',
   );
 
-  // Count Tabs
   const tabList = [
-    // TODO: 카테고리 선택 시마다 변경되는 List로 바꾸기
     {
       name: '청약 가능',
-      // 카테고리리스트 ? 카테고리리스트 : user? userList : 전체리스트
-      content: user ? todayList : allHomeList,
-      count: user ? todayList?.length : allHomeList.length,
+      content:
+        categoryList.length !== 0
+          ? categoryTodayList
+          : session
+          ? userTodayList
+          : todayList,
+      count:
+        categoryList.length !== 0
+          ? categoryTodayList.length
+          : session
+          ? userTodayList.length
+          : todayList.length,
     },
     {
       name: '청약 예정',
-      content: user ? comingList : allHomeList,
-      count: user ? comingList?.length : allHomeList.length,
+      content:
+        categoryList.length !== 0
+          ? categoryComingList
+          : session
+          ? userComingList
+          : comingList,
+      count:
+        categoryList.length !== 0
+          ? categoryComingList.length
+          : session
+          ? userComingList.length
+          : comingList.length,
     },
     {
       name: '무순위',
-      content: user ? randomList : allHomeList,
-      count: user ? randomList?.length : allHomeList.length,
+      content: randomList,
+      count: randomList.length,
     },
   ];
 

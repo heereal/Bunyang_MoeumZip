@@ -20,7 +20,7 @@ const MainPage = ({ HomeListDB }: HomeListDBPropsJ) => {
       </Head>
       <S.MainSection>
         {/* CountTabs(+HomeList 컴포넌트) */}
-        <CountTabs allHomeList={allHomeList} />
+        <CountTabs list={allHomeList} />
       </S.MainSection>
       <TopBtn />
     </>

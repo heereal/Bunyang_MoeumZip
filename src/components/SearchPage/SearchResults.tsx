@@ -1,8 +1,6 @@
 // TODO: WireFrame대로 수정하기
 
 const Lists = ({ list }: PropsListJ) => {
-  console.log('list', list);
-
   return (
     <div>
       <br />

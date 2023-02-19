@@ -6,7 +6,6 @@ export const CategoryContainer = styled.div`
   height: 250px;
   width: 400px;
   padding: 10px;
-  background-color: white;
 `;
 
 export const CategoryBtn = styled.button<{ bg: string }>`
