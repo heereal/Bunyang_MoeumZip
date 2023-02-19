@@ -1,6 +1,8 @@
 import { addHomeList } from '@/common/api';
+import { db } from '@/common/firebase';
 import HeadTitle from '@/components/GlobalComponents/HeadTitle/HeadTitle';
 import axios from 'axios';
+import { doc, getDoc } from 'firebase/firestore';
 import { GetStaticProps } from 'next';
 import Image from 'next/image';
 import { useState } from 'react';
@@ -8,7 +10,12 @@ import { useMutation, useQueryClient } from 'react-query';
 import styled from 'styled-components';
 import theButton from '../../assets/apiCallButton.jpg';
 
-const MustHaveToDo = ({ aptList, aptRandomList, officeList }: ListPropsJ) => {
+const MustHaveToDo = ({
+  aptCombineList,
+  aptRandomCombineList,
+  officeCombineList,
+  homeListDB,
+}: ListPropsJ) => {
   const queryClient = useQueryClient();
   const [allHomeData, setAllHomeData] = useState<{ [key: string]: string }[]>(
     [],
@@ -18,8 +25,8 @@ const MustHaveToDo = ({ aptList, aptRandomList, officeList }: ListPropsJ) => {
 
   // 지역이름이 없는 APT 무순위, 오피스텔 리스트 합치기
   const randomOfficeList: { [key: string]: string }[] = [];
-  aptRandomList.map((item: ItemJ) => randomOfficeList.push(item));
-  officeList.map((item: ItemJ) => randomOfficeList.push(item));
+  aptRandomCombineList?.map((item: ItemJ) => randomOfficeList.push(item));
+  officeCombineList?.map((item: ItemJ) => randomOfficeList.push(item));
 
   // APT 무순위 + 오피스텔 리스트에 주소 앞부분을 잘라 지역 이름 추가하기
   const addAreaNameList = randomOfficeList.map((item) => {
@@ -68,7 +75,7 @@ const MustHaveToDo = ({ aptList, aptRandomList, officeList }: ListPropsJ) => {
 
   // 청약홈 전체 API 통합 리스트
   const allHomeList: {}[] = [];
-  aptList.map((item: ItemJ) => allHomeList.push(item));
+  aptCombineList?.map((item: ItemJ) => allHomeList.push(item));
   replaceAreaNameAptOfficeList.map((item: ItemJ) => allHomeList.push(item));
 
   // 청약 마감일이 지나지 않은 전체 리스트
@@ -273,7 +280,7 @@ const MustHaveToDo = ({ aptList, aptRandomList, officeList }: ListPropsJ) => {
         </ApiCallBtn>
         <button onClick={locationHandler}>좌표메이커</button>
         <button onClick={updateInfoHandler}>다시파베로 넣기</button>
-        <div>{allHomeData[0]?.BUTTON_DATE}</div>
+        <div>{homeListDB[0]?.BUTTON_DATE}</div>
       </div>
     </>
   );
@@ -447,14 +454,20 @@ export const getStaticProps: GetStaticProps = async () => {
   //   }),
   // );
 
+  // 통합 리스트 불러오기 - 버튼 누른 날짜 화면에 표시하기
+  const docRef = doc(db, 'HomeList', 'homeData');
+  const docSnap = await getDoc(docRef);
+  const homeList = docSnap.data();
+  const homeListDB = homeList?.allHomeData;
+
   return {
     props: {
-      // TODO: key랑 value통일하기
-      aptList: aptCombineList,
-      aptRandomList: aptRandomCombineList,
-      officeList: officeCombineList,
-      lhNoticeAList: lhNoticeAList,
-      lhDetailst: lhDetailst,
+      aptCombineList,
+      aptRandomCombineList,
+      officeCombineList,
+      homeListDB,
+      lhNoticeAList,
+      lhDetailst,
       // lhDefaultList: lhDefaultList,
       // lhRegisterList: lhRegisterList,
     },
