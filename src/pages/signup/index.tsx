@@ -87,7 +87,7 @@ const SignUp = () => {
       <S.CategoryContainer>
         {regionArray.map((region, index) =>
           region && myRegionArray.includes(region) ? (
-            <S.CatrgoryBtn
+            <S.CategoryBtn
               onClick={() =>
                 setMyRegionArray(
                   myRegionArray.filter((item) => item !== region),
@@ -97,26 +97,26 @@ const SignUp = () => {
               bg={'lightblue'}
             >
               {region}
-            </S.CatrgoryBtn>
+            </S.CategoryBtn>
           ) : (
-            <S.CatrgoryBtn
+            <S.CategoryBtn
               onClick={() => setMyRegionArray([...myRegionArray, region])}
               key={index}
               bg={'transparent'}
             >
               {region}
-            </S.CatrgoryBtn>
+            </S.CategoryBtn>
           ),
         )}
-        <S.CatrgoryBtn bg={'transparent'} onClick={() => setMyRegionArray([])}>
+        <S.CategoryBtn bg={'transparent'} onClick={() => setMyRegionArray([])}>
           전체 초기화
-        </S.CatrgoryBtn>
-        <S.CatrgoryBtn
+        </S.CategoryBtn>
+        <S.CategoryBtn
           bg={'transparent'}
           onClick={() => setMyRegionArray(regionArray)}
         >
           전체 선택
-        </S.CatrgoryBtn>
+        </S.CategoryBtn>
       </S.CategoryContainer>
 
       {/* 관심 분양 형태 카테고리 선택 */}
@@ -124,7 +124,7 @@ const SignUp = () => {
       <S.CategoryContainer>
         {typesArray.map((type, index) =>
           type && myTypeArray.includes(type) ? (
-            <S.CatrgoryBtn
+            <S.CategoryBtn
               onClick={() =>
                 setMyTypeArray(myTypeArray.filter((item) => item !== type))
               }
@@ -132,26 +132,26 @@ const SignUp = () => {
               bg={'lightblue'}
             >
               {type}
-            </S.CatrgoryBtn>
+            </S.CategoryBtn>
           ) : (
-            <S.CatrgoryBtn
+            <S.CategoryBtn
               onClick={() => setMyTypeArray([...myTypeArray, type])}
               key={index}
               bg={'transparent'}
             >
               {type}
-            </S.CatrgoryBtn>
+            </S.CategoryBtn>
           ),
         )}
-        <S.CatrgoryBtn bg={'transparent'} onClick={() => setMyTypeArray([])}>
+        <S.CategoryBtn bg={'transparent'} onClick={() => setMyTypeArray([])}>
           전체 초기화
-        </S.CatrgoryBtn>
-        <S.CatrgoryBtn
+        </S.CategoryBtn>
+        <S.CategoryBtn
           bg={'transparent'}
           onClick={() => setMyTypeArray(typesArray)}
         >
           전체 선택
-        </S.CatrgoryBtn>
+        </S.CategoryBtn>
       </S.CategoryContainer>
     </div>
   );

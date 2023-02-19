@@ -1,5 +1,6 @@
+
 // signup 페이지 관심 지역 리스트
-export const regionArray = [
+export const regionArray: string[] = [
   '서울',
   '강원',
   '대전',
@@ -20,16 +21,14 @@ export const regionArray = [
 ];
 
 // signup 페이지 관심 분양 형태 리스트
-export const typesArray = [
-  '국민임대',
-  '장기전세',
-  '민간분양',
-  '일반 민간임대',
-  '10년 공공임대',
-  '영구임대',
-  '5년 공공임대',
-  '공공분양',
-  '5년 민간임대',
-  '뉴스테이',
-  '행복주택',
+export const typesArray: string[] = [
+  '민영',
+  '국민',
+  '분양주택',
+  '임대주택',
+  '신혼희망타운',
+  '민간임대',
+  '공공지원민간임대',
+  '오피스텔',
+  '도시형생활주택'
 ];

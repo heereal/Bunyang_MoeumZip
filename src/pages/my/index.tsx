@@ -86,11 +86,13 @@ const MyPage = () => {
 
   // Users 데이터 불러오기
   const { data: users, isLoading }: any = useQuery('users', getUsersList, {
-    enabled: !!session, // session이 ture인 경우에만 useQuery를 실행함
+    enabled: !!session, // session이 true인 경우에만 useQuery를 실행함
     // users를 불러오는 데 성공하면 현재 로그인한 유저의 정보를 찾아서 setCurrentUser에 담음
     onSuccess: (users) => {
       setCurrentUser(
-        users.find((user: userProps) => user.userEmail === session?.user?.email),
+        users.find(
+          (user: userProps) => user.userEmail === session?.user?.email,
+        ),
       );
     },
   });

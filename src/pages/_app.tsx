@@ -1,12 +1,11 @@
 import Layout from '@/components/GlobalComponents/Layout/Layout';
-import '@/styles/globals.css';
-import type { AppProps } from 'next/app';
-import { RecoilRoot } from 'recoil';
-import { QueryClient, QueryClientProvider } from 'react-query';
-import { useState } from 'react';
-import { SessionProvider } from 'next-auth/react';
 import MapSection from '@/components/GlobalComponents/MapSection/MapSection';
+import '@/styles/globals.css';
+import { SessionProvider } from 'next-auth/react';
+import type { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { RecoilRoot } from 'recoil';
 
 const App = ({ Component, pageProps }: AppProps) => {
   const router = useRouter();

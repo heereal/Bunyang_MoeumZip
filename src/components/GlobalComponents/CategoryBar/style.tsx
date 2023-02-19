@@ -5,6 +5,20 @@ export const CategorySection = styled.section`
   height: 50px;
   background-color: bisque;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   z-index: 1000;
+`;
+
+// TODO: Main Tabs CSS 참고해서 변경
+export const CategoryTabList = styled.ul`
+  display: flex;
+  flex-direction: row;
+`;
+
+export const CategoryTabs = styled.li`
+  list-style: none;
+`;
+
+export const CategoryTab = styled.button`
+  width: 80px;
 `;

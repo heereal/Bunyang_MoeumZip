@@ -8,17 +8,19 @@ import { useMutation, useQueryClient } from 'react-query';
 import styled from 'styled-components';
 import theButton from '../../assets/apiCallButton.jpg';
 
-const MustHaveToDo = ({ aptList, aptRandomList, officeList }: any) => {
+const MustHaveToDo = ({ aptList, aptRandomList, officeList }: ListPropsJ) => {
   const queryClient = useQueryClient();
-  const [allHomeData, setAllHomeData] = useState<any>();
-  const newList: any = [];
+  const [allHomeData, setAllHomeData] = useState<{ [key: string]: string }[]>(
+    [],
+  );
+  const newList: {}[] = [];
   const filteredArr: any = [];
 
   // 청약홈 전체 API 통합 리스트
-  const allHomeList: any = [];
-  aptList.map((item: any) => allHomeList.push(item));
-  aptRandomList.map((item: any) => allHomeList.push(item));
-  officeList.map((item: any) => allHomeList.push(item));
+  const allHomeList: {}[] = [];
+  aptList.map((item: ItemJ) => allHomeList.push(item));
+  aptRandomList.map((item: ItemJ) => allHomeList.push(item));
+  officeList.map((item: ItemJ) => allHomeList.push(item));
 
   // FIXME: 버튼을 처음 누를 때 undefined - list를 버튼 누르기 전에 실행?
   // useEffect(() => {
@@ -144,7 +146,7 @@ const MustHaveToDo = ({ aptList, aptRandomList, officeList }: any) => {
         GNRL_RCEPT_BGNDE: item.GNRL_RCEPT_BGNDE ? item.GNRL_RCEPT_BGNDE : '',
         GNRL_RCEPT_ENDDE: item.GNRL_RCEPT_ENDDE ? item.GNRL_RCEPT_ENDDE : '',
         SUBSCRPT_REQST_AMOUNT: item.detail[0]?.SUBSCRPT_REQST_AMOUNT
-          ? item.detail[0]?.SUBSCRPT_REQST_AMOUNT
+          ? item.detail[0]?.SUBSCRPT_REQST_AMOUNT + '만원'
           : '',
       });
       setAllHomeData(newList);
@@ -379,6 +381,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
   return {
     props: {
+      // TODO: key랑 value통일하기
       aptList: aptCombineList,
       aptRandomList: aptRandomCombineList,
       officeList: officeCombineList,

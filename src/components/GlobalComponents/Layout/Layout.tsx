@@ -11,7 +11,7 @@ const Layout = ({ children }: PropsP) => {
     <S.Wrap>
       <S.Container>
         <Header />
-        {/* <CategoryBar /> */}
+        <CategoryBar />
         <div> {children} </div>
       </S.Container>
     </S.Wrap>

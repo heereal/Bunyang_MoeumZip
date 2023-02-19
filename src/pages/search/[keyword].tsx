@@ -1,18 +1,24 @@
+import { db } from '@/common/firebase';
 import SearchResults from '@/components/SearchPage/SearchResults';
-import axios from 'axios';
-import { GetServerSideProps, GetStaticProps } from 'next';
+import { doc, getDoc } from 'firebase/firestore';
+import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import * as S from '../../styles/search.style';
 
-const SearchResult = ({ defaultList }: any) => {
+const SearchResult = ({ homeList }: HomeListDBPropsJ) => {
   const router = useRouter();
-  const keyword = router.query.keyword;
+  const allHomeList = homeList.allHomeData;
 
-  const resultsList = defaultList.filter(
-    (item: any) =>
+  // Search 컴포넌트에 있는 검색창에서 router로 받아 온 검색어
+  const keyword: string | string[] | undefined = router.query.keyword;
+
+  // 검색한 결과 리스트
+  const resultsList = allHomeList.filter(
+    (item: ItemJ) =>
       // 지역, 아파트명, 분양형태로 검색 가능
-      keyword?.includes(item.SUBSCRPT_AREA_CODE_NM) ||
-      item.HOUSE_NM.includes(keyword) ||
+      (typeof keyword === 'string' &&
+        item.SUBSCRPT_AREA_CODE_NM.includes(keyword)) ||
+      (typeof keyword === 'string' && item.HOUSE_NM.includes(keyword)) ||
       keyword?.includes(item.HOUSE_DTL_SECD_NM),
   );
 
@@ -21,8 +27,9 @@ const SearchResult = ({ defaultList }: any) => {
       <div>
         {keyword} 의 검색 결과는 {resultsList.length} 건입니다.
       </div>
-      {resultsList.map((item: any) => (
-        <SearchResults key={item.PBLANC_NO} searchResult={item} />
+      {resultsList.map((item: ItemJ) => (
+        // 검색 결과 리스트
+        <SearchResults key={item.PBLANC_NO} list={item} />
       ))}
     </S.Section>
   );
@@ -30,20 +37,13 @@ const SearchResult = ({ defaultList }: any) => {
 
 export default SearchResult;
 
-// 기본 정보만 불러옴 - TODO: 오피스텔, 무순위, LH 추가하기
+// Firebase에서 API 통합 데이터 불러오기
 export const getServerSideProps: GetServerSideProps = async () => {
-  const BASE_URL = 'https://api.odcloud.kr/api/ApplyhomeInfoDetailSvc/v1';
-  const METHOD_APT_ALL = 'getAPTLttotPblancDetail';
-  const SERVICE_KEY = process.env.NEXT_PUBLIC_HOME_API_KEY;
-
-  // 공고문 리스트 가져오기
-  const defaultList = await axios
-    .get(
-      `${BASE_URL}/${METHOD_APT_ALL}?page=1&perPage=1500&&cond%5BRCRIT_PBLANC_DE%3A%3AGTE%5D=2023-01-01&serviceKey=${SERVICE_KEY}`,
-    )
-    .then((res) => res.data.data);
+  const docRef = doc(db, 'HomeList', 'homeData');
+  const docSnap = await getDoc(docRef);
+  const homeList = docSnap.data();
 
   return {
-    props: { defaultList },
+    props: { homeList },
   };
 };

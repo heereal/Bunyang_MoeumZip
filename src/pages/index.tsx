@@ -7,8 +7,8 @@ import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import * as S from '../styles/main.style';
 
-const MainPage = ({ HomeListDB }: any) => {
-  const homeList = HomeListDB.allHomeData;
+const MainPage = ({ homeList }: HomeListDBPropsJ) => {
+  const allHomeList = homeList.allHomeData;
 
   return (
     <>
@@ -20,7 +20,7 @@ const MainPage = ({ HomeListDB }: any) => {
       </Head>
       <S.MainSection>
         {/* CountTabs(+HomeList 컴포넌트) */}
-        <CountTabs homeList={homeList} />
+        <CountTabs list={allHomeList} />
       </S.MainSection>
       <TopBtn />
     </>
@@ -29,14 +29,14 @@ const MainPage = ({ HomeListDB }: any) => {
 
 export default MainPage;
 
-// API 통합 데이터 불러오기
+// Firebase에서 API 통합 데이터 불러오기
 export const getStaticProps: GetStaticProps = async () => {
   const docRef = doc(db, 'HomeList', 'homeData');
   const docSnap = await getDoc(docRef);
-  const HomeList = docSnap.data();
+  const homeList = docSnap.data();
 
   return {
-    props: { HomeListDB: HomeList },
+    props: { homeList },
 
     // ISR - 12시간 마다 데이터 업데이트
     revalidate: 43200,
