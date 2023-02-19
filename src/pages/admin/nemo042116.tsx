@@ -14,13 +14,67 @@ const MustHaveToDo = ({ aptList, aptRandomList, officeList }: ListPropsJ) => {
     [],
   );
   const newList: {}[] = [];
-  const filteredArr: any = [];
+  const filteredArr: {}[] = [];
+
+  // 지역이름이 없는 APT 무순위, 오피스텔 리스트 합치기
+  const randomOfficeList: { [key: string]: string }[] = [];
+  aptRandomList.map((item: ItemJ) => randomOfficeList.push(item));
+  officeList.map((item: ItemJ) => randomOfficeList.push(item));
+
+  // APT 무순위 + 오피스텔 리스트에 주소 앞부분을 잘라 지역 이름 추가하기
+  const addAreaNameList = randomOfficeList.map((item) => {
+    return {
+      ...item,
+      SUBSCRPT_AREA_CODE_NM: item.HSSPLY_ADRES.slice(0, 4),
+    };
+  });
+
+  // 지역 이름 통일하기
+  const replaceAreaNameAptOfficeList = addAreaNameList.map((item) => {
+    return {
+      ...item,
+      SUBSCRPT_AREA_CODE_NM:
+        item.SUBSCRPT_AREA_CODE_NM === '경상남도'
+          ? item.SUBSCRPT_AREA_CODE_NM.replace(/[경상남도]/g, '경남')
+          : item.SUBSCRPT_AREA_CODE_NM &&
+            item.SUBSCRPT_AREA_CODE_NM === '경상북도'
+          ? item.SUBSCRPT_AREA_CODE_NM.replace(/[경상북도]/g, '경북')
+          : item.SUBSCRPT_AREA_CODE_NM &&
+            item.SUBSCRPT_AREA_CODE_NM === '전라남도'
+          ? item.SUBSCRPT_AREA_CODE_NM.replace(/[전라남도]/g, '전남')
+          : item.SUBSCRPT_AREA_CODE_NM &&
+            item.SUBSCRPT_AREA_CODE_NM === '전라북도'
+          ? item.SUBSCRPT_AREA_CODE_NM.replace(/[전라북도]/g, '전북')
+          : item.SUBSCRPT_AREA_CODE_NM &&
+            item.SUBSCRPT_AREA_CODE_NM === '충청남도'
+          ? item.SUBSCRPT_AREA_CODE_NM.replace(/[충청남도]/g, '충남')
+          : item.SUBSCRPT_AREA_CODE_NM &&
+            item.SUBSCRPT_AREA_CODE_NM === '충청북도'
+          ? item.SUBSCRPT_AREA_CODE_NM.replace(/[충청북도]/g, '충북')
+          : item.SUBSCRPT_AREA_CODE_NM,
+    };
+  });
+
+  const getToday = () => {
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = ('0' + (date.getMonth() + 1)).slice(-2);
+    const day = ('0' + date.getDate()).slice(-2);
+    const today = year + '-' + month + '-' + day;
+
+    return today;
+  };
+  const today = getToday();
 
   // 청약홈 전체 API 통합 리스트
   const allHomeList: {}[] = [];
   aptList.map((item: ItemJ) => allHomeList.push(item));
-  aptRandomList.map((item: ItemJ) => allHomeList.push(item));
-  officeList.map((item: ItemJ) => allHomeList.push(item));
+  replaceAreaNameAptOfficeList.map((item: ItemJ) => allHomeList.push(item));
+
+  // 청약 마감일이 지나지 않은 전체 리스트
+  const possibleAllHomeList = allHomeList.filter(
+    (item: ItemJ) => item.RCEPT_ENDDE >= today,
+  );
 
   // FIXME: 버튼을 처음 누를 때 undefined - list를 버튼 누르기 전에 실행?
   // useEffect(() => {
@@ -28,11 +82,17 @@ const MustHaveToDo = ({ aptList, aptRandomList, officeList }: ListPropsJ) => {
   //   setAllHomeData(newList);
   // }, []);
 
+  // Friebase DB에 homeList 추가
+  const addHomeListMutate = useMutation(addHomeList, {
+    onSuccess: () => {
+      queryClient.invalidateQueries('HomeList');
+    },
+  });
+
   // 버튼 클릭 시 전체 API data가 firebase에 들어감
   const apiCallHandler = async () => {
-    allHomeList.map((item: any) => {
+    possibleAllHomeList.map((item: any) => {
       newList.push({
-        // TODO: 좌표 추가하기
         COORDINATES: 'x:, y:',
 
         FOR_COORDINATES_ADRES: item.HSSPLY_ADRES.split(',')[0].split('외')[0],
@@ -90,12 +150,9 @@ const MustHaveToDo = ({ aptList, aptRandomList, officeList }: ListPropsJ) => {
         SUBSCRPT_AREA_CODE: item.UBSCRPT_AREA_CODE
           ? item.UBSCRPT_AREA_CODE
           : '',
-        // FIXME: HSSPLY_ADRES.slice(0, 4)의 경우 - '부산광역, 충청남도, 서울특별'로 들어간다.
-        // TODO: 검색할 때 유의할 것 + LH 추가 시 고려하기
         SUBSCRPT_AREA_CODE_NM: item.SUBSCRPT_AREA_CODE_NM
-          ? item.SUBSCRPT_AREA_CODE_NM
-          : item.HSSPLY_ADRES.slice(0, 4),
-
+          ? item.SUBSCRPT_AREA_CODE_NM.slice(0, 2)
+          : '',
         RCEPT_BGNDE: item.RCEPT_BGNDE
           ? item.RCEPT_BGNDE
           : item.SUBSCRPT_RCEPT_BGNDE,
@@ -156,12 +213,7 @@ const MustHaveToDo = ({ aptList, aptRandomList, officeList }: ListPropsJ) => {
     console.log('데이터 업로드 완료!');
   };
 
-  const addHomeListMutate = useMutation(addHomeList, {
-    onSuccess: () => {
-      queryClient.invalidateQueries('HomeList');
-    },
-  });
-
+  // 좌표 만드는 함수
   const locationHandler = async () => {
     console.log('전:', allHomeData);
     for (let i = 0; i < allHomeData.length; i++) {
@@ -196,8 +248,8 @@ const MustHaveToDo = ({ aptList, aptRandomList, officeList }: ListPropsJ) => {
     return setAllHomeData(filteredArr);
   };
 
+  // 좌표가 생성된 데이터를 다시 DB에 넣음
   const updateInfoHandler = async () => {
-    console.log(allHomeData);
     addHomeListMutate.mutate({ allHomeData });
     console.log('버튼 누른 후:', allHomeData);
     console.log('데이터 업로드 완료!');

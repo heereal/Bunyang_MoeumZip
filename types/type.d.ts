@@ -69,7 +69,7 @@ interface HomeListDBPropsJ {
 
 // adminPage - API로 받아오는 리스트 Props type
 interface ListPropsJ {
-  [key: string]: {}[];
+  [key: string]: { [key: string]: string }[];
 }
 
 // map, filter로 돌리는 리스트의 item(인자) type 
