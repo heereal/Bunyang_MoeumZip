@@ -1,2 +1,3 @@
 import useImgInput from "./useImgInput";
-export { useImgInput };
+import useBookmark from "./useBookmark"
+export { useImgInput, useBookmark };
