@@ -273,7 +273,7 @@ const MustHaveToDo = ({ aptList, aptRandomList, officeList }: ListPropsJ) => {
         </ApiCallBtn>
         <button onClick={locationHandler}>좌표메이커</button>
         <button onClick={updateInfoHandler}>다시파베로 넣기</button>
-        <div>{allHomeData[0].BUTTON_DATE}</div>
+        <div>{allHomeData[0]?.BUTTON_DATE}</div>
       </div>
     </>
   );
