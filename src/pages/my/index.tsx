@@ -19,6 +19,7 @@ const MyPage = () => {
   const [editNickname, setEditNickname] = useState<any>('');
   const [email, setEmail] = useState<any>('');
   const [profileImg, setProfileImg] = useState('');
+  const [currentUser, setCurrentUser] = useState('');
 
   // 파일 업로드 시 업로드한 파일을 담아둘 state
   const [imageUpload, setImageUpload] = useState<any>(null);
@@ -87,6 +88,9 @@ const MyPage = () => {
   // Users 데이터 불러오기
   const { data: users, isLoading }: any = useQuery('users', getUsersList, {
     enabled: !!session, // session이 ture인 경우에만 useQuery를 실행함
+    onSuccess: (users) => {
+      setCurrentUser(users.find((user: any) => user.userEmail === session?.user?.email))
+    }
   });
 
   // 닉네임 변경
@@ -99,16 +103,18 @@ const MyPage = () => {
   useEffect(() => {
     // 비로그인 유저일 경우 접근 제한
     if (status === 'unauthenticated') router.push('/');
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [session]);
 
   // firestore에서 유저 정보 불러오면 state에 저장함
   useEffect(() => {
     if (users) {
-      setNickname(users[0]?.userName);
-      setEmail(users[0]?.userEmail);
-      setProfileImg(users[0]?.userImage);
-      setEditNickname(users[0]?.userName);
+      setNickname(currentUser.userName);
+      setEmail(currentUser.userEmail);
+      setProfileImg(currentUser.userImage);
+      setEditNickname(currentUser.userName);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [users]);
 
   return (
