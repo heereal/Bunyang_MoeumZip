@@ -18,7 +18,11 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
   // 북마크 리스트 볼러오기
   const { data: bookmarksList } = useQuery(
     'Bookmarks',
-    () => getBookmarksList(home.PBLANC_NO),
+    () => {
+      if (home) {
+        return getBookmarksList(home.PBLANC_NO);
+      }
+    },
     {
       enabled: !!home,
     },
@@ -33,15 +37,7 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
   );
 
   // 분양 정보 모두 불러온 후에 setHome 실행
-  const { data, refetch } = useQuery('detail', getHomeList, {
-    onSuccess: (data) => {
-      setHome(
-        data?.allHomeData.find(
-          (home: { PBLANC_NO: string }) => `${home.PBLANC_NO}` === postId,
-        ),
-      );
-    },
-  });
+  const { data, refetch } = useQuery('detail', getHomeList);
 
   // [북마크] 버튼 클릭 시 작동
   const editBookmark = useMutation('Bookmarks', onClickBookmarkBtnHandler, {
@@ -50,10 +46,15 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
     },
   });
 
+  const detail = data?.allHomeData.find(
+    (home: { PBLANC_NO: string }) => `${home.PBLANC_NO}` === postId,
+  );
+
   useEffect(() => {
+    setHome(detail);
     refetch();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [home]);
+  }, [detail]);
 
   // firestore에서 유저 정보 불러오면 state에 저장함
   useEffect(() => {
