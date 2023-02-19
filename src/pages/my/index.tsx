@@ -97,8 +97,7 @@ const MyPage = () => {
     },
   });
 
-  const { data: homeList } = useQuery('HomeList', getHomeList)
-  console.log("test:",currentUser?.bookmarkList);
+  const { data: homeList } = useQuery('HomeList', getHomeList);
 
   // 닉네임 변경
   const editNicknameMutation: any = useMutation(changeNicknameHandler, {
@@ -107,8 +106,11 @@ const MyPage = () => {
     },
   });
 
-  const myBookmarkList = homeList?.allHomeData?.filter((item: any) => item.PBLANC_NO && currentUser?.bookmarkList?.includes(item.PBLANC_NO))
-console.log('myBookmarkList:', myBookmarkList);
+  // 전체 분양 정보 리스트에서 내가 북마크한 정보만 필터링하기
+  const myBookmarkList = homeList?.allHomeData?.filter(
+    (item: ItemJ) =>
+      item.PBLANC_NO && currentUser?.bookmarkList?.includes(item.PBLANC_NO),
+  );
 
   useEffect(() => {
     // 비로그인 유저일 경우 접근 제한
@@ -128,7 +130,7 @@ console.log('myBookmarkList:', myBookmarkList);
   }, [users]);
 
   return (
-    <div style={{display: "flex", flexDirection: "column", margin: "auto"}}>
+    <div style={{ display: 'flex', flexDirection: 'column', margin: 'auto' }}>
       <div>닉네임: {nickname}</div>
       <button onClick={() => setIsInputOpen(!isInputOpen)}>닉네임 수정</button>
       {isInputOpen ? (
@@ -156,14 +158,14 @@ console.log('myBookmarkList:', myBookmarkList);
       <input type="file" accept="images/*" onChange={(e) => onImageChange(e)} />
       <button onClick={uploadImage}>프사 수정 완료</button>
       <h2>나의 북마크 목록</h2>
-      <div style={{display: "flex", flexDirection: "column"}}>
-
-      {myBookmarkList?.map((item: any, index: number)=> {
-        return (
-          <div key={item.PBLANC_NO}>북마크{index+1}번: {item.HOUSE_NM}</div>
-        )
-      })}
-
+      <div style={{ display: 'flex', flexDirection: 'column' }}>
+        {myBookmarkList?.map((item: any, index: number) => {
+          return (
+            <div key={item.PBLANC_NO}>
+              북마크{index + 1}번: {item.HOUSE_NM}
+            </div>
+          );
+        })}
       </div>
     </div>
   );

@@ -24,6 +24,7 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
     },
   );
 
+  // 커스텀 훅 실행
   const { onClickBookmarkBtnHandler } = useBookmark(
     status,
     email,
@@ -81,7 +82,7 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
         좋아요 버튼
       </button>
       <div>
-        좋아요 count: 
+        좋아요 count:
         {bookmarksList?.usersList ? bookmarksList?.usersList?.length : '0'}
       </div>
     </S.Section>
