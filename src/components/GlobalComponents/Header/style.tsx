@@ -1,16 +1,16 @@
 import styled from 'styled-components';
 
 export const Header = styled.header`
-  width: 100%;
+  width: 95%;
   height: 58px;
   background-color: #ffffff;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  /* padding: 0 */
-  position: relative;
-  z-index: 100;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 `;
 
 export const HSection = styled.div`
@@ -21,13 +21,15 @@ export const HSection = styled.div`
   height: 100%;
   position: relative;
   width: 100%;
-  z-index: 1;
+  z-index: 100;
+  box-sizing: border-box;
 `;
 
 // Logo box
 export const LogoBox = styled.div`
   width: 20%;
   margin-left: 17px;
+  box-sizing: border-box;
 `;
 
 // Search Section
@@ -43,6 +45,7 @@ export const NavBar = styled.div`
   justify-content: center;
   align-items: center;
   margin-right: -37px;
+  box-sizing: border-box;
 `;
 
 // 청약 캘린더, 청약 정보

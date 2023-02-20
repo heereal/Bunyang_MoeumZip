@@ -108,7 +108,7 @@ export const CategoryBtn = styled.button<{ bg: string; bd: string }>`
   padding: 4px 8px;
   gap: 10px;
 
-  font-family: 'Pretendard';
+  /* font-family: 'Pretendard'; */
   font-style: normal;
   font-weight: 600;
   font-size: 14px;
