@@ -266,7 +266,7 @@ const MustHaveToDo = ({
     console.log('데이터 업로드 완료!');
   };
 
-  // TODO: 새로고침 해야 날짜가 바뀜!!
+  // FIXME: 새로고침 해야 날짜가 바뀜!!
   useEffect(() => setBtnTime(homeListDB[0]?.BUTTON_DATE), [btnTime]);
 
   return (

@@ -1,6 +1,8 @@
 import { MouseEventHandler, useEffect } from 'react';
 import * as S from './style';
 
+// TODO: type 지정하기
+
 // 공통 alert UI
 const AlertUI: React.FC<{
   alertTitle?: string;
