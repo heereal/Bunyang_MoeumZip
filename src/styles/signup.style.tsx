@@ -8,6 +8,7 @@ export const Wrapper = styled.div`
 
 export const SignUpContainer = styled.div`
   width: 650px;
+  height: 1100px;
   display: flex;
   flex-direction: column;
   margin-top: 60px;
@@ -47,7 +48,7 @@ export const NicknameTitle = styled.div`
   padding-bottom: 12px;
 
   span {
-    color: #FF3838;
+    color: #ff3838;
   }
 `;
 
@@ -85,20 +86,50 @@ export const CheckNicknameBtn = styled.div`
   cursor: pointer;
 `;
 
-// TODO: nav 등 semantic tag로 변경하기
-export const CategoryContainer = styled.div`
-  border: 1px solid black;
-  height: 250px;
-  width: 400px;
-  padding: 10px;
+// 카테고리 선택
+export const CategoryTitle = styled.h2`
+  font-weight: 800;
+  font-size: 23px;
+  line-height: 27px;
+  padding-bottom: 12px;
 `;
 
-export const CategoryBtn = styled.button<{ bg: string }>`
-  height: 30px;
-  width: 100px;
-  background-color: ${(props) => props.bg};
-  border: 1px solid lightgray;
+// TODO: nav 등 semantic tag로 변경하기
+export const CategoryContainer = styled.div`
+  border: 2px solid #f4f4f4;
   border-radius: 20px;
+  height: 250px;
+  padding: 24px 28px;
+  margin-bottom: 44px;
+`;
+
+export const CategoryBtn = styled.button<CategoryBtnStyledProps>`
+  padding: 8px 17px;
+  height: 40px;
+  background-color: ${(props) => props.bg};
+  border: 2px solid ${(props) => props.border};
+  border-radius: 10px;
   margin: 2px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
+  color: ${(props) => props.text};
+  margin-bottom: 12px;
+  margin-right: 13px;
+`;
+
+export const SignUpBtn = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 55px;
+  background-color: #3d7fff;
+  border-radius: 20px;
+  color: white;
+  font-weight: 700;
+  font-size: 23px;
+  line-height: 140%;
   cursor: pointer;
 `;

@@ -33,8 +33,9 @@ const SignUp = () => {
     const checkNickname = users.find(
       (user: userProps) => user.userName === nickname,
     );
+    //닉네임을 입력하지 않았을 때
     if (!nickname) {
-      alert("닉네임을 입력해주세요.");
+      alert('닉네임을 입력해주세요.');
       setIsValidNickname(false);
       return;
     }
@@ -122,8 +123,11 @@ const SignUp = () => {
           <p>분양정보 추천을 위한 추가정보를 선택해주세요.</p>
         </S.SignUpDesc>
 
+        {/* 닉네임 제출 */}
         <S.SubmitNicknameContainer>
-          <S.NicknameTitle>닉네임<span>*</span></S.NicknameTitle>
+          <S.NicknameTitle>
+            닉네임<span>*</span>
+          </S.NicknameTitle>
           <S.InputBtnContainer>
             <S.NicknameInput
               value={nickname}
@@ -136,12 +140,8 @@ const SignUp = () => {
           </S.InputBtnContainer>
         </S.SubmitNicknameContainer>
 
-        {/* 닉네임 제출 */}
-
-    
-
         {/* 관심 지역 카테고리 선택 */}
-        <h3>관심 지역 선택</h3>
+        <S.CategoryTitle>관심 지역 선택</S.CategoryTitle>
         <S.CategoryContainer>
           {regionArray.map((region, index) =>
             region && myRegionArray.includes(region) ? (
@@ -152,7 +152,9 @@ const SignUp = () => {
                   )
                 }
                 key={index}
-                bg={'lightblue'}
+                bg={'#F1F6FF'}
+                text={'#3D7FFF'}
+                border={'#3D7FFF'}
               >
                 {region}
               </S.CategoryBtn>
@@ -160,20 +162,26 @@ const SignUp = () => {
               <S.CategoryBtn
                 onClick={() => setMyRegionArray([...myRegionArray, region])}
                 key={index}
-                bg={'transparent'}
+                bg={'white'}
+                text={'#7b7b7b'}
+                border={'#F4F4F4'}
               >
                 {region}
               </S.CategoryBtn>
             ),
           )}
           <S.CategoryBtn
-            bg={'transparent'}
+            bg={'white'}
+            text={'#7b7b7b'}
+            border={'#F4F4F4'}
             onClick={() => setMyRegionArray([])}
           >
             전체 초기화
           </S.CategoryBtn>
           <S.CategoryBtn
-            bg={'transparent'}
+            bg={'white'}
+            text={'#7b7b7b'}
+            border={'#F4F4F4'}
             onClick={() => setMyRegionArray(regionArray)}
           >
             전체 선택
@@ -181,7 +189,7 @@ const SignUp = () => {
         </S.CategoryContainer>
 
         {/* 관심 분양 형태 카테고리 선택 */}
-        <h3>관심 분양 형태 선택</h3>
+        <S.CategoryTitle>관심 분양 형태 선택</S.CategoryTitle>
         <S.CategoryContainer>
           {typesArray.map((type, index) =>
             type && myTypeArray.includes(type) ? (
@@ -190,7 +198,9 @@ const SignUp = () => {
                   setMyTypeArray(myTypeArray.filter((item) => item !== type))
                 }
                 key={index}
-                bg={'lightblue'}
+                bg={'#F1F6FF'}
+                text={'#3D7FFF'}
+                border={'#3D7FFF'}
               >
                 {type}
               </S.CategoryBtn>
@@ -198,23 +208,32 @@ const SignUp = () => {
               <S.CategoryBtn
                 onClick={() => setMyTypeArray([...myTypeArray, type])}
                 key={index}
-                bg={'transparent'}
+                bg={'white'}
+                text={'#7b7b7b'}
+                border={'#F4F4F4'}
               >
                 {type}
               </S.CategoryBtn>
             ),
           )}
-          <S.CategoryBtn bg={'transparent'} onClick={() => setMyTypeArray([])}>
+          <S.CategoryBtn
+            bg={'white'}
+            text={'#7b7b7b'}
+            border={'#F4F4F4'}
+            onClick={() => setMyTypeArray([])}
+          >
             전체 초기화
           </S.CategoryBtn>
           <S.CategoryBtn
-            bg={'transparent'}
+            bg={'white'}
+            text={'#7b7b7b'}
+            border={'#F4F4F4'}
             onClick={() => setMyTypeArray(typesArray)}
           >
             전체 선택
           </S.CategoryBtn>
         </S.CategoryContainer>
-        <button onClick={signupHandler}>회원가입 완료</button>
+        <S.SignUpBtn onClick={signupHandler}>가입완료</S.SignUpBtn>
       </S.SignUpContainer>
     </S.Wrapper>
   );
