@@ -26,40 +26,50 @@ const Header = () => {
     <>
       {isOpen && <LoginModal setIsOpen={setIsOpen} />}
       <S.Header>
-        <Image
-          onClick={pathHandler}
-          src={candy}
-          alt="logoImg"
-          width={50}
-          height={50}
-          quality={100}
-          //quelity 의 기본값은 75 입니다.
-          style={{ cursor: 'pointer' }}
-          priority={true}
-        />
-        {/* 검색창 */}
-        <Search />
-        <S.NavBar>
-          <S.NavContent onClick={() => router.push('/')}>청약정보</S.NavContent>
-          <S.NavContent onClick={() => router.push('/calendar')}>
-            청약캘린더
-          </S.NavContent>
+        <S.HSection>
+          <S.LogoBox>
+            <Image
+              onClick={pathHandler}
+              src={candy}
+              alt="logoImg"
+              width={50}
+              height={50}
+              quality={100}
+              //quelity 의 기본값은 75 입니다.
+              style={{ cursor: 'pointer' }}
+              priority={true}
+            />
+          </S.LogoBox>
+          {/* 검색창 */}
+          <S.SearchBox>
+            <Search />
+          </S.SearchBox>
+          <S.NavBar>
+            <S.NavContent onClick={() => router.push('/')}>
+              청약정보
+            </S.NavContent>
+            <S.NavContent onClick={() => router.push('/calendar')}>
+              청약캘린더
+            </S.NavContent>
 
-          {session ? (
-            <>
-              <S.NavContent
-                onClick={() => {
-                  router.push('/my');
-                }}
-              >
-                마이페이지
+            {session ? (
+              <>
+                <S.NavContent
+                  onClick={() => {
+                    router.push('/my');
+                  }}
+                >
+                  마이페이지
+                </S.NavContent>
+                <S.NavContent onClick={() => signOut()}>로그아웃</S.NavContent>
+              </>
+            ) : (
+              <S.NavContent onClick={() => setIsOpen(true)}>
+                로그인
               </S.NavContent>
-              <S.NavContent onClick={() => signOut()}>로그아웃</S.NavContent>
-            </>
-          ) : (
-            <S.NavContent onClick={() => setIsOpen(true)}>로그인</S.NavContent>
-          )}
-        </S.NavBar>
+            )}
+          </S.NavBar>
+        </S.HSection>
       </S.Header>
     </>
   );
