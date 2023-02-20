@@ -79,7 +79,7 @@ export const getUsersList = async () => {
 };
 
 // 북마크 리스트 불러오기
-export const getBookmarksList = async (PBLANC_NO: string) => {
+export const getBookmarksList = async (PBLANC_NO: any) => {
   const docRef = doc(db, 'Bookmarks', PBLANC_NO);
   const docSnap = await getDoc(docRef);
   return docSnap.data();

@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import * as S from './style';
 import { useBookmark } from '@/hooks';
+import { useRouter } from 'next/router';
 
 const PostDetail = ({ postId }: DetailPagePropsP) => {
   const queryClient = useQueryClient();
@@ -20,7 +21,7 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
     'Bookmarks',
     () => {
       if (home) {
-        return getBookmarksList(home.PBLANC_NO);
+        return getBookmarksList(postId);
       }
     },
     {
@@ -54,7 +55,7 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
     setHome(detail);
     homeListRefetch();
     bookmarksListRefetch()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line
   }, [detail]);
 
   // firestore에서 유저 정보 불러오면 state에 저장함
@@ -62,7 +63,7 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
     if (session) {
       setEmail(session?.user?.email);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line
   }, [session]);
 
   return (
