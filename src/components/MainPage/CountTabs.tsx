@@ -145,14 +145,14 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
     {
       name: '전체',
       content:
-        categoryList.length !== 0
+        selectedCtList.length !== 0
           ? categoryAllList
           : session
           ? userAllList
           : basicAllList,
 
       count:
-        categoryList.length !== 0
+        selectedCtList.length !== 0
           ? categoryAllList.length
           : session
           ? userAllList.length
@@ -161,13 +161,13 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
     {
       name: '청약 가능',
       content:
-        categoryList.length !== 0
+        selectedCtList.length !== 0
           ? categoryTodayList
           : session
           ? userTodayList
           : todayList,
       count:
-        categoryList.length !== 0
+        selectedCtList.length !== 0
           ? categoryTodayList.length
           : session
           ? userTodayList.length
@@ -176,13 +176,13 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
     {
       name: '청약 예정',
       content:
-        categoryList.length !== 0
+        selectedCtList.length !== 0
           ? categoryComingList
           : session
           ? userComingList
           : comingList,
       count:
-        categoryList.length !== 0
+        selectedCtList.length !== 0
           ? categoryComingList.length
           : session
           ? userComingList.length

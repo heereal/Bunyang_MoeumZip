@@ -484,6 +484,7 @@ export const getStaticProps: GetStaticProps = async () => {
   //   }),
   // );
 
+  // TODO: client에서 불러오기
   // 통합 리스트 불러오기 - 버튼 누른 날짜 화면에 표시하기
   const docRef = doc(db, 'HomeList', 'homeData');
   const docSnap = await getDoc(docRef);
