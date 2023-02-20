@@ -138,6 +138,7 @@ const MyPage = () => {
       item.PBLANC_NO && currentUser?.bookmarkList?.includes(item.PBLANC_NO),
   );
 
+  //TODO: 로딩페이지에서 넘어온 거 아니면 접근 못하도록 제한하기
   useEffect(() => {
     // 비로그인 유저일 경우 접근 제한
     if (status === 'unauthenticated') router.push('/');
