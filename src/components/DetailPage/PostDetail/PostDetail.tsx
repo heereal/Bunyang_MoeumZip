@@ -16,7 +16,7 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
   const [email, setEmail] = useState<any>('');
 
   // 북마크 리스트 볼러오기
-  const { data: bookmarksList } = useQuery(
+  const { data: bookmarksList, refetch: bookmarksListRefetch } = useQuery(
     'Bookmarks',
     () => {
       if (home) {
@@ -37,7 +37,7 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
   );
 
   // 분양 정보 모두 불러온 후에 setHome 실행
-  const { data, refetch } = useQuery('detail', getHomeList);
+  const { data, refetch: homeListRefetch } = useQuery('detail', getHomeList);
 
   // [북마크] 버튼 클릭 시 작동
   const editBookmark = useMutation('Bookmarks', onClickBookmarkBtnHandler, {
@@ -52,7 +52,8 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
 
   useEffect(() => {
     setHome(detail);
-    refetch();
+    homeListRefetch();
+    bookmarksListRefetch()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [detail]);
 
