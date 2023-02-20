@@ -16,7 +16,7 @@ const SignUp = () => {
   const router = useRouter();
 
   // 유저의 세션 정보 받아오기
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
 
   // 닉네임 중복 검사 시 사용
   const [isValidNickname, setIsValidNickname] = useState(false);
@@ -93,7 +93,13 @@ const SignUp = () => {
 
   // Users 데이터 불러오기
   const { data: users, isLoading }: any = useQuery('users', getUsersList);
-  console.log(users);
+
+  useEffect(() => {
+    // 비로그인 유저일 경우 접근 제한
+    if (status === 'unauthenticated') router.push('/');
+    // eslint-disable-next-line
+  }, [session]);
+
 
   useEffect(() => {
     // session(유저 정보)가 들어왔을 때만 함수를 실행함
