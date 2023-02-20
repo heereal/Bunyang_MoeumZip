@@ -25,9 +25,10 @@ export const CategoryTabs = styled.li`
   list-style: none;
 `;
 
+// 지역 Tab
 export const RegionTab = styled.button<{ bd: string }>`
-  width: 80px;
-  height: 49px;
+  width: 70px;
+  height: 30px;
   background-color: transparent;
   border: 1px solid;
   border-color: ${(props) => props.bd};
@@ -37,8 +38,9 @@ export const RegionTab = styled.button<{ bd: string }>`
   cursor: pointer;
 `;
 
+// 분양형태 Tab
 export const TypeTab = styled(RegionTab)`
-  width: 110px;
+  width: 90px;
 `;
 
 export const TabNameBox = styled.div`
@@ -48,7 +50,7 @@ export const TabNameBox = styled.div`
 `;
 
 export const TabName = styled.p<{ color: string }>`
-  font-size: 16px;
+  font-size: 14px;
   font-weight: bold;
   color: ${(props) => props.color};
 
@@ -59,8 +61,8 @@ export const TabName = styled.p<{ color: string }>`
 
 // 지역 및 분양형태 카테고리 선택
 export const CategoryContainer = styled.div`
-  height: 350px;
-  width: 360px;
+  height: 280px;
+  width: 240px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -68,8 +70,8 @@ export const CategoryContainer = styled.div`
 
   padding: 5px;
   position: absolute;
-  top: 135px;
-  left: 57px;
+  top: 23%;
+  left: 2%;
   border: 1px solid black;
   border-radius: 20px;
   box-sizing: border-box;
@@ -86,8 +88,8 @@ export const CategoryBox = styled.div`
   padding: 3px 0;
   box-sizing: border-box;
   position: absolute;
-  width: 335px;
-  height: 46px;
+  /* width: 335px;
+  height: 46px; */
   left: 12px;
   top: 12px;
   gap: 13px;
@@ -103,14 +105,14 @@ export const CategoryBtn = styled.button<{ bg: string; bd: string }>`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 8px 17px;
+  padding: 4px 8px;
   gap: 10px;
 
   font-family: 'Pretendard';
   font-style: normal;
   font-weight: 600;
-  font-size: 20px;
-  line-height: 24px;
+  font-size: 14px;
+  line-height: 20px;
   color: #7b7b7b;
 
   cursor: pointer;
@@ -123,18 +125,18 @@ export const CategoryBtn = styled.button<{ bg: string; bd: string }>`
 
 // 초기화 및 전체 선택 버튼
 export const CommonBtnBox = styled.div`
-  width: 300px;
+  width: 200px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   position: absolute;
-  top: 290px;
+  top: 85%;
 `;
 
 export const CategoryCommonBtn = styled(CategoryBtn)<any>`
   text-decoration: underline;
   border: none;
   font-weight: 500;
-  font-size: 16px;
-  line-height: 19px;
+  font-size: 10px;
+  line-height: 8px;
 `;
