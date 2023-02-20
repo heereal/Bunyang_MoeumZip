@@ -39,6 +39,17 @@ const Header = () => {
               style={{ cursor: 'pointer' }}
               priority={true}
             />
+            {/* 로고 대신 글씨 넣어놓은 것 */}
+            <div
+              style={{
+                position: 'absolute',
+                left: '7%',
+                top: '20px',
+                fontSize: '16px',
+              }}
+            >
+              분양모아
+            </div>
           </S.LogoBox>
           {/* 검색창 */}
           <S.SearchBox>

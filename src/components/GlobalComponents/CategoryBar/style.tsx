@@ -11,7 +11,6 @@ export const CategorySection = styled.section`
 `;
 
 // 카테고리 Tabs
-// TODO: Main Tabs CSS 참고해서 변경
 export const CategoryTabList = styled.ul`
   height: 75px;
   display: flex;
@@ -26,7 +25,6 @@ export const CategoryTabs = styled.li`
   list-style: none;
 `;
 
-// TODO: Tab을 나눌 수 있는 방법.. - width가 달라야 함
 export const RegionTab = styled.button<{ bd: string }>`
   width: 80px;
   height: 49px;
@@ -140,5 +138,3 @@ export const CategoryCommonBtn = styled(CategoryBtn)<any>`
   font-size: 16px;
   line-height: 19px;
 `;
-
-export const CommonBtnName = styled.p``;

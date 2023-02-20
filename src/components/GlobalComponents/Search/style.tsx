@@ -9,13 +9,17 @@ export const SearchBox = styled.div`
 `;
 
 export const SearchInput = styled.input`
-  width: 330px;
-  height: 45px;
+  width: 250px;
+  height: 33px;
   border: transparent;
   border-radius: 20px;
-  padding-left: 10px;
+  padding-left: 20px;
+  padding-right: 40px;
   box-sizing: border-box;
   font-weight: bold;
+  position: absolute;
+  left: 40%;
+  top: 10px;
 
   background-color: #f9fafb;
 

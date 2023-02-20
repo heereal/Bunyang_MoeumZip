@@ -123,23 +123,6 @@ const CategoryBar = () => {
                   </S.TabNameBox>
                 </S.TypeTab>
               )}
-
-              {/* <p>{item.name} </p>
-                  {isRegionToggleOpen ? (
-                    <RiArrowUpSLine
-                      style={{
-                        fontSize: 25,
-                        color: isRegionToggleOpen ? '#3d7fff' : '#BCC0CB',
-                      }}
-                    />
-                  ) : (
-                    <RiArrowDownSLine
-                      style={{
-                        fontSize: 25,
-                        color: isRegionToggleOpen ? '#BCC0CB' : '#3d7fff',
-                      }}
-                    />
-                  )} */}
             </S.CategoryTabs>
           ))}
         </S.CategoryTabList>
