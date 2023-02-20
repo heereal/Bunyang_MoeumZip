@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import * as S from './style';
 import { useBookmark } from '@/hooks';
+import { useRouter } from 'next/router';
 
 const PostDetail = ({ postId }: DetailPagePropsP) => {
   const queryClient = useQueryClient();
@@ -13,14 +14,14 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
 
   // 디테일 페이지에서 사용할 특정한 분양 정보
   const [home, setHome] = useState<HomeP>();
-  const [email, setEmail] = useState<any>('');
+  const [email, setEmail] = useState<string | null | undefined>('');
 
   // 북마크 리스트 볼러오기
   const { data: bookmarksList, refetch: bookmarksListRefetch } = useQuery(
     'Bookmarks',
     () => {
-      if (home) {
-        return getBookmarksList(home.PBLANC_NO);
+      if (typeof postId === "string") {
+        return getBookmarksList(postId);
       }
     },
     {
@@ -31,9 +32,9 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
   // 커스텀 훅 실행
   const { onClickBookmarkBtnHandler } = useBookmark(
     status,
-    email,
+    email!,
     bookmarksList,
-    home?.PBLANC_NO,
+    postId,
   );
 
   // 분양 정보 모두 불러온 후에 setHome 실행
@@ -54,7 +55,7 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
     setHome(detail);
     homeListRefetch();
     bookmarksListRefetch()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line
   }, [detail]);
 
   // firestore에서 유저 정보 불러오면 state에 저장함
@@ -62,7 +63,7 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
     if (session) {
       setEmail(session?.user?.email);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line
   }, [session]);
 
   return (
