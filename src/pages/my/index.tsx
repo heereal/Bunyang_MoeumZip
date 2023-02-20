@@ -51,6 +51,7 @@ const MyPage = () => {
     const updateUser = {
       userName: editNickname,
     };
+    //FIXME: THEN 없애도됨
     await updateDoc(doc(db, 'Users', email), updateUser).then(() => {
       setNickname(editNickname);
       confirmAlert({
