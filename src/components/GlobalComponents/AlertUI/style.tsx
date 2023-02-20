@@ -38,7 +38,7 @@ export const TextBox = styled.div`
   margin-top: 25px;
 `;
 
-export const AlertText = styled.text`
+export const AlertText = styled.p`
   font-size: 20px;
   font-weight: 800;
 `;

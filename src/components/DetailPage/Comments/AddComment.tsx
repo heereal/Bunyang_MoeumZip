@@ -46,7 +46,7 @@ const AddComment = ({ user, postId, queryClient, refetch }: CommentPropsP) => {
     e: KeyboardEvent<HTMLDivElement>,
     type: string,
   ): void => {
-    if (e.key === 'Enter' && type === 'add') {
+    if (e.key === 'Enter' && type === 'add' && user) {
       addCommentHandler();
     }
   };
@@ -56,11 +56,15 @@ const AddComment = ({ user, postId, queryClient, refetch }: CommentPropsP) => {
       <S.UserNameBox>{user?.name}</S.UserNameBox>
       <S.InputBox>
         <S.Input
+          placeholder={user ? '' : '로그인이 필요한 서비스 입니다.'}
           onChange={(e) => setInput(e.currentTarget.value)}
           value={input}
           onKeyPress={(e) => OnKeyPressHandler(e, 'add')}
+          disabled={user ? false : true}
         />
-        <S.Btn onClick={addCommentHandler}>등록</S.Btn>
+        <S.Btn disabled={user ? false : true} onClick={addCommentHandler}>
+          등록
+        </S.Btn>
       </S.InputBox>
     </div>
   );

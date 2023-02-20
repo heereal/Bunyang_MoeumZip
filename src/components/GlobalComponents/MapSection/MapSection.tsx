@@ -21,13 +21,11 @@ const MapSection = () => {
     x: 127.65261753988,
   });
   const [zoomLevel, setZoomLevel] = useState(12);
+  console.log(router.asPath.includes('search'));
+  console.log(router.asPath);
 
   const pathHadnler = (marker: any) => {
-    if (router.pathname === '/') {
-      router.push(marker.getTitle());
-    } else {
-      router.push(marker.getTitle().split('/')[1]);
-    }
+    router.push(marker.getTitle());
     setTimeout(() => {
       setPath(marker.getTitle());
     }, 300);
@@ -35,13 +33,13 @@ const MapSection = () => {
 
   // 최초 로드
   useEffect(() => {
-    const $script = document.createElement('script');
-    $script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_MAP_KEY}&libraries=services,clusterer&autoload=false`;
-    $script.addEventListener('load', () => setMapLoaded(true));
-    document.head.appendChild($script);
-    if (data) {
-      setCoordnates(data?.allHomeData);
-    }
+    // const $script = document.createElement('script');
+    // $script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_MAP_KEY}&libraries=services,clusterer&autoload=false`;
+    // $script.addEventListener('load', () => setMapLoaded(true));
+    // document.head.appendChild($script);
+    // if (data) {
+    //   setCoordnates(data?.allHomeData);
+    // }
     // path 값이 바뀌면  센터와 줌레벨 이 바뀜
     if (path !== '/') {
       setCenter({
@@ -60,6 +58,28 @@ const MapSection = () => {
 
   // 로드 완료 시 useEffect
   useEffect(() => {
+    const $script = document.createElement('script');
+    $script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_MAP_KEY}&libraries=services,clusterer&autoload=false`;
+    $script.addEventListener('load', () => setMapLoaded(true));
+    document.head.appendChild($script);
+    if (data) {
+      setCoordnates(data?.allHomeData);
+    }
+    // path 값이 바뀌면  센터와 줌레벨 이 바뀜
+    // if (path !== '/') {
+    //   setCenter({
+    //     y: Number(detail?.COORDINATES.y),
+    //     x: Number(detail?.COORDINATES.x),
+    //   });
+    //   setZoomLevel(4);
+    // } else {
+    //   setCenter({
+    //     y: 36.3171433799167,
+    //     x: 127.65261753988,
+    //   });
+    //   setZoomLevel(13);
+    // }
+
     if (!mapLoaded) return;
     kakao.maps.load(() => {
       console.log('로드 완료!');
@@ -71,7 +91,6 @@ const MapSection = () => {
 
       if (container !== null && coordnates) {
         let map = new kakao.maps.Map(container, options);
-        const geocoder = new kakao.maps.services.Geocoder();
         var zoomControl = new kakao.maps.ZoomControl();
         map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
         kakao.maps.event.addListener(map, 'zoom_changed', () => {
@@ -101,7 +120,7 @@ const MapSection = () => {
               Number(result.COORDINATES.x),
             ),
 
-            title: `detail/${result.PBLANC_NO}`,
+            title: `/detail/${result.PBLANC_NO}`,
             opacity: 0.01,
             zIndex: 99,
             clickable: true,
@@ -145,7 +164,7 @@ const MapSection = () => {
           markers: markers,
           gridSize: 35,
           averageCenter: true,
-          minLevel: 10,
+          minLevel: 12,
           disableClickZoom: true,
           minClusterSize: 1,
           clickable: true,
@@ -178,13 +197,16 @@ const MapSection = () => {
         );
       }
     });
-  }, [mapLoaded, coordnates, router]);
+  }, [mapLoaded, coordnates, path]);
 
   return (
     <>
       <Section
         style={{
-          display: router.asPath === '/admin/nemo042116' ? 'none' : 'block',
+          display:
+            router.asPath === '/admin/nemo042116' || !mapLoaded
+              ? 'none'
+              : 'block',
         }}
         id="map"
       />
