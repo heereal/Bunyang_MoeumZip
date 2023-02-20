@@ -233,7 +233,9 @@ const SignUp = () => {
             전체 선택
           </S.CategoryBtn>
         </S.CategoryContainer>
-        <S.SignUpBtn onClick={signupHandler}>가입완료</S.SignUpBtn>
+        <S.SignUpBtnContainer>
+          <S.SignUpBtn onClick={signupHandler}>가입완료</S.SignUpBtn>
+        </S.SignUpBtnContainer>
       </S.SignUpContainer>
     </S.Wrapper>
   );

@@ -108,6 +108,7 @@ const MustHaveToDo = ({
       newList.push({
         COORDINATES: 'x:, y:',
         BUTTON_DATE: new Date().toLocaleString(),
+        DETAIL: item.detail,
         FOR_COORDINATES_ADRES: item.HSSPLY_ADRES.split(',')[0].split('외')[0],
 
         MIN_SUPLY_AR: item?.detail[0]?.SUPLY_AR
@@ -262,12 +263,6 @@ const MustHaveToDo = ({
                 );
               },
             });
-
-            // alert(
-            //   `근무자님, ${[i]}번째에 있는 ${
-            //     allHomeData[i].FOR_COORDINATES_ADRES
-            //   } 채워주세요~`,
-            // );
           }
         },
       );
@@ -533,7 +528,6 @@ export const getStaticProps: GetStaticProps = async () => {
 //       .then((res) => res.data);
 //     return list;
 //   });
-//   // setWhatever(lhDetailst);
 //   };
 
 //   useEffect(() => treuer(), []);
