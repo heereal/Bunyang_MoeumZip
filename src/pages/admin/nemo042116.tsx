@@ -1,25 +1,36 @@
 import { addHomeList } from '@/common/api';
+import { db } from '@/common/firebase';
 import HeadTitle from '@/components/GlobalComponents/HeadTitle/HeadTitle';
 import axios from 'axios';
+import { doc, getDoc } from 'firebase/firestore';
 import { GetStaticProps } from 'next';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 import styled from 'styled-components';
-import theButton from '../../assets/apiCallButton.jpg';
+import firsDbtButton from '../../assets/apiCallButton_red.png';
+import coordinatesBtn from '../../assets/apiCallButton_blue.png';
+import lastDbButton from '../../assets/apiCallButton_green.png';
+import * as S from '../../styles/admin.style';
 
-const MustHaveToDo = ({ aptList, aptRandomList, officeList }: ListPropsJ) => {
+const MustHaveToDo = ({
+  aptCombineList,
+  aptRandomCombineList,
+  officeCombineList,
+  homeListDB,
+}: ListPropsJ) => {
   const queryClient = useQueryClient();
   const [allHomeData, setAllHomeData] = useState<{ [key: string]: string }[]>(
     [],
   );
   const newList: {}[] = [];
   const filteredArr: {}[] = [];
+  const [btnTime, setBtnTime] = useState<string>('');
 
   // 지역이름이 없는 APT 무순위, 오피스텔 리스트 합치기
   const randomOfficeList: { [key: string]: string }[] = [];
-  aptRandomList.map((item: ItemJ) => randomOfficeList.push(item));
-  officeList.map((item: ItemJ) => randomOfficeList.push(item));
+  aptRandomCombineList?.map((item: ItemJ) => randomOfficeList.push(item));
+  officeCombineList?.map((item: ItemJ) => randomOfficeList.push(item));
 
   // APT 무순위 + 오피스텔 리스트에 주소 앞부분을 잘라 지역 이름 추가하기
   const addAreaNameList = randomOfficeList.map((item) => {
@@ -68,7 +79,7 @@ const MustHaveToDo = ({ aptList, aptRandomList, officeList }: ListPropsJ) => {
 
   // 청약홈 전체 API 통합 리스트
   const allHomeList: {}[] = [];
-  aptList.map((item: ItemJ) => allHomeList.push(item));
+  aptCombineList?.map((item: ItemJ) => allHomeList.push(item));
   replaceAreaNameAptOfficeList.map((item: ItemJ) => allHomeList.push(item));
 
   // 청약 마감일이 지나지 않은 전체 리스트
@@ -255,37 +266,63 @@ const MustHaveToDo = ({ aptList, aptRandomList, officeList }: ListPropsJ) => {
     console.log('데이터 업로드 완료!');
   };
 
+  // FIXME: 새로고침 해야 날짜가 바뀜!!
+  useEffect(() => setBtnTime(homeListDB[0]?.BUTTON_DATE), [btnTime]);
+
   return (
     <>
       <HeadTitle title={'관리자페이지'} />
-      <div>
-        <ApiCallBtn>
-          <Image
-            onClick={apiCallHandler}
-            src={theButton}
-            alt="APICallButton"
-            width={300}
-            height={300}
-            quality={100}
-            style={{ cursor: 'pointer' }}
-            priority={true}
-          />
-        </ApiCallBtn>
-        <button onClick={locationHandler}>좌표메이커</button>
-        <button onClick={updateInfoHandler}>다시파베로 넣기</button>
-        <div>{allHomeData[0]?.BUTTON_DATE}</div>
-      </div>
+      <S.AdminSection>
+        <S.TitleBox>
+          <S.DbTimeTitle>{btnTime}</S.DbTimeTitle>
+        </S.TitleBox>
+        <S.BtnSection>
+          <S.ApiCallBtn>
+            <Image
+              onClick={apiCallHandler}
+              src={firsDbtButton}
+              alt="APICallButton"
+              width={300}
+              height={300}
+              quality={100}
+              style={{ cursor: 'pointer' }}
+              priority={true}
+            />
+            <S.BtnText>DB에 넣기</S.BtnText>
+          </S.ApiCallBtn>
+          <S.ApiCallBtn>
+            <Image
+              onClick={locationHandler}
+              src={coordinatesBtn}
+              alt="coordinatesBtn"
+              width={300}
+              height={300}
+              quality={100}
+              style={{ cursor: 'pointer' }}
+              priority={true}
+            />
+            <S.BtnText>좌표 생성</S.BtnText>
+          </S.ApiCallBtn>
+          <S.ApiCallBtn>
+            <Image
+              onClick={updateInfoHandler}
+              src={lastDbButton}
+              alt="APICallButton"
+              width={300}
+              height={300}
+              quality={100}
+              style={{ cursor: 'pointer' }}
+              priority={true}
+            />
+            <S.BtnText>다시 DB에 넣기</S.BtnText>
+          </S.ApiCallBtn>
+        </S.BtnSection>
+      </S.AdminSection>
     </>
   );
 };
 
 export default MustHaveToDo;
-
-// styled component
-const ApiCallBtn = styled.button`
-  background-color: transparent;
-  border: none;
-`;
 
 //API 전체 데이터
 export const getStaticProps: GetStaticProps = async () => {
@@ -447,14 +484,20 @@ export const getStaticProps: GetStaticProps = async () => {
   //   }),
   // );
 
+  // 통합 리스트 불러오기 - 버튼 누른 날짜 화면에 표시하기
+  const docRef = doc(db, 'HomeList', 'homeData');
+  const docSnap = await getDoc(docRef);
+  const homeList = docSnap.data();
+  const homeListDB = homeList?.allHomeData;
+
   return {
     props: {
-      // TODO: key랑 value통일하기
-      aptList: aptCombineList,
-      aptRandomList: aptRandomCombineList,
-      officeList: officeCombineList,
-      lhNoticeAList: lhNoticeAList,
-      lhDetailst: lhDetailst,
+      aptCombineList,
+      aptRandomCombineList,
+      officeCombineList,
+      homeListDB,
+      lhNoticeAList,
+      lhDetailst,
       // lhDefaultList: lhDefaultList,
       // lhRegisterList: lhRegisterList,
     },
