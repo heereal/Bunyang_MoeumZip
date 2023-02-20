@@ -52,7 +52,7 @@ const useBookmark = (
     } else {
       await updateDoc(bookmarksRef, addBookmark)
         .then(() => {
-          updateDoc(doc(db, 'Users', email), addBookmark);
+          updateDoc(doc(db, 'Users', email), addUserBookmarkList);
           alert('북마크 추가 완료');
         })
         .catch(() => {
