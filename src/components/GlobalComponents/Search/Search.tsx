@@ -1,6 +1,6 @@
 import * as S from './style';
 import { useState, KeyboardEvent, ChangeEvent } from 'react';
-import { FaSearch } from 'react-icons/fa';
+import { AiOutlineSearch } from 'react-icons/ai';
 import { useRouter } from 'next/router';
 import { confirmAlert } from 'react-confirm-alert';
 import AlertUI from '../AlertUI/AlertUI';
@@ -39,7 +39,7 @@ const Search = () => {
 
   return (
     <S.SearchBox>
-      <input
+      <S.SearchInput
         type="text"
         value={keyword}
         onChange={inputChangeHandler}
@@ -47,7 +47,7 @@ const Search = () => {
         onKeyPress={OnKeyPressHandler}
       />
       <S.SearchBtn onClick={searchHandler}>
-        <FaSearch style={{ fontSize: 30 }} />
+        <AiOutlineSearch style={{ fontSize: 25, color: '#BCC0CB' }} />
       </S.SearchBtn>
     </S.SearchBox>
   );
