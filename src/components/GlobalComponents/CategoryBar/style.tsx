@@ -27,11 +27,12 @@ export const CategoryTabs = styled.li`
 `;
 
 // TODO: Tab을 나눌 수 있는 방법.. - width가 달라야 함
-export const RegionTab = styled.button`
+export const RegionTab = styled.button<{ bd: string }>`
   width: 80px;
   height: 49px;
   background-color: transparent;
-  border: 1px solid #bcc0cb;
+  border: 1px solid;
+  border-color: ${(props) => props.bd};
   border-radius: 10px;
   margin-right: 16px;
 
@@ -46,15 +47,15 @@ export const TabNameBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+`;
 
-  p {
-    font-size: 16px;
-    font-weight: bold;
-    color: #bcc0cb;
+export const TabName = styled.p<{ color: string }>`
+  font-size: 16px;
+  font-weight: bold;
+  color: ${(props) => props.color};
 
-    :hover {
-      color: black;
-    }
+  :hover {
+    color: #3d7fff;
   }
 `;
 

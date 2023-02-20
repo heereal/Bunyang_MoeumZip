@@ -9,7 +9,9 @@ import { BsCheckCircleFill } from 'react-icons/bs';
 import { IoReload } from 'react-icons/io5';
 
 const CategoryBar = () => {
-  const [isToggleOpen, setIsToggleOpen] = useState<boolean>(false);
+  const [isRegionToggleOpen, setIsRegionToggleOpen] = useState<boolean>(false);
+  const [isTypeToggleOpen, setIsTypeToggleOpen] = useState<boolean>(false);
+
   const [currentTab, SetCurrentTab] = useState(0);
 
   // 유저가 선택한 카테고리 필터링 리스트
@@ -28,11 +30,21 @@ const CategoryBar = () => {
     setSelectedList(combineUserCtList);
   }, [myRegionArray, myTypeArray]);
 
+  // FIXME: 중복, 중복...
   // 지역, 분양형태 카테고리 Tabs를 누를 때마다 Open, Close 전환
   const openToggleHandler = () => {
-    setIsToggleOpen(!isToggleOpen);
+    setIsRegionToggleOpen(!isRegionToggleOpen);
+    if (isTypeToggleOpen) {
+      return setIsTypeToggleOpen(false);
+    }
   };
 
+  const openTypeToggleHandler = () => {
+    setIsTypeToggleOpen(!isTypeToggleOpen);
+    if (isRegionToggleOpen) {
+      return setIsRegionToggleOpen(false);
+    }
+  };
   // 카테고리 Tab 분류
   const categoryList = [
     { name: '지역', category: regionArray },
@@ -57,10 +69,17 @@ const CategoryBar = () => {
               onClick={() => selectedCategory(index)}
             >
               {item.name === '지역' ? (
-                <S.RegionTab onClick={openToggleHandler}>
+                <S.RegionTab
+                  bd={isRegionToggleOpen ? '#3d7fff' : '#bcc0cb'}
+                  onClick={openToggleHandler}
+                >
                   <S.TabNameBox>
-                    <p>{item.name}</p>
-                    {isToggleOpen ? (
+                    <S.TabName
+                      color={isRegionToggleOpen ? '#3d7fff' : '#bcc0cb'}
+                    >
+                      {item.name}
+                    </S.TabName>
+                    {isRegionToggleOpen ? (
                       <RiArrowUpSLine
                         style={{
                           fontSize: 25,
@@ -78,10 +97,15 @@ const CategoryBar = () => {
                   </S.TabNameBox>
                 </S.RegionTab>
               ) : (
-                <S.TypeTab onClick={openToggleHandler}>
+                <S.TypeTab
+                  bd={isTypeToggleOpen ? '#3d7fff' : '#bcc0cb'}
+                  onClick={openTypeToggleHandler}
+                >
                   <S.TabNameBox>
-                    <p>{item.name}</p>
-                    {isToggleOpen ? (
+                    <S.TabName color={isTypeToggleOpen ? '#3d7fff' : '#bcc0cb'}>
+                      {item.name}
+                    </S.TabName>
+                    {isTypeToggleOpen ? (
                       <RiArrowUpSLine
                         style={{
                           fontSize: 25,
@@ -101,18 +125,18 @@ const CategoryBar = () => {
               )}
 
               {/* <p>{item.name} </p>
-                  {isToggleOpen ? (
+                  {isRegionToggleOpen ? (
                     <RiArrowUpSLine
                       style={{
                         fontSize: 25,
-                        color: isToggleOpen ? '#3d7fff' : '#BCC0CB',
+                        color: isRegionToggleOpen ? '#3d7fff' : '#BCC0CB',
                       }}
                     />
                   ) : (
                     <RiArrowDownSLine
                       style={{
                         fontSize: 25,
-                        color: isToggleOpen ? '#BCC0CB' : '#3d7fff',
+                        color: isRegionToggleOpen ? '#BCC0CB' : '#3d7fff',
                       }}
                     />
                   )} */}
@@ -120,7 +144,7 @@ const CategoryBar = () => {
           ))}
         </S.CategoryTabList>
         {/*  지역 카테고리 선택 */}
-        {isToggleOpen && categoryList[currentTab].category === regionArray && (
+        {isRegionToggleOpen && (
           <S.CategoryContainer>
             <S.CategoryBox>
               {regionArray.map((region, index) =>
@@ -174,7 +198,7 @@ const CategoryBar = () => {
         )}
 
         {/* 분양 형태 카테고리 선택 */}
-        {isToggleOpen && categoryList[currentTab].category === typesArray && (
+        {isTypeToggleOpen && (
           <S.CategoryContainer>
             <S.CategoryBox>
               {typesArray.map((region, index) =>
