@@ -68,11 +68,11 @@ const SignUp = () => {
       setNickname(session?.user?.name);
       setEmail(session?.user?.email);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line
   }, [session]);
 
   return (
-    <div style={{ flexDirection: 'column' }}>
+    <div style={{ flexDirection: 'column', margin: "auto" }}>
       <h1>회원가입</h1>
       <h4>닉네임</h4>
       <input
