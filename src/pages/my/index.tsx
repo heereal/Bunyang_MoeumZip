@@ -9,6 +9,8 @@ import { uuidv4 } from '@firebase/util';
 import transparentProfile from '../../../public/transparentProfile.png';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { getUsersList, getHomeList } from '@/common/api';
+import AlertUI from '@/components/GlobalComponents/AlertUI/AlertUI';
+import { confirmAlert } from 'react-confirm-alert';
 
 const MyPage = () => {
   const router = useRouter();
@@ -33,7 +35,17 @@ const MyPage = () => {
       (user: userProps) => user.userName === editNickname,
     );
     if (checkNickname) {
-      alert('이미 존재하는 닉네임입니다. 다시 입력해주세요.');
+      confirmAlert({
+        customUI: ({ onClose }) => {
+          return (
+            <AlertUI
+              alertText="이미 존재하는 닉네임입니다. 다시 입력해주세요."
+              onClose={onClose}
+            />
+          );
+        },
+      });
+
       return;
     }
     const updateUser = {
@@ -41,7 +53,11 @@ const MyPage = () => {
     };
     await updateDoc(doc(db, 'Users', email), updateUser).then(() => {
       setNickname(editNickname);
-      alert('닉네임 수정 완료!');
+      confirmAlert({
+        customUI: ({ onClose }) => {
+          return <AlertUI alertText="닉네임 수정 완료!" onClose={onClose} />;
+        },
+      });
     });
   };
 
@@ -80,7 +96,16 @@ const MyPage = () => {
       userImage: downloadUrl,
     };
     await updateDoc(doc(db, 'Users', email), updateUser).then(() =>
-      alert('프로필 이미지 업로드가 완료되었습니다.'),
+      confirmAlert({
+        customUI: ({ onClose }) => {
+          return (
+            <AlertUI
+              alertText="프로필 이미지 업로드가 완료되었습니다."
+              onClose={onClose}
+            />
+          );
+        },
+      }),
     );
   };
 
