@@ -11,14 +11,6 @@ const AlertUI: React.FC<{
   onClick?: MouseEventHandler;
   eventText?: string;
 }> = (props) => {
-  // FIXME: onCliCk event 후에 onClose 실행시키고 싶음
-  // useEffect(() => {
-  //   if (props.onClick)
-  //     setTimeout(() => {
-  //       props.onClose;
-  //     }, 1000);
-  // });
-
   return (
     <S.AlertBack>
       <S.AlertSection>

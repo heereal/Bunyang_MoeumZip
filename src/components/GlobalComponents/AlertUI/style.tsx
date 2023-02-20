@@ -8,6 +8,7 @@ export const AlertBack = styled.div`
   z-index: 1000;
   top: 0%;
   left: 0%;
+  transform: translate(0%, 0%);
 `;
 
 export const AlertSection = styled.section`
@@ -15,6 +16,7 @@ export const AlertSection = styled.section`
   justify-content: center;
   align-items: center;
   position: fixed;
+  z-index: 1000;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);

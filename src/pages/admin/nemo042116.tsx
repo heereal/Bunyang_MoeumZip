@@ -523,19 +523,19 @@ export const getStaticProps: GetStaticProps = async () => {
   };
 };
 
-// promise에서 값을 가져오고 싶어..................
-// // const treuer: any = async () => {
-// const lhDetailst = lhNoticeAList.map((item: any) => {
-//   const list = axios
-//     .get(
-//       `${LH_BASE_URL}/${METHOD_LH_DETAIL}?serviceKey=${SERVICE_KEY}&SPL_INF_TP_CD=${item.SPL_INF_TP_CD}&CCR_CNNT_SYS_DS_CD=${item.CCR_CNNT_SYS_DS_CD}&PAN_ID=${item.PAN_ID}`,
-//     )
-//     .then((res) => res.data);
-//   return list;
-// });
-// // setWhatever(lhDetailst);
-// };
+//   // promise에서 값을 가져오고 싶어..................
+// const treuer: any = async () => {
+//   const lhDetailst = lhNoticeAList.map((item: any) => {
+//     const list = axios
+//       .get(
+//         `${LH_BASE_URL}/${METHOD_LH_DETAIL}?serviceKey=${SERVICE_KEY}&SPL_INF_TP_CD=${item.SPL_INF_TP_CD}&CCR_CNNT_SYS_DS_CD=${item.CCR_CNNT_SYS_DS_CD}&PAN_ID=${item.PAN_ID}`,
+//       )
+//       .then((res) => res.data);
+//     return list;
+//   });
+//   // setWhatever(lhDetailst);
+//   };
 
-// useEffect(() => treuer(), []);
+//   useEffect(() => treuer(), []);
 
-// console.log(lhDetailst);
+//   console.log(lhDetailst);
