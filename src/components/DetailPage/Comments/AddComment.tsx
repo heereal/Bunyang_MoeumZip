@@ -1,6 +1,8 @@
 import { addComment } from '@/common/api';
+import AlertUI from '@/components/GlobalComponents/AlertUI/AlertUI';
 import { arrayUnion } from 'firebase/firestore';
 import { KeyboardEvent, useState } from 'react';
+import { confirmAlert } from 'react-confirm-alert';
 import { useMutation, useQueries } from 'react-query';
 import * as S from './style';
 
@@ -9,7 +11,14 @@ const AddComment = ({ user, postId, queryClient, refetch }: CommentPropsP) => {
 
   const addCommentHandler = async () => {
     if (input === '') {
-      alert('1글자 이상 입력해주세요.');
+      confirmAlert({
+        customUI: ({ onClose }) => {
+          return (
+            <AlertUI alertText="1글자 이상 입력해주세요." onClose={onClose} />
+          );
+        },
+      });
+
       return;
     }
     const newComment = {

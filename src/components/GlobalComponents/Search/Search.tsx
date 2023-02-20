@@ -13,11 +13,6 @@ const Search = () => {
     setKeyword(e.target.value);
   };
 
-  // // AlertUI test - TODO: 지울것
-  // const alertTest = () => {
-  //   alert('성공');
-  // };
-
   const searchHandler = () => {
     if (keyword.trim().length === 0) {
       // AlertUI 컴포넌트 사용

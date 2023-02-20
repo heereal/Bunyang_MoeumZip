@@ -7,6 +7,8 @@ import * as S from '../../styles/signup.style';
 import { regionArray, typesArray } from '@/common/categoryList';
 import { useQuery } from 'react-query';
 import { getUsersList } from '@/common/api';
+import AlertUI from '@/components/GlobalComponents/AlertUI/AlertUI';
+import { confirmAlert } from 'react-confirm-alert';
 
 //TODO: 회원가입 페이지 새로고침 할 때 "작성한 정보가 모두 사라집니다" alert 주기
 // TODO: isSignedUp이라는 속성을 하나 추가할까? 회원가입 완료해야 true가 됨 (닉네임 중복 검사해야되기 때문에)
@@ -32,18 +34,42 @@ const SignUp = () => {
       (user: userProps) => user.userName === nickname,
     );
     if (!checkNickname) {
-      alert('사용 가능한 닉네임입니다.');
-      setIsValidNickname(true);
+      confirmAlert({
+        customUI: ({ onClose }) => {
+          return (
+            <AlertUI alertText="사용 가능한 닉네임입니다." onClose={onClose} />
+          );
+        },
+      }),
+        setIsValidNickname(true);
     } else {
-      alert('이미 존재하는 닉네임입니다. 다시 입력해주세요.');
-      setIsValidNickname(false);
+      confirmAlert({
+        customUI: ({ onClose }) => {
+          return (
+            <AlertUI
+              alertText="이미 존재하는 닉네임입니다. 다시 입력해주세요."
+              onClose={onClose}
+            />
+          );
+        },
+      }),
+        setIsValidNickname(false);
     }
   };
 
   // [회원가입 완료] 버튼 클릭 시 작동
   const signupHandler = async () => {
     if (!isValidNickname) {
-      alert('닉네임 중복 검사를 완료해주세요');
+      confirmAlert({
+        customUI: ({ onClose }) => {
+          return (
+            <AlertUI
+              alertText="닉네임 중복 검사를 완료해주세요"
+              onClose={onClose}
+            />
+          );
+        },
+      });
       return;
     }
     // 관심 카테고리 선택하지 않으면 전체 리스트를 선택한 것으로 간주함
@@ -54,7 +80,14 @@ const SignUp = () => {
     };
 
     await updateDoc(doc(db, 'Users', email), updateUser);
-    alert('회원가입이 완료되었습니다.');
+    confirmAlert({
+      customUI: ({ onClose }) => {
+        return (
+          <AlertUI alertText="회원가입이 완료되었습니다." onClose={onClose} />
+        );
+      },
+    });
+
     router.push('/');
   };
 
@@ -72,7 +105,7 @@ const SignUp = () => {
   }, [session]);
 
   return (
-    <div style={{ flexDirection: 'column', margin: "auto" }}>
+    <div style={{ flexDirection: 'column', margin: 'auto' }}>
       <h1>회원가입</h1>
       <h4>닉네임</h4>
       <input

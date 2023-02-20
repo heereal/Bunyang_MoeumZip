@@ -12,6 +12,8 @@ import firsDbtButton from '../../assets/apiCallButton_red.png';
 import coordinatesBtn from '../../assets/apiCallButton_blue.png';
 import lastDbButton from '../../assets/apiCallButton_green.png';
 import * as S from '../../styles/admin.style';
+import AlertUI from '@/components/GlobalComponents/AlertUI/AlertUI';
+import { confirmAlert } from 'react-confirm-alert';
 
 const MustHaveToDo = ({
   aptCombineList,
@@ -247,11 +249,25 @@ const MustHaveToDo = ({
                 allHomeData[i].FOR_COORDINATES_ADRES
               } 채워주세요~`,
             );
-            alert(
-              `근무자님, ${[i]}번째에 있는 ${
-                allHomeData[i].FOR_COORDINATES_ADRES
-              } 채워주세요~`,
-            );
+
+            confirmAlert({
+              customUI: ({ onClose }) => {
+                return (
+                  <AlertUI
+                    alertText={`근무자님, ${[i]}번째에 있는 ${
+                      allHomeData[i].FOR_COORDINATES_ADRES
+                    } 채워주세요~`}
+                    onClose={onClose}
+                  />
+                );
+              },
+            });
+
+            // alert(
+            //   `근무자님, ${[i]}번째에 있는 ${
+            //     allHomeData[i].FOR_COORDINATES_ADRES
+            //   } 채워주세요~`,
+            // );
           }
         },
       );
