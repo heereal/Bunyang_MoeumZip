@@ -19,7 +19,7 @@ export const TitleBox = styled.div`
   border: 1px solid lavender;
 `;
 
-export const ResultTitle = styled.text`
+export const ResultTitle = styled.p`
   font-size: 24px;
 `;
 
