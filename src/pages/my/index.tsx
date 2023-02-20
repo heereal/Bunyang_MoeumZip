@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { uuidv4 } from '@firebase/util';
-import transparentProfile from '../../../public/transparentProfile.png';
+import transparentProfile from '../../assets/transparentProfile.png';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { getUsersList, getHomeList } from '@/common/api';
 import AlertUI from '@/components/GlobalComponents/AlertUI/AlertUI';
