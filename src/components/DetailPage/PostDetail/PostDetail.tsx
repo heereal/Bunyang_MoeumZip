@@ -20,7 +20,7 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
   const { data: bookmarksList, refetch: bookmarksListRefetch } = useQuery(
     'Bookmarks',
     () => {
-      if (home) {
+      if (typeof postId === "string") {
         return getBookmarksList(postId);
       }
     },
