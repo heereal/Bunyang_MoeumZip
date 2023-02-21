@@ -38,18 +38,20 @@ const Header = () => {
             style={{ cursor: 'pointer' }}
             priority={true}
           /> */}
-          <S.Logo></S.Logo>
-          {/* 로고 대신 글씨 넣어놓은 것 */}
-          <div
-            style={{
-              position: 'absolute',
-              left: '4%',
-              top: '16px',
-              fontSize: '16px',
-              fontWeight: 900,
-            }}
-          >
-            분양모아
+          <div style={{ cursor: 'pointer' }} onClick={pathHandler}>
+            <S.Logo></S.Logo>
+            {/* 로고 대신 글씨 넣어놓은 것 */}
+            <div
+              style={{
+                position: 'absolute',
+                left: '4%',
+                top: '16px',
+                fontSize: '16px',
+                fontWeight: 900,
+              }}
+            >
+              분양모아
+            </div>
           </div>
         </S.LogoBox>
         {/* 검색창 */}
