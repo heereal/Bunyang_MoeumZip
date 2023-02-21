@@ -70,7 +70,7 @@ export const TabName = styled.p<{ color: string }>`
 // 지역 및 분양형태 카테고리 선택
 export const CategoryContainer = styled.div`
   width: 17%;
-  height: 249px;
+  height: 27%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
