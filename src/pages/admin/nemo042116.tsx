@@ -112,31 +112,31 @@ const MustHaveToDo = ({
         FOR_COORDINATES_ADRES: item.HSSPLY_ADRES.split(',')[0].split('외')[0],
 
         MIN_SUPLY_AR: item?.detail[0]?.SUPLY_AR
-          ? item?.detail[0]?.SUPLY_AR?.split('.')[0].replace(/(^0)/, '') + 'm2'
+          ? item?.detail[0]?.SUPLY_AR?.split('.')[0].replace(/(^0)/, '') + '㎡'
           : '',
 
         MAX_SUPLY_AR: item?.detail[0]?.SUPLY_AR
           ? item?.detail[item?.detail?.length - 1]?.SUPLY_AR?.split(
               '.',
-            )[0]?.replace(/(^0)/, '') + 'm2'
+            )[0]?.replace(/(^0)/, '') + '㎡'
           : '',
 
         MIN_HOUSE_TY:
           item.detail.length === 0
             ? ''
             : item?.detail[0]?.EXCLUSE_AR
-            ? Math.floor(item?.detail[0]?.EXCLUSE_AR) + 'm2'
+            ? Math.floor(item?.detail[0]?.EXCLUSE_AR) + '㎡'
             : item?.detail[0]?.HOUSE_TY.split('.')[0].replace(/(^0)/, '') +
-              'm2',
+              '㎡',
 
         MAX_HOUSE_TY:
           item.detail.length === 0
             ? ''
             : item?.detail[item?.detail?.length - 1]?.EXCLUSE_AR
-            ? Math.floor(item?.detail[0]?.EXCLUSE_AR) + 'm2'
+            ? Math.floor(item?.detail[0]?.EXCLUSE_AR) + '㎡'
             : item?.detail[item?.detail?.length - 1]?.HOUSE_TY.split(
                 '.',
-              )[0].replace(/(^0)/, '') + 'm2',
+              )[0].replace(/(^0)/, '') + '㎡',
 
         MIN_LTTOT_TOP_AMOUNT:
           item.detail.length === 0

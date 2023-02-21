@@ -32,7 +32,6 @@ export const RegionTab = styled.button<{ bd: string; bg: string }>`
   width: 67px;
   height: 29px;
   background-color: ${(props) => props.bg};
-
   border: 1px solid;
   border-color: ${(props) => props.bd};
   border-radius: 10px;
