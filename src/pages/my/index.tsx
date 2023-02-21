@@ -38,7 +38,7 @@ const MyPage = () => {
 
   return (
     <S.Wrapper>
-      {/* <EditProfile users={users} currentUser={currentUser} /> */}
+      <EditProfile users={users} currentUser={currentUser} />
       <MyTabs currentUser={currentUser} />
     </S.Wrapper>
   );

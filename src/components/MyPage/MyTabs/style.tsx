@@ -36,3 +36,13 @@ export const TabContentContainer = styled.div`
 export const BookmarkListContainer = styled.div`
   display: flex;
 `;
+
+export const BookmarkInfoContainer = styled.div`
+  width: 250px;
+  height: 350px;
+  background: #ffffff;
+  border: 1px solid lightgray;
+  border-radius: 20px;
+  padding: 20px;
+  margin-right: 10px;
+`;

@@ -9,6 +9,8 @@ import { useQuery } from 'react-query';
 import { getUsersList } from '@/common/api';
 import AlertUI from '@/components/GlobalComponents/AlertUI/AlertUI';
 import { confirmAlert } from 'react-confirm-alert';
+import SelectMyRegion from '@/components/GlobalComponents/SelectMyRegion/SelectMyRegion';
+import SelectMyTypes from '@/components/GlobalComponents/SelectMyTypes/SelectMyTypes';
 
 //TODO: 회원가입 페이지 새로고침 할 때 "작성한 정보가 모두 사라집니다" alert 주기
 // TODO: isSignedUp이라는 속성을 하나 추가할까? 회원가입 완료해야 true가 됨 (닉네임 중복 검사해야되기 때문에)
@@ -20,10 +22,6 @@ const SignUp = () => {
 
   // 닉네임 중복 검사 시 사용
   const [isValidNickname, setIsValidNickname] = useState(false);
-
-  // 유저가 선택한 카테고리 필터링 리스트
-  const [myRegionArray, setMyRegionArray] = useState<string[]>([]);
-  const [myTypeArray, setMyTypeArray] = useState<string[]>([]);
 
   const [nickname, setNickname] = useState<any>('');
   const [email, setEmail] = useState<any>('');
@@ -142,97 +140,12 @@ const SignUp = () => {
 
         {/* 관심 지역 카테고리 선택 */}
         <S.CategoryTitle>관심 지역 선택</S.CategoryTitle>
-        <S.CategoryContainer>
-          {regionArray.map((region, index) =>
-            region && myRegionArray.includes(region) ? (
-              <S.CategoryBtn
-                onClick={() =>
-                  setMyRegionArray(
-                    myRegionArray.filter((item) => item !== region),
-                  )
-                }
-                key={index}
-                bg={'#F1F6FF'}
-                text={'#3D7FFF'}
-                border={'#3D7FFF'}
-              >
-                {region}
-              </S.CategoryBtn>
-            ) : (
-              <S.CategoryBtn
-                onClick={() => setMyRegionArray([...myRegionArray, region])}
-                key={index}
-                bg={'white'}
-                text={'#7b7b7b'}
-                border={'#F4F4F4'}
-              >
-                {region}
-              </S.CategoryBtn>
-            ),
-          )}
-          <S.CategoryBtn
-            bg={'white'}
-            text={'#7b7b7b'}
-            border={'#F4F4F4'}
-            onClick={() => setMyRegionArray([])}
-          >
-            전체 초기화
-          </S.CategoryBtn>
-          <S.CategoryBtn
-            bg={'white'}
-            text={'#7b7b7b'}
-            border={'#F4F4F4'}
-            onClick={() => setMyRegionArray(regionArray)}
-          >
-            전체 선택
-          </S.CategoryBtn>
-        </S.CategoryContainer>
+        <SelectMyRegion />
 
         {/* 관심 분양 형태 카테고리 선택 */}
         <S.CategoryTitle>관심 분양 형태 선택</S.CategoryTitle>
-        <S.CategoryContainer>
-          {typesArray.map((type, index) =>
-            type && myTypeArray.includes(type) ? (
-              <S.CategoryBtn
-                onClick={() =>
-                  setMyTypeArray(myTypeArray.filter((item) => item !== type))
-                }
-                key={index}
-                bg={'#F1F6FF'}
-                text={'#3D7FFF'}
-                border={'#3D7FFF'}
-              >
-                {type}
-              </S.CategoryBtn>
-            ) : (
-              <S.CategoryBtn
-                onClick={() => setMyTypeArray([...myTypeArray, type])}
-                key={index}
-                bg={'white'}
-                text={'#7b7b7b'}
-                border={'#F4F4F4'}
-              >
-                {type}
-              </S.CategoryBtn>
-            ),
-          )}
-          <S.CategoryBtn
-            bg={'white'}
-            text={'#7b7b7b'}
-            border={'#F4F4F4'}
-            onClick={() => setMyTypeArray([])}
-          >
-            전체 초기화
-          </S.CategoryBtn>
-          <S.CategoryBtn
-            bg={'white'}
-            text={'#7b7b7b'}
-            border={'#F4F4F4'}
-            onClick={() => setMyTypeArray(typesArray)}
-          >
-            전체 선택
-          </S.CategoryBtn>
-        </S.CategoryContainer>
+        <SelectMyTypes />
+
         <S.SignUpBtnContainer>
           <S.SignUpBtn onClick={signupHandler}>가입완료</S.SignUpBtn>
         </S.SignUpBtnContainer>

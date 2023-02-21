@@ -41,7 +41,15 @@ const MyTabs = ({ currentUser }: any) => {
       <S.TabContentContainer>
         {/* 북마크 목록 */}
         {currentTab === 1 && (
-          <S.BookmarkListContainer></S.BookmarkListContainer>
+          <S.BookmarkListContainer>
+            {myBookmarkList?.map((item: any, index: number) => {
+              return (
+                <S.BookmarkInfoContainer key={item.PBLANC_NO}>
+                  북마크{index + 1}번: {item.HOUSE_NM}
+                </S.BookmarkInfoContainer>
+              );
+            })}
+          </S.BookmarkListContainer>
         )}
       </S.TabContentContainer>
       {/* <S.Line /> */}
