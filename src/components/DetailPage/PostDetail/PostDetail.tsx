@@ -12,6 +12,9 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
   // 유저의 세션 정보 받아오기
   const { data: session, status } = useSession();
 
+  const test = '15881119';
+  console.log(test.slice(0, 4));
+
   // 디테일 페이지에서 사용할 특정한 분양 정보
   const [home, setHome] = useState<HomeP>();
   const [email, setEmail] = useState<string | null | undefined>('');
@@ -69,6 +72,19 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
   return (
     <S.Section>
       <S.PageHeader>
+        <S.BmrkBox>
+          <S.BmrBtn
+            onClick={() => editBookmark.mutate()}
+            style={{
+              color: bookmarksList?.usersList.includes(email)
+                ? ' #FFEF5A     '
+                : '#bcc0cb',
+            }}
+          >
+            ★
+          </S.BmrBtn>
+        </S.BmrkBox>
+
         <S.HeaderTagBox>
           <S.HeaderTag>{home?.HOUSE_DTL_SECD_NM}</S.HeaderTag>
           <S.HeaderTag>{home?.HOUSE_SECD_NM}</S.HeaderTag>
@@ -77,7 +93,7 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
         <S.HeaderTitle>{home?.HOUSE_NM}</S.HeaderTitle>
         <S.HeaderAdres>{home?.FOR_COORDINATES_ADRES}</S.HeaderAdres>
         <S.HeaderBmrk>
-          ✭{bookmarksList?.usersList ? bookmarksList?.usersList?.length : '0'}
+          ★ {bookmarksList?.usersList ? bookmarksList?.usersList?.length : '0'}
           명이 관심을 갖고 있어요
         </S.HeaderBmrk>
       </S.PageHeader>
@@ -101,15 +117,24 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
           </S.Article>
           <S.Article>
             <S.BoxTitle>문의처</S.BoxTitle>
-            <S.BoxContent>☎ {home?.MDHS_TELNO}</S.BoxContent>
+            {home?.MDHS_TELNO.length === 8 ? (
+              <S.BoxContent color="#ffffff" style={{ width: '33.3%' }}>
+                ☎ {home?.MDHS_TELNO.slice(0, 4)}-{home?.MDHS_TELNO.slice(4, 8)}
+              </S.BoxContent>
+            ) : (
+              <S.BoxContent color="#ffffff" style={{ width: '33.3%' }}>
+                ☎ {home?.MDHS_TELNO.slice(0, 3)}-{home?.MDHS_TELNO.slice(3, 7)}-
+                {home?.MDHS_TELNO.slice(7, 12)}
+              </S.BoxContent>
+            )}
           </S.Article>
         </S.ArticleBox>
         {home && (
           <Link href={home.PBLANC_URL} legacyBehavior>
             <div
               style={{
-                width: 134,
-                height: 49,
+                width: 110,
+                height: 40,
                 background: '#3D7FFF',
                 borderRadius: 10,
                 display: 'flex',
@@ -119,19 +144,14 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
                 fontWeight: 700,
                 marginTop: 10,
                 cursor: 'pointer',
+                fontSize: 13,
+                padding: 10,
               }}
             >
               모집공고문 보기
             </div>
           </Link>
         )}
-        <button onClick={() => editBookmark.mutate()} style={{ color: 'red' }}>
-          북마크 버튼
-        </button>
-        <div>
-          북마크 count:
-          {bookmarksList?.usersList ? bookmarksList?.usersList?.length : '0'}
-        </div>
 
         <S.ArticleHead>청약일정</S.ArticleHead>
         <S.ArticleBox>
@@ -183,7 +203,7 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
             </S.BoxContent>
           </S.Article>
         </S.ArticleBox>
-        <div style={{ color: '#8E8E8E' }}>
+        <div style={{ color: '#8E8E8E', fontSize: 14, paddingLeft: 10 }}>
           *특별공급 종류에 따라 접수기간 및 장소가 다를 수 있으니 모집공고를
           반드시 확인하시기 바랍니다.
         </div>
@@ -223,11 +243,11 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
                 <S.SPLhead style={{ width: '90%' }}>
                   <S.SPLTY>
                     {item.HOUSE_TY}
-                    <a style={{ fontSize: 18 }}>㎡</a>
+                    <a style={{ fontSize: 18, padding: 3 }}>㎡</a>
                   </S.SPLTY>
                   <S.SPLTY>
                     {item.SUPLY_AR}
-                    <a style={{ fontSize: 18 }}>㎡</a>(
+                    <a style={{ fontSize: 18, padding: 3 }}>㎡</a>(
                     {Math.round(item.SUPLY_AR / 3.3)}평)
                   </S.SPLTY>
                   <S.SPLTY style={{ border: 'none' }}>
@@ -266,14 +286,14 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
                   padding: 5,
                 }}
               >
-                <div style={{ width: '12.5%' }}>다자녀</div>
-                <div style={{ width: '12.5%' }}>신혼부부</div>
-                <div style={{ width: '12.5%' }}>생애최초</div>
-                <div style={{ width: '12.5%' }}>노부모부양</div>
-                <div style={{ width: '12.5%' }}>기관추천</div>
-                <div style={{ width: '12.5%' }}>기타</div>
-                <div style={{ width: '12.5%' }}>이전기관</div>
-                <div style={{ width: '12.5%' }}>총계</div>
+                <div style={{ width: '12.5%', fontSize: 14 }}>다자녀</div>
+                <div style={{ width: '12.5%', fontSize: 14 }}>신혼부부</div>
+                <div style={{ width: '12.5%', fontSize: 14 }}>생애최초</div>
+                <div style={{ width: '12.5%', fontSize: 14 }}>노부모</div>
+                <div style={{ width: '12.5%', fontSize: 14 }}>기관추천</div>
+                <div style={{ width: '12.5%', fontSize: 14 }}>기타</div>
+                <div style={{ width: '12.5%', fontSize: 14 }}>이전기관</div>
+                <div style={{ width: '12.5%', fontSize: 14 }}>총계</div>
               </div>
             </S.SpecialHead>
           </S.SPLtable>
@@ -317,7 +337,14 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
             );
           })}
         </S.ArticleBox>
-        <div style={{ color: '#8E8E8E' }}>
+        <div
+          style={{
+            color: '#8E8E8E',
+            fontSize: 14,
+            paddingLeft: 10,
+            width: '95%',
+          }}
+        >
           <a>
             *공급세대수는 사업주체의 최초 입주자모집 공고문 기준입니다. 특별공급
             신청 미달 시 잔여물량은 일반공급으로 전환됨에 따라 일반공급 세대
@@ -346,9 +373,16 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
             <S.SPLhead color="#ffffff" style={{ width: '33.3%' }}>
               {home?.CNSTRCT_ENTRPS_NM}
             </S.SPLhead>
-            <S.SPLhead color="#ffffff" style={{ width: '33.3%' }}>
-              {home?.MDHS_TELNO}
-            </S.SPLhead>
+            {home?.MDHS_TELNO.length === 8 ? (
+              <S.SPLhead color="#ffffff" style={{ width: '33.3%' }}>
+                {home?.MDHS_TELNO.slice(0, 4)}-{home?.MDHS_TELNO.slice(4, 8)}
+              </S.SPLhead>
+            ) : (
+              <S.SPLhead color="#ffffff" style={{ width: '33.3%' }}>
+                {home?.MDHS_TELNO.slice(0, 3)}-{home?.MDHS_TELNO.slice(3, 6)}-
+                {home?.MDHS_TELNO.slice(6, 12)}
+              </S.SPLhead>
+            )}
           </S.SPLtable>
         </S.ArticleBox>
       </S.Container>

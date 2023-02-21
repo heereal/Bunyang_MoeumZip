@@ -8,16 +8,12 @@ export const Container = styled.div`
 export const CommentHeader = styled.div`
   font-size: 25px;
   font-weight: 700;
-  line-height: 30px;
-  padding-top: 30px;
   padding-bottom: 10px;
 `;
 
 export const CommentCount = styled.div`
   font-size: 25px;
   font-weight: 700;
-  line-height: 30px;
-  padding-top: 30px;
   padding-bottom: 10px;
   padding-left: 10px;
   color: #3d7fff;

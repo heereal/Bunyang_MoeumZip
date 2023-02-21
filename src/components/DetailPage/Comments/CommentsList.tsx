@@ -14,11 +14,19 @@ const CommentsList = ({ postId }: DetailPagePropsP) => {
   // 유저의 세션 정보 받아오기
   const { data: session } = useSession();
 
-  const { data: profile, refetch: test } = useQuery('profile', () => {
-    if (typeof session?.user?.email === 'string') {
-      return getProfile(session?.user?.email);
-    }
-  });
+  const { data: profile, refetch: refetchProfile } = useQuery(
+    'profile',
+    () => {
+      if (typeof session?.user?.email === 'string') {
+        return getProfile(session?.user?.email);
+      }
+    },
+    {
+      onSuccess(profile) {
+        setUser(profile);
+      },
+    },
+  );
 
   const { data, refetch } = useQuery('comments', () => {
     if (typeof postId === 'string') {
@@ -26,12 +34,12 @@ const CommentsList = ({ postId }: DetailPagePropsP) => {
     }
   });
 
+  console.log(session);
+
   useEffect(() => {
     setComments(data?.list.sort((a: any, b: any) => b.date - a.date));
-    setUser(profile);
-    refetch();
-    test();
-  }, [data, session, user]);
+    refetchProfile();
+  }, [data, session]);
 
   return (
     <S.Container>
