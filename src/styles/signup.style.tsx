@@ -112,7 +112,6 @@ export const CategoryBtn = styled.button<CategoryBtnStyledProps>`
   cursor: pointer;
   font-weight: 500;
   font-size: 15px;
-  /* line-height: 24px; */
   color: ${(props) => props.text};
   margin-bottom: 12px;
   margin-right: 13px;
