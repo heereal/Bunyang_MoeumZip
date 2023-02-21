@@ -163,7 +163,7 @@ const CategoryBar = () => {
               >
                 <BsCheckCircleFill
                   style={{
-                    fontSize: 20,
+                    fontSize: 12,
                     color: myRegionArray.length === 17 ? '#3d7fff' : '#BCC0CB',
                   }}
                 />
@@ -173,7 +173,7 @@ const CategoryBar = () => {
                 bg={'transparent'}
                 onClick={() => setMyRegionArray([])}
               >
-                <IoReload style={{ fontSize: 20, color: '#BCC0CB' }} />
+                <IoReload style={{ fontSize: 12, color: '#BCC0CB' }} />
                 <p>초기화</p>
               </S.CategoryCommonBtn>
             </S.CommonBtnBox>
@@ -217,7 +217,7 @@ const CategoryBar = () => {
               >
                 <BsCheckCircleFill
                   style={{
-                    fontSize: 20,
+                    fontSize: 12,
                     color: myTypeArray.length === 17 ? '#3d7fff' : '#BCC0CB',
                   }}
                 />
@@ -227,7 +227,7 @@ const CategoryBar = () => {
                 bg={'transparent'}
                 onClick={() => setMyTypeArray([])}
               >
-                <IoReload style={{ fontSize: 20, color: '#BCC0CB' }} />
+                <IoReload style={{ fontSize: 12, color: '#BCC0CB' }} />
                 <p>초기화</p>
               </S.CategoryCommonBtn>
             </S.CommonBtnBox>
