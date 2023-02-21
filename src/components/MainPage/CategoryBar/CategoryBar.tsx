@@ -71,6 +71,7 @@ const CategoryBar = () => {
               {item.name === '지역' ? (
                 <S.RegionTab
                   bd={isRegionToggleOpen ? '#3d7fff' : '#bcc0cb'}
+                  bg={isRegionToggleOpen ? '#f1f6ff' : '#ffffff'}
                   onClick={openToggleHandler}
                 >
                   <S.TabNameBox>
@@ -99,6 +100,7 @@ const CategoryBar = () => {
               ) : (
                 <S.TypeTab
                   bd={isTypeToggleOpen ? '#3d7fff' : '#bcc0cb'}
+                  bg={isTypeToggleOpen ? '#f1f6ff' : '#ffffff'}
                   onClick={openTypeToggleHandler}
                 >
                   <S.TabNameBox>

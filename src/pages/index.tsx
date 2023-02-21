@@ -20,8 +20,9 @@ const MainPage = ({ homeList }: HomeListDBPropsJ) => {
       </Head>
 
       <S.MainSection>
-        {/* CountTabs(+HomeList 컴포넌트) */}
+        {/* 지역 및 분양형태 필터 및 청약경쟁률 확인 버튼 */}
         <CategoryBar />
+        {/* CountTabs(+HomeList 컴포넌트) */}
         <CountTabs list={allHomeList} />
       </S.MainSection>
       <TopBtn />

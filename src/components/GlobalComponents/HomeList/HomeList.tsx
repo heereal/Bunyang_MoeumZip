@@ -2,6 +2,7 @@ import { pathState } from '@/store/selectors';
 import { useRouter } from 'next/router';
 import { useRecoilState } from 'recoil';
 import * as S from './style';
+import { AiOutlineStar } from 'react-icons/ai';
 
 const ListList = ({ list }: PropsListJ) => {
   const router = useRouter();
@@ -14,41 +15,54 @@ const ListList = ({ list }: PropsListJ) => {
 
   return (
     <S.ListArticle onClick={pathHandler}>
-      <div>
-        <div>
-          <div>
-            {list.HOUSE_DTL_SECD_NM} {list.HOUSE_SECD_NM}
-            {/*TODO: 표시할 때 '서울특별' 이렇게 잘린 애들 주의*/}
-            {list.SUBSCRPT_AREA_CODE_NM}
-          </div>
-          <div>{list.HOUSE_NM}</div>
-          <div>좋아요</div>
-          <div>{list.HSSPLY_ADRES}</div>
-        </div>
-      </div>
-
       {/* TODO: data가 없을 경우 보여줄 화면 추가 */}
       {/* {list.detail.length !== 0 ? ():()} */}
-
-      <div>
-        <div>전용면적</div>
-        {list.MIN_HOUSE_TY} ~{list.MAX_HOUSE_TY}
-      </div>
-      <div>
-        <div>분양가격</div>
-        {list.MIN_LTTOT_TOP_AMOUNT} ~{list.MAX_LTTOT_TOP_AMOUNT}
-      </div>
-
-      <div>
+      <S.CardHeader>
+        <S.CardCategoryBox>
+          <S.CardCategory>{list.HOUSE_DTL_SECD_NM}</S.CardCategory>
+          <S.CardCategory>{list.HOUSE_SECD_NM}</S.CardCategory>
+          <S.CardCategory>{list.SUBSCRPT_AREA_CODE_NM}</S.CardCategory>
+        </S.CardCategoryBox>
         <div>
-          <div>특별 청약일</div>
-          {list.SPSPLY_RCEPT_BGNDE} ~ {list.SPSPLY_RCEPT_ENDDE}
+          {/* TODO: 가운데 채워진 걸로 어떻게 바꾸지? */}
+          <AiOutlineStar style={{ color: 'yellow' }} />
         </div>
-        <div>
-          <div>청약 접수일</div>
-          {list.RCEPT_BGNDE} ~ {list.RCEPT_ENDDE}
-        </div>
-      </div>
+      </S.CardHeader>
+
+      <S.CardTitle>{list.HOUSE_NM}</S.CardTitle>
+
+      <S.CardDateBox>
+        <S.CardDateTitle>특별 청약일</S.CardDateTitle>
+        <S.CardDate>
+          {list.SPSPLY_RCEPT_BGNDE.slice(5, 7).replace(/(^0)/, '')}월
+          {list.SPSPLY_RCEPT_BGNDE.slice(8, 10).replace(/(^0)/, '')}일 ~
+          {list.SPSPLY_RCEPT_ENDDE.slice(5, 7).replace(/(^0)/, '')}월
+          {list.SPSPLY_RCEPT_ENDDE.slice(8, 10).replace(/(^0)/, '')}일
+        </S.CardDate>
+      </S.CardDateBox>
+      <S.CardDateBox>
+        <S.CardDateTitle>청약 접수일</S.CardDateTitle>
+        <S.CardDate>
+          {list.RCEPT_BGNDE.slice(5, 7).replace(/(^0)/, '')}월
+          {list.RCEPT_BGNDE.slice(8, 10).replace(/(^0)/, '')}일 ~
+          {list.RCEPT_ENDDE.slice(5, 7).replace(/(^0)/, '')}월
+          {list.RCEPT_ENDDE.slice(8, 10).replace(/(^0)/, '')}일
+        </S.CardDate>
+      </S.CardDateBox>
+
+      <S.CardAreaBox>
+        <S.CardAreaTitle>전용면적</S.CardAreaTitle>
+        <S.CardArea>
+          {list.MIN_HOUSE_TY} ~{list.MAX_HOUSE_TY}
+        </S.CardArea>
+      </S.CardAreaBox>
+      <S.CardAreaBox>
+        <S.CardAreaTitle>분양가격</S.CardAreaTitle>
+        <S.CardArea>
+          {list.MIN_LTTOT_TOP_AMOUNT.replace('만원', '')} ~
+          {list.MAX_LTTOT_TOP_AMOUNT}
+        </S.CardArea>
+      </S.CardAreaBox>
     </S.ListArticle>
   );
 };

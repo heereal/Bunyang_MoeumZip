@@ -28,10 +28,11 @@ export const CategoryTabs = styled.li`
 `;
 
 // 지역 Tab
-export const RegionTab = styled.button<{ bd: string }>`
+export const RegionTab = styled.button<{ bd: string; bg: string }>`
   width: 67px;
   height: 29px;
-  background: #ffffff;
+  background-color: ${(props) => props.bg};
+
   border: 1px solid;
   border-color: ${(props) => props.bd};
   border-radius: 10px;

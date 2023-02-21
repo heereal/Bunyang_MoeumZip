@@ -17,7 +17,7 @@ export const BtnBox = styled.div`
   width: 89px;
   height: 33px;
 
-  background: #3d7fff;
+  background: #f1f6ff;
   border-radius: 10px;
   padding: 8px 5px;
 
@@ -26,4 +26,15 @@ export const BtnBox = styled.div`
   font-size: 12px;
   line-height: 17px;
   text-align: center;
+`;
+
+export const InfoLink = styled.a`
+  text-decoration: none;
+  color: #7b7b7b;
+
+  cursor: pointer;
+
+  :hover {
+    color: #3d7fff;
+  }
 `;
