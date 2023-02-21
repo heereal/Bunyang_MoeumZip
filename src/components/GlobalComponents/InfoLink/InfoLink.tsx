@@ -22,7 +22,9 @@ const InfoLink = () => {
           href={'https://www.applyhome.co.kr/wa/waa/selectAptPrzwinDescList.do'}
           legacyBehavior
         >
-          <S.InfoLink>청약당첨자 확인</S.InfoLink>
+          <a style={{ textDecoration: 'none', color: '#7b7b7b' }}>
+            청약당첨자 확인
+          </a>
         </Link>
       </S.BtnBox>
     </S.Container>
