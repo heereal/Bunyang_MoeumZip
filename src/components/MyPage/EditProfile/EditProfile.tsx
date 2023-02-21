@@ -8,6 +8,7 @@ import Image from 'next/image';
 import transparentProfile from '../../../assets/transparentProfile.png';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { uuidv4 } from '@firebase/util';
+import * as S from './style';
 
 const EditProfile = ({ users, currentUser }: any) => {
   const queryClient = useQueryClient();
@@ -117,12 +118,28 @@ const EditProfile = ({ users, currentUser }: any) => {
       setProfileImg(currentUser.userImage);
       setEditNickname(currentUser.userName);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line
   }, [users]);
 
   return (
-    <>
-      <div>닉네임: {nickname}</div>
+    <S.Wrapper>
+      <S.EditProfileContainer>
+        <Image
+          // 프로필 정보 불러오기 전에는 투명한 이미지를 보여줌(엑박 뜨지 않도록)
+          src={!users ? transparentProfile : profileImg}
+          alt="profile"
+          width={255}
+          height={255}
+          quality={75}
+          style={{ borderRadius: '50%', objectFit: 'cover' }}
+          priority={true}
+        />
+        <S.Nickname>{nickname}</S.Nickname>
+        <S.Email>{email}</S.Email>
+        <S.ProfileBtn>이미지 수정</S.ProfileBtn>
+        <S.ProfileBtn>닉네임 수정</S.ProfileBtn>
+      </S.EditProfileContainer>
+      {/* <div>닉네임: {nickname}</div>
       <button onClick={() => setIsInputOpen(!isInputOpen)}>닉네임 수정</button>
       {isInputOpen ? (
         <>
@@ -135,20 +152,11 @@ const EditProfile = ({ users, currentUser }: any) => {
           </button>
         </>
       ) : null}
-      <h4>프로필 사진</h4>
-      <Image
-        // 프로필 정보 불러오기 전에는 투명한 이미지를 보여줌(엑박 뜨지 않도록)
-        src={!users ? transparentProfile : profileImg}
-        alt="profile"
-        width={300}
-        height={300}
-        quality={75}
-        style={{ borderRadius: '50%', objectFit: 'cover' }}
-        priority={true}
-      />
-      <input type="file" accept="images/*" onChange={(e) => onImageChange(e)} />
-      <button onClick={uploadImage}>프사 수정 완료</button>
-    </>
+      <h4>프로필 사진</h4> */}
+
+      {/* <input type="file" accept="images/*" onChange={(e) => onImageChange(e)} />
+      <button onClick={uploadImage}>프사 수정 완료</button> */}
+    </S.Wrapper>
   );
 };
 
