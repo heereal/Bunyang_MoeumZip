@@ -10,14 +10,13 @@ export const ModalBackground = styled.div`
   background: rgba(0, 0, 0, 0.6);
   z-index: 1001;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
 `;
 
 export const ModalContainer = styled.div`
-  height: 600px;
-  width: 580px;
+  height: 510px;
+  width: 460px;
   background-color: white;
   padding: 20px;
   border-radius: 20px;
@@ -29,20 +28,19 @@ export const ModalContainer = styled.div`
 export const CloseBtnContainer = styled.div`
   display: flex;
   justify-content: flex-end;
-  cursor: pointer;
   width: 100%;
 `;
 
 export const LogoContainer = styled.div`
   background-color: lightgray;
-  height: 145px;
-  width: 145px;
+  height: 120px;
+  width: 120px;
   border-radius: 50%;
   margin-top: 7px;
 `;
 
 export const BunyangMoaTitle = styled.h1`
-  font-size: 30px;
+  font-size: 21px;
   padding: 23px 0 32px 0;
 `;
 
@@ -52,11 +50,11 @@ export const SocialLoginBtnContainer = styled.div`
 `;
 
 export const SocilaLoginBtn = styled.div<{ bg: string; text: string }>`
-  height: 50px;
-  width: 400px;
+  height: 47px;
+  width: 360px;
   position: relative;
-  font-weight: 500;
-  font-size: 18px;
+  font-weight: 700;
+  font-size: 14px;
   line-height: 22px;
   background-color: ${(props) => props.bg};
   color: ${(props) => props.text};
