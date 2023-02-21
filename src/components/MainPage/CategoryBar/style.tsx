@@ -58,7 +58,7 @@ export const TabNameBox = styled.div`
 export const TabName = styled.p<{ color: string }>`
   font-style: normal;
   font-weight: 600;
-  font-size: 14px;
+  font-size: 12px;
   line-height: 17px;
   color: ${(props) => props.color};
 
@@ -69,7 +69,7 @@ export const TabName = styled.p<{ color: string }>`
 
 // 지역 및 분양형태 카테고리 선택
 export const CategoryContainer = styled.div`
-  width: 219px;
+  width: 16%;
   height: 249px;
   display: flex;
   flex-direction: column;
@@ -77,15 +77,14 @@ export const CategoryContainer = styled.div`
   align-items: center;
 
   position: absolute;
-  top: 18%;
+  top: 27%;
   left: 1.7%;
   padding: 5px;
 
-  border: 1px solid black;
-  border-radius: 20px;
   box-sizing: border-box;
+  background: #ffffff;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  background-color: #ffffff;
+  border-radius: 20px;
 `;
 
 export const CategoryBox = styled.div`
@@ -103,9 +102,12 @@ export const CategoryBox = styled.div`
   left: 6%;
 `;
 
-export const CategoryBtn = styled.button<{ bg: string; bd: string }>`
+export const CategoryBtn = styled.button<{
+  bg: string;
+  bd: string;
+  color: string;
+}>`
   height: 26px;
-
   background-color: ${(props) => props.bg};
   border-color: ${(props) => props.bd};
   border-radius: 5px;
@@ -123,7 +125,7 @@ export const CategoryBtn = styled.button<{ bg: string; bd: string }>`
   font-size: 14px;
   line-height: 17px;
   text-align: center;
-  color: #7b7b7b;
+  color: ${(props) => props.color};
 
   cursor: pointer;
 

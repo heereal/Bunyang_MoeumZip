@@ -143,6 +143,7 @@ const CategoryBar = () => {
                     key={index}
                     bg={'#F1F6FF'}
                     bd={'#3d7fff'}
+                    color={'#3d7fff'}
                   >
                     {region}
                   </S.CategoryBtn>
@@ -152,6 +153,7 @@ const CategoryBar = () => {
                     key={index}
                     bg={'transparent'}
                     bd={'#F4F4F4'}
+                    color={'#7b7b7b'}
                   >
                     {region}
                   </S.CategoryBtn>
@@ -197,6 +199,7 @@ const CategoryBar = () => {
                     key={index}
                     bg={'#F1F6FF'}
                     bd={'#3d7fff'}
+                    color={'#3d7fff'}
                   >
                     {region}
                   </S.CategoryBtn>
@@ -206,6 +209,7 @@ const CategoryBar = () => {
                     key={index}
                     bg={'transparent'}
                     bd={'#F4F4F4'}
+                    color={'#7b7b7b'}
                   >
                     {region}
                   </S.CategoryBtn>

@@ -31,7 +31,7 @@ export const CountTabTitle = styled.p`
   height: 26px;
   font-style: normal;
   font-weight: 600;
-  font-size: 20px;
+  font-size: 16px;
   line-height: 24px;
   text-align: center;
   margin-bottom: 15px;
