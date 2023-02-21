@@ -27,7 +27,7 @@ const Header = () => {
       {isOpen && <LoginModal setIsOpen={setIsOpen} />}
       <S.Header>
         <S.LogoBox>
-          <Image
+          {/* <Image
             onClick={pathHandler}
             src={candy}
             alt="logoImg"
@@ -37,14 +37,16 @@ const Header = () => {
             //quelity 의 기본값은 75 입니다.
             style={{ cursor: 'pointer' }}
             priority={true}
-          />
+          /> */}
+          <S.Logo></S.Logo>
           {/* 로고 대신 글씨 넣어놓은 것 */}
           <div
             style={{
               position: 'absolute',
-              left: '8%',
-              top: '15px',
+              left: '4%',
+              top: '16px',
               fontSize: '16px',
+              fontWeight: 900,
             }}
           >
             분양모아
