@@ -11,7 +11,9 @@ const InfoLink = () => {
           }
           legacyBehavior
         >
-          <S.InfoLink>청약경쟁률 확인</S.InfoLink>
+          <a style={{ textDecoration: 'none', color: '#7b7b7b' }}>
+            청약경쟁률 확인
+          </a>
         </Link>
       </S.BtnBox>
 
