@@ -23,14 +23,14 @@ export const SignUpDesc = styled.div`
 
   h1 {
     font-weight: 600;
-    font-size: 24px;
+    font-size: 22px;
     line-height: 42px;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
   }
   p {
     color: #8e8e8e;
     font-weight: 500;
-    font-size: 17px;
+    font-size: 15px;
     line-height: 27px;
   }
 `;
@@ -43,7 +43,7 @@ export const SubmitNicknameContainer = styled.div`
 
 export const NicknameTitle = styled.div`
   font-weight: 800;
-  font-size: 19px;
+  font-size: 17px;
   line-height: 27px;
   padding-bottom: 12px;
 
@@ -77,7 +77,7 @@ export const CheckNicknameBtn = styled.div`
   height: 45px;
 
   font-weight: 600;
-  font-size: 15px;
+  font-size: 14px;
   line-height: 24px;
 
   color: #7b7b7b;
@@ -88,7 +88,7 @@ export const CheckNicknameBtn = styled.div`
 
 export const CategoryTitle = styled.h2`
   font-weight: 800;
-  font-size: 19px;
+  font-size: 17px;
   line-height: 27px;
   padding-bottom: 12px;
 `;
@@ -102,12 +102,12 @@ export const SignUpBtn = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 50px;
+  height: 47px;
   background-color: #3d7fff;
   border-radius: 20px;
   color: white;
   font-weight: 700;
-  font-size: 19px;
+  font-size: 17px;
   line-height: 140%;
   cursor: pointer;
 `;
