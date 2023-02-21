@@ -27,14 +27,3 @@ export const BtnBox = styled.div`
   line-height: 17px;
   text-align: center;
 `;
-
-export const InfoLink = styled.a`
-  text-decoration: none;
-  color: #7b7b7b;
-
-  cursor: pointer;
-
-  :hover {
-    color: #3d7fff;
-  }
-`;
