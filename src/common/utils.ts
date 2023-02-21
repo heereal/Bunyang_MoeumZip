@@ -31,3 +31,15 @@ export const getDate = (date: any) => {
     8,
   )} ${date?.slice(8, 10)}:${date?.slice(10, 12)}`;
 };
+
+
+// 오늘 날짜 구하기 - DB의 날짜 형식 0000-00-00
+export const getToday = () => {
+  const date = new Date();
+  const year = date.getFullYear();
+  const month = ('0' + (date.getMonth() + 1)).slice(-2);
+  const day = ('0' + date.getDate()).slice(-2);
+  const today = year + '-' + month + '-' + day;
+
+  return today;
+};

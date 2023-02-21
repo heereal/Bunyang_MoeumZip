@@ -2,8 +2,8 @@ import styled from 'styled-components';
 
 // Count Tab
 export const CountSectionBack = styled.div`
-  width: 780px;
-  height: 70px;
+  width: 100%;
+  height: 175px;
 
   background: linear-gradient(
       0deg,
@@ -18,7 +18,7 @@ export const CountSectionBack = styled.div`
     );
 
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 
@@ -26,15 +26,28 @@ export const CountSectionBack = styled.div`
   top: 0;
 `;
 
+// 청약 정보 확인 문구
+export const CountTabTitle = styled.p`
+  height: 26px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 24px;
+  text-align: center;
+  margin-bottom: 15px;
+
+  color: #ffffff;
+`;
+
 export const CountTabList = styled.ul`
   width: 50%;
-  height: 53px;
+  height: 59px;
 
   background: #ffffff;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 20px;
 
-  color: #7b7b7b;
+  color: #000000;
   font-weight: bold;
   text-align: center;
 
@@ -96,12 +109,15 @@ export const CountTabNum = styled(CountTabName)`
 // 리스트
 export const ListSection = styled.section`
   width: 100%;
+  height: 90%;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  align-items: center;
+  align-items: flex-start;
+  align-content: flex-start;
   justify-content: center;
   overflow-y: scroll;
+  margin: auto;
 
   background: #f7f7f7;
 `;
