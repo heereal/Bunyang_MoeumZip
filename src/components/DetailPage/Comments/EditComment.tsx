@@ -1,6 +1,8 @@
 import { deleteComment, editComment } from '@/common/api';
+import { getDate } from '@/common/utils';
 import AlertUI from '@/components/GlobalComponents/AlertUI/AlertUI';
 import { arrayRemove, arrayUnion } from 'firebase/firestore';
+import Image from 'next/image';
 import { KeyboardEvent, useState } from 'react';
 import { confirmAlert } from 'react-confirm-alert';
 import { useMutation } from 'react-query';
@@ -17,7 +19,7 @@ const EditComment = ({
 }: CommentPropsP) => {
   const [isOpen, setIsOpen] = useState(false);
   const [editInput, setEditInput] = useState<string | undefined>('');
-  const [date] = useState(comment?.date);
+  const date = comment?.date;
 
   const deleteCommentHandler = async (index: number | undefined) => {
     const decision = confirm('삭제하시겠습니까?');
@@ -58,8 +60,9 @@ const EditComment = ({
         list: arrayUnion({
           contents: editInput,
           date: date,
-          nickName: user?.name,
-          userEmail: user?.email,
+          nickName: user?.userName,
+          userEmail: user?.userEmail,
+          userImage: user?.userImage,
         }),
       };
       editMutation.mutate({ postId, comment, newComment });
@@ -88,37 +91,68 @@ const EditComment = ({
   };
 
   return (
-    <div>
-      {!isOpen && user?.email === comment?.userEmail && (
-        <>
-          <S.Btn
-            onClick={() => {
-              setIsOpen(true), setEditInput(comment?.contents);
+    <S.CommentListBox blur={!user ? '4px' : '0'}>
+      <S.ImageBox>
+        {comment?.userImage && (
+          <Image
+            width={45}
+            height={45}
+            alt="profile"
+            src={comment?.userImage}
+            quality={75}
+            loading="lazy"
+            style={{ borderRadius: 25, objectFit: 'cover' }}
+          />
+        )}
+      </S.ImageBox>
+      <S.CommentBox>
+        <S.UserNameBox>
+          <div
+            style={{
+              display: 'flex',
+              gap: 10,
+              alignItems: 'center',
             }}
           >
-            수정
-          </S.Btn>
-          <S.Btn onClick={() => deleteCommentHandler(index)}>삭제</S.Btn>
-        </>
-      )}
-      {isOpen && user?.email === comment?.userEmail && (
-        <>
-          <S.Btn onClick={() => setIsOpen(false)}>취소</S.Btn>
-          <S.Btn onClick={() => editCommentHandler(index)}>완료</S.Btn>
-          <S.Input
-            onChange={(e) => setEditInput(e.currentTarget.value)}
-            defaultValue={comment?.contents}
-            autoFocus
-            onKeyPress={(e) => OnKeyPressHandler(e, 'edit')}
-          />
-        </>
-      )}
-
-      <S.CommentsBox>{comment?.contents}</S.CommentsBox>
-
-      <S.UserNameBox>{comment?.nickName}</S.UserNameBox>
-      <S.UserNameBox>{comment?.userEmail}</S.UserNameBox>
-    </div>
+            <div>{comment?.nickName}</div>
+            <div style={{ fontSize: 13, color: '#B9B9B9' }}>
+              {getDate(comment?.date)}
+            </div>
+          </div>
+          <div style={{ display: 'flex', gap: 4 }}>
+            {!isOpen && user?.userEmail === comment?.userEmail && (
+              <>
+                <S.Btn
+                  onClick={() => {
+                    setIsOpen(true), setEditInput(comment?.contents);
+                  }}
+                >
+                  수정
+                </S.Btn>
+                <S.Btn onClick={() => deleteCommentHandler(index)}>삭제</S.Btn>
+              </>
+            )}
+            {isOpen && user?.userEmail === comment?.userEmail && (
+              <>
+                <S.Btn onClick={() => setIsOpen(false)}>취소</S.Btn>
+                <S.Btn onClick={() => editCommentHandler(index)}>완료</S.Btn>
+              </>
+            )}
+          </div>
+        </S.UserNameBox>
+        {!isOpen && <S.ContentsBox>{comment?.contents}</S.ContentsBox>}
+        {isOpen && (
+          <S.ContentsBox>
+            <S.EditInput
+              onChange={(e) => setEditInput(e.currentTarget.value)}
+              defaultValue={comment?.contents}
+              autoFocus
+              onKeyPress={(e) => OnKeyPressHandler(e, 'edit')}
+            />
+          </S.ContentsBox>
+        )}
+      </S.CommentBox>
+    </S.CommentListBox>
   );
 };
 

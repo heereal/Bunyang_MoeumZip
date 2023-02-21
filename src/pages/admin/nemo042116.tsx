@@ -1,19 +1,18 @@
 import { addHomeList } from '@/common/api';
 import { db } from '@/common/firebase';
+import AlertUI from '@/components/GlobalComponents/AlertUI/AlertUI';
 import HeadTitle from '@/components/GlobalComponents/HeadTitle/HeadTitle';
 import axios from 'axios';
 import { doc, getDoc } from 'firebase/firestore';
 import { GetStaticProps } from 'next';
 import Image from 'next/image';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { confirmAlert } from 'react-confirm-alert';
 import { useMutation, useQueryClient } from 'react-query';
-import styled from 'styled-components';
-import firsDbtButton from '../../assets/apiCallButton_red.png';
 import coordinatesBtn from '../../assets/apiCallButton_blue.png';
 import lastDbButton from '../../assets/apiCallButton_green.png';
+import firsDbtButton from '../../assets/apiCallButton_red.png';
 import * as S from '../../styles/admin.style';
-import AlertUI from '@/components/GlobalComponents/AlertUI/AlertUI';
-import { confirmAlert } from 'react-confirm-alert';
 
 const MustHaveToDo = ({
   aptCombineList,
@@ -88,12 +87,6 @@ const MustHaveToDo = ({
   const possibleAllHomeList = allHomeList.filter(
     (item: ItemJ) => item.RCEPT_ENDDE >= today,
   );
-
-  // FIXME: 버튼을 처음 누를 때 undefined - list를 버튼 누르기 전에 실행?
-  // useEffect(() => {
-  //   console.log('useEffect 안:', allHomeData);
-  //   setAllHomeData(newList);
-  // }, []);
 
   // Friebase DB에 homeList 추가
   const addHomeListMutate = useMutation(addHomeList, {
@@ -517,19 +510,3 @@ export const getStaticProps: GetStaticProps = async () => {
     revalidate: 43200,
   };
 };
-
-//   // promise에서 값을 가져오고 싶어..................
-// const treuer: any = async () => {
-//   const lhDetailst = lhNoticeAList.map((item: any) => {
-//     const list = axios
-//       .get(
-//         `${LH_BASE_URL}/${METHOD_LH_DETAIL}?serviceKey=${SERVICE_KEY}&SPL_INF_TP_CD=${item.SPL_INF_TP_CD}&CCR_CNNT_SYS_DS_CD=${item.CCR_CNNT_SYS_DS_CD}&PAN_ID=${item.PAN_ID}`,
-//       )
-//       .then((res) => res.data);
-//     return list;
-//   });
-//   };
-
-//   useEffect(() => treuer(), []);
-
-//   console.log(lhDetailst);

@@ -13,7 +13,7 @@ export const postTime = () => {
 };
 
 // API 불러올 때 모집 중 공고 필터링하기 위해 사용
-export const currentData = () => {
+export const currentDate = () => {
   const date = new Date();
   const year = date.getFullYear();
   const month = ('0' + (date.getMonth() + 1)).slice(-2);
@@ -25,6 +25,7 @@ export const currentData = () => {
 // 20230109171500 -> 2023.01.09로 전환
 // 사용 예시 <Date>{getDate(comment.date)}</Date>
 // TODO: date type 재정의하기
+
 export const getDate = (date: any) => {
   return `${date?.slice(2, 4)}.${date?.slice(4, 6)}.${date?.slice(
     6,
