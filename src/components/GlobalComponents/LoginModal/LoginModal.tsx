@@ -5,7 +5,6 @@ import { SiNaver } from 'react-icons/si';
 import { BsFacebook } from 'react-icons/bs';
 import { FcGoogle } from 'react-icons/fc';
 
-
 import * as S from './style';
 
 interface loginModalProps {
@@ -33,7 +32,7 @@ const LoginModal = ({ setIsOpen }: loginModalProps) => {
             onClick={() => loginHandler('kakao')}
           >
             <S.SocialLoginIcon>
-              <RiKakaoTalkFill size="25" style={{marginTop: 3}}/>
+              <RiKakaoTalkFill size="25" style={{ marginTop: 3 }} />
             </S.SocialLoginIcon>
             카카오톡 로그인
           </S.SocilaLoginBtn>
@@ -43,7 +42,7 @@ const LoginModal = ({ setIsOpen }: loginModalProps) => {
             onClick={() => loginHandler('naver')}
           >
             <S.SocialLoginIcon>
-              <SiNaver size="21" style={{marginTop: 4, marginLeft: 2}}/>
+              <SiNaver size="21" style={{ marginTop: 4, marginLeft: 2 }} />
             </S.SocialLoginIcon>
             네이버 로그인
           </S.SocilaLoginBtn>
@@ -53,7 +52,7 @@ const LoginModal = ({ setIsOpen }: loginModalProps) => {
             onClick={() => loginHandler('facebook')}
           >
             <S.SocialLoginIcon>
-              <BsFacebook size="21.5" style={{marginTop: 2, marginLeft: 2}}/>
+              <BsFacebook size="21.5" style={{ marginTop: 2, marginLeft: 2 }} />
             </S.SocialLoginIcon>
             페이스북 로그인
           </S.SocilaLoginBtn>
@@ -63,7 +62,7 @@ const LoginModal = ({ setIsOpen }: loginModalProps) => {
             onClick={() => loginHandler('google')}
           >
             <S.SocialLoginIcon>
-              <FcGoogle size="25" style={{marginTop: 3}}/>
+              <FcGoogle size="25" style={{ marginTop: 3 }} />
             </S.SocialLoginIcon>
             구글 로그인
           </S.SocilaLoginBtn>

@@ -16,7 +16,7 @@ const SignUp = () => {
   const router = useRouter();
 
   // 유저의 세션 정보 받아오기
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
 
   // 닉네임 중복 검사 시 사용
   const [isValidNickname, setIsValidNickname] = useState(false);
@@ -33,6 +33,12 @@ const SignUp = () => {
     const checkNickname = users.find(
       (user: userProps) => user.userName === nickname,
     );
+    //닉네임을 입력하지 않았을 때
+    if (!nickname) {
+      alert('닉네임을 입력해주세요.');
+      setIsValidNickname(false);
+      return;
+    }
     if (!checkNickname) {
       confirmAlert({
         customUI: ({ onClose }) => {
@@ -93,7 +99,12 @@ const SignUp = () => {
 
   // Users 데이터 불러오기
   const { data: users, isLoading }: any = useQuery('users', getUsersList);
-  console.log(users);
+
+  useEffect(() => {
+    // 비로그인 유저일 경우 접근 제한
+    if (status === 'unauthenticated') router.push('/');
+    // eslint-disable-next-line
+  }, [session]);
 
   useEffect(() => {
     // session(유저 정보)가 들어왔을 때만 함수를 실행함
@@ -105,88 +116,128 @@ const SignUp = () => {
   }, [session]);
 
   return (
-    <div style={{ flexDirection: 'column', margin: 'auto' }}>
-      <h1>회원가입</h1>
-      <h4>닉네임</h4>
-      <input
-        value={nickname}
-        onChange={(e) => setNickname(e.target.value)}
-      ></input>
-      <button onClick={checkNicknameHandler}>닉네임 중복 확인</button>
-      <button onClick={signupHandler}>회원가입 완료</button>
+    <S.Wrapper>
+      <S.SignUpContainer>
+        <S.SignUpDesc>
+          <h1>회원가입</h1>
+          <p>분양정보 추천을 위한 추가정보를 선택해주세요.</p>
+        </S.SignUpDesc>
 
-      {/* 관심 지역 카테고리 선택 */}
-      <h3>관심 지역 선택</h3>
-      <S.CategoryContainer>
-        {regionArray.map((region, index) =>
-          region && myRegionArray.includes(region) ? (
-            <S.CategoryBtn
-              onClick={() =>
-                setMyRegionArray(
-                  myRegionArray.filter((item) => item !== region),
-                )
-              }
-              key={index}
-              bg={'lightblue'}
-            >
-              {region}
-            </S.CategoryBtn>
-          ) : (
-            <S.CategoryBtn
-              onClick={() => setMyRegionArray([...myRegionArray, region])}
-              key={index}
-              bg={'transparent'}
-            >
-              {region}
-            </S.CategoryBtn>
-          ),
-        )}
-        <S.CategoryBtn bg={'transparent'} onClick={() => setMyRegionArray([])}>
-          전체 초기화
-        </S.CategoryBtn>
-        <S.CategoryBtn
-          bg={'transparent'}
-          onClick={() => setMyRegionArray(regionArray)}
-        >
-          전체 선택
-        </S.CategoryBtn>
-      </S.CategoryContainer>
+        {/* 닉네임 제출 */}
+        <S.SubmitNicknameContainer>
+          <S.NicknameTitle>
+            닉네임<span>*</span>
+          </S.NicknameTitle>
+          <S.InputBtnContainer>
+            <S.NicknameInput
+              value={nickname}
+              onChange={(e) => setNickname(e.target.value)}
+              placeholder="닉네임을 입력해주세요."
+            />
+            <S.CheckNicknameBtn onClick={checkNicknameHandler}>
+              중복확인
+            </S.CheckNicknameBtn>
+          </S.InputBtnContainer>
+        </S.SubmitNicknameContainer>
 
-      {/* 관심 분양 형태 카테고리 선택 */}
-      <h3>관심 분양 형태 선택</h3>
-      <S.CategoryContainer>
-        {typesArray.map((type, index) =>
-          type && myTypeArray.includes(type) ? (
-            <S.CategoryBtn
-              onClick={() =>
-                setMyTypeArray(myTypeArray.filter((item) => item !== type))
-              }
-              key={index}
-              bg={'lightblue'}
-            >
-              {type}
-            </S.CategoryBtn>
-          ) : (
-            <S.CategoryBtn
-              onClick={() => setMyTypeArray([...myTypeArray, type])}
-              key={index}
-              bg={'transparent'}
-            >
-              {type}
-            </S.CategoryBtn>
-          ),
-        )}
-        <S.CategoryBtn bg={'transparent'} onClick={() => setMyTypeArray([])}>
-          전체 초기화
-        </S.CategoryBtn>
-        <S.CategoryBtn
-          bg={'transparent'}
-          onClick={() => setMyTypeArray(typesArray)}
-        >
-          전체 선택
-        </S.CategoryBtn>
-      </S.CategoryContainer>
-    </div>
+        {/* 관심 지역 카테고리 선택 */}
+        <S.CategoryTitle>관심 지역 선택</S.CategoryTitle>
+        <S.CategoryContainer>
+          {regionArray.map((region, index) =>
+            region && myRegionArray.includes(region) ? (
+              <S.CategoryBtn
+                onClick={() =>
+                  setMyRegionArray(
+                    myRegionArray.filter((item) => item !== region),
+                  )
+                }
+                key={index}
+                bg={'#F1F6FF'}
+                text={'#3D7FFF'}
+                border={'#3D7FFF'}
+              >
+                {region}
+              </S.CategoryBtn>
+            ) : (
+              <S.CategoryBtn
+                onClick={() => setMyRegionArray([...myRegionArray, region])}
+                key={index}
+                bg={'white'}
+                text={'#7b7b7b'}
+                border={'#F4F4F4'}
+              >
+                {region}
+              </S.CategoryBtn>
+            ),
+          )}
+          <S.CategoryBtn
+            bg={'white'}
+            text={'#7b7b7b'}
+            border={'#F4F4F4'}
+            onClick={() => setMyRegionArray([])}
+          >
+            전체 초기화
+          </S.CategoryBtn>
+          <S.CategoryBtn
+            bg={'white'}
+            text={'#7b7b7b'}
+            border={'#F4F4F4'}
+            onClick={() => setMyRegionArray(regionArray)}
+          >
+            전체 선택
+          </S.CategoryBtn>
+        </S.CategoryContainer>
+
+        {/* 관심 분양 형태 카테고리 선택 */}
+        <S.CategoryTitle>관심 분양 형태 선택</S.CategoryTitle>
+        <S.CategoryContainer>
+          {typesArray.map((type, index) =>
+            type && myTypeArray.includes(type) ? (
+              <S.CategoryBtn
+                onClick={() =>
+                  setMyTypeArray(myTypeArray.filter((item) => item !== type))
+                }
+                key={index}
+                bg={'#F1F6FF'}
+                text={'#3D7FFF'}
+                border={'#3D7FFF'}
+              >
+                {type}
+              </S.CategoryBtn>
+            ) : (
+              <S.CategoryBtn
+                onClick={() => setMyTypeArray([...myTypeArray, type])}
+                key={index}
+                bg={'white'}
+                text={'#7b7b7b'}
+                border={'#F4F4F4'}
+              >
+                {type}
+              </S.CategoryBtn>
+            ),
+          )}
+          <S.CategoryBtn
+            bg={'white'}
+            text={'#7b7b7b'}
+            border={'#F4F4F4'}
+            onClick={() => setMyTypeArray([])}
+          >
+            전체 초기화
+          </S.CategoryBtn>
+          <S.CategoryBtn
+            bg={'white'}
+            text={'#7b7b7b'}
+            border={'#F4F4F4'}
+            onClick={() => setMyTypeArray(typesArray)}
+          >
+            전체 선택
+          </S.CategoryBtn>
+        </S.CategoryContainer>
+        <S.SignUpBtnContainer>
+          <S.SignUpBtn onClick={signupHandler}>가입완료</S.SignUpBtn>
+        </S.SignUpBtnContainer>
+      </S.SignUpContainer>
+    </S.Wrapper>
   );
 };
 

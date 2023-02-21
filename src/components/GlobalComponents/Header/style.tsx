@@ -9,8 +9,9 @@ export const Header = styled.header`
   justify-content: space-between;
   align-items: center;
   /* padding: 0 */
-  position: relative;
-  z-index: 100;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 `;
 
 export const HSection = styled.div`
