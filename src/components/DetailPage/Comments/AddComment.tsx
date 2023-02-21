@@ -1,15 +1,22 @@
 import { addComment } from '@/common/api';
 import AlertUI from '@/components/GlobalComponents/AlertUI/AlertUI';
 import { arrayUnion } from 'firebase/firestore';
-import { KeyboardEvent, useState } from 'react';
+import Image from 'next/image';
+import { KeyboardEvent, lazy, useState } from 'react';
 import { confirmAlert } from 'react-confirm-alert';
 import { useMutation, useQueries } from 'react-query';
 import * as S from './style';
+import { RiPencilFill } from 'react-icons/ri';
+import candy from '../../../assets/candy.jpg';
+import { postTime } from '@/common/utils';
 
 const AddComment = ({ user, postId, queryClient, refetch }: CommentPropsP) => {
   const [input, setInput] = useState<string>('');
+  const [clicked, setClicked] = useState(true);
+  const postDate = postTime();
 
-  const addCommentHandler = async () => {
+  const addCommentHandler = async (e: any) => {
+    setClicked(true);
     if (input === '') {
       confirmAlert({
         customUI: ({ onClose }) => {
@@ -19,20 +26,22 @@ const AddComment = ({ user, postId, queryClient, refetch }: CommentPropsP) => {
         },
       });
 
-      return;
+      return setClicked(false);
     }
     const newComment = {
       list: arrayUnion({
         contents: input,
-        date: Date.now(),
-        nickName: user?.name,
-        userEmail: user?.email,
+        date: postDate,
+        nickName: user?.userName,
+        userEmail: user?.userEmail,
+        userImage: user?.userImage,
       }),
     };
     if (typeof postId === 'string') {
       addMutation.mutate({ postId, newComment });
     }
     setInput('');
+    setClicked(false);
   };
 
   const addMutation = useMutation(addComment, {
@@ -47,26 +56,56 @@ const AddComment = ({ user, postId, queryClient, refetch }: CommentPropsP) => {
     type: string,
   ): void => {
     if (e.key === 'Enter' && type === 'add' && user) {
-      addCommentHandler();
+      addCommentHandler(e);
     }
   };
 
   return (
-    <div>
-      <S.UserNameBox>{user?.name}</S.UserNameBox>
+    <S.AddCommentBox>
+      <S.ImageBox>
+        {typeof user?.userImage === 'string' ? (
+          <Image
+            width={45}
+            height={45}
+            alt="profile"
+            src={user?.userImage}
+            quality={75}
+            loading="lazy"
+            style={{ borderRadius: 25, objectFit: 'cover' }}
+          />
+        ) : (
+          <Image
+            width={45}
+            height={45}
+            alt="profile"
+            src={candy}
+            quality={75}
+            loading="lazy"
+            style={{ borderRadius: 25, objectFit: 'cover' }}
+          />
+        )}
+      </S.ImageBox>
+
       <S.InputBox>
         <S.Input
-          placeholder={user ? '' : '로그인이 필요한 서비스 입니다.'}
+          placeholder={
+            user
+              ? '댓글을 남겨주세요.'
+              : '로그인을 하시면 댓글 기능을 이용할 수 있습니다.'
+          }
           onChange={(e) => setInput(e.currentTarget.value)}
           value={input}
           onKeyPress={(e) => OnKeyPressHandler(e, 'add')}
-          disabled={user ? false : true}
+          disabled={user || clicked === false ? false : true}
         />
-        <S.Btn disabled={user ? false : true} onClick={addCommentHandler}>
-          등록
-        </S.Btn>
+        <S.BtnBox>
+          <RiPencilFill
+            onClick={user ? addCommentHandler : undefined}
+            style={{ width: 25, height: 25, color: '#7B7B7B' }}
+          />
+        </S.BtnBox>
       </S.InputBox>
-    </div>
+    </S.AddCommentBox>
   );
 };
 
