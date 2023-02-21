@@ -24,8 +24,8 @@ const MainPage = ({ homeList }: HomeListDBPropsJ) => {
         <CategoryBar />
         {/* CountTabs(+HomeList 컴포넌트) */}
         <CountTabs list={allHomeList} />
+        <TopBtn />
       </S.MainSection>
-      <TopBtn />
     </>
   );
 };

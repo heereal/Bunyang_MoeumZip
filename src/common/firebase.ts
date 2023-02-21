@@ -5,11 +5,11 @@ import { getStorage } from 'firebase/storage';
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-  authDomain: 'bunyang-moa.firebaseapp.com',
-  projectId: 'bunyang-moa',
-  storageBucket: 'bunyang-moa.appspot.com',
-  messagingSenderId: '305625265692',
-  appId: '1:305625265692:web:502db45f3bbfc908c111d9',
+  authDomain: 'test-1126e.firebaseapp.com',
+  projectId: 'test-1126e',
+  storageBucket: 'test-1126e.appspot.com',
+  messagingSenderId: '865335463149',
+  appId: '1:865335463149:web:6b3241d421ee075a5710e4',
   measurementId: 'G-KX4ED9Q5EQ',
 };
 
