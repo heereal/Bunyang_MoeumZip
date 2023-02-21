@@ -21,8 +21,6 @@ const MapSection = () => {
     x: 127.65261753988,
   });
   const [zoomLevel, setZoomLevel] = useState(12);
-  console.log(router.asPath.includes('search'));
-  console.log(router.asPath);
 
   const pathHadnler = (marker: any) => {
     router.push(marker.getTitle());
@@ -33,13 +31,13 @@ const MapSection = () => {
 
   // 최초 로드
   useEffect(() => {
-    // const $script = document.createElement('script');
-    // $script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_MAP_KEY}&libraries=services,clusterer&autoload=false`;
-    // $script.addEventListener('load', () => setMapLoaded(true));
-    // document.head.appendChild($script);
-    // if (data) {
-    //   setCoordnates(data?.allHomeData);
-    // }
+    const $script = document.createElement('script');
+    $script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_MAP_KEY}&libraries=services,clusterer&autoload=false`;
+    $script.addEventListener('load', () => setMapLoaded(true));
+    document.head.appendChild($script);
+    if (data) {
+      setCoordnates(data?.allHomeData);
+    }
     // path 값이 바뀌면  센터와 줌레벨 이 바뀜
     if (path !== '/') {
       setCenter({
@@ -58,28 +56,6 @@ const MapSection = () => {
 
   // 로드 완료 시 useEffect
   useEffect(() => {
-    const $script = document.createElement('script');
-    $script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_MAP_KEY}&libraries=services,clusterer&autoload=false`;
-    $script.addEventListener('load', () => setMapLoaded(true));
-    document.head.appendChild($script);
-    if (data) {
-      setCoordnates(data?.allHomeData);
-    }
-    // path 값이 바뀌면  센터와 줌레벨 이 바뀜
-    // if (path !== '/') {
-    //   setCenter({
-    //     y: Number(detail?.COORDINATES.y),
-    //     x: Number(detail?.COORDINATES.x),
-    //   });
-    //   setZoomLevel(4);
-    // } else {
-    //   setCenter({
-    //     y: 36.3171433799167,
-    //     x: 127.65261753988,
-    //   });
-    //   setZoomLevel(13);
-    // }
-
     if (!mapLoaded) return;
     kakao.maps.load(() => {
       console.log('로드 완료!');
@@ -190,7 +166,6 @@ const MapSection = () => {
           (cluster: kakao.maps.Cluster) => {
             // 현재 지도 레벨에서 1레벨 확대한 레벨
             var level = map.getLevel() - 1;
-
             // 지도를 클릭된 클러스터의 마커의 위치를 기준으로 확대합니다
             map.setLevel(level, { anchor: cluster.getCenter() });
           },

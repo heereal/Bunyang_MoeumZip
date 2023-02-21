@@ -84,3 +84,16 @@ export const getBookmarksList = async (PBLANC_NO: string) => {
   const docSnap = await getDoc(docRef);
   return docSnap.data();
 };
+
+export const getProfile = async (email: string | null | undefined) => {
+  if (typeof email === 'string') {
+    const docRef = doc(db, 'Users', email);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      return docSnap.data();
+    } else {
+      // doc.data() will be undefined in this case
+      console.log('No such document!');
+    }
+  }
+};
