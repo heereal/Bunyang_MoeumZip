@@ -1,4 +1,5 @@
 import { db } from '@/common/firebase';
+import TopBtn from '@/components/GlobalComponents/TopBtn/TopBtn';
 import SearchResults from '@/components/SearchPage/SearchResults';
 import { doc, getDoc } from 'firebase/firestore';
 import { GetServerSideProps } from 'next';
@@ -35,6 +36,7 @@ const SearchResult = ({ homeList }: HomeListDBPropsJ) => {
           // 검색 결과 리스트
           <SearchResults key={item.PBLANC_NO} list={item} />
         ))}
+        <TopBtn />
       </S.ResultListArticle>
     </S.ResultSection>
   );

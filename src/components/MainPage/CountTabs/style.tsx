@@ -2,8 +2,8 @@ import styled from 'styled-components';
 
 // Count Tab
 export const CountSectionBack = styled.div`
-  width: 750px;
-  height: 20%;
+  width: 780px;
+  height: 70px;
 
   background: linear-gradient(
       0deg,
@@ -27,7 +27,7 @@ export const CountSectionBack = styled.div`
 `;
 
 export const CountTabList = styled.ul`
-  width: 381px;
+  width: 50%;
   height: 53px;
 
   background: #ffffff;
@@ -49,8 +49,8 @@ export const CountTabList = styled.ul`
   /* CountTab */
   .baseTab {
     // 기본 Tab
-    width: 50px;
-    height: 59px;
+    width: 30%;
+    height: 53px;
 
     display: flex;
     flex-direction: column;

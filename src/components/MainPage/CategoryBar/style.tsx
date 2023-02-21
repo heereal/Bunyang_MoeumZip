@@ -29,7 +29,7 @@ export const CategoryTabs = styled.li`
 
 // 지역 Tab
 export const RegionTab = styled.button<{ bd: string; bg: string }>`
-  width: 67px;
+  width: 100%;
   height: 29px;
   background-color: ${(props) => props.bg};
   border: 1px solid;
@@ -46,7 +46,7 @@ export const RegionTab = styled.button<{ bd: string; bg: string }>`
 
 // 분양형태 Tab
 export const TypeTab = styled(RegionTab)`
-  width: 90px;
+  width: 100%;
 `;
 
 export const TabNameBox = styled.div`
