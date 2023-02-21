@@ -5,11 +5,12 @@ export const SearchBox = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 `;
 
 export const SearchInput = styled.input`
-  width: 310px;
+  width: 95%;
+  max-width: 310px;
   height: 28px;
   border: transparent;
   border-radius: 20px;
@@ -21,8 +22,7 @@ export const SearchInput = styled.input`
   position: absolute;
   left: 35%;
   top: 10px;
-  background-color: lightblue;
-  /* TODO: #f9fafb */
+  background-color: #f9fafb;
 
   :focus-visible {
     outline: none;
@@ -30,10 +30,11 @@ export const SearchInput = styled.input`
 `;
 
 export const SearchBtn = styled.button`
+  /* width: 20px; */
   background-color: transparent;
   border: none;
   outline: none;
-  position: fixed;
+  position: sticky;
   left: 56%;
 
   cursor: pointer;

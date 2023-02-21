@@ -15,12 +15,19 @@ export const TitleBox = styled.div`
   text-align: center;
   padding: 10px 0;
   margin: 10px 0;
-
-  border: 1px solid lavender;
 `;
 
 export const ResultTitle = styled.p`
-  font-size: 24px;
+  font-size: 20px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid black;
+
+  span {
+    font-size: 24px;
+    font-weight: 700;
+    color: #3d7eee;
+    margin: 0 5px;
+  }
 `;
 
 export const ResultListArticle = styled(S.ListSection)``;

@@ -33,6 +33,14 @@ export const LogoBox = styled.div`
   box-sizing: border-box;
 `;
 
+// TODO: 임시 로고
+export const Logo = styled.div`
+  width: 30px;
+  height: 30px;
+  border-radius: 50px;
+  background-color: #3d7fff;
+`;
+
 // Search Section
 export const SearchBox = styled.div`
   width: 50%;
@@ -40,7 +48,7 @@ export const SearchBox = styled.div`
 
 // Nav bar
 export const NavBar = styled.div`
-  width: 320px;
+  width: 30%;
   height: 25px;
   display: flex;
   flex-direction: row;

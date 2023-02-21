@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { useRecoilState } from 'recoil';
 import * as S from './style';
 import { AiOutlineStar } from 'react-icons/ai';
+import { getToday } from '@/common/utils';
 
 const ListList = ({ list }: PropsListJ) => {
   const router = useRouter();
@@ -13,23 +14,38 @@ const ListList = ({ list }: PropsListJ) => {
     setPath(list.PBLANC_NO);
   };
 
+  // 오늘 날짜
+  const today = getToday();
+
   return (
     <S.ListArticle onClick={pathHandler}>
-      {/* TODO: data가 없을 경우 보여줄 화면 추가 */}
-      {/* {list.detail.length !== 0 ? ():()} */}
       <S.CardHeader>
         <S.CardCategoryBox>
           <S.CardCategory>{list.HOUSE_DTL_SECD_NM}</S.CardCategory>
           <S.CardCategory>{list.HOUSE_SECD_NM}</S.CardCategory>
           <S.CardCategory>{list.SUBSCRPT_AREA_CODE_NM}</S.CardCategory>
         </S.CardCategoryBox>
-        <div>
-          {/* TODO: 가운데 채워진 걸로 어떻게 바꾸지? */}
-          <AiOutlineStar style={{ color: 'yellow' }} />
-        </div>
       </S.CardHeader>
 
       <S.CardTitle>{list.HOUSE_NM}</S.CardTitle>
+      {/* 분류 띠 */}
+      <S.Ribbon
+        bg={
+          list.HOUSE_SECD === '04'
+            ? '#D2C975'
+            : list.RCEPT_BGNDE > today
+            ? '#BD6FD9'
+            : '#64c590'
+        }
+      >
+        <S.RibbonText>
+          {list.HOUSE_SECD === '04'
+            ? '무순위'
+            : list.RCEPT_BGNDE > today
+            ? '청약예정'
+            : '청약가능'}
+        </S.RibbonText>
+      </S.Ribbon>
 
       <S.CardDateBox>
         <S.CardDateTitle>특별 청약일</S.CardDateTitle>

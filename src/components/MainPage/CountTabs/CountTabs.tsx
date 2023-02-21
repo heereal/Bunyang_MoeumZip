@@ -1,4 +1,5 @@
 import { getUsersList } from '@/common/api';
+import { getToday } from '@/common/utils';
 import TopBtn from '@/components/GlobalComponents/TopBtn/TopBtn';
 import { selectedCategoryList } from '@/store/selectors';
 import { useSession } from 'next-auth/react';
@@ -6,6 +7,7 @@ import { useState } from 'react';
 import { useQuery } from 'react-query';
 import { useRecoilState } from 'recoil';
 import HomeList from '../../GlobalComponents/HomeList/HomeList';
+import CategoryBar from '../CategoryBar/CategoryBar';
 import * as S from './style';
 
 const CountTabs = ({ list }: CountTabPropsListJ) => {
@@ -14,31 +16,8 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
   // 선택된 지역, 분양 형태 리스트 가져오기
   const [selectedCtList] = useRecoilState<{}[]>(selectedCategoryList);
 
-  // 오늘 날짜 구하기
-  const getToday = () => {
-    const date = new Date();
-    const year = date.getFullYear();
-    const month = ('0' + (date.getMonth() + 1)).slice(-2);
-    const day = ('0' + date.getDate()).slice(-2);
-    const today = year + '-' + month + '-' + day;
-
-    return today;
-  };
+  // 오늘 날짜
   const today = getToday();
-
-  // 청약 예정일 산정 기간 - 현재 날짜 + 4주
-  const getAddMonth = () => {
-    const date = new Date();
-    date.setMonth(date.getMonth() + 1);
-    // FIXME: 다른 방법은 없는지?
-    return date
-      .toLocaleString()
-      .slice(0, 11)
-      .split('.')
-      .join('')
-      .replace(/( )/g, '-');
-  };
-  const todayAddMonth = getAddMonth();
 
   // 로그인 여부 확인
   const { data: session } = useSession();
@@ -75,10 +54,7 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
   );
   // 기본 - 청약 예정 리스트
   const comingList = list.filter(
-    (item: ItemJ) =>
-      item.RCEPT_BGNDE > today &&
-      item.RCEPT_BGNDE <= todayAddMonth &&
-      item.HOUSE_SECD !== '04',
+    (item: ItemJ) => item.RCEPT_BGNDE > today && item.HOUSE_SECD !== '04',
   );
   // 기본 - TODO: 무순위 리스트 - 이름 변경? -선착순..?
   const randomList = list.filter(
@@ -101,10 +77,7 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
   );
   // 현재 유저 - 청약 예정 리스트
   const userComingList = userList.filter(
-    (item: ItemJ) =>
-      item.RCEPT_BGNDE > today &&
-      item.RCEPT_BGNDE <= todayAddMonth &&
-      item.HOUSE_SECD !== '04',
+    (item: ItemJ) => item.RCEPT_BGNDE > today && item.HOUSE_SECD !== '04',
   );
 
   // 유저 - 전체 리스트
@@ -130,10 +103,7 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
   );
   // 카테고리 - 청약 예정 리스트
   const categoryComingList = categoryList.filter(
-    (item: any) =>
-      item.RCEPT_BGNDE > today &&
-      item.RCEPT_BGNDE <= todayAddMonth &&
-      item.HOUSE_SECD !== '04',
+    (item: any) => item.RCEPT_BGNDE > today && item.HOUSE_SECD !== '04',
   );
 
   // 카테고리 - 전체 리스트
@@ -203,6 +173,7 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
   return (
     <>
       <S.CountSectionBack>
+        <S.CountTabTitle>청약 정보 확인해보세요.</S.CountTabTitle>
         <S.CountTabList>
           {tabList.map((el, index) => (
             <li
@@ -216,14 +187,22 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
           ))}
         </S.CountTabList>
       </S.CountSectionBack>
-      {/* 분양 리스트 */}
-      <S.ListSection>
-        {/* 현재 선택된 tab의 list를 map돌려서 HomeList 컴포넌트에 전달 */}
-        {tabList[currentTab].content?.map((item: ItemJ) => {
-          return <HomeList key={item.PBLANC_NO} list={item} />;
-        })}
-        <TopBtn />
-      </S.ListSection>
+      <CategoryBar />
+      {/* 분양 정보가 없을 때 보여줄 문구 */}
+      {tabList[currentTab].content.length === 0 ? (
+        <div style={{ overflowY: 'scroll', height: '90%', width: '100%' }}>
+          분양 정보가 없습니다.
+        </div>
+      ) : (
+        <S.ListSection>
+          {/* 분양 리스트 */}
+          {/* 현재 선택된 tab의 list를 map돌려서 HomeList 컴포넌트에 전달 */}
+          {tabList[currentTab].content?.map((item: ItemJ) => {
+            return <HomeList key={item.PBLANC_NO} list={item} />;
+          })}
+          <TopBtn />
+        </S.ListSection>
+      )}
     </>
   );
 };

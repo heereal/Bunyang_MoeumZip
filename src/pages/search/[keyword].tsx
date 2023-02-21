@@ -1,4 +1,5 @@
 import { db } from '@/common/firebase';
+import TopBtn from '@/components/GlobalComponents/TopBtn/TopBtn';
 import SearchResults from '@/components/SearchPage/SearchResults';
 import { doc, getDoc } from 'firebase/firestore';
 import { GetServerSideProps } from 'next';
@@ -26,7 +27,8 @@ const SearchResult = ({ homeList }: HomeListDBPropsJ) => {
     <S.ResultSection>
       <S.TitleBox>
         <S.ResultTitle>
-          {keyword} 의 검색 결과는 {resultsList.length} 건입니다.
+          <span>{keyword}</span>의 검색 결과는 총
+          <span>{resultsList.length}</span>건입니다.
         </S.ResultTitle>
       </S.TitleBox>
       <S.ResultListArticle>
@@ -34,6 +36,7 @@ const SearchResult = ({ homeList }: HomeListDBPropsJ) => {
           // 검색 결과 리스트
           <SearchResults key={item.PBLANC_NO} list={item} />
         ))}
+        <TopBtn />
       </S.ResultListArticle>
     </S.ResultSection>
   );

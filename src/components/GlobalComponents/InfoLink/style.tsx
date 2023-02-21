@@ -14,7 +14,7 @@ export const Container = styled.div`
 `;
 
 export const BtnBox = styled.div`
-  width: 89px;
+  width: 100%;
   height: 33px;
 
   background: #f1f6ff;
