@@ -9,6 +9,10 @@ import { useQuery } from 'react-query';
 import { getUsersList } from '@/common/api';
 import AlertUI from '@/components/GlobalComponents/AlertUI/AlertUI';
 import { confirmAlert } from 'react-confirm-alert';
+import SelectMyRegion from '@/components/GlobalComponents/SelectMyRegion/SelectMyRegion';
+import SelectMyTypes from '@/components/GlobalComponents/SelectMyTypes/SelectMyTypes';
+import { useRecoilValue } from 'recoil';
+import { myRegionArrayState, myTypeArrayState } from '@/store/selectors';
 
 //TODO: 회원가입 페이지 새로고침 할 때 "작성한 정보가 모두 사라집니다" alert 주기
 // TODO: isSignedUp이라는 속성을 하나 추가할까? 회원가입 완료해야 true가 됨 (닉네임 중복 검사해야되기 때문에)
@@ -16,14 +20,14 @@ const SignUp = () => {
   const router = useRouter();
 
   // 유저의 세션 정보 받아오기
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
+
+  // 유저가 선택한 카테고리 필터링 리스트
+  const myRegionArray = useRecoilValue<any>(myRegionArrayState);
+  const myTypeArray = useRecoilValue<any>(myTypeArrayState);
 
   // 닉네임 중복 검사 시 사용
   const [isValidNickname, setIsValidNickname] = useState(false);
-
-  // 유저가 선택한 카테고리 필터링 리스트
-  const [myRegionArray, setMyRegionArray] = useState<string[]>([]);
-  const [myTypeArray, setMyTypeArray] = useState<string[]>([]);
 
   const [nickname, setNickname] = useState<any>('');
   const [email, setEmail] = useState<any>('');
@@ -33,6 +37,12 @@ const SignUp = () => {
     const checkNickname = users.find(
       (user: userProps) => user.userName === nickname,
     );
+    //닉네임을 입력하지 않았을 때
+    if (!nickname) {
+      alert('닉네임을 입력해주세요.');
+      setIsValidNickname(false);
+      return;
+    }
     if (!checkNickname) {
       confirmAlert({
         customUI: ({ onClose }) => {
@@ -93,7 +103,12 @@ const SignUp = () => {
 
   // Users 데이터 불러오기
   const { data: users, isLoading }: any = useQuery('users', getUsersList);
-  console.log(users);
+
+  useEffect(() => {
+    // 비로그인 유저일 경우 접근 제한
+    if (status === 'unauthenticated') router.push('/');
+    // eslint-disable-next-line
+  }, [session]);
 
   useEffect(() => {
     // session(유저 정보)가 들어왔을 때만 함수를 실행함
@@ -105,88 +120,43 @@ const SignUp = () => {
   }, [session]);
 
   return (
-    <div style={{ flexDirection: 'column', margin: 'auto' }}>
-      <h1>회원가입</h1>
-      <h4>닉네임</h4>
-      <input
-        value={nickname}
-        onChange={(e) => setNickname(e.target.value)}
-      ></input>
-      <button onClick={checkNicknameHandler}>닉네임 중복 확인</button>
-      <button onClick={signupHandler}>회원가입 완료</button>
+    <S.Wrapper>
+      <S.SignUpContainer>
+        <S.SignUpDesc>
+          <h1>회원가입</h1>
+          <p>분양정보 추천을 위한 추가정보를 선택해주세요.</p>
+        </S.SignUpDesc>
 
-      {/* 관심 지역 카테고리 선택 */}
-      <h3>관심 지역 선택</h3>
-      <S.CategoryContainer>
-        {regionArray.map((region, index) =>
-          region && myRegionArray.includes(region) ? (
-            <S.CategoryBtn
-              onClick={() =>
-                setMyRegionArray(
-                  myRegionArray.filter((item) => item !== region),
-                )
-              }
-              key={index}
-              bg={'lightblue'}
-            >
-              {region}
-            </S.CategoryBtn>
-          ) : (
-            <S.CategoryBtn
-              onClick={() => setMyRegionArray([...myRegionArray, region])}
-              key={index}
-              bg={'transparent'}
-            >
-              {region}
-            </S.CategoryBtn>
-          ),
-        )}
-        <S.CategoryBtn bg={'transparent'} onClick={() => setMyRegionArray([])}>
-          전체 초기화
-        </S.CategoryBtn>
-        <S.CategoryBtn
-          bg={'transparent'}
-          onClick={() => setMyRegionArray(regionArray)}
-        >
-          전체 선택
-        </S.CategoryBtn>
-      </S.CategoryContainer>
+        {/* 닉네임 제출 */}
+        <S.SubmitNicknameContainer>
+          <S.NicknameTitle>
+            닉네임<span>*</span>
+          </S.NicknameTitle>
+          <S.InputBtnContainer>
+            <S.NicknameInput
+              value={nickname}
+              onChange={(e) => setNickname(e.target.value)}
+              placeholder="닉네임을 입력해주세요."
+            />
+            <S.CheckNicknameBtn onClick={checkNicknameHandler}>
+              중복확인
+            </S.CheckNicknameBtn>
+          </S.InputBtnContainer>
+        </S.SubmitNicknameContainer>
 
-      {/* 관심 분양 형태 카테고리 선택 */}
-      <h3>관심 분양 형태 선택</h3>
-      <S.CategoryContainer>
-        {typesArray.map((type, index) =>
-          type && myTypeArray.includes(type) ? (
-            <S.CategoryBtn
-              onClick={() =>
-                setMyTypeArray(myTypeArray.filter((item) => item !== type))
-              }
-              key={index}
-              bg={'lightblue'}
-            >
-              {type}
-            </S.CategoryBtn>
-          ) : (
-            <S.CategoryBtn
-              onClick={() => setMyTypeArray([...myTypeArray, type])}
-              key={index}
-              bg={'transparent'}
-            >
-              {type}
-            </S.CategoryBtn>
-          ),
-        )}
-        <S.CategoryBtn bg={'transparent'} onClick={() => setMyTypeArray([])}>
-          전체 초기화
-        </S.CategoryBtn>
-        <S.CategoryBtn
-          bg={'transparent'}
-          onClick={() => setMyTypeArray(typesArray)}
-        >
-          전체 선택
-        </S.CategoryBtn>
-      </S.CategoryContainer>
-    </div>
+        {/* 관심 지역 카테고리 선택 */}
+        <S.CategoryTitle>관심 지역 선택</S.CategoryTitle>
+        <SelectMyRegion />
+
+        {/* 관심 분양 형태 카테고리 선택 */}
+        <S.CategoryTitle>관심 분양 형태 선택</S.CategoryTitle>
+        <SelectMyTypes />
+
+        <S.SignUpBtnContainer>
+          <S.SignUpBtn onClick={signupHandler}>가입완료</S.SignUpBtn>
+        </S.SignUpBtnContainer>
+      </S.SignUpContainer>
+    </S.Wrapper>
   );
 };
 

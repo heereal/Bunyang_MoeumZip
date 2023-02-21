@@ -1,10 +1,11 @@
 import { getUsersList } from '@/common/api';
+import TopBtn from '@/components/GlobalComponents/TopBtn/TopBtn';
 import { selectedCategoryList } from '@/store/selectors';
 import { useSession } from 'next-auth/react';
 import { useState } from 'react';
 import { useQuery } from 'react-query';
 import { useRecoilState } from 'recoil';
-import HomeList from '../GlobalComponents/HomeList/HomeList';
+import HomeList from '../../GlobalComponents/HomeList/HomeList';
 import * as S from './style';
 
 const CountTabs = ({ list }: CountTabPropsListJ) => {
@@ -201,27 +202,27 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
   };
   return (
     <>
-      <S.CountSection>
+      <S.CountSectionBack>
         <S.CountTabList>
           {tabList.map((el, index) => (
-            <S.CountTab
+            <li
               key={el.name}
               className={index === currentTab ? 'baseTab focused' : 'baseTab'}
               onClick={() => clickTabHandler(index)}
             >
-              <h4>{el.name}</h4>
+              <S.CountTabName>{el.name}</S.CountTabName>
               <S.CountTabNum>{el.count}</S.CountTabNum>
-            </S.CountTab>
+            </li>
           ))}
         </S.CountTabList>
-      </S.CountSection>
-
+      </S.CountSectionBack>
       {/* 분양 리스트 */}
       <S.ListSection>
         {/* 현재 선택된 tab의 list를 map돌려서 HomeList 컴포넌트에 전달 */}
         {tabList[currentTab].content?.map((item: ItemJ) => {
           return <HomeList key={item.PBLANC_NO} list={item} />;
         })}
+        <TopBtn />
       </S.ListSection>
     </>
   );

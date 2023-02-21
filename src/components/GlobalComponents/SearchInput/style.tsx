@@ -9,19 +9,20 @@ export const SearchBox = styled.div`
 `;
 
 export const SearchInput = styled.input`
-  width: 250px;
-  height: 33px;
+  width: 310px;
+  height: 28px;
   border: transparent;
   border-radius: 20px;
   padding-left: 20px;
   padding-right: 40px;
   box-sizing: border-box;
-  font-weight: bold;
+  font-size: 12px;
+  text-align: left;
   position: absolute;
-  left: 40%;
+  left: 35%;
   top: 10px;
-
-  background-color: #f9fafb;
+  background-color: lightblue;
+  /* TODO: #f9fafb */
 
   :focus-visible {
     outline: none;

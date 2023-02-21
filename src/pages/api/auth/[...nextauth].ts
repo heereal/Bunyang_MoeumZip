@@ -29,4 +29,25 @@ export default NextAuth({
       clientSecret: process.env.FACEBOOK_CLIENT_SECRET!,
     }),
   ],
+  callbacks: {
+    async jwt({ token, account, profile }) {
+      // Persist the OAuth access_token and or the user id to the token right after signin
+      if (account) {
+      //   console.log('token:', token);
+        console.log('account:', account);
+      }
+      return { ...token, provider: account?.provider };
+    },
+
+    async session({ session, token, user }) {
+      // Send properties to the client, like an access_token and user id from a provider.
+      // session.provider = token.provider;
+    //  console.log('session:', session);
+    //  console.log('token:', token);
+    return {
+      ...session,provider: token.provider
+      // user:{...session.user, provider: token.provider}
+    };
+    },
+  },
 });
