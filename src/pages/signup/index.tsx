@@ -11,6 +11,8 @@ import AlertUI from '@/components/GlobalComponents/AlertUI/AlertUI';
 import { confirmAlert } from 'react-confirm-alert';
 import SelectMyRegion from '@/components/GlobalComponents/SelectMyRegion/SelectMyRegion';
 import SelectMyTypes from '@/components/GlobalComponents/SelectMyTypes/SelectMyTypes';
+import { useRecoilValue } from 'recoil';
+import { myRegionArrayState, myTypeArrayState } from '@/store/selectors';
 
 //TODO: 회원가입 페이지 새로고침 할 때 "작성한 정보가 모두 사라집니다" alert 주기
 // TODO: isSignedUp이라는 속성을 하나 추가할까? 회원가입 완료해야 true가 됨 (닉네임 중복 검사해야되기 때문에)
@@ -19,6 +21,10 @@ const SignUp = () => {
 
   // 유저의 세션 정보 받아오기
   const { data: session, status } = useSession();
+
+  // 유저가 선택한 카테고리 필터링 리스트
+  const myRegionArray = useRecoilValue<any>(myRegionArrayState);
+  const myTypeArray = useRecoilValue<any>(myTypeArrayState);
 
   // 닉네임 중복 검사 시 사용
   const [isValidNickname, setIsValidNickname] = useState(false);

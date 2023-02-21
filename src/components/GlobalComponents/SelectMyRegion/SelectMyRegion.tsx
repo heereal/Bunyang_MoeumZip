@@ -1,10 +1,11 @@
-import { useState } from 'react';
 import { regionArray } from '@/common/categoryList';
 import * as S from './style';
+import { useRecoilState } from 'recoil';
+import { myRegionArrayState } from '@/store/selectors';
 
 const SelectMyRegion = () => {
   // 유저가 선택한 카테고리 필터링 리스트
-  const [myRegionArray, setMyRegionArray] = useState<string[]>([]);
+  const [myRegionArray, setMyRegionArray] = useRecoilState<any>(myRegionArrayState);
 
   return (
     <S.CategoryContainer>
@@ -12,7 +13,7 @@ const SelectMyRegion = () => {
         region && myRegionArray.includes(region) ? (
           <S.CategoryBtn
             onClick={() =>
-              setMyRegionArray(myRegionArray.filter((item) => item !== region))
+              setMyRegionArray(myRegionArray.filter((item: any) => item !== region))
             }
             key={index}
             bg={'#F1F6FF'}

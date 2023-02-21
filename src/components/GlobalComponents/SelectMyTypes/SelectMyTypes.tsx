@@ -1,17 +1,19 @@
-import { useState } from 'react';
 import { typesArray } from '@/common/categoryList';
 import * as S from '../SelectMyRegion/style';
+import { useRecoilState } from 'recoil';
+import { myTypeArrayState } from '@/store/selectors';
 
 const SelectMyTypes = () => {
   // 유저가 선택한 카테고리 필터링 리스트
-  const [myTypeArray, setMyTypeArray] = useState<string[]>([]);
+  const [myTypeArray, setMyTypeArray] = useRecoilState<any>(myTypeArrayState);
+
   return (
       <S.CategoryContainer>
         {typesArray.map((type, index) =>
           type && myTypeArray.includes(type) ? (
             <S.CategoryBtn
               onClick={() =>
-                setMyTypeArray(myTypeArray.filter((item) => item !== type))
+                setMyTypeArray(myTypeArray.filter((item: any) => item !== type))
               }
               key={index}
               bg={'#F1F6FF'}
