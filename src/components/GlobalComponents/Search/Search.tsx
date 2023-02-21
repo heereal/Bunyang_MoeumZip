@@ -47,7 +47,7 @@ const Search = () => {
         onKeyPress={OnKeyPressHandler}
       />
       <S.SearchBtn onClick={searchHandler}>
-        <AiOutlineSearch style={{ fontSize: 25, color: '#BCC0CB' }} />
+        <AiOutlineSearch style={{ fontSize: 20, color: '#BCC0CB' }} />
       </S.SearchBtn>
     </S.SearchBox>
   );
