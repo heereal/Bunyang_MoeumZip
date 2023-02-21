@@ -4,7 +4,7 @@ import { useSession } from 'next-auth/react';
 import { useState } from 'react';
 import { useQuery } from 'react-query';
 import { useRecoilState } from 'recoil';
-import HomeList from '../GlobalComponents/HomeList/HomeList';
+import HomeList from '../../GlobalComponents/HomeList/HomeList';
 import * as S from './style';
 
 const CountTabs = ({ list }: CountTabPropsListJ) => {

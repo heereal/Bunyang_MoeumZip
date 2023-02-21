@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { confirmAlert } from 'react-confirm-alert';
 import AlertUI from '../AlertUI/AlertUI';
 
-const Search = () => {
+const SearchInput = () => {
   const router = useRouter();
   const [keyword, setKeyword] = useState<string>('');
 
@@ -53,4 +53,4 @@ const Search = () => {
   );
 };
 
-export default Search;
+export default SearchInput;

@@ -2,12 +2,12 @@ import styled from 'styled-components';
 
 export const CategorySection = styled.section`
   width: 100%;
-  height: 57px;
+  height: 52px;
   background-color: #ffffff;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  z-index: 100;
+  z-index: 1000;
 `;
 
 // 카테고리 Tabs
@@ -18,7 +18,7 @@ export const CategoryTabList = styled.ul`
   flex-direction: row;
   align-items: flex-start;
   padding: 10px 0px;
-  gap: 5px;
+  gap: 10px;
   position: fixed;
   margin-left: 24px;
 `;
@@ -35,7 +35,6 @@ export const RegionTab = styled.button<{ bd: string }>`
   border: 1px solid;
   border-color: ${(props) => props.bd};
   border-radius: 10px;
-  margin-right: 16px;
 
   cursor: pointer;
 

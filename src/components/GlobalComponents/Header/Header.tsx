@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import candy from '../../../assets/candy.jpg';
 import LoginModal from '../LoginModal/LoginModal';
-import Search from '../Search/Search';
+import SearchInput from '../SearchInput/SearchInput';
 import * as S from './style';
 
 const Header = () => {
@@ -52,7 +52,7 @@ const Header = () => {
         </S.LogoBox>
         {/* 검색창 */}
         <S.SearchBox>
-          <Search />
+          <SearchInput />
         </S.SearchBox>
         <S.NavBar>
           <S.NavContent onClick={() => router.push('/calendar')}>

@@ -3,7 +3,7 @@ import { selectedCategoryList } from '@/store/selectors';
 import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import * as S from './style';
-import InfoLink from '../InfoLink/InfoLink';
+import InfoLink from '../../GlobalComponents/InfoLink/InfoLink';
 import { RiArrowDownSLine, RiArrowUpSLine } from 'react-icons/ri';
 import { BsCheckCircleFill } from 'react-icons/bs';
 import { IoReload } from 'react-icons/io5';
