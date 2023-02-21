@@ -138,24 +138,11 @@ const EditProfile = ({ users, currentUser }: any) => {
         <S.Email>{email}</S.Email>
         <S.ProfileBtn>이미지 수정</S.ProfileBtn>
         <S.ProfileBtn>닉네임 수정</S.ProfileBtn>
+        <S.Line />
+        <S.WithdrawUserBtnContainer>
+          <S.WithdrawUserBtn>회원탈퇴</S.WithdrawUserBtn>
+        </S.WithdrawUserBtnContainer>
       </S.EditProfileContainer>
-      {/* <div>닉네임: {nickname}</div>
-      <button onClick={() => setIsInputOpen(!isInputOpen)}>닉네임 수정</button>
-      {isInputOpen ? (
-        <>
-          <input
-            value={editNickname}
-            onChange={(e) => setEditNickname(e.target.value)}
-          />
-          <button onClick={editNicknameMutation.mutate}>
-            닉네임 수정 완료
-          </button>
-        </>
-      ) : null}
-      <h4>프로필 사진</h4> */}
-
-      {/* <input type="file" accept="images/*" onChange={(e) => onImageChange(e)} />
-      <button onClick={uploadImage}>프사 수정 완료</button> */}
     </S.Wrapper>
   );
 };

@@ -2,6 +2,8 @@ import { getHomeList } from '@/common/api';
 import { useState } from 'react';
 import { useQuery } from 'react-query';
 import * as S from './style';
+import SelectMyRegion from '@/components/GlobalComponents/SelectMyRegion/SelectMyRegion';
+import SelectMyTypes from '@/components/GlobalComponents/SelectMyTypes/SelectMyTypes';
 
 const MyTabs = ({ currentUser }: any) => {
   const [currentTab, setCurrentTab] = useState(1);
@@ -38,6 +40,7 @@ const MyTabs = ({ currentUser }: any) => {
           관심 분양형태
         </S.TabBtn>
       </S.TabContainer>
+
       <S.TabContentContainer>
         {/* 북마크 목록 */}
         {currentTab === 1 && (
@@ -51,6 +54,11 @@ const MyTabs = ({ currentUser }: any) => {
             })}
           </S.BookmarkListContainer>
         )}
+        {/* 관심 지역 */}
+        {currentTab === 2 && <SelectMyRegion />}
+
+        {/* 관심 분양 형태 */}
+        {currentTab === 3 && <SelectMyTypes />}
       </S.TabContentContainer>
       {/* <S.Line /> */}
       {/* <h2>나의 북마크 목록</h2> */}

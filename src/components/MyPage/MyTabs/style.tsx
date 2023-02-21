@@ -4,9 +4,8 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 1178px;
-  border: 1px solid lightgray;
-  margin-left: 100px;
-  padding: 50px 0;
+  /* border: 1px solid lightgray; */
+  margin-left: 70px;
 `;
 
 export const TabContainer = styled.div`
@@ -15,7 +14,7 @@ export const TabContainer = styled.div`
 
 export const TabBtn = styled.div<{ font: string; line: string }>`
   font-weight: 700;
-  font-size: 17px;
+  font-size: 16px;
   padding: 15px;
   border-bottom: 5px solid ${(props) => props.line};
   color: ${(props) => props.font};

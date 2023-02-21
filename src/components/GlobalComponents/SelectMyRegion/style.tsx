@@ -4,9 +4,9 @@ import styled from 'styled-components';
 export const CategoryContainer = styled.div`
   border: 2px solid #f4f4f4;
   border-radius: 20px;
-  /* height: 250px; */
   padding: 24px 28px;
   margin-bottom: 44px;
+  background-color: white;
 `;
 
 export const CategoryBtn = styled.button<CategoryBtnStyledProps>`
@@ -17,8 +17,13 @@ export const CategoryBtn = styled.button<CategoryBtnStyledProps>`
   border-radius: 10px;
   cursor: pointer;
   font-weight: 500;
-  font-size: 15px;
+  font-size: 14px;
   color: ${(props) => props.text};
   margin-bottom: 12px;
   margin-right: 13px;
+`;
+
+export const SelectAllOrNoneContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
 `;

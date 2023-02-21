@@ -34,7 +34,10 @@ const SelectMyRegion = () => {
           </S.CategoryBtn>
         ),
       )}
-      <S.CategoryBtn
+      <S.SelectAllOrNoneContainer> 
+        
+      </S.SelectAllOrNoneContainer>
+      {/* <S.CategoryBtn
         bg={'white'}
         text={'#7b7b7b'}
         border={'#F4F4F4'}
@@ -49,7 +52,7 @@ const SelectMyRegion = () => {
         onClick={() => setMyRegionArray(regionArray)}
       >
         전체 선택
-      </S.CategoryBtn>
+      </S.CategoryBtn> */}
     </S.CategoryContainer>
   );
 };

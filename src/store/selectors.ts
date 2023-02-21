@@ -11,7 +11,7 @@ export const pathState = atom({
   default: '/',
 });
 
-// 유저가 선택한 관심 분양 형태 리스트
+// 유저가 선택한 관심 지역 리스트
 export const myRegionArrayState = atom({
   key: 'myRegion',
   default: []
