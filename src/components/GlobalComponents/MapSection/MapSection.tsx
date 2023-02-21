@@ -172,7 +172,7 @@ const MapSection = () => {
         );
       }
     });
-  }, [mapLoaded, coordnates, path]);
+  }, [mapLoaded, coordnates, path, router]);
 
   return (
     <>
