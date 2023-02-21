@@ -101,3 +101,9 @@ interface PropsListJ {
 interface CountTabPropsListJ {
   list: ItemJ[];
 }
+
+interface CategoryBtnStyledProps {
+  bg: string;
+  text: string;
+  border: string;
+}

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import * as S from '../components/MainPage/style';
+import * as S from '../components/MainPage/CountTabs/style';
 
 export const ResultSection = styled.section`
   width: 60%;

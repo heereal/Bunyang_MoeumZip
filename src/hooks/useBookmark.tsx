@@ -66,6 +66,13 @@ const useBookmark = (
     } else if (!bookmarksList?.usersList) {
       setDoc(bookmarksRef, addBookmark);
       updateDoc(doc(db, 'Users', email), addUserBookmarkList);
+      confirmAlert({
+        customUI: ({ onClose }) => {
+          return (
+            <AlertUI alertText="북마크 추가 완료!" onClose={onClose} />
+          );
+        },
+      });
 
       // 북마크를 추가할 때
     } else {
