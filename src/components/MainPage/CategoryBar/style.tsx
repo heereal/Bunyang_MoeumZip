@@ -2,43 +2,52 @@ import styled from 'styled-components';
 
 export const CategorySection = styled.section`
   width: 100%;
-  height: 57px;
+  height: 52px;
   background-color: #ffffff;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  z-index: 100;
+  z-index: 1000;
 `;
 
 // 카테고리 Tabs
 export const CategoryTabList = styled.ul`
-  height: 75px;
+  width: 174px;
+  height: 54px;
   display: flex;
   flex-direction: row;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;
+  padding: 10px 0px;
+  gap: 10px;
   position: fixed;
-  margin-left: 57px;
+  margin-left: 24px;
 `;
 
 export const CategoryTabs = styled.li`
   list-style: none;
 `;
 
-export const RegionTab = styled.button<{ bd: string }>`
-  width: 80px;
-  height: 49px;
-  background-color: transparent;
+// 지역 Tab
+export const RegionTab = styled.button<{ bd: string; bg: string }>`
+  width: 67px;
+  height: 29px;
+  background-color: ${(props) => props.bg};
+
   border: 1px solid;
   border-color: ${(props) => props.bd};
   border-radius: 10px;
-  margin-right: 16px;
 
   cursor: pointer;
+
+  :hover {
+    border-color: #3d7fff;
+    background-color: #f1f6ff;
+  }
 `;
 
+// 분양형태 Tab
 export const TypeTab = styled(RegionTab)`
-  width: 110px;
+  width: 90px;
 `;
 
 export const TabNameBox = styled.div`
@@ -48,8 +57,10 @@ export const TabNameBox = styled.div`
 `;
 
 export const TabName = styled.p<{ color: string }>`
-  font-size: 16px;
-  font-weight: bold;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 17px;
   color: ${(props) => props.color};
 
   :hover {
@@ -59,17 +70,18 @@ export const TabName = styled.p<{ color: string }>`
 
 // 지역 및 분양형태 카테고리 선택
 export const CategoryContainer = styled.div`
-  height: 350px;
-  width: 360px;
+  width: 219px;
+  height: 249px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
 
-  padding: 5px;
   position: absolute;
-  top: 135px;
-  left: 57px;
+  top: 18%;
+  left: 1.7%;
+  padding: 5px;
+
   border: 1px solid black;
   border-radius: 20px;
   box-sizing: border-box;
@@ -85,32 +97,33 @@ export const CategoryBox = styled.div`
   align-items: center;
   padding: 3px 0;
   box-sizing: border-box;
-  position: absolute;
-  width: 335px;
-  height: 46px;
-  left: 12px;
-  top: 12px;
   gap: 13px;
+
+  position: absolute;
+  top: 5%;
+  left: 6%;
 `;
 
 export const CategoryBtn = styled.button<{ bg: string; bd: string }>`
+  height: 26px;
+
   background-color: ${(props) => props.bg};
   border-color: ${(props) => props.bd};
-  border-radius: 10px;
-  box-sizing: border-box;
+  border-radius: 5px;
 
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 8px 17px;
-  gap: 10px;
+  padding: 3px 5px;
+  gap: 8px;
+  box-sizing: border-box;
 
-  font-family: 'Pretendard';
   font-style: normal;
   font-weight: 600;
-  font-size: 20px;
-  line-height: 24px;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
   color: #7b7b7b;
 
   cursor: pointer;
@@ -123,18 +136,24 @@ export const CategoryBtn = styled.button<{ bg: string; bd: string }>`
 
 // 초기화 및 전체 선택 버튼
 export const CommonBtnBox = styled.div`
-  width: 300px;
+  width: 100%;
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   align-items: center;
+
+  padding: 0 8px;
   position: absolute;
-  top: 290px;
+  top: 88%;
 `;
 
 export const CategoryCommonBtn = styled(CategoryBtn)<any>`
   text-decoration: underline;
   border: none;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 19px;
+  width: 80px;
+  height: 12px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 12px;
 `;

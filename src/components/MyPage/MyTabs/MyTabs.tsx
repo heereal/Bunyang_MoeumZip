@@ -4,6 +4,7 @@ import { useQuery } from 'react-query';
 import * as S from './style';
 import SelectMyRegion from '@/components/GlobalComponents/SelectMyRegion/SelectMyRegion';
 import SelectMyTypes from '@/components/GlobalComponents/SelectMyTypes/SelectMyTypes';
+import HomeList from '@/components/GlobalComponents/HomeList/HomeList';
 
 const MyTabs = ({ currentUser }: any) => {
   const [currentTab, setCurrentTab] = useState(1);
@@ -45,12 +46,8 @@ const MyTabs = ({ currentUser }: any) => {
         {/* 북마크 목록 */}
         {currentTab === 1 && (
           <S.BookmarkListContainer>
-            {myBookmarkList?.map((item: any, index: number) => {
-              return (
-                <S.BookmarkInfoContainer key={item.PBLANC_NO}>
-                  북마크{index + 1}번: {item.HOUSE_NM}
-                </S.BookmarkInfoContainer>
-              );
+            {myBookmarkList?.map((item: ItemJ) => {
+              return <HomeList list={item} key={item.PBLANC_NO} />;
             })}
           </S.BookmarkListContainer>
         )}

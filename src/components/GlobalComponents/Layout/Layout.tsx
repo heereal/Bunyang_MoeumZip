@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import CategoryBar from '../CategoryBar/CategoryBar';
+import CategoryBar from '../../MainPage/CategoryBar/CategoryBar';
 import Header from '../Header/Header';
 import * as S from './style';
 
@@ -13,8 +13,17 @@ const Layout = ({ children }: PropsP) => {
     <S.Wrap>
       <S.Container>
         <Header />
-        {router.asPath === '/' ? <CategoryBar /> : null}
-        {/* <CategoryBar /> */}
+        {/* {router.asPath === '/' ? (
+          <CategoryBar />
+        ) : (
+          <div
+            style={{
+              width: '100vw',
+              height: '52px',
+              background: 'transparent',
+            }}
+          ></div>
+        )} */}
         <div> {children} </div>
       </S.Container>
     </S.Wrap>

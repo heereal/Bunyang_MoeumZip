@@ -3,7 +3,7 @@ import { selectedCategoryList } from '@/store/selectors';
 import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import * as S from './style';
-import InfoLink from '../InfoLink/InfoLink';
+import InfoLink from '../../GlobalComponents/InfoLink/InfoLink';
 import { RiArrowDownSLine, RiArrowUpSLine } from 'react-icons/ri';
 import { BsCheckCircleFill } from 'react-icons/bs';
 import { IoReload } from 'react-icons/io5';
@@ -71,6 +71,7 @@ const CategoryBar = () => {
               {item.name === '지역' ? (
                 <S.RegionTab
                   bd={isRegionToggleOpen ? '#3d7fff' : '#bcc0cb'}
+                  bg={isRegionToggleOpen ? '#f1f6ff' : '#ffffff'}
                   onClick={openToggleHandler}
                 >
                   <S.TabNameBox>
@@ -99,6 +100,7 @@ const CategoryBar = () => {
               ) : (
                 <S.TypeTab
                   bd={isTypeToggleOpen ? '#3d7fff' : '#bcc0cb'}
+                  bg={isTypeToggleOpen ? '#f1f6ff' : '#ffffff'}
                   onClick={openTypeToggleHandler}
                 >
                   <S.TabNameBox>
@@ -163,7 +165,7 @@ const CategoryBar = () => {
               >
                 <BsCheckCircleFill
                   style={{
-                    fontSize: 20,
+                    fontSize: 12,
                     color: myRegionArray.length === 17 ? '#3d7fff' : '#BCC0CB',
                   }}
                 />
@@ -173,7 +175,7 @@ const CategoryBar = () => {
                 bg={'transparent'}
                 onClick={() => setMyRegionArray([])}
               >
-                <IoReload style={{ fontSize: 20, color: '#BCC0CB' }} />
+                <IoReload style={{ fontSize: 12, color: '#BCC0CB' }} />
                 <p>초기화</p>
               </S.CategoryCommonBtn>
             </S.CommonBtnBox>
@@ -217,7 +219,7 @@ const CategoryBar = () => {
               >
                 <BsCheckCircleFill
                   style={{
-                    fontSize: 20,
+                    fontSize: 12,
                     color: myTypeArray.length === 17 ? '#3d7fff' : '#BCC0CB',
                   }}
                 />
@@ -227,7 +229,7 @@ const CategoryBar = () => {
                 bg={'transparent'}
                 onClick={() => setMyTypeArray([])}
               >
-                <IoReload style={{ fontSize: 20, color: '#BCC0CB' }} />
+                <IoReload style={{ fontSize: 12, color: '#BCC0CB' }} />
                 <p>초기화</p>
               </S.CategoryCommonBtn>
             </S.CommonBtnBox>

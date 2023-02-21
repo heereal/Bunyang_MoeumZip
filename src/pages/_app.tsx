@@ -26,7 +26,7 @@ const App = ({ Component, pageProps }: AppProps) => {
             <div
               style={{
                 width: '100vw',
-                height: '85vh',
+                height: '91vh',
                 display: 'flex',
               }}
             >
