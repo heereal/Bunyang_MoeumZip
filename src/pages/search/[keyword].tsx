@@ -26,7 +26,8 @@ const SearchResult = ({ homeList }: HomeListDBPropsJ) => {
     <S.ResultSection>
       <S.TitleBox>
         <S.ResultTitle>
-          {keyword} 의 검색 결과는 {resultsList.length} 건입니다.
+          <span>{keyword}</span>의 검색 결과는 총
+          <span>{resultsList.length}</span>건입니다.
         </S.ResultTitle>
       </S.TitleBox>
       <S.ResultListArticle>

@@ -15,8 +15,6 @@ const ListList = ({ list }: PropsListJ) => {
 
   return (
     <S.ListArticle onClick={pathHandler}>
-      {/* TODO: data가 없을 경우 보여줄 화면 추가 */}
-      {/* {list.detail.length !== 0 ? ():()} */}
       <S.CardHeader>
         <S.CardCategoryBox>
           <S.CardCategory>{list.HOUSE_DTL_SECD_NM}</S.CardCategory>

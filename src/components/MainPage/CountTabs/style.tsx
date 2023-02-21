@@ -3,7 +3,7 @@ import styled from 'styled-components';
 // Count Tab
 export const CountSectionBack = styled.div`
   width: 750px;
-  height: 100px;
+  height: 20%;
 
   background: linear-gradient(
       0deg,
@@ -95,6 +95,7 @@ export const CountTabNum = styled(CountTabName)`
 
 // 리스트
 export const ListSection = styled.section`
+  width: 100%;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;

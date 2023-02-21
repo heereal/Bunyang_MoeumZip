@@ -26,19 +26,19 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
   };
   const today = getToday();
 
-  // 청약 예정일 산정 기간 - 현재 날짜 + 4주
-  const getAddMonth = () => {
-    const date = new Date();
-    date.setMonth(date.getMonth() + 1);
-    // FIXME: 다른 방법은 없는지?
-    return date
-      .toLocaleString()
-      .slice(0, 11)
-      .split('.')
-      .join('')
-      .replace(/( )/g, '-');
-  };
-  const todayAddMonth = getAddMonth();
+  // // 청약 예정일 산정 기간 - 현재 날짜 + 4주
+  // const getAddMonth = () => {
+  //   const date = new Date();
+  //   date.setMonth(date.getMonth() + 1);
+  //   // FIXME: 다른 방법은 없는지?
+  //   return date
+  //     .toLocaleString()
+  //     .slice(0, 11)
+  //     .split('.')
+  //     .join('')
+  //     .replace(/( )/g, '-');
+  // };
+  // const todayAddMonth = getAddMonth();
 
   // 로그인 여부 확인
   const { data: session } = useSession();
@@ -75,10 +75,7 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
   );
   // 기본 - 청약 예정 리스트
   const comingList = list.filter(
-    (item: ItemJ) =>
-      item.RCEPT_BGNDE > today &&
-      item.RCEPT_BGNDE <= todayAddMonth &&
-      item.HOUSE_SECD !== '04',
+    (item: ItemJ) => item.RCEPT_BGNDE > today && item.HOUSE_SECD !== '04',
   );
   // 기본 - TODO: 무순위 리스트 - 이름 변경? -선착순..?
   const randomList = list.filter(
@@ -101,10 +98,7 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
   );
   // 현재 유저 - 청약 예정 리스트
   const userComingList = userList.filter(
-    (item: ItemJ) =>
-      item.RCEPT_BGNDE > today &&
-      item.RCEPT_BGNDE <= todayAddMonth &&
-      item.HOUSE_SECD !== '04',
+    (item: ItemJ) => item.RCEPT_BGNDE > today && item.HOUSE_SECD !== '04',
   );
 
   // 유저 - 전체 리스트
@@ -130,10 +124,7 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
   );
   // 카테고리 - 청약 예정 리스트
   const categoryComingList = categoryList.filter(
-    (item: any) =>
-      item.RCEPT_BGNDE > today &&
-      item.RCEPT_BGNDE <= todayAddMonth &&
-      item.HOUSE_SECD !== '04',
+    (item: any) => item.RCEPT_BGNDE > today && item.HOUSE_SECD !== '04',
   );
 
   // 카테고리 - 전체 리스트
@@ -217,13 +208,19 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
         </S.CountTabList>
       </S.CountSectionBack>
       {/* 분양 리스트 */}
-      <S.ListSection>
-        {/* 현재 선택된 tab의 list를 map돌려서 HomeList 컴포넌트에 전달 */}
-        {tabList[currentTab].content?.map((item: ItemJ) => {
-          return <HomeList key={item.PBLANC_NO} list={item} />;
-        })}
-        <TopBtn />
-      </S.ListSection>
+
+      {tabList[currentTab].content.length === 0 ? (
+        <div>분양 정보가 없습니다. </div>
+      ) : (
+        <S.ListSection>
+          {/* 현재 선택된 tab의 list를 map돌려서 HomeList 컴포넌트에 전달 */}
+
+          {tabList[currentTab].content?.map((item: ItemJ) => {
+            return <HomeList key={item.PBLANC_NO} list={item} />;
+          })}
+          <TopBtn />
+        </S.ListSection>
+      )}
     </>
   );
 };

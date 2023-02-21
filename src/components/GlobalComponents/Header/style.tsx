@@ -40,7 +40,7 @@ export const SearchBox = styled.div`
 
 // Nav bar
 export const NavBar = styled.div`
-  width: 320px;
+  width: 30%;
   height: 25px;
   display: flex;
   flex-direction: row;
