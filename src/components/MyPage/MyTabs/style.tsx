@@ -3,9 +3,11 @@ import styled from 'styled-components';
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 1178px;
+  width: 75%;
+  height: 100%;
   /* border: 1px solid lightgray; */
   margin-left: 70px;
+  overflow-y: scroll;
 `;
 
 export const TabContainer = styled.div`
@@ -14,7 +16,7 @@ export const TabContainer = styled.div`
 
 export const TabBtn = styled.div<{ font: string; line: string }>`
   font-weight: 700;
-  font-size: 16px;
+  font-size: 15px;
   padding: 15px;
   border-bottom: 5px solid ${(props) => props.line};
   color: ${(props) => props.font};
@@ -33,12 +35,14 @@ export const TabContentContainer = styled.div`
 `;
 
 export const BookmarkListContainer = styled.div`
+  flex-wrap: wrap;
   display: flex;
+  /* overflow-y: scroll; */
 `;
 
 export const BookmarkInfoContainer = styled.div`
   width: 250px;
-  height: 350px;
+  height: 300px;
   background: #ffffff;
   border: 1px solid lightgray;
   border-radius: 20px;

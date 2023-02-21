@@ -7,6 +7,7 @@ export const CategoryContainer = styled.div`
   padding: 24px 28px;
   margin-bottom: 44px;
   background-color: white;
+  width: 80%;
 `;
 
 export const CategoryBtn = styled.button<CategoryBtnStyledProps>`
@@ -26,4 +27,21 @@ export const CategoryBtn = styled.button<CategoryBtnStyledProps>`
 export const SelectAllOrNoneContainer = styled.div`
   display: flex;
   justify-content: space-between;
+  padding-top: 10px;
 `;
+
+export const SelectBtn = styled.div`
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 19px;
+  text-decoration-line: underline;
+  text-underline-position: under;
+  color: #7b7b7b;
+  cursor: pointer;
+
+  span {
+    margin-left: 5px;
+  }
+`;
+
+

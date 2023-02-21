@@ -128,8 +128,8 @@ const EditProfile = ({ users, currentUser }: any) => {
           // 프로필 정보 불러오기 전에는 투명한 이미지를 보여줌(엑박 뜨지 않도록)
           src={!users ? transparentProfile : profileImg}
           alt="profile"
-          width={255}
-          height={255}
+          width={150}
+          height={150}
           quality={75}
           style={{ borderRadius: '50%', objectFit: 'cover' }}
           priority={true}
