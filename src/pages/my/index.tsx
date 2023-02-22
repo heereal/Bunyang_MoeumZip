@@ -1,4 +1,5 @@
 import { getUsersList } from '@/common/api';
+import HeadTitle from '@/components/GlobalComponents/HeadTitle/HeadTitle';
 import EditProfile from '@/components/MyPage/EditProfile/EditProfile';
 import MyTabs from '@/components/MyPage/MyTabs/MyTabs';
 import { currentUserState, usersListState } from '@/store/selectors';
@@ -41,6 +42,8 @@ const MyPage = () => {
 
   return (
     <S.Wrapper>
+      <HeadTitle title="마이페이지" />
+
       <EditProfile users={users} currentUser={currentUser} />
       <MyTabs currentUser={currentUser} />
     </S.Wrapper>

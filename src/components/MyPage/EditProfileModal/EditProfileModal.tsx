@@ -4,10 +4,11 @@ import { uuidv4 } from '@firebase/util';
 import { doc, updateDoc } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { BsCameraFill } from 'react-icons/bs';
 import { MdClose } from 'react-icons/md';
 import { useRecoilState, useRecoilValue } from 'recoil';
+import transparentProfile from '../../../assets/transparentProfile.png';
 import * as S from './style';
 
 const EditProfileModal = ({ setIsModalOpen }: any) => {
@@ -102,7 +103,7 @@ const EditProfileModal = ({ setIsModalOpen }: any) => {
           <S.Title>프로필 수정</S.Title>
           <S.EditProfileImgLabel>
             <Image
-              src={editProfileImg}
+              src={editProfileImg ? editProfileImg : transparentProfile}
               alt="profile"
               width={170}
               height={170}

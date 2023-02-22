@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { useState } from 'react';
 import EditProfileModal from '../EditProfileModal/EditProfileModal';
+import transparentProfile from '../../../assets/transparentProfile.png'
 import * as S from './style';
 
 const EditProfile = ({ currentUser }: any) => {
@@ -13,7 +14,7 @@ const EditProfile = ({ currentUser }: any) => {
 
       <S.EditProfileContainer>
         <Image
-          src={currentUser.userImage}
+          src={currentUser.userImage ? currentUser.userImage : transparentProfile}
           alt="profile"
           width={150}
           height={150}

@@ -5,3 +5,17 @@ export const Section = styled.div`
   width: 40%;
   height: 100%;
 `;
+
+export const OverlayContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: aliceblue;
+  padding: 7px;
+  font-size: 12px;
+  color: #ffffff;
+  font-weight: 500;
+  border-radius: 5px;
+  margin-bottom: 5px;
+`;

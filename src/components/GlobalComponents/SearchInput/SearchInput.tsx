@@ -1,9 +1,9 @@
-import * as S from './style';
-import { useState, KeyboardEvent, ChangeEvent } from 'react';
-import { AiOutlineSearch } from 'react-icons/ai';
 import { useRouter } from 'next/router';
+import { ChangeEvent, KeyboardEvent, useState } from 'react';
 import { confirmAlert } from 'react-confirm-alert';
+import { AiOutlineSearch } from 'react-icons/ai';
 import AlertUI from '../AlertUI/AlertUI';
+import * as S from './style';
 
 const SearchInput = () => {
   const router = useRouter();
