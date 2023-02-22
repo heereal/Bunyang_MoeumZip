@@ -2,7 +2,17 @@ import styled from 'styled-components';
 
 export const CalendarContainer = styled.div`
   width: 100vw;
-  padding: 50px 80px;
+  height: 800px;
+  display: flex;
+  justify-content: center;
+  padding: 50px 0;
+  box-sizing: content-box;
+  /* display: inline-block; */
+
+  // 캘린더 전체 사이즈 조정
+  .fc {
+    width: 65%;
+  }
 
   // 각 이벤트 요소
   .fc-event{
