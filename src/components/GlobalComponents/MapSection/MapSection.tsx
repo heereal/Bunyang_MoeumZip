@@ -29,6 +29,8 @@ const MapSection = () => {
     }, 300);
   };
 
+  console.log(zoomLevel);
+
   // 최초 로드
   useEffect(() => {
     const $script = document.createElement('script');
