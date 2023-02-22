@@ -16,7 +16,6 @@ export const PageHeader = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  gap: 6px;
   background: linear-gradient(
     0deg,
     rgba(61, 127, 255, 0.1),
@@ -29,7 +28,7 @@ export const HeaderTagBox = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 5px 0px;
+  padding-bottom: 10px;
   gap: 8px;
   font-weight: 700;
   font-size: 13px;
@@ -63,7 +62,7 @@ export const BmrkBox = styled.div`
   display: flex;
   justify-content: right;
   align-items: center;
-  padding: 5px;
+  padding: 10px;
 `;
 
 export const BmrBtn = styled.div`
@@ -77,6 +76,7 @@ export const BmrBtn = styled.div`
   background-color: #3d7fff;
   padding-left: 1px;
   padding-top: 2px;
+  cursor: pointer;
 `;
 
 export const HeaderBmrk = styled.div`
@@ -91,6 +91,15 @@ export const HeaderBmrk = styled.div`
   color: #ffffff;
   background: #3d7fff;
   border-radius: 15px;
+`;
+export const HeaderBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: -20px;
+  gap: 5px;
+  margin-left: 30px;
 `;
 
 export const Container = styled.div`
