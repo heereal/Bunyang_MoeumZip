@@ -1,19 +1,27 @@
 import { regionArray } from '@/common/categoryList';
 import * as S from './style';
-import { useRecoilState } from 'recoil';
-import { myRegionArrayState } from '@/store/selectors';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { currentUserState, myRegionArrayState } from '@/store/selectors';
 import { BsFillCheckCircleFill } from 'react-icons/bs';
 import { FaUndo } from 'react-icons/fa';
+import { useEffect } from 'react';
 
-const SelectMyRegion = () => {
+const SelectMyRegion = ({ width }: SelectCategoryProps) => {
   // 유저가 선택한 카테고리 필터링 리스트
   const [myRegionArray, setMyRegionArray] =
     useRecoilState<any>(myRegionArrayState);
 
+  // 현재 로그인한 유저의 firestore 유저 정보
+  const currentUser = useRecoilValue(currentUserState);
+
+  useEffect(() => {
+    setMyRegionArray(currentUser.regions);
+  }, []);
+
   return (
-    <S.CategoryContainer>
+    <S.CategoryContainer width={width}>
       {regionArray.map((region, index) =>
-        region && myRegionArray.includes(region) ? (
+        region && myRegionArray?.includes(region) ? (
           <S.CategoryBtn
             onClick={() =>
               setMyRegionArray(
@@ -49,22 +57,6 @@ const SelectMyRegion = () => {
           <span>전체 초기화</span>
         </S.SelectBtn>
       </S.SelectAllOrNoneContainer>
-      {/* <S.CategoryBtn
-        bg={'white'}
-        text={'#7b7b7b'}
-        border={'#F4F4F4'}
-        onClick={() => setMyRegionArray([])}
-      >
-        전체 초기화
-      </S.CategoryBtn>
-      <S.CategoryBtn
-        bg={'white'}
-        text={'#7b7b7b'}
-        border={'#F4F4F4'}
-        onClick={() => setMyRegionArray(regionArray)}
-      >
-        전체 선택
-      </S.CategoryBtn> */}
     </S.CategoryContainer>
   );
 };
