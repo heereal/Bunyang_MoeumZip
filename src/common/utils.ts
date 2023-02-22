@@ -1,5 +1,4 @@
 import { confirmAlert } from "react-confirm-alert";
-import 'react-confirm-alert/src/react-confirm-alert.css';
 
 // 댓글 작성 시 사용
 // const dateString  = postTime();
@@ -58,33 +57,6 @@ export const customAlert = (text: string) => {
         onClick: () => onclose,
       },
     ],
-    closeOnEscape: true,
-    closeOnClickOutside: true,
-    keyCodeForClose: [8, 32],
-    overlayClassName: 'overlay-custom-class-name',
   })
 }
 
-// FIXME: 쓸 수 있을지 모르겠음..!
-export const customConfirm = (text: string, onClick: any) => {
-  confirmAlert({
-    message: text,
-    buttons: [
-      {
-        label: '확인',
-        onClick: () => onClick,
-      },
-
-      {
-        label: '취소',
-        onClick: () => onclose,
-      },
-    ],
-    closeOnEscape: true,
-    closeOnClickOutside: true,
-    keyCodeForClose: [8, 32],
-    overlayClassName: 'overlay-custom-class-name',
-  })
-
-
-}
