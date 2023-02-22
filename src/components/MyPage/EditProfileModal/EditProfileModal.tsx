@@ -8,14 +8,17 @@ import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import transparentProfile from '../../../assets/transparentProfile.png';
 import { uuidv4 } from '@firebase/util';
 import * as S from './style';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { currentUserState, usersListState } from '@/store/selectors';
 import Image from 'next/image';
+import { useMutation, useQueryClient } from 'react-query';
 
 const EditProfileModal = ({ setIsModalOpen }: any) => {
+  const queryClient = useQueryClient();
+
   const [editNickname, setEditNickname] = useState<any>('');
   const [nickname, setNickname] = useState<any>('');
-  const [email, setEmail] = useState<any>('');
+  //   const [email, setEmail] = useState<any>('');
   const [profileImg, setProfileImg] = useState('');
 
   // 파일 업로드 시 업로드한 파일을 담아둘 state
@@ -25,8 +28,9 @@ const EditProfileModal = ({ setIsModalOpen }: any) => {
   const users = useRecoilValue(usersListState);
 
   // 현재 로그인한 유저의 firestore 유저 정보
-  const currentUser = useRecoilValue(currentUserState);
+  const [currentUser, setCurrentUser] = useRecoilState(currentUserState);
 
+  //TODO: 이미지 업로드 시 용량 줄여서 올리기
   // [수정 완료] 버튼 클릭 시 작동
   const editProfileHandler = async () => {
     // 중복되는 닉네임이 있는지 검색하기
@@ -47,7 +51,7 @@ const EditProfileModal = ({ setIsModalOpen }: any) => {
       return;
     }
 
-    if (imageUpload === null) return;
+    // if (imageUpload === null) return;
 
     const imageRef = ref(storage, `profileImages/${uuidv4()}`);
     // Storage에 이미지 업로드
@@ -55,15 +59,17 @@ const EditProfileModal = ({ setIsModalOpen }: any) => {
     // 업로드한 이미지의 url 가져오기
     const downloadUrl = await getDownloadURL(response.ref);
 
+    console.log(downloadUrl);
+
     const updateUser = {
       userName: editNickname,
-      userImage: downloadUrl,
+      userImage: imageUpload ? downloadUrl : currentUser.userImage,
     };
 
-    await updateDoc(doc(db, 'Users', email), updateUser);
+    await updateDoc(doc(db, 'Users', currentUser.userEmail), updateUser);
     setIsModalOpen(false);
     setNickname(editNickname);
-    alert('회원정보 수정');
+    alert('회원정보 수정 완료');
   };
 
   // 이미지 업로드 시 이미지 미리보기 바로 반영됨
@@ -81,44 +87,23 @@ const EditProfileModal = ({ setIsModalOpen }: any) => {
     }
   };
 
-  //TODO: 이미지 업로드 시 용량 줄여서 올리기
-  //FIXME: 프사 수정 완료 버튼 없이 이미지 업로드하면 바로 변경되도록?
-  // [프사 수정 완료] 버튼 클릭 시 작동
-  //   const uploadImage = async () => {
-  //     // 이미지를 업로드하지 않았다면 작동하지 않음
-  //     if (imageUpload === null) return;
+//   const editProfileMutation = useMutation('users', editProfileHandler, {
+//     onSuccess: () => {
+//       queryClient.invalidateQueries('users');
+//     //   setCurrentUser(
+//     //     usersData.find(
+//     //       (user: userProps) => user.userEmail === session?.user?.email,
+//     //     ),
+//     //   );
 
-  //     const imageTitle = uuidv4();
-
-  //     const imageRef = ref(storage, `profileImages/${imageTitle}`);
-  //     // Storage에 이미지 업로드
-  //     await uploadBytes(imageRef, imageUpload);
-  //     // 업로드한 이미지의 url 가져오기
-  //     const downloadUrl = await getDownloadURL(imageRef);
-
-  //     // 업로드한 이미지 url로 Firestore 정보 업데이트
-  //     const updateUser = {
-  //       userImage: downloadUrl,
-  //     };
-  //     await updateDoc(doc(db, 'Users', email), updateUser).then(() =>
-  //       confirmAlert({
-  //         customUI: ({ onClose }) => {
-  //           return (
-  //             <AlertUI
-  //               alertText="프로필 이미지 업로드가 완료되었습니다."
-  //               onClose={onClose}
-  //             />
-  //           );
-  //         },
-  //       }),
-  //     );
-  //   };
+//     },
+//   });
 
   // firestore에서 유저 정보 불러오면 state에 저장함
   useEffect(() => {
     if (users) {
       //   setNickname(currentUser.userName);
-      setEmail(currentUser.userEmail);
+      //   setEmail(currentUser.userEmail);
       setProfileImg(currentUser.userImage);
       setEditNickname(currentUser.userName);
     }
@@ -161,7 +146,9 @@ const EditProfileModal = ({ setIsModalOpen }: any) => {
             onChange={(e) => setEditNickname(e.target.value)}
             autoFocus
           />
-          <S.ProfileBtn onClick={editProfileHandler}>수정 완료</S.ProfileBtn>
+          <S.ProfileBtn onClick={editProfileHandler}>
+            수정 완료
+          </S.ProfileBtn>
         </S.EditProfileContainer>
       </S.ModalContainer>
     </S.ModalBackground>
