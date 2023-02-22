@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const ListArticle = styled.article`
   width: 200px;
-  height: 261px;
+  height: 231px;
 
   border-radius: 20px;
   background: #ffffff;
@@ -28,7 +28,6 @@ export const CardHeader = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
 `;
 
 // 카테고리(분양형태, 주택형태, 지역)
@@ -64,7 +63,6 @@ export const CardCategory = styled.div`
 
 // 청약 정보 분류 띠
 export const Ribbon = styled.div<{ bg: string }>`
-  /* z-index: 100; */
   width: 50%;
   height: 11%;
 
@@ -104,8 +102,8 @@ export const CardTitle = styled.p`
   font-weight: 700;
   font-size: 16px;
   line-height: 19px;
-  margin-top: 10px;
-  margin-bottom: 12px;
+  margin-top: 5px;
+  margin-bottom: 6px;
 
   color: #000000;
 `;
@@ -148,6 +146,11 @@ export const CardDate = styled.p`
   text-align: center;
 
   color: #fc5a5a;
+`;
+
+// 청약일이 없을 때
+export const NoDate = styled(CardDateTitle)`
+  margin-top: 10px;
 `;
 
 // 면적

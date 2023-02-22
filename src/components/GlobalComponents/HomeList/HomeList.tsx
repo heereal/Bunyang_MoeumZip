@@ -48,13 +48,19 @@ const ListList = ({ list }: PropsListJ) => {
       </S.Ribbon>
 
       <S.CardDateBox>
-        <S.CardDateTitle>특별 청약일</S.CardDateTitle>
-        <S.CardDate>
-          {list.SPSPLY_RCEPT_BGNDE.slice(5, 7).replace(/(^0)/, '')}월
-          {list.SPSPLY_RCEPT_BGNDE.slice(8, 10).replace(/(^0)/, '')}일 ~
-          {list.SPSPLY_RCEPT_ENDDE.slice(5, 7).replace(/(^0)/, '')}월
-          {list.SPSPLY_RCEPT_ENDDE.slice(8, 10).replace(/(^0)/, '')}일
-        </S.CardDate>
+        {list.SPSPLY_RCEPT_BGNDE ? (
+          <>
+            <S.CardDateTitle>특별 청약일</S.CardDateTitle>
+            <S.CardDate>
+              {list.SPSPLY_RCEPT_BGNDE.slice(5, 7).replace(/(^0)/, '')}월
+              {list.SPSPLY_RCEPT_BGNDE.slice(8, 10).replace(/(^0)/, '')}일 ~
+              {list.SPSPLY_RCEPT_ENDDE.slice(5, 7).replace(/(^0)/, '')}월
+              {list.SPSPLY_RCEPT_ENDDE.slice(8, 10).replace(/(^0)/, '')}일
+            </S.CardDate>
+          </>
+        ) : (
+          <S.NoDate>특별 청약일이 없습니다.</S.NoDate>
+        )}
       </S.CardDateBox>
       <S.CardDateBox>
         <S.CardDateTitle>청약 접수일</S.CardDateTitle>

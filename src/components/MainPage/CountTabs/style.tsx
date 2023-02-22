@@ -5,12 +5,13 @@ export const CountSectionBack = styled.div`
   width: 100%;
   height: 116px;
 
-  background: linear-gradient(0deg, rgba(71, 70, 103, 1), rgba(94, 94, 94, 0.2)),
+  background-color: rgba(71, 70, 103, 1);
+  /* background: linear-gradient(0deg, rgba(71, 70, 103, 1), rgba(94, 94, 94, 0.2)),
     linear-gradient(
       180deg,
       rgba(71, 70, 103, 1) 24.81%,
       rgba(78, 138, 254, 0.287) 110.76%
-    );
+    ); */
 
   display: flex;
   flex-direction: column;

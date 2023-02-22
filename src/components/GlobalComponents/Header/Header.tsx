@@ -41,6 +41,7 @@ const Header = () => {
 
           {/* 로고 대신 글씨 넣어놓은 것 */}
           <div
+            onClick={pathHandler}
             style={{
               position: 'absolute',
               left: '4%',
@@ -52,7 +53,6 @@ const Header = () => {
           >
             분양모음집
           </div>
-          {/* </div> */}
         </S.LogoBox>
         {/* 검색창 */}
         <S.SearchBox>
