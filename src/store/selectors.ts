@@ -34,15 +34,3 @@ export const usersListState = atom<any>({
   key: 'usersList',
   default: [],
 });
-
-// 현재 유저의 닉네임 정보
-export const nicknameState = atom<any>({
-  key: 'nickname',
-  default: '',
-});
-
-// 현재 유저의 프로필 이미지 url
-export const profileImgState = atom<any>({
-  key: 'profileImg',
-  default: '',
-});

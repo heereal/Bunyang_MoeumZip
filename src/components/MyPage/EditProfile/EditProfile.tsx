@@ -1,14 +1,10 @@
-import { nicknameState, profileImgState } from '@/store/selectors';
 import Image from 'next/image';
 import { useState } from 'react';
-import { useRecoilValue } from 'recoil';
 import EditProfileModal from '../EditProfileModal/EditProfileModal';
 import * as S from './style';
 
 const EditProfile = ({ currentUser }: any) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const nickname = useRecoilValue(nicknameState);
-  const profileImg = useRecoilValue(profileImgState);
 
   return (
     <S.Wrapper>
@@ -17,7 +13,7 @@ const EditProfile = ({ currentUser }: any) => {
 
       <S.EditProfileContainer>
         <Image
-          src={profileImg}
+          src={currentUser.userImage}
           alt="profile"
           width={150}
           height={150}
@@ -25,7 +21,7 @@ const EditProfile = ({ currentUser }: any) => {
           style={{ borderRadius: '50%', objectFit: 'cover' }}
           priority={true}
         />
-        <S.Nickname>{nickname}</S.Nickname>
+        <S.Nickname>{currentUser.userName}</S.Nickname>
         <S.Email>{currentUser.userEmail}</S.Email>
         <S.ProfileBtn onClick={() => setIsModalOpen(true)}>
           프로필 수정

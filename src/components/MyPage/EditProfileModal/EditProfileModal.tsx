@@ -1,29 +1,20 @@
 import { db, storage } from '@/common/firebase';
-import {
-  currentUserState,
-  nicknameState,
-  profileImgState,
-  usersListState,
-} from '@/store/selectors';
+import { currentUserState, usersListState } from '@/store/selectors';
 import { uuidv4 } from '@firebase/util';
 import { doc, updateDoc } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import Image from 'next/image';
-import { useState, useEffect } from 'react';
-import { MdClose } from 'react-icons/md';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useEffect, useState } from 'react';
 import { BsCameraFill } from 'react-icons/bs';
+import { MdClose } from 'react-icons/md';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import * as S from './style';
 
 const EditProfileModal = ({ setIsModalOpen }: any) => {
   // 현재 로그인한 유저의 firestore 유저 정보
-  const currentUser = useRecoilValue(currentUserState);
-
-  const setNickname = useSetRecoilState(nicknameState);
-  const nickname = useRecoilValue(nicknameState);
-  const [editNickname, setEditNickname] = useState<any>(nickname);
-  const [profileImg, setProfileImg] = useRecoilState(profileImgState);
-  const [editProfileImg, setEditProfileImg] = useState(profileImg);
+  const [currentUser, setCurrentUser] = useRecoilState(currentUserState);
+  const [editNickname, setEditNickname] = useState<any>(currentUser.userName);
+  const [editProfileImg, setEditProfileImg] = useState(currentUser.userImage);
 
   // 파일 업로드 시 업로드한 파일을 담아둘 state
   const [imageUpload, setImageUpload] = useState<any>('');
@@ -52,6 +43,11 @@ const EditProfileModal = ({ setIsModalOpen }: any) => {
       return;
     }
 
+    if (editNickname.length > 9) {
+      alert('닉네임은 8자 이하로 입력해주세요.');
+      return;
+    }
+
     // if (imageUpload === null) return;
 
     const imageRef = ref(storage, `profileImages/${uuidv4()}`);
@@ -67,8 +63,11 @@ const EditProfileModal = ({ setIsModalOpen }: any) => {
 
     await updateDoc(doc(db, 'Users', currentUser.userEmail), updateUser);
     setIsModalOpen(false);
-    setNickname(editNickname);
-    if (imageUpload) setProfileImg(downloadUrl);
+    setCurrentUser({
+      ...currentUser,
+      userName: editNickname,
+      userImage: imageUpload ? downloadUrl : currentUser.userImage,
+    });
     alert('회원정보 수정 완료');
   };
 
