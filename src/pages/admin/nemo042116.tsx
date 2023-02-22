@@ -40,8 +40,6 @@ const MustHaveToDo = ({
     };
   });
 
-  console.log('aptRandomCombineList', aptRandomCombineList);
-
   // 지역 이름 통일하기
   const replaceAreaNameAptOfficeList = addAreaNameList.map((item) => {
     return {
@@ -80,8 +78,6 @@ const MustHaveToDo = ({
     (item: ItemJ) =>
       item.RCEPT_ENDDE >= today || item.SUBSCRPT_RCEPT_ENDDE >= today,
   );
-
-  console.log('possibleAllHomeList', possibleAllHomeList);
 
   // Friebase DB에 homeList 추가
   const addHomeListMutate = useMutation(addHomeList, {
@@ -130,22 +126,43 @@ const MustHaveToDo = ({
           item.detail.length === 0
             ? ''
             : item?.detail[0]?.LTTOT_TOP_AMOUNT
-            ? item?.detail[0]?.LTTOT_TOP_AMOUNT + '만원'
-            : item?.detail[0]?.SUPLY_AMOUNT + '만원',
+            ? item?.detail[0]?.LTTOT_TOP_AMOUNT.slice(0, 1) +
+              '.' +
+              item?.detail[0]?.LTTOT_TOP_AMOUNT.slice(1, 2) +
+              '억'
+            : item?.detail[0]?.SUPLY_AMOUNT.slice(0, 1) +
+              '.' +
+              item?.detail[0]?.SUPLY_AMOUNT.slice(1, 2) +
+              '억',
 
         MAX_LTTOT_TOP_AMOUNT:
           item.detail.length === 0
             ? ''
             : item?.detail[item?.detail?.length - 1]?.LTTOT_TOP_AMOUNT
-            ? item?.detail[item?.detail?.length - 1]?.LTTOT_TOP_AMOUNT + '만원'
-            : item?.detail[item?.detail?.length - 1]?.SUPLY_AMOUNT + '만원',
+            ? item?.detail[item?.detail?.length - 1]?.LTTOT_TOP_AMOUNT.slice(
+                0,
+                1,
+              ) +
+              '.' +
+              item?.detail[item?.detail?.length - 1]?.LTTOT_TOP_AMOUNT.slice(
+                1,
+                2,
+              ) +
+              '억'
+            : item?.detail[item?.detail?.length - 1]?.SUPLY_AMOUNT.slice(0, 1) +
+              '.' +
+              item?.detail[item?.detail?.length - 1]?.SUPLY_AMOUNT.slice(1, 2) +
+              '억',
 
         SPSPLY_HSHLDCO: item.SPSPLY_HSHLDCO ? item.SPSPLY_HSHLDCO + '세대' : '',
         SUPLY_HSHLDCO: item.SUPLY_HSHLDCO ? item.SUPLY_HSHLDCO + '세대' : '',
         TOT_SUPLY_HSHLDCO: item.TOT_SUPLY_HSHLDCO + '세대',
         HOUSE_NM: item.HOUSE_NM,
         HOUSE_SECD: item.HOUSE_SECD,
-        HOUSE_SECD_NM: item.HOUSE_SECD_NM,
+        HOUSE_SECD_NM:
+          item.HOUSE_SECD === '02'
+            ? '오피스텔'
+            : item.HOUSE_SECD_NM.replace(/[주택]/g, '').split('/')[0],
         HOUSE_DTL_SECD: item.HOUSE_DTL_SECD ? item.HOUSE_DTL_SECD : '',
         HOUSE_DTL_SECD_NM: item.HOUSE_DTL_SECD_NM ? item.HOUSE_DTL_SECD_NM : '',
         HSSPLY_ADRES: item.HSSPLY_ADRES,
@@ -344,19 +361,19 @@ export const getStaticProps: GetStaticProps = async () => {
   // 청약홈
   const aptDefaultList = await axios
     .get(
-      `${BASE_URL}/${METHOD_APT_DEFAULT}?page=1&perPage=100&&cond%5BRCRIT_PBLANC_DE%3A%3AGTE%5D=2023-01-01&serviceKey=${SERVICE_KEY}`,
+      `${BASE_URL}/${METHOD_APT_DEFAULT}?page=1&perPage=1000&&cond%5BRCRIT_PBLANC_DE%3A%3AGTE%5D=2023-01-01&serviceKey=${SERVICE_KEY}`,
     )
     .then((res) => res.data.data);
 
   const aptRandomDefaultList = await axios
     .get(
-      `${BASE_URL}/${METHOD_RANDOM_DEFAULT}?page=1&perPage=100&&cond%5BRCRIT_PBLANC_DE%3A%3AGTE%5D=2023-01-01&serviceKey=${SERVICE_KEY}`,
+      `${BASE_URL}/${METHOD_RANDOM_DEFAULT}?page=1&perPage=1000&&cond%5BRCRIT_PBLANC_DE%3A%3AGTE%5D=2023-01-01&serviceKey=${SERVICE_KEY}`,
     )
     .then((res) => res.data.data);
 
   const officeDefaultList = await axios
     .get(
-      `${BASE_URL}/${METHOD_OFFICE_DEFAULT}?page=1&perPage=100&&cond%5BRCRIT_PBLANC_DE%3A%3AGTE%5D=2023-01-01&serviceKey=${SERVICE_KEY}`,
+      `${BASE_URL}/${METHOD_OFFICE_DEFAULT}?page=1&perPage=1000&&cond%5BRCRIT_PBLANC_DE%3A%3AGTE%5D=2023-01-01&serviceKey=${SERVICE_KEY}`,
     )
     .then((res) => res.data.data);
 

@@ -21,7 +21,11 @@ const ListList = ({ list }: PropsListJ) => {
     <S.ListArticle onClick={pathHandler}>
       <S.CardHeader>
         <S.CardCategoryBox>
-          <S.CardCategory>{list.HOUSE_DTL_SECD_NM}</S.CardCategory>
+          {list.HOUSE_DTL_SECD_NM ? (
+            <S.CardCategory>{list.HOUSE_DTL_SECD_NM}</S.CardCategory>
+          ) : (
+            ''
+          )}
           <S.CardCategory>{list.HOUSE_SECD_NM}</S.CardCategory>
           <S.CardCategory>{list.SUBSCRPT_AREA_CODE_NM}</S.CardCategory>
         </S.CardCategoryBox>
@@ -29,9 +33,9 @@ const ListList = ({ list }: PropsListJ) => {
 
       <S.CardTitleBox>
         <S.CardTitle>
-          {list.HOUSE_NM.length < 14
+          {list.HOUSE_NM.length < 13
             ? list.HOUSE_NM
-            : list.HOUSE_NM.slice(0, 15) + '...'}
+            : list.HOUSE_NM.slice(0, 13) + '...'}
         </S.CardTitle>
       </S.CardTitleBox>
       {/* 분류 띠 */}
@@ -84,14 +88,17 @@ const ListList = ({ list }: PropsListJ) => {
         <S.CardAreaBox>
           <S.CardAreaTitle>전용면적</S.CardAreaTitle>
           <S.CardArea>
-            {list.MIN_HOUSE_TY} ~{list.MAX_HOUSE_TY}
+            {list.MIN_HOUSE_TY === list.MAX_HOUSE_TY
+              ? list.MAX_HOUSE_TY
+              : list.MIN_HOUSE_TY + ' ~ ' + list.MAX_HOUSE_TY}
           </S.CardArea>
         </S.CardAreaBox>
         <S.CardAreaBox>
           <S.CardAreaTitle>분양가격</S.CardAreaTitle>
           <S.CardArea>
-            {list.MIN_LTTOT_TOP_AMOUNT.replace('만원', '')} ~
-            {list.MAX_LTTOT_TOP_AMOUNT}
+            {list.MIN_LTTOT_TOP_AMOUNT === list.MAX_LTTOT_TOP_AMOUNT
+              ? list.MAX_LTTOT_TOP_AMOUNT
+              : list.MIN_LTTOT_TOP_AMOUNT + ' ~ ' + list.MAX_LTTOT_TOP_AMOUNT}
           </S.CardArea>
         </S.CardAreaBox>
       </div>

@@ -32,6 +32,7 @@ export const CardHeader = styled.div`
 
 // 카테고리(분양형태, 주택형태, 지역)
 export const CardCategoryBox = styled.div`
+  width: 80%;
   height: 22px;
 
   display: flex;
@@ -43,7 +44,7 @@ export const CardCategoryBox = styled.div`
 `;
 
 export const CardCategory = styled.div`
-  width: 35px;
+  width: 100%;
   height: 22px;
 
   background: #f1f6ff;
