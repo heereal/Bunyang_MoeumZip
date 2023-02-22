@@ -3,19 +3,15 @@ import styled from 'styled-components';
 // Count Tab
 export const CountSectionBack = styled.div`
   width: 100%;
-  height: 175px;
+  height: 116px;
 
-  background: linear-gradient(
-      0deg,
-      rgba(94, 94, 94, 0.2),
-      rgba(94, 94, 94, 0.2)
-    ),
+  background-color: rgba(71, 70, 103, 1);
+  /* background: linear-gradient(0deg, rgba(71, 70, 103, 1), rgba(94, 94, 94, 0.2)),
     linear-gradient(
       180deg,
-      rgba(56, 93, 164, 0.609) 0%,
-      rgba(63, 128, 255, 0.616) 24.81%,
+      rgba(71, 70, 103, 1) 24.81%,
       rgba(78, 138, 254, 0.287) 110.76%
-    );
+    ); */
 
   display: flex;
   flex-direction: column;
@@ -26,22 +22,9 @@ export const CountSectionBack = styled.div`
   top: 0;
 `;
 
-// 청약 정보 확인 문구
-export const CountTabTitle = styled.p`
-  height: 26px;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 24px;
-  text-align: center;
-  margin-bottom: 15px;
-
-  color: #ffffff;
-`;
-
 export const CountTabList = styled.ul`
   width: 50%;
-  height: 59px;
+  height: 70px;
 
   background: #ffffff;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -57,13 +40,13 @@ export const CountTabList = styled.ul`
   justify-content: center;
   align-items: center;
   padding: 12px 35px;
-  gap: 30px;
+  gap: 10px;
 
   /* CountTab */
   .baseTab {
     // 기본 Tab
     width: 30%;
-    height: 53px;
+    height: 70px;
 
     display: flex;
     flex-direction: column;
@@ -74,10 +57,14 @@ export const CountTabList = styled.ul`
     font-size: 12px;
     transition: 0.5s;
     border-radius: 10px;
+    border-left: 5px solid white;
+    border-right: 5px solid white;
 
     cursor: pointer;
 
     :hover {
+      border-left: 5px solid #f1f6ff;
+      border-right: 5px solid #f1f6ff;
       background-color: #f1f6ff;
       color: #3d7fff;
     }
@@ -85,6 +72,8 @@ export const CountTabList = styled.ul`
 
   .focused {
     //선택된 Tab
+    border-left: 5px solid #f1f6ff;
+    border-right: 5px solid #f1f6ff;
     background-color: #f1f6ff;
     color: #3d7fff;
   }

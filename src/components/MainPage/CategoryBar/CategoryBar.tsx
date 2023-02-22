@@ -3,7 +3,7 @@ import { selectedCategoryList } from '@/store/selectors';
 import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import * as S from './style';
-import InfoLink from '../../GlobalComponents/InfoLink/InfoLink';
+import InfoLink from '../InfoLink/InfoLink';
 import { RiArrowDownSLine, RiArrowUpSLine } from 'react-icons/ri';
 import { BsCheckCircleFill } from 'react-icons/bs';
 import { IoReload } from 'react-icons/io5';
@@ -76,7 +76,7 @@ const CategoryBar = () => {
                 >
                   <S.TabNameBox>
                     <S.TabName
-                      color={isRegionToggleOpen ? '#3d7fff' : '#bcc0cb'}
+                      color={isRegionToggleOpen ? '#3d7fff' : '#7B7B7B'}
                     >
                       {item.name}
                     </S.TabName>
@@ -91,7 +91,7 @@ const CategoryBar = () => {
                       <RiArrowDownSLine
                         style={{
                           fontSize: 25,
-                          color: '#BCC0CB',
+                          color: '#7B7B7B',
                         }}
                       />
                     )}
@@ -104,7 +104,7 @@ const CategoryBar = () => {
                   onClick={openTypeToggleHandler}
                 >
                   <S.TabNameBox>
-                    <S.TabName color={isTypeToggleOpen ? '#3d7fff' : '#bcc0cb'}>
+                    <S.TabName color={isTypeToggleOpen ? '#3d7fff' : '#7B7B7B'}>
                       {item.name}
                     </S.TabName>
                     {isTypeToggleOpen ? (
@@ -118,7 +118,7 @@ const CategoryBar = () => {
                       <RiArrowDownSLine
                         style={{
                           fontSize: 25,
-                          color: '#BCC0CB',
+                          color: '#7B7B7B',
                         }}
                       />
                     )}

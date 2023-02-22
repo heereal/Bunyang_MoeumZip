@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { useState } from 'react';
 import EditProfileModal from '../EditProfileModal/EditProfileModal';
-import transparentProfile from '../../../assets/transparentProfile.png'
+import transparentProfile from '../../../assets/transparentProfile.png';
 import * as S from './style';
 
 const EditProfile = ({ currentUser }: any) => {
@@ -14,7 +14,9 @@ const EditProfile = ({ currentUser }: any) => {
 
       <S.EditProfileContainer>
         <Image
-          src={currentUser.userImage ? currentUser.userImage : transparentProfile}
+          src={
+            currentUser.userImage ? currentUser.userImage : transparentProfile
+          }
           alt="profile"
           width={150}
           height={150}
@@ -25,7 +27,7 @@ const EditProfile = ({ currentUser }: any) => {
         <S.Nickname>{currentUser.userName}</S.Nickname>
         <S.Email>{currentUser.userEmail}</S.Email>
         <S.ProfileBtn onClick={() => setIsModalOpen(true)}>
-          프로필 수정
+          회원정보 수정
         </S.ProfileBtn>
         {/* <S.Line /> */}
       </S.EditProfileContainer>

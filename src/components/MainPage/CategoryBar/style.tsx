@@ -7,7 +7,7 @@ export const CategorySection = styled.section`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  z-index: 1000;
+  z-index: 10;
 
   position: relative;
 `;

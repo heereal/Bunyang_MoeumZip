@@ -1,13 +1,12 @@
 import { addHomeList } from '@/common/api';
 import { db } from '@/common/firebase';
-import AlertUI from '@/components/GlobalComponents/AlertUI/AlertUI';
+import { customAlert } from '@/common/utils';
 import HeadTitle from '@/components/GlobalComponents/HeadTitle/HeadTitle';
 import axios from 'axios';
 import { doc, getDoc } from 'firebase/firestore';
 import { GetStaticProps } from 'next';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import { confirmAlert } from 'react-confirm-alert';
 import { useMutation, useQueryClient } from 'react-query';
 import coordinatesBtn from '../../assets/apiCallButton_blue.png';
 import lastDbButton from '../../assets/apiCallButton_green.png';
@@ -244,18 +243,11 @@ const MustHaveToDo = ({
               } 채워주세요~`,
             );
 
-            confirmAlert({
-              customUI: ({ onClose }) => {
-                return (
-                  <AlertUI
-                    alertText={`근무자님, ${[i]}번째에 있는 ${
-                      allHomeData[i].FOR_COORDINATES_ADRES
-                    } 채워주세요~`}
-                    onClose={onClose}
-                  />
-                );
-              },
-            });
+            customAlert(
+              `근무자님, ${[i]}번째에 있는 ${
+                allHomeData[i].FOR_COORDINATES_ADRES
+              } 채워주세요~`,
+            );
           }
         },
       );

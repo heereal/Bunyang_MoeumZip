@@ -14,8 +14,8 @@ declare interface AddCommentP {
 interface CommentPropsP {
   postId: string | string[] | undefined;
   user:
-    | { userName?: string; userEmail?: string; userImage?: string }
-    | undefined;
+  | { userName?: string; userEmail?: string; userImage?: string }
+  | undefined;
   queryClient?: QueryClient;
   comment?: {
     date: number;
@@ -110,4 +110,14 @@ interface CategoryBtnStyledProps {
 
 interface SelectCategoryProps {
   width: string;
+}
+
+
+// 검색어 타입
+type keywordJ = string | string[] | undefined;
+
+// 검색어 props 타입
+interface keywordPropsJ {
+  keyword?: keywordJ;
+  text: string;
 }

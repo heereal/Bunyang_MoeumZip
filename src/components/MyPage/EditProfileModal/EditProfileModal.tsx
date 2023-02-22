@@ -1,4 +1,5 @@
 import { db, storage } from '@/common/firebase';
+import { customAlert } from '@/common/utils';
 import { currentUserState, usersListState } from '@/store/selectors';
 import { uuidv4 } from '@firebase/util';
 import { doc, updateDoc } from 'firebase/firestore';
@@ -31,6 +32,8 @@ const EditProfileModal = ({ setIsModalOpen }: any) => {
       (user: userProps) =>
         user.userName === editNickname && !currentUser.userName,
     );
+
+    // TODO: customAlert css 적용해서 모달 위에 뜨게 하기
 
     // 중복되는 닉네임이 있는 경우
     if (checkNickname) {
@@ -70,7 +73,7 @@ const EditProfileModal = ({ setIsModalOpen }: any) => {
       userName: editNickname,
       userImage: imageUpload ? downloadUrl : currentUser.userImage,
     });
-    alert('회원정보 수정 완료');
+    customAlert('회원정보가 수정되었습니다.');
   };
 
   // 이미지 업로드 시 이미지 미리보기 바로 반영됨
@@ -100,7 +103,7 @@ const EditProfileModal = ({ setIsModalOpen }: any) => {
         </S.CloseBtnContainer>
 
         <S.EditProfileContainer>
-          <S.Title>프로필 수정</S.Title>
+          <S.Title>회원정보 수정</S.Title>
           <S.EditProfileImgLabel>
             <Image
               src={editProfileImg ? editProfileImg : transparentProfile}

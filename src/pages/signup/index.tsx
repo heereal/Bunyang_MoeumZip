@@ -1,18 +1,17 @@
+import { getUsersList } from '@/common/api';
+import { regionArray, typesArray } from '@/common/categoryList';
 import { db } from '@/common/firebase';
+import { customAlert } from '@/common/utils';
+import SelectMyRegion from '@/components/GlobalComponents/SelectMyRegion/SelectMyRegion';
+import SelectMyTypes from '@/components/GlobalComponents/SelectMyTypes/SelectMyTypes';
+import { myRegionArrayState, myTypeArrayState } from '@/store/selectors';
 import { doc, updateDoc } from 'firebase/firestore';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import * as S from '../../styles/signup.style';
-import { regionArray, typesArray } from '@/common/categoryList';
 import { useQuery } from 'react-query';
-import { getUsersList } from '@/common/api';
-import AlertUI from '@/components/GlobalComponents/AlertUI/AlertUI';
-import { confirmAlert } from 'react-confirm-alert';
-import SelectMyRegion from '@/components/GlobalComponents/SelectMyRegion/SelectMyRegion';
-import SelectMyTypes from '@/components/GlobalComponents/SelectMyTypes/SelectMyTypes';
 import { useRecoilValue } from 'recoil';
-import { myRegionArrayState, myTypeArrayState } from '@/store/selectors';
+import * as S from '../../styles/signup.style';
 import HeadTitle from '@/components/GlobalComponents/HeadTitle/HeadTitle';
 
 //TODO: 회원가입 페이지 새로고침 할 때 "작성한 정보가 모두 사라집니다" alert 주기
@@ -40,47 +39,23 @@ const SignUp = () => {
     );
     //닉네임을 입력하지 않았을 때
     if (!nickname) {
-      alert('닉네임을 입력해주세요.');
+      customAlert('닉네임을 입력해주세요.');
       setIsValidNickname(false);
       return;
     }
     if (!checkNickname) {
-      confirmAlert({
-        customUI: ({ onClose }) => {
-          return (
-            <AlertUI alertText="사용 가능한 닉네임입니다." onClose={onClose} />
-          );
-        },
-      }),
-        setIsValidNickname(true);
+      customAlert('사용 가능한 닉네임입니다.');
+      setIsValidNickname(true);
     } else {
-      confirmAlert({
-        customUI: ({ onClose }) => {
-          return (
-            <AlertUI
-              alertText="이미 존재하는 닉네임입니다. 다시 입력해주세요."
-              onClose={onClose}
-            />
-          );
-        },
-      }),
-        setIsValidNickname(false);
+      customAlert('이미 존재하는 닉네임입니다. 다시 입력해주세요.');
+      setIsValidNickname(false);
     }
   };
 
   // [회원가입 완료] 버튼 클릭 시 작동
   const signupHandler = async () => {
     if (!isValidNickname) {
-      confirmAlert({
-        customUI: ({ onClose }) => {
-          return (
-            <AlertUI
-              alertText="닉네임 중복 검사를 완료해주세요"
-              onClose={onClose}
-            />
-          );
-        },
-      });
+      customAlert('닉네임 중복 검사를 완료해주세요.');
       return;
     }
     // 관심 카테고리 선택하지 않으면 전체 리스트를 선택한 것으로 간주함
@@ -91,14 +66,7 @@ const SignUp = () => {
     };
 
     await updateDoc(doc(db, 'Users', email), updateUser);
-    confirmAlert({
-      customUI: ({ onClose }) => {
-        return (
-          <AlertUI alertText="회원가입이 완료되었습니다." onClose={onClose} />
-        );
-      },
-    });
-
+    customAlert('회원가입이 완료되었습니다.');
     router.push('/');
   };
 

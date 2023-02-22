@@ -1,3 +1,5 @@
+import { confirmAlert } from "react-confirm-alert";
+
 // 댓글 작성 시 사용
 // const dateString  = postTime();
 export const postTime = () => {
@@ -34,7 +36,7 @@ export const getDate = (date: any) => {
 };
 
 
-// 오늘 날짜 구하기 - DB의 날짜 형식 0000-00-00
+// 오늘 날짜 구하기 - 분양 정보 DB의 날짜 형식 0000-00-00
 export const getToday = () => {
   const date = new Date();
   const year = date.getFullYear();
@@ -44,3 +46,17 @@ export const getToday = () => {
 
   return today;
 };
+
+// Alert(react confirm Library)실행함수
+export const customAlert = (text: string) => {
+  confirmAlert({
+    message: text,
+    buttons: [
+      {
+        label: '확인',
+        onClick: () => onclose,
+      },
+    ],
+  })
+}
+

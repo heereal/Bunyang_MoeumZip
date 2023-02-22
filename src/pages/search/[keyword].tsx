@@ -1,4 +1,5 @@
 import { db } from '@/common/firebase';
+import NoResult from '@/components/GlobalComponents/NoResult/NoResult';
 import HeadTitle from '@/components/GlobalComponents/HeadTitle/HeadTitle';
 import TopBtn from '@/components/GlobalComponents/TopBtn/TopBtn';
 import SearchResults from '@/components/SearchPage/SearchResults';
@@ -12,7 +13,7 @@ const SearchResult = ({ homeList }: HomeListDBPropsJ) => {
   const allHomeList = homeList.allHomeData;
 
   // Search 컴포넌트에 있는 검색창에서 router로 받아 온 검색어
-  const keyword: string | string[] | undefined = router.query.keyword;
+  const keyword: keywordJ = router.query.keyword;
 
   // 검색한 결과 리스트
   const resultsList = allHomeList.filter(
@@ -27,20 +28,25 @@ const SearchResult = ({ homeList }: HomeListDBPropsJ) => {
   return (
     <S.ResultSection>
       <HeadTitle title="검색" />
-
-      <S.TitleBox>
-        <S.ResultTitle>
-          <span>{keyword}</span>의 검색 결과는 총
-          <span>{resultsList.length}</span>건입니다.
-        </S.ResultTitle>
-      </S.TitleBox>
-      <S.ResultListArticle>
-        {resultsList.map((item: ItemJ) => (
-          // 검색 결과 리스트
-          <SearchResults key={item.PBLANC_NO} list={item} />
-        ))}
-        <TopBtn />
-      </S.ResultListArticle>
+      {resultsList.length === 0 ? (
+        <NoResult keyword={keyword} text="다른 키워드로 검색해주세요." />
+      ) : (
+        <>
+          <S.TitleBox>
+            <S.ResultTitle>
+              <span>{keyword}</span>의 검색 결과는 총
+              <span>{resultsList.length}</span>건입니다.
+            </S.ResultTitle>
+          </S.TitleBox>
+          <S.ResultListArticle>
+            {resultsList.map((item: ItemJ) => (
+              // 검색 결과 리스트
+              <SearchResults key={item.PBLANC_NO} list={item} />
+            ))}
+            <TopBtn />
+          </S.ResultListArticle>
+        </>
+      )}
     </S.ResultSection>
   );
 };

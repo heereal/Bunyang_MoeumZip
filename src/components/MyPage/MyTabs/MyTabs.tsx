@@ -9,6 +9,7 @@ import { db } from '@/common/firebase';
 import { doc, updateDoc } from 'firebase/firestore';
 import { useRecoilValue } from 'recoil';
 import { myRegionArrayState, myTypeArrayState } from '@/store/selectors';
+import { customAlert } from '@/common/utils';
 
 const MyTabs = ({ currentUser }: any) => {
   const [currentTab, setCurrentTab] = useState(1);
@@ -30,7 +31,7 @@ const MyTabs = ({ currentUser }: any) => {
     };
 
     await updateDoc(doc(db, 'Users', currentUser.userEmail), updateUser);
-    alert('관심 카테고리 설정이 업데이트되었습니다.');
+    customAlert('관심 카테고리 설정이 업데이트되었습니다.');
   };
 
   return (
