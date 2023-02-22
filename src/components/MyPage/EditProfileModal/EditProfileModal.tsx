@@ -27,26 +27,23 @@ const EditProfileModal = ({ setIsModalOpen }: any) => {
   // 현재 로그인한 유저의 firestore 유저 정보
   const currentUser = useRecoilValue(currentUserState);
 
-  //FIXME: 닉네임 변경 안하고 프사만 변경햇을 경우 예외처리
   // [수정 완료] 버튼 클릭 시 작동
   const editProfileHandler = async () => {
     // 중복되는 닉네임이 있는지 검색하기
     const checkNickname = users.find(
-      (user: userProps) => user.userName === editNickname,
+      (user: userProps) =>
+        user.userName === editNickname && !currentUser.userName,
     );
 
     // 중복되는 닉네임이 있는 경우
     if (checkNickname) {
-      confirmAlert({
-        customUI: ({ onClose }) => {
-          return (
-            <AlertUI
-              alertText="이미 존재하는 닉네임입니다. 다시 입력해주세요."
-              onClose={onClose}
-            />
-          );
-        },
-      });
+      alert('이미 존재하는 닉네임입니다. 다시 입력해주세요.');
+      return;
+    }
+
+    // 닉네임을 입력하지 않았을 경우
+    if (!editNickname) {
+      alert('닉네임을 입력해주세요.');
       return;
     }
 
@@ -64,12 +61,11 @@ const EditProfileModal = ({ setIsModalOpen }: any) => {
       userName: editNickname,
       userImage: downloadUrl,
     };
-    //FIXME: THEN 없애도됨
-    await updateDoc(doc(db, 'Users', email), updateUser);
-    setIsModalOpen(false)
 
+    await updateDoc(doc(db, 'Users', email), updateUser);
+    setIsModalOpen(false);
     setNickname(editNickname);
-    alert("회원정보 수정")
+    alert('회원정보 수정');
   };
 
   // 이미지 업로드 시 이미지 미리보기 바로 반영됨
