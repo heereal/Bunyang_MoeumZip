@@ -28,7 +28,11 @@ const ListList = ({ list }: PropsListJ) => {
       </S.CardHeader>
 
       <S.CardTitleBox>
-        <S.CardTitle>{list.HOUSE_NM}</S.CardTitle>
+        <S.CardTitle>
+          {list.HOUSE_NM.length < 14
+            ? list.HOUSE_NM
+            : list.HOUSE_NM.slice(0, 15) + '...'}
+        </S.CardTitle>
       </S.CardTitleBox>
       {/* 분류 띠 */}
       <S.Ribbon
