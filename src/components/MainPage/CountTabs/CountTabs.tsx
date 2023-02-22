@@ -1,5 +1,6 @@
 import { getUsersList } from '@/common/api';
 import { getToday } from '@/common/utils';
+import NoResult from '@/components/GlobalComponents/NoResult/NoResult';
 import TopBtn from '@/components/GlobalComponents/TopBtn/TopBtn';
 import { selectedCategoryList } from '@/store/selectors';
 import { useSession } from 'next-auth/react';
@@ -189,8 +190,8 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
       <CategoryBar />
       {/* 분양 정보가 없을 때 보여줄 문구 */}
       {tabList[currentTab].content.length === 0 ? (
-        <div style={{ overflowY: 'scroll', height: '90%', width: '100%' }}>
-          분양 정보가 없습니다.
+        <div style={{ marginTop: '12%', textAlign: 'center' }}>
+          <NoResult text="다른 지역 및 분양 형태를 찾아보세요." />
         </div>
       ) : (
         <S.ListSection>

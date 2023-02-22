@@ -35,9 +35,6 @@ export const ResultTitle = styled.p`
 
 // 검색 결과가 없을 때
 export const NoResultTitle = styled.p`
-  /* width: 336px;
-  height: 27px; */
-
   font-style: normal;
   font-weight: 600;
   font-size: 23px;
@@ -50,9 +47,6 @@ export const NoResultTitle = styled.p`
 `;
 
 export const NoResultText = styled(NoResultTitle)`
-  /* width: 196px;
-  height: 21px; */
-
   font-weight: 500;
   font-size: 18px;
   line-height: 21px;

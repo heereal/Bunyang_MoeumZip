@@ -1,19 +1,18 @@
 import { db } from '@/common/firebase';
+import NoResult from '@/components/GlobalComponents/NoResult/NoResult';
 import TopBtn from '@/components/GlobalComponents/TopBtn/TopBtn';
 import SearchResults from '@/components/SearchPage/SearchResults';
 import { doc, getDoc } from 'firebase/firestore';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import * as S from '../../styles/search.style';
-import Image from 'next/image';
-import NoResult from '../../assets/NoResult.png';
 
 const SearchResult = ({ homeList }: HomeListDBPropsJ) => {
   const router = useRouter();
   const allHomeList = homeList.allHomeData;
 
   // Search 컴포넌트에 있는 검색창에서 router로 받아 온 검색어
-  const keyword: string | string[] | undefined = router.query.keyword;
+  const keyword: keywordJ = router.query.keyword;
 
   // 검색한 결과 리스트
   const resultsList = allHomeList.filter(
@@ -28,21 +27,7 @@ const SearchResult = ({ homeList }: HomeListDBPropsJ) => {
   return (
     <S.ResultSection>
       {resultsList.length === 0 ? (
-        <>
-          <Image
-            src={NoResult}
-            alt="NoResultImage"
-            width={100}
-            height={100}
-            quality={100}
-            priority={true}
-          />
-          <S.NoResultTitle>
-            <span style={{ color: '#3d7eee' }}>{keyword}</span> 검색 결과를 찾을
-            수 없습니다.
-          </S.NoResultTitle>
-          <S.NoResultText>다른 키워드로 검색해주세요.</S.NoResultText>
-        </>
+        <NoResult keyword={keyword} text="다른 키워드로 검색해주세요." />
       ) : (
         <>
           <S.TitleBox>

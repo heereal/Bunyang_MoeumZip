@@ -32,11 +32,12 @@ export const SearchInput = styled.input`
 `;
 
 export const SearchBtn = styled.button`
+  width: 20px;
   background-color: transparent;
   border: none;
   outline: none;
   position: absolute;
-  left: 40%;
+  left: 57%;
   right: 23.28%;
   top: 25%;
 
