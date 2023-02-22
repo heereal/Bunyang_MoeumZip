@@ -31,6 +31,7 @@ const MyPage = () => {
       );
     },
   });
+  console.log('currentUser:', currentUser);
 
   //TODO: 로딩페이지에서 넘어온 거 아니면 접근 못하도록 제한하기
   useEffect(() => {

@@ -49,13 +49,11 @@ const EditProfileModal = ({ setIsModalOpen }: any) => {
 
     if (imageUpload === null) return;
 
-    const imageTitle = uuidv4();
-
-    const imageRef = ref(storage, `profileImages/${imageTitle}`);
+    const imageRef = ref(storage, `profileImages/${uuidv4()}`);
     // Storage에 이미지 업로드
-    await uploadBytes(imageRef, imageUpload);
+    const response = await uploadBytes(imageRef, imageUpload);
     // 업로드한 이미지의 url 가져오기
-    const downloadUrl = await getDownloadURL(imageRef);
+    const downloadUrl = await getDownloadURL(response.ref);
 
     const updateUser = {
       userName: editNickname,

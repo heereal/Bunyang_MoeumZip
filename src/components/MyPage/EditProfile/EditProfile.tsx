@@ -116,14 +116,14 @@ const EditProfile = ({ users, currentUser }: any) => {
 
   // firestore에서 유저 정보 불러오면 state에 저장함
   useEffect(() => {
-    if (users) {
+    if (currentUser) {
       setNickname(currentUser.userName);
       setEmail(currentUser.userEmail);
       setProfileImg(currentUser.userImage);
       setEditNickname(currentUser.userName);
     }
     // eslint-disable-next-line
-  }, [users]);
+  }, [currentUser]);
 
   return (
     <S.Wrapper>
