@@ -21,43 +21,34 @@ const EditComment = ({
   const date = comment?.date;
 
   const deleteCommentHandler = async (index: number | undefined) => {
-    // const decision = confirm('삭제하시겠습니까?');
-
-    // if (
-    //   decision &&
-    //   typeof comments === 'object' &&
-    //   typeof postId === 'string' &&
-    //   typeof index === 'number'
-    // ) {
-    //   const comment = {
-    //     list: arrayRemove(comments[index]),
-    //   };
-    //   deleteMutation.mutate({ postId, comment });
-    // }
-
-    confirmAlert({
-      message: '삭제하시겠습니까?',
-      buttons: [
-        {
-          label: '확인',
-          onClick: () => {
-            const comment = {
-              list: arrayRemove(comments[index]),
-            };
-            deleteMutation.mutate({ postId, comment });
+    if (
+      typeof comments === 'object' &&
+      typeof postId === 'string' &&
+      typeof index === 'number'
+    )
+      confirmAlert({
+        message: '삭제하시겠습니까?',
+        buttons: [
+          {
+            label: '확인',
+            onClick: () => {
+              const comment = {
+                list: arrayRemove(comments[index]),
+              };
+              deleteMutation.mutate({ postId, comment });
+            },
           },
-        },
 
-        {
-          label: '취소',
-          onClick: () => onclose,
-        },
-      ],
-      closeOnEscape: true,
-      closeOnClickOutside: true,
-      keyCodeForClose: [8, 32],
-      overlayClassName: 'overlay-custom-class-name',
-    });
+          {
+            label: '취소',
+            onClick: () => onclose,
+          },
+        ],
+        closeOnEscape: true,
+        closeOnClickOutside: true,
+        keyCodeForClose: [8, 32],
+        overlayClassName: 'overlay-custom-class-name',
+      });
   };
 
   const editCommentHandler = async (index: number | undefined) => {
