@@ -39,18 +39,19 @@ const MapSection = () => {
       setCoordnates(data?.allHomeData);
     }
     // path 값이 바뀌면  센터와 줌레벨 이 바뀜
-    if (path !== '/') {
-      setCenter({
-        y: Number(detail?.COORDINATES.y),
-        x: Number(detail?.COORDINATES.x),
-      });
-      setZoomLevel(4);
-    } else {
+
+    if (path === '/' || !detail) {
       setCenter({
         y: 36.3171433799167,
         x: 127.65261753988,
       });
       setZoomLevel(13);
+    } else {
+      setCenter({
+        y: Number(detail?.COORDINATES.y),
+        x: Number(detail?.COORDINATES.x),
+      });
+      setZoomLevel(4);
     }
   }, [data, path]);
 
@@ -98,7 +99,6 @@ const MapSection = () => {
 
             title: `/detail/${result.PBLANC_NO}`,
             opacity: 0.01,
-            zIndex: 99,
             clickable: true,
           });
 

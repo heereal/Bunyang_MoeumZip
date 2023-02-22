@@ -1,4 +1,5 @@
 import { db } from '@/common/firebase';
+import HeadTitle from '@/components/GlobalComponents/HeadTitle/HeadTitle';
 import { pathState } from '@/store/selectors';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
@@ -31,6 +32,8 @@ const Calender = ({ homeList }: any) => {
 
   return (
     <S.CalendarContainer>
+      <HeadTitle title="청약캘린더" />
+
       <FullCalendar
         plugins={[dayGridPlugin, interactionPlugin]}
         headerToolbar={{

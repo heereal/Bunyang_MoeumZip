@@ -74,7 +74,7 @@ export const BmrBtn = styled.div`
   width: 36px;
   height: 36px;
   font-size: 20px;
-  border: 3px solid #bcc0cb;
+  background-color: #3d7fff;
   padding-left: 1px;
   padding-top: 2px;
 `;
