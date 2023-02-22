@@ -73,6 +73,7 @@ const MyTabs = ({ currentUser }: any) => {
           <>
             <SelectMyRegion width={'80%'} />
             <S.SubmitBtn
+              disabled={myRegionArray === currentUser.regions}
               onClick={() => updateCategoryHandler('regions', myRegionArray)}
             >
               변경사항 저장
@@ -84,7 +85,10 @@ const MyTabs = ({ currentUser }: any) => {
         {currentTab === 3 && (
           <>
             <SelectMyTypes width={'80%'} />
-            <S.SubmitBtn onClick={() => updateCategoryHandler('types', myTypeArray)}>
+            <S.SubmitBtn
+              disabled={myTypeArray === currentUser.types}
+              onClick={() => updateCategoryHandler('types', myTypeArray)}
+            >
               변경사항 저장
             </S.SubmitBtn>
           </>

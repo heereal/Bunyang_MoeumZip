@@ -51,7 +51,8 @@ export const BookmarkInfoContainer = styled.div`
   margin-right: 10px;
 `;
 
-export const SubmitBtn = styled.div`
+export const SubmitBtn = styled.button`
+  all: unset;
   width: 220px;
   height: 43px;
   font-weight: 700;
@@ -65,4 +66,8 @@ export const SubmitBtn = styled.div`
   cursor: pointer;
   position: absolute;
   bottom: 10px;
+
+  :disabled {
+    cursor: default;
+  }
 `;
