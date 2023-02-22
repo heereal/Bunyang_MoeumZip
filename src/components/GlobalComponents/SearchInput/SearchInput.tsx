@@ -16,8 +16,8 @@ const SearchInput = () => {
   };
 
   const searchHandler = () => {
-    if (keyword.trim().length === 0) {
-      customAlert('검색어를 입력해주세요.');
+    if (keyword.trim().length <= 1) {
+      customAlert('검색어는 2글자 이상 입력해주세요.');
 
       setKeyword('');
     } else {
