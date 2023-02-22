@@ -75,24 +75,26 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
             style={{
               color: bookmarksList?.usersList.includes(email)
                 ? ' #FFEF5A     '
-                : '#bcc0cb',
+                : '#ffffff',
             }}
           >
             ★
           </S.BmrBtn>
         </S.BmrkBox>
-
-        <S.HeaderTagBox>
-          <S.HeaderTag>{home?.HOUSE_DTL_SECD_NM}</S.HeaderTag>
-          <S.HeaderTag>{home?.HOUSE_SECD_NM}</S.HeaderTag>
-          <S.HeaderTag>{home?.SUBSCRPT_AREA_CODE_NM}</S.HeaderTag>
-        </S.HeaderTagBox>
-        <S.HeaderTitle>{home?.HOUSE_NM}</S.HeaderTitle>
-        <S.HeaderAdres>{home?.FOR_COORDINATES_ADRES}</S.HeaderAdres>
-        <S.HeaderBmrk>
-          ★ {bookmarksList?.usersList ? bookmarksList?.usersList?.length : '0'}
-          명이 관심을 갖고 있어요
-        </S.HeaderBmrk>
+        <S.HeaderBox>
+          <S.HeaderTagBox>
+            <S.HeaderTag>{home?.HOUSE_DTL_SECD_NM}</S.HeaderTag>
+            <S.HeaderTag>{home?.HOUSE_SECD_NM}</S.HeaderTag>
+            <S.HeaderTag>{home?.SUBSCRPT_AREA_CODE_NM}</S.HeaderTag>
+          </S.HeaderTagBox>
+          <S.HeaderTitle>{home?.HOUSE_NM}</S.HeaderTitle>
+          <S.HeaderAdres>{home?.FOR_COORDINATES_ADRES}</S.HeaderAdres>
+          <S.HeaderBmrk>
+            ★{' '}
+            {bookmarksList?.usersList ? bookmarksList?.usersList?.length : '0'}
+            명이 관심을 갖고 있어요
+          </S.HeaderBmrk>
+        </S.HeaderBox>
       </S.PageHeader>
       <S.Container>
         <S.ArticleHead>입주자모집공고 주요정보</S.ArticleHead>

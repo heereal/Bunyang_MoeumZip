@@ -34,8 +34,6 @@ const CommentsList = ({ postId }: DetailPagePropsP) => {
     }
   });
 
-  console.log(session);
-
   useEffect(() => {
     setComments(data?.list.sort((a: any, b: any) => b.date - a.date));
     refetchProfile();
