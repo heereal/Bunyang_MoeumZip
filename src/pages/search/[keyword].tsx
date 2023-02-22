@@ -38,7 +38,8 @@ const SearchResult = ({ homeList }: HomeListDBPropsJ) => {
             priority={true}
           />
           <S.NoResultTitle>
-            '{keyword}' 검색 결과를 찾을 수 없습니다.
+            <span style={{ color: '#3d7eee' }}>{keyword}</span> 검색 결과를 찾을
+            수 없습니다.
           </S.NoResultTitle>
           <S.NoResultText>다른 키워드로 검색해주세요.</S.NoResultText>
         </>

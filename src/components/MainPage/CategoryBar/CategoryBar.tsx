@@ -91,7 +91,7 @@ const CategoryBar = () => {
                       <RiArrowDownSLine
                         style={{
                           fontSize: 25,
-                          color: '#BCC0CB',
+                          color: '#7B7B7B',
                         }}
                       />
                     )}
@@ -118,7 +118,7 @@ const CategoryBar = () => {
                       <RiArrowDownSLine
                         style={{
                           fontSize: 25,
-                          color: '#BCC0CB',
+                          color: '#7B7B7B',
                         }}
                       />
                     )}

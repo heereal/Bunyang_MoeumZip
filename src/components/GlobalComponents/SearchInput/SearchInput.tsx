@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import { confirmAlert } from 'react-confirm-alert';
 import AlertUI from '../AlertUI/AlertUI';
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+import { customAlert } from '@/common/utils';
 
 const SearchInput = () => {
   const router = useRouter();
@@ -14,23 +15,9 @@ const SearchInput = () => {
     setKeyword(e.target.value);
   };
 
-  const options = {
-    message: '검색어를 입력해주세요.',
-    buttons: [
-      {
-        label: '확인',
-        onClick: () => onclose,
-      },
-    ],
-    closeOnEscape: true,
-    closeOnClickOutside: true,
-    keyCodeForClose: [8, 32],
-    overlayClassName: 'overlay-custom-class-name',
-  };
-
   const searchHandler = () => {
     if (keyword.trim().length === 0) {
-      confirmAlert(options);
+      customAlert('검색어를 입력해주세요.');
 
       setKeyword('');
     } else {
