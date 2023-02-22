@@ -43,7 +43,7 @@ const EditProfileModal = ({ setIsModalOpen }: any) => {
       return;
     }
 
-    if (editNickname.length > 9) {
+    if (editNickname.length >= 9) {
       alert('닉네임은 8자 이하로 입력해주세요.');
       return;
     }
@@ -61,8 +61,9 @@ const EditProfileModal = ({ setIsModalOpen }: any) => {
       userImage: imageUpload ? downloadUrl : currentUser.userImage,
     };
 
-    await updateDoc(doc(db, 'Users', currentUser.userEmail), updateUser);
     setIsModalOpen(false);
+    await updateDoc(doc(db, 'Users', currentUser.userEmail), updateUser);
+    //FIXME: 쿼리 refetch나 invalidateQueries 사용해서 DB 정보로 업데이트 해주는 방법은 없을까?
     setCurrentUser({
       ...currentUser,
       userName: editNickname,
@@ -85,8 +86,6 @@ const EditProfileModal = ({ setIsModalOpen }: any) => {
       };
     }
   };
-
-  useEffect(() => {}, []);
 
   return (
     <S.ModalBackground>
