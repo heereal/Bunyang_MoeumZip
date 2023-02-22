@@ -84,7 +84,7 @@ const ListList = ({ list }: PropsListJ) => {
         </S.CardDateBox>
       </div>
 
-      <div>
+      <S.CardAreaContainer>
         <S.CardAreaBox>
           <S.CardAreaTitle>전용면적</S.CardAreaTitle>
           <S.CardArea>
@@ -101,7 +101,7 @@ const ListList = ({ list }: PropsListJ) => {
               : list.MIN_LTTOT_TOP_AMOUNT + ' ~ ' + list.MAX_LTTOT_TOP_AMOUNT}
           </S.CardArea>
         </S.CardAreaBox>
-      </div>
+      </S.CardAreaContainer>
     </S.ListArticle>
   );
 };

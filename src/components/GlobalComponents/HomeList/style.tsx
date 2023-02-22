@@ -115,7 +115,7 @@ export const CardTitle = styled.p`
 
 // 청약일 박스
 export const CardDateBox = styled.div`
-  width: 180px;
+  width: 190px;
   height: 47px;
 
   display: flex;
@@ -159,6 +159,13 @@ export const NoDate = styled(CardDateTitle)`
 `;
 
 // 면적
+export const CardAreaContainer = styled.div`
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
+
 export const CardAreaBox = styled.div`
   width: 100%;
   display: flex;
