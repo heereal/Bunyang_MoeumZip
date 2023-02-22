@@ -13,13 +13,9 @@ const SearchInput = () => {
     setKeyword(e.target.value);
   };
 
-  console.log(keyword);
-
   const searchHandler = () => {
     if (keyword.trim().length <= 1) {
       customAlert('검색어는 2글자 이상 입력해주세요.');
-
-      setKeyword('');
     } else {
       setKeyword('');
       router.push(`/search/${keyword}`);

@@ -3,8 +3,6 @@ import NoResultImage from '../../../assets/NoResult.png';
 import * as S from './style';
 
 const NoResult = ({ keyword, text }: keywordPropsJ) => {
-  console.log(text);
-
   return (
     <>
       <Image
