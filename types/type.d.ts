@@ -107,3 +107,7 @@ interface CategoryBtnStyledProps {
   text: string;
   border: string;
 }
+
+interface SelectCategoryProps {
+  width: string;
+}
