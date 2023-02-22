@@ -27,7 +27,9 @@ const ListList = ({ list }: PropsListJ) => {
         </S.CardCategoryBox>
       </S.CardHeader>
 
-      <S.CardTitle>{list.HOUSE_NM}</S.CardTitle>
+      <S.CardTitleBox>
+        <S.CardTitle>{list.HOUSE_NM}</S.CardTitle>
+      </S.CardTitleBox>
       {/* 분류 띠 */}
       <S.Ribbon
         bg={
@@ -47,44 +49,48 @@ const ListList = ({ list }: PropsListJ) => {
         </S.RibbonText>
       </S.Ribbon>
 
-      <S.CardDateBox>
-        {list.SPSPLY_RCEPT_BGNDE ? (
-          <>
-            <S.CardDateTitle>특별 청약일</S.CardDateTitle>
-            <S.CardDate>
-              {list.SPSPLY_RCEPT_BGNDE.slice(5, 7).replace(/(^0)/, '')}월
-              {list.SPSPLY_RCEPT_BGNDE.slice(8, 10).replace(/(^0)/, '')}일 ~
-              {list.SPSPLY_RCEPT_ENDDE.slice(5, 7).replace(/(^0)/, '')}월
-              {list.SPSPLY_RCEPT_ENDDE.slice(8, 10).replace(/(^0)/, '')}일
-            </S.CardDate>
-          </>
-        ) : (
-          <S.NoDate>특별 청약일이 없습니다.</S.NoDate>
-        )}
-      </S.CardDateBox>
-      <S.CardDateBox>
-        <S.CardDateTitle>청약 접수일</S.CardDateTitle>
-        <S.CardDate>
-          {list.RCEPT_BGNDE.slice(5, 7).replace(/(^0)/, '')}월
-          {list.RCEPT_BGNDE.slice(8, 10).replace(/(^0)/, '')}일 ~
-          {list.RCEPT_ENDDE.slice(5, 7).replace(/(^0)/, '')}월
-          {list.RCEPT_ENDDE.slice(8, 10).replace(/(^0)/, '')}일
-        </S.CardDate>
-      </S.CardDateBox>
+      <div>
+        <S.CardDateBox>
+          {list.SPSPLY_RCEPT_BGNDE ? (
+            <>
+              <S.CardDateTitle>특별 청약일</S.CardDateTitle>
+              <S.CardDate>
+                {list.SPSPLY_RCEPT_BGNDE.slice(5, 7).replace(/(^0)/, '')}월
+                {list.SPSPLY_RCEPT_BGNDE.slice(8, 10).replace(/(^0)/, '')}일 ~
+                {list.SPSPLY_RCEPT_ENDDE.slice(5, 7).replace(/(^0)/, '')}월
+                {list.SPSPLY_RCEPT_ENDDE.slice(8, 10).replace(/(^0)/, '')}일
+              </S.CardDate>
+            </>
+          ) : (
+            <S.NoDate>특별 청약일이 없습니다.</S.NoDate>
+          )}
+        </S.CardDateBox>
+        <S.CardDateBox>
+          <S.CardDateTitle>청약 접수일</S.CardDateTitle>
+          <S.CardDate>
+            {list.RCEPT_BGNDE.slice(5, 7).replace(/(^0)/, '')}월
+            {list.RCEPT_BGNDE.slice(8, 10).replace(/(^0)/, '')}일 ~
+            {list.RCEPT_ENDDE.slice(5, 7).replace(/(^0)/, '')}월
+            {list.RCEPT_ENDDE.slice(8, 10).replace(/(^0)/, '')}일
+          </S.CardDate>
+        </S.CardDateBox>
+      </div>
 
-      <S.CardAreaBox>
-        <S.CardAreaTitle>전용면적</S.CardAreaTitle>
-        <S.CardArea>
-          {list.MIN_HOUSE_TY} ~{list.MAX_HOUSE_TY}
-        </S.CardArea>
-      </S.CardAreaBox>
-      <S.CardAreaBox>
-        <S.CardAreaTitle>분양가격</S.CardAreaTitle>
-        <S.CardArea>
-          {list.MIN_LTTOT_TOP_AMOUNT.replace('만원', '')} ~
-          {list.MAX_LTTOT_TOP_AMOUNT}
-        </S.CardArea>
-      </S.CardAreaBox>
+      <div>
+        <S.CardAreaBox>
+          <S.CardAreaTitle>전용면적</S.CardAreaTitle>
+          <S.CardArea>
+            {list.MIN_HOUSE_TY} ~{list.MAX_HOUSE_TY}
+          </S.CardArea>
+        </S.CardAreaBox>
+        <S.CardAreaBox>
+          <S.CardAreaTitle>분양가격</S.CardAreaTitle>
+          <S.CardArea>
+            {list.MIN_LTTOT_TOP_AMOUNT.replace('만원', '')} ~
+            {list.MAX_LTTOT_TOP_AMOUNT}
+          </S.CardArea>
+        </S.CardAreaBox>
+      </div>
     </S.ListArticle>
   );
 };

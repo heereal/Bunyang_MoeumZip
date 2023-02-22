@@ -76,7 +76,7 @@ const CategoryBar = () => {
                 >
                   <S.TabNameBox>
                     <S.TabName
-                      color={isRegionToggleOpen ? '#3d7fff' : '#bcc0cb'}
+                      color={isRegionToggleOpen ? '#3d7fff' : '#7B7B7B'}
                     >
                       {item.name}
                     </S.TabName>
@@ -104,7 +104,7 @@ const CategoryBar = () => {
                   onClick={openTypeToggleHandler}
                 >
                   <S.TabNameBox>
-                    <S.TabName color={isTypeToggleOpen ? '#3d7fff' : '#bcc0cb'}>
+                    <S.TabName color={isTypeToggleOpen ? '#3d7fff' : '#7B7B7B'}>
                       {item.name}
                     </S.TabName>
                     {isTypeToggleOpen ? (

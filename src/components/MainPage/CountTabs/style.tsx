@@ -24,7 +24,7 @@ export const CountSectionBack = styled.div`
 
 export const CountTabList = styled.ul`
   width: 50%;
-  height: 59px;
+  height: 70px;
 
   background: #ffffff;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -46,7 +46,7 @@ export const CountTabList = styled.ul`
   .baseTab {
     // 기본 Tab
     width: 30%;
-    height: 53px;
+    height: 65px;
 
     display: flex;
     flex-direction: column;

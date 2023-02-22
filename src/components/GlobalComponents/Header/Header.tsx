@@ -4,7 +4,6 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useRecoilState } from 'recoil';
-import candy from '../../../assets/candy.jpg';
 import LoginModal from '../LoginModal/LoginModal';
 import SearchInput from '../SearchInput/SearchInput';
 import * as S from './style';

@@ -5,6 +5,8 @@ import { doc, getDoc } from 'firebase/firestore';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import * as S from '../../styles/search.style';
+import Image from 'next/image';
+import NoResult from '../../assets/NoResult.png';
 
 const SearchResult = ({ homeList }: HomeListDBPropsJ) => {
   const router = useRouter();
@@ -25,19 +27,38 @@ const SearchResult = ({ homeList }: HomeListDBPropsJ) => {
 
   return (
     <S.ResultSection>
-      <S.TitleBox>
-        <S.ResultTitle>
-          <span>{keyword}</span>의 검색 결과는 총
-          <span>{resultsList.length}</span>건입니다.
-        </S.ResultTitle>
-      </S.TitleBox>
-      <S.ResultListArticle>
-        {resultsList.map((item: ItemJ) => (
-          // 검색 결과 리스트
-          <SearchResults key={item.PBLANC_NO} list={item} />
-        ))}
-        <TopBtn />
-      </S.ResultListArticle>
+      {resultsList.length === 0 ? (
+        <>
+          <Image
+            src={NoResult}
+            alt="NoResultImage"
+            width={100}
+            height={100}
+            quality={100}
+            priority={true}
+          />
+          <S.NoResultTitle>
+            '{keyword}' 검색 결과를 찾을 수 없습니다.
+          </S.NoResultTitle>
+          <S.NoResultText>다른 키워드로 검색해주세요.</S.NoResultText>
+        </>
+      ) : (
+        <>
+          <S.TitleBox>
+            <S.ResultTitle>
+              <span>{keyword}</span>의 검색 결과는 총
+              <span>{resultsList.length}</span>건입니다.
+            </S.ResultTitle>
+          </S.TitleBox>
+          <S.ResultListArticle>
+            {resultsList.map((item: ItemJ) => (
+              // 검색 결과 리스트
+              <SearchResults key={item.PBLANC_NO} list={item} />
+            ))}
+            <TopBtn />
+          </S.ResultListArticle>
+        </>
+      )}
     </S.ResultSection>
   );
 };

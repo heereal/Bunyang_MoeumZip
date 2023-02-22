@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 export const ListArticle = styled.article`
-  width: 200px;
-  height: 231px;
+  width: 210px;
+  height: 241px;
 
   border-radius: 20px;
   background: #ffffff;
@@ -39,6 +39,7 @@ export const CardCategoryBox = styled.div`
   justify-content: flex-start;
   align-items: center;
   gap: 3px;
+  margin-bottom: 5px;
 `;
 
 export const CardCategory = styled.div`
@@ -92,18 +93,21 @@ export const RibbonText = styled.p`
 `;
 
 // 분양 주택명
-export const CardTitle = styled.p`
-  height: 19px;
-
+export const CardTitleBox = styled.div`
+  width: 100%;
   display: flex;
   justify-content: flex-start;
+`;
+
+export const CardTitle = styled.p`
+  height: 19px;
 
   font-style: normal;
   font-weight: 700;
   font-size: 16px;
   line-height: 19px;
-  margin-top: 5px;
-  margin-bottom: 6px;
+  margin-top: 8px;
+  margin-bottom: 3px;
 
   color: #000000;
 `;
@@ -122,7 +126,7 @@ export const CardDateBox = styled.div`
   background: #f9fafb;
   border-radius: 10px;
 
-  margin: 6px 0;
+  margin: 3px 0;
 `;
 
 export const CardDateTitle = styled.p`
@@ -160,7 +164,7 @@ export const CardAreaBox = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin: 6px 0;
+  margin-top: 8px;
 `;
 
 export const CardAreaTitle = styled(CardDateTitle)``;
