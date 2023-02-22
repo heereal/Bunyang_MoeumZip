@@ -1,10 +1,8 @@
 import { deleteComment, editComment } from '@/common/api';
-import { getDate } from '@/common/utils';
-import AlertUI from '@/components/GlobalComponents/AlertUI/AlertUI';
+import { customAlert, getDate } from '@/common/utils';
 import { arrayRemove, arrayUnion } from 'firebase/firestore';
 import Image from 'next/image';
 import { KeyboardEvent, useState } from 'react';
-import { confirmAlert } from 'react-confirm-alert';
 import { useMutation } from 'react-query';
 import * as S from './style';
 
@@ -39,13 +37,8 @@ const EditComment = ({
 
   const editCommentHandler = async (index: number | undefined) => {
     if (editInput === '') {
-      confirmAlert({
-        customUI: ({ onClose }) => {
-          return (
-            <AlertUI alertText="1글자 이상 입력해주세요." onClose={onClose} />
-          );
-        },
-      });
+      customAlert('1글자 이상 입력해주세요.');
+
       return;
     }
     if (

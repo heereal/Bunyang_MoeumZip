@@ -9,6 +9,7 @@ import { db } from '@/common/firebase';
 import { doc, updateDoc } from 'firebase/firestore';
 import { useRecoilValue } from 'recoil';
 import { myRegionArrayState, myTypeArrayState } from '@/store/selectors';
+import { customAlert } from '@/common/utils';
 
 const MyTabs = ({ currentUser }: any) => {
   const [currentTab, setCurrentTab] = useState(1);
@@ -16,7 +17,6 @@ const MyTabs = ({ currentUser }: any) => {
 
   const myRegionArray = useRecoilValue(myRegionArrayState);
   const myTypeArray = useRecoilValue(myTypeArrayState);
-
 
   // 전체 분양 정보 리스트에서 내가 북마크한 정보만 필터링하기
   const myBookmarkList = homeList?.allHomeData?.filter(
@@ -31,7 +31,7 @@ const MyTabs = ({ currentUser }: any) => {
     };
 
     await updateDoc(doc(db, 'Users', currentUser.userEmail), updateUser);
-    alert('관심 카테고리 설정이 업데이트되었습니다.');
+    customAlert('관심 카테고리 설정이 업데이트되었습니다.');
   };
 
   return (
@@ -73,7 +73,11 @@ const MyTabs = ({ currentUser }: any) => {
         {currentTab === 2 && (
           <>
             <SelectMyRegion width={'80%'} />
-            <button onClick={() => updateCategoryHandler("regions", myRegionArray)}>변경사항 저장</button>
+            <button
+              onClick={() => updateCategoryHandler('regions', myRegionArray)}
+            >
+              변경사항 저장
+            </button>
           </>
         )}
 
@@ -81,7 +85,9 @@ const MyTabs = ({ currentUser }: any) => {
         {currentTab === 3 && (
           <>
             <SelectMyTypes width={'80%'} />
-            <button onClick={() => updateCategoryHandler("types", myTypeArray)}>변경사항 저장</button>
+            <button onClick={() => updateCategoryHandler('types', myTypeArray)}>
+              변경사항 저장
+            </button>
           </>
         )}
       </S.TabContentContainer>

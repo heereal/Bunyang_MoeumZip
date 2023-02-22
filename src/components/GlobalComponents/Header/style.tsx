@@ -10,7 +10,7 @@ export const Header = styled.header`
   align-items: center;
   position: sticky;
   top: 0;
-  z-index: 1000;
+  z-index: 10;
   box-sizing: border-box;
 
   position: relative;

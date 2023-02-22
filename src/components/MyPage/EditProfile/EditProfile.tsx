@@ -1,13 +1,12 @@
+import { db, storage } from '@/common/firebase';
+import { customAlert } from '@/common/utils';
+import { uuidv4 } from '@firebase/util';
+import { doc, updateDoc } from 'firebase/firestore';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
-import { db, storage } from '@/common/firebase';
-import { doc, updateDoc } from 'firebase/firestore';
-import { confirmAlert } from 'react-confirm-alert';
-import AlertUI from '@/components/GlobalComponents/AlertUI/AlertUI';
-import Image from 'next/image';
 import transparentProfile from '../../../assets/transparentProfile.png';
-import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
-import { uuidv4 } from '@firebase/util';
 import * as S from './style';
 
 const EditProfile = ({ users, currentUser }: any) => {
@@ -28,16 +27,7 @@ const EditProfile = ({ users, currentUser }: any) => {
       (user: userProps) => user.userName === editNickname,
     );
     if (checkNickname) {
-      confirmAlert({
-        customUI: ({ onClose }) => {
-          return (
-            <AlertUI
-              alertText="이미 존재하는 닉네임입니다. 다시 입력해주세요."
-              onClose={onClose}
-            />
-          );
-        },
-      });
+      customAlert('이미 존재하는 닉네임입니다. 다시 입력해주세요.');
 
       return;
     }
@@ -47,11 +37,7 @@ const EditProfile = ({ users, currentUser }: any) => {
     //FIXME: THEN 없애도됨
     await updateDoc(doc(db, 'Users', email), updateUser).then(() => {
       setNickname(editNickname);
-      confirmAlert({
-        customUI: ({ onClose }) => {
-          return <AlertUI alertText="닉네임 수정 완료!" onClose={onClose} />;
-        },
-      });
+      customAlert('닉네임 수정 완료!');
     });
   };
 
@@ -90,16 +76,7 @@ const EditProfile = ({ users, currentUser }: any) => {
       userImage: downloadUrl,
     };
     await updateDoc(doc(db, 'Users', email), updateUser).then(() =>
-      confirmAlert({
-        customUI: ({ onClose }) => {
-          return (
-            <AlertUI
-              alertText="프로필 이미지 업로드가 완료되었습니다."
-              onClose={onClose}
-            />
-          );
-        },
-      }),
+      customAlert('프로필 이미지 업로드가 완료되었습니다.'),
     );
   };
 
