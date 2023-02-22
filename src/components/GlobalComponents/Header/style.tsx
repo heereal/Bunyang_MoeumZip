@@ -12,6 +12,8 @@ export const Header = styled.header`
   top: 0;
   z-index: 1000;
   box-sizing: border-box;
+
+  position: relative;
 `;
 
 export const HSection = styled.div`
@@ -43,7 +45,11 @@ export const Logo = styled.div`
 
 // Search Section
 export const SearchBox = styled.div`
-  width: 50%;
+  position: absolute;
+  width: 310px;
+  height: 28px;
+  left: 445px;
+  top: 10px;
 `;
 
 // Nav bar
