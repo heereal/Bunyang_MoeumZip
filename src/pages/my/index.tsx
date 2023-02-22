@@ -1,20 +1,21 @@
-import { getHomeList, getUsersList } from '@/common/api';
+import { getUsersList } from '@/common/api';
 import EditProfile from '@/components/MyPage/EditProfile/EditProfile';
 import MyTabs from '@/components/MyPage/MyTabs/MyTabs';
+import { currentUserState } from '@/store/selectors';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import { useQuery, useQueryClient } from 'react-query';
-import * as S from "../../styles/my.style"
+import { useEffect } from 'react';
+import { useQuery } from 'react-query';
+import { useRecoilState } from 'recoil';
+import * as S from '../../styles/my.style';
 
 const MyPage = () => {
   const router = useRouter();
 
-  const [currentUser, setCurrentUser] = useState<any>('');
+  const [currentUser, setCurrentUser] = useRecoilState(currentUserState);
 
   // 유저의 세션 정보 받아오기
   const { data: session, status } = useSession();
-  console.log(session);
 
   // Users 데이터 불러오기
   const { data: users, isLoading }: any = useQuery('users', getUsersList, {

@@ -5,16 +5,34 @@ import * as S from './style';
 import SelectMyRegion from '@/components/GlobalComponents/SelectMyRegion/SelectMyRegion';
 import SelectMyTypes from '@/components/GlobalComponents/SelectMyTypes/SelectMyTypes';
 import HomeList from '@/components/GlobalComponents/HomeList/HomeList';
+import { db } from '@/common/firebase';
+import { doc, updateDoc } from 'firebase/firestore';
+import { useRecoilValue } from 'recoil';
+import { myRegionArrayState, myTypeArrayState } from '@/store/selectors';
 
 const MyTabs = ({ currentUser }: any) => {
   const [currentTab, setCurrentTab] = useState(1);
   const { data: homeList } = useQuery('HomeList', getHomeList);
+
+  const myRegionArray = useRecoilValue(myRegionArrayState);
+  const myTypeArray = useRecoilValue(myTypeArrayState);
+
 
   // 전체 분양 정보 리스트에서 내가 북마크한 정보만 필터링하기
   const myBookmarkList = homeList?.allHomeData?.filter(
     (item: ItemJ) =>
       item.PBLANC_NO && currentUser?.bookmarkList?.includes(item.PBLANC_NO),
   );
+
+  // [변경사항 저장] 버튼 클릭 시 작동
+  const updateCategoryHandler = async (category: string, array: any) => {
+    const updateUser = {
+      [category]: array,
+    };
+
+    await updateDoc(doc(db, 'Users', currentUser.userEmail), updateUser);
+    alert('관심 카테고리 설정이 업데이트되었습니다.');
+  };
 
   return (
     <S.Wrapper>
@@ -52,10 +70,20 @@ const MyTabs = ({ currentUser }: any) => {
           </S.BookmarkListContainer>
         )}
         {/* 관심 지역 */}
-        {currentTab === 2 && <SelectMyRegion />}
+        {currentTab === 2 && (
+          <>
+            <SelectMyRegion width={'80%'} />
+            <button onClick={() => updateCategoryHandler("regions", myRegionArray)}>변경사항 저장</button>
+          </>
+        )}
 
         {/* 관심 분양 형태 */}
-        {currentTab === 3 && <SelectMyTypes />}
+        {currentTab === 3 && (
+          <>
+            <SelectMyTypes width={'80%'} />
+            <button onClick={() => updateCategoryHandler("types", myTypeArray)}>변경사항 저장</button>
+          </>
+        )}
       </S.TabContentContainer>
       {/* <S.Line /> */}
       {/* <h2>나의 북마크 목록</h2> */}
