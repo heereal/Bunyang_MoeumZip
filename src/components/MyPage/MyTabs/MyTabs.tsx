@@ -73,11 +73,12 @@ const MyTabs = ({ currentUser }: any) => {
         {currentTab === 2 && (
           <>
             <SelectMyRegion width={'80%'} />
-            <button
+            <S.SubmitBtn
+              disabled={myRegionArray === currentUser.regions}
               onClick={() => updateCategoryHandler('regions', myRegionArray)}
             >
               변경사항 저장
-            </button>
+            </S.SubmitBtn>
           </>
         )}
 
@@ -85,23 +86,15 @@ const MyTabs = ({ currentUser }: any) => {
         {currentTab === 3 && (
           <>
             <SelectMyTypes width={'80%'} />
-            <button onClick={() => updateCategoryHandler('types', myTypeArray)}>
+            <S.SubmitBtn
+              disabled={myTypeArray === currentUser.types}
+              onClick={() => updateCategoryHandler('types', myTypeArray)}
+            >
               변경사항 저장
-            </button>
+            </S.SubmitBtn>
           </>
         )}
       </S.TabContentContainer>
-      {/* <S.Line /> */}
-      {/* <h2>나의 북마크 목록</h2> */}
-      {/* <div style={{ display: 'flex', flexDirection: 'column' }}>
-        {myBookmarkList?.map((item: any, index: number) => {
-          return (
-            <div key={item.PBLANC_NO}>
-              북마크{index + 1}번: {item.HOUSE_NM}
-            </div>
-          );
-        })}
-      </div> */}
     </S.Wrapper>
   );
 };

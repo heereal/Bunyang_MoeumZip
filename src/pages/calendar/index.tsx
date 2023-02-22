@@ -1,4 +1,5 @@
 import { db } from '@/common/firebase';
+import HeadTitle from '@/components/GlobalComponents/HeadTitle/HeadTitle';
 import { pathState } from '@/store/selectors';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
@@ -20,6 +21,7 @@ const Calender = ({ homeList }: any) => {
     }, 500);
   };
 
+  // 캘린더에 이벤트를 보여주기 위해 기존 분양 데이터를 재가공함
   const array: any = [];
   homeList.allHomeData.map((item: any) =>
     array.push({
@@ -31,6 +33,8 @@ const Calender = ({ homeList }: any) => {
 
   return (
     <S.CalendarContainer>
+      <HeadTitle title="청약캘린더" />
+
       <FullCalendar
         plugins={[dayGridPlugin, interactionPlugin]}
         headerToolbar={{
@@ -40,11 +44,10 @@ const Calender = ({ homeList }: any) => {
         }}
         initialView="dayGridMonth"
         nowIndicator={true}
-        // editable={true} // 이 속성 없으면 cursor: pointer가 안 됨 ㅠㅠ
         selectable={true}
         locale={'ko'} // 한글 표기
-        // aspectRatio={2} // 종횡비-너비가 높이의 두 배
-        // height={"90%"}
+        // aspectRatio={1} // 종횡비-너비가 높이의 두 배
+        // height={"800"}
         events={array}
         // eventDisplay={'list-item'}
         eventColor="#6096B4"

@@ -28,7 +28,7 @@ const LoginModal = ({ setIsOpen }: loginModalProps) => {
           />
         </S.CloseBtnContainer>
         <S.LogoContainer />
-        <S.BunyangMoaTitle>분양모아</S.BunyangMoaTitle>
+        <S.BunyangMoaTitle>분양모음집</S.BunyangMoaTitle>
         <S.SocialLoginBtnContainer>
           <S.SocilaLoginBtn
             bg={'#fee500'}

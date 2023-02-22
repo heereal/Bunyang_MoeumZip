@@ -1,5 +1,6 @@
 import { db } from '@/common/firebase';
 import NoResult from '@/components/GlobalComponents/NoResult/NoResult';
+import HeadTitle from '@/components/GlobalComponents/HeadTitle/HeadTitle';
 import TopBtn from '@/components/GlobalComponents/TopBtn/TopBtn';
 import SearchResults from '@/components/SearchPage/SearchResults';
 import { doc, getDoc } from 'firebase/firestore';
@@ -26,6 +27,7 @@ const SearchResult = ({ homeList }: HomeListDBPropsJ) => {
 
   return (
     <S.ResultSection>
+      <HeadTitle title="검색" />
       {resultsList.length === 0 ? (
         <NoResult keyword={keyword} text="다른 키워드로 검색해주세요." />
       ) : (

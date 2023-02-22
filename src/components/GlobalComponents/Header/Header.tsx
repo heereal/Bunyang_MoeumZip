@@ -3,6 +3,7 @@ import { signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import { confirmAlert } from 'react-confirm-alert';
 import { useRecoilState } from 'recoil';
 import LoginModal from '../LoginModal/LoginModal';
 import SearchInput from '../SearchInput/SearchInput';
@@ -16,6 +17,24 @@ const Header = () => {
   const pathHandler = () => {
     router.push('/');
     setPath('/');
+  };
+
+  // [로그아웃] 버튼 클릭 시 작동
+  const LogOutHandler = () => {
+    confirmAlert({
+      message: '로그아웃하시겠습니까?',
+      buttons: [
+        {
+          label: '확인',
+          onClick: () => signOut(),
+        },
+
+        {
+          label: '취소',
+          onClick: () => onclose,
+        },
+      ],
+    });
   };
 
   // user 로그인 여부에 따라 header Nav 변경
@@ -72,7 +91,7 @@ const Header = () => {
               >
                 마이페이지
               </S.NavContent>
-              <S.NavContent onClick={() => signOut()}>로그아웃</S.NavContent>
+              <S.NavContent onClick={LogOutHandler}>로그아웃</S.NavContent>
             </>
           ) : (
             <S.NavContent onClick={() => setIsOpen(true)}>로그인</S.NavContent>
