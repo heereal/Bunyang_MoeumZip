@@ -19,6 +19,13 @@ const Header = () => {
     setPath('/');
   };
 
+  // [로그아웃] 버튼 클릭 시 작동
+  const LogOutHandler = () => {
+    if (window.confirm('정말 로그아웃하시겠습니까?')) {
+      signOut();
+    }
+  };
+
   // user 로그인 여부에 따라 header Nav 변경
   const { data: session } = useSession();
 
@@ -73,7 +80,7 @@ const Header = () => {
               >
                 마이페이지
               </S.NavContent>
-              <S.NavContent onClick={() => signOut()}>로그아웃</S.NavContent>
+              <S.NavContent onClick={LogOutHandler}>로그아웃</S.NavContent>
             </>
           ) : (
             <S.NavContent onClick={() => setIsOpen(true)}>로그인</S.NavContent>
