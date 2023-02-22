@@ -17,7 +17,7 @@ export const TabContainer = styled.div`
 export const TabBtn = styled.div<{ font: string; line: string }>`
   font-weight: 700;
   font-size: 15px;
-  padding: 15px;
+  padding: 15px 35px;
   border-bottom: 5px solid ${(props) => props.line};
   color: ${(props) => props.font};
   cursor: pointer;

@@ -28,3 +28,9 @@ export const currentUserState = atom<any>({
   key: 'currentUser',
   default: {}
 })
+
+// 전체 유저 리스트
+export const usersListState = atom<any>({
+  key: 'usersList',
+  default: []
+})

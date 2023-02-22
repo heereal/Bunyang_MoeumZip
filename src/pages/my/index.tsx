@@ -1,7 +1,7 @@
 import { getUsersList } from '@/common/api';
 import EditProfile from '@/components/MyPage/EditProfile/EditProfile';
 import MyTabs from '@/components/MyPage/MyTabs/MyTabs';
-import { currentUserState } from '@/store/selectors';
+import { currentUserState, usersListState } from '@/store/selectors';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
@@ -13,17 +13,19 @@ const MyPage = () => {
   const router = useRouter();
 
   const [currentUser, setCurrentUser] = useRecoilState(currentUserState);
+  const [users, setUsers] = useRecoilState(usersListState);
 
   // 유저의 세션 정보 받아오기
   const { data: session, status } = useSession();
 
   // Users 데이터 불러오기
-  const { data: users, isLoading }: any = useQuery('users', getUsersList, {
+  const { data: usersData, isLoading }: any = useQuery('users', getUsersList, {
     enabled: !!session, // session이 true인 경우에만 useQuery를 실행함
     // users를 불러오는 데 성공하면 현재 로그인한 유저의 정보를 찾아서 setCurrentUser에 담음
-    onSuccess: (users) => {
+    onSuccess: (usersData) => {
+      setUsers(usersData);
       setCurrentUser(
-        users.find(
+        usersData.find(
           (user: userProps) => user.userEmail === session?.user?.email,
         ),
       );
