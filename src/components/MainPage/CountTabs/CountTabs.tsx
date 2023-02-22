@@ -190,7 +190,16 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
       <CategoryBar />
       {/* 분양 정보가 없을 때 보여줄 문구 */}
       {tabList[currentTab].content.length === 0 ? (
-        <div style={{ marginTop: '12%', textAlign: 'center' }}>
+        <div
+          style={{
+            paddingTop: '12%',
+            textAlign: 'center',
+            overflowY: 'scroll',
+            height: '88%',
+            width: '100%',
+            backgroundColor: '#f7f7f7',
+          }}
+        >
           <NoResult text="다른 지역 및 분양 형태를 찾아보세요." />
         </div>
       ) : (

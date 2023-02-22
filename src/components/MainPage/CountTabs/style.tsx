@@ -40,13 +40,13 @@ export const CountTabList = styled.ul`
   justify-content: center;
   align-items: center;
   padding: 12px 35px;
-  gap: 30px;
+  gap: 10px;
 
   /* CountTab */
   .baseTab {
     // 기본 Tab
     width: 30%;
-    height: 65px;
+    height: 70px;
 
     display: flex;
     flex-direction: column;
@@ -57,10 +57,14 @@ export const CountTabList = styled.ul`
     font-size: 12px;
     transition: 0.5s;
     border-radius: 10px;
+    border-left: 5px solid white;
+    border-right: 5px solid white;
 
     cursor: pointer;
 
     :hover {
+      border-left: 5px solid #f1f6ff;
+      border-right: 5px solid #f1f6ff;
       background-color: #f1f6ff;
       color: #3d7fff;
     }
@@ -68,6 +72,8 @@ export const CountTabList = styled.ul`
 
   .focused {
     //선택된 Tab
+    border-left: 5px solid #f1f6ff;
+    border-right: 5px solid #f1f6ff;
     background-color: #f1f6ff;
     color: #3d7fff;
   }
