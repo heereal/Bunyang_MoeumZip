@@ -9,9 +9,10 @@ import { uuidv4 } from '@firebase/util';
 import { doc, updateDoc } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { MdClose } from 'react-icons/md';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { BsCameraFill } from 'react-icons/bs';
 import * as S from './style';
 
 const EditProfileModal = ({ setIsModalOpen }: any) => {
@@ -19,7 +20,8 @@ const EditProfileModal = ({ setIsModalOpen }: any) => {
   const currentUser = useRecoilValue(currentUserState);
 
   const setNickname = useSetRecoilState(nicknameState);
-  const [editNickname, setEditNickname] = useState<any>(currentUser.userName);
+  const nickname = useRecoilValue(nicknameState);
+  const [editNickname, setEditNickname] = useState<any>(nickname);
   const [profileImg, setProfileImg] = useRecoilState(profileImgState);
   const [editProfileImg, setEditProfileImg] = useState(profileImg);
 
@@ -85,6 +87,8 @@ const EditProfileModal = ({ setIsModalOpen }: any) => {
     }
   };
 
+  useEffect(() => {}, []);
+
   return (
     <S.ModalBackground>
       <S.ModalContainer>
@@ -97,30 +101,42 @@ const EditProfileModal = ({ setIsModalOpen }: any) => {
         </S.CloseBtnContainer>
 
         <S.EditProfileContainer>
-          <Image
-            src={editProfileImg}
-            alt="profile"
-            width={180}
-            height={180}
-            quality={75}
-            style={{
-              borderRadius: '50%',
-              objectFit: 'cover',
-              cursor: 'pointer',
-            }}
-            priority={true}
-          />
-          <input
-            type="file"
-            accept="images/*"
-            onChange={(e) => onImageChange(e)}
-          />
+          <S.Title>프로필 수정</S.Title>
+          <S.EditProfileImgLabel>
+            <Image
+              src={editProfileImg}
+              alt="profile"
+              width={170}
+              height={170}
+              quality={75}
+              style={{
+                borderRadius: '50%',
+                objectFit: 'cover',
+                cursor: 'pointer',
+              }}
+              priority={true}
+            />
+            <input
+              type="file"
+              accept="images/*"
+              onChange={(e) => onImageChange(e)}
+              style={{ display: 'none' }}
+            />
+            <S.CameraIcon>
+              <BsCameraFill color="gray" size="23" style={{marginBottom: 2}} />
+            </S.CameraIcon>
+          </S.EditProfileImgLabel>
           <S.NicknameInput
             value={editNickname}
             onChange={(e) => setEditNickname(e.target.value)}
             autoFocus
           />
-          <S.ProfileBtn onClick={editProfileHandler}>수정 완료</S.ProfileBtn>
+          <S.ProfileBtn
+            onClick={editProfileHandler}
+            disabled={editNickname === currentUser.userName && !imageUpload}
+          >
+            수정 완료
+          </S.ProfileBtn>
         </S.EditProfileContainer>
       </S.ModalContainer>
     </S.ModalBackground>
