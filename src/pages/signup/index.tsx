@@ -34,15 +34,23 @@ const SignUp = () => {
 
   // [닉네임 중복 확인] 버튼 클릭 시 작동
   const checkNicknameHandler = () => {
-    const checkNickname = users.find(
-      (user: userProps) => user.userName === nickname,
-    );
     //닉네임을 입력하지 않았을 때
     if (!nickname) {
       customAlert('닉네임을 입력해주세요.');
       setIsValidNickname(false);
       return;
     }
+
+    if (nickname.length >= 9) {
+      customAlert('닉네임은 8자 이하로 입력해주세요.');
+      setIsValidNickname(false);
+      return;
+    }
+
+    const checkNickname = users.find(
+      (user: userProps) => user.userName === nickname,
+    );
+
     if (!checkNickname) {
       customAlert('사용 가능한 닉네임입니다.');
       setIsValidNickname(true);

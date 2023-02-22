@@ -33,7 +33,7 @@ const MyTabs = () => {
   );
 
   // [변경사항 저장] 버튼 클릭 시 작동
-  const updateCategoryHandler = async (category: string, array: any, setState: any) => {
+  const updateCategoryHandler = async (category: string, array: any) => {
     const updateUser = {
       [category]: array,
     };
