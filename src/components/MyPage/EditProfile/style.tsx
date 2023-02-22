@@ -11,7 +11,7 @@ export const Wrapper = styled.div`
 export const EditProfileContainer = styled.div`
   width: 100%;
   height: 100%;
-  padding: 30px 20px;
+  padding: 50px 20px;
   border-radius: 20px;
   border: 1px solid lightgray;
   background-color: white;
@@ -60,23 +60,4 @@ export const Line = styled.div`
   background-color: #f4f4f4;
   width: 100%;
   margin-top: 20px;
-`;
-
-export const WithdrawUserBtnContainer = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  height: 35px;
-`;
-
-export const WithdrawUserBtn = styled.div`
-  color: #7b7b7b;
-  font-size: 12px;
-  cursor: pointer;
-  position: absolute;
-  left: 25px;
-  margin-top: 25px;
-
-  :hover {
-    text-decoration: underline;
-  }
 `;

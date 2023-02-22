@@ -28,12 +28,9 @@ const EditProfile = ({ currentUser }: any) => {
         <S.Nickname>{nickname}</S.Nickname>
         <S.Email>{currentUser.userEmail}</S.Email>
         <S.ProfileBtn onClick={() => setIsModalOpen(true)}>
-          회원정보 수정
+          프로필 수정
         </S.ProfileBtn>
-        <S.Line />
-        <S.WithdrawUserBtnContainer>
-          <S.WithdrawUserBtn>회원탈퇴</S.WithdrawUserBtn>
-        </S.WithdrawUserBtnContainer>
+        {/* <S.Line /> */}
       </S.EditProfileContainer>
     </S.Wrapper>
   );

@@ -14,7 +14,7 @@ export const ModalBackground = styled.div`
 `;
 
 export const ModalContainer = styled.div`
-  height: 450px;
+  height: 460px;
   width: 400px;
   background-color: white;
   padding: 20px;
@@ -100,5 +100,25 @@ export const ProfileBtn = styled.button`
 
   :disabled {
     cursor: default;
+  }
+`;
+
+export const WithdrawUserBtnContainer = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  height: 35px;
+`;
+
+export const WithdrawUserBtn = styled.div`
+  color: #7b7b7b;
+  font-size: 12px;
+  cursor: pointer;
+  position: absolute;
+  right: 25px;
+  margin-top: 30px;
+  text-decoration: underline;
+  text-underline-position: under;
+
+  :hover {
   }
 `;

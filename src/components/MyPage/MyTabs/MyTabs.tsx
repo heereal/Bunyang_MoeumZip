@@ -72,11 +72,11 @@ const MyTabs = ({ currentUser }: any) => {
         {currentTab === 2 && (
           <>
             <SelectMyRegion width={'80%'} />
-            <button
+            <S.SubmitBtn
               onClick={() => updateCategoryHandler('regions', myRegionArray)}
             >
               변경사항 저장
-            </button>
+            </S.SubmitBtn>
           </>
         )}
 
@@ -84,9 +84,9 @@ const MyTabs = ({ currentUser }: any) => {
         {currentTab === 3 && (
           <>
             <SelectMyTypes width={'80%'} />
-            <button onClick={() => updateCategoryHandler('types', myTypeArray)}>
+            <S.SubmitBtn onClick={() => updateCategoryHandler('types', myTypeArray)}>
               변경사항 저장
-            </button>
+            </S.SubmitBtn>
           </>
         )}
       </S.TabContentContainer>

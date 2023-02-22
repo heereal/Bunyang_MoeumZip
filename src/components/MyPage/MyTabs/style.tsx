@@ -32,6 +32,7 @@ export const Line = styled.div`
 
 export const TabContentContainer = styled.div`
   padding: 28px 0;
+  position: relative;
 `;
 
 export const BookmarkListContainer = styled.div`
@@ -48,4 +49,20 @@ export const BookmarkInfoContainer = styled.div`
   border-radius: 20px;
   padding: 20px;
   margin-right: 10px;
+`;
+
+export const SubmitBtn = styled.div`
+  width: 220px;
+  height: 43px;
+  font-weight: 700;
+  font-size: 15px;
+  background: #3d7fff;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  cursor: pointer;
+  position: absolute;
+  bottom: 10px;
 `;

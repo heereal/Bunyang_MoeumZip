@@ -123,7 +123,11 @@ const EditProfileModal = ({ setIsModalOpen }: any) => {
               style={{ display: 'none' }}
             />
             <S.CameraIcon>
-              <BsCameraFill color="gray" size="23" style={{marginBottom: 2}} />
+              <BsCameraFill
+                color="gray"
+                size="23"
+                style={{ marginBottom: 2 }}
+              />
             </S.CameraIcon>
           </S.EditProfileImgLabel>
           <S.NicknameInput
@@ -137,6 +141,9 @@ const EditProfileModal = ({ setIsModalOpen }: any) => {
           >
             수정 완료
           </S.ProfileBtn>
+          <S.WithdrawUserBtnContainer>
+            <S.WithdrawUserBtn>회원탈퇴</S.WithdrawUserBtn>
+          </S.WithdrawUserBtnContainer>
         </S.EditProfileContainer>
       </S.ModalContainer>
     </S.ModalBackground>
