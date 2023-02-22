@@ -17,7 +17,6 @@ const MyTabs = ({ currentUser }: any) => {
   const myRegionArray = useRecoilValue(myRegionArrayState);
   const myTypeArray = useRecoilValue(myTypeArrayState);
 
-
   // 전체 분양 정보 리스트에서 내가 북마크한 정보만 필터링하기
   const myBookmarkList = homeList?.allHomeData?.filter(
     (item: ItemJ) =>
@@ -73,7 +72,11 @@ const MyTabs = ({ currentUser }: any) => {
         {currentTab === 2 && (
           <>
             <SelectMyRegion width={'80%'} />
-            <button onClick={() => updateCategoryHandler("regions", myRegionArray)}>변경사항 저장</button>
+            <button
+              onClick={() => updateCategoryHandler('regions', myRegionArray)}
+            >
+              변경사항 저장
+            </button>
           </>
         )}
 
@@ -81,21 +84,12 @@ const MyTabs = ({ currentUser }: any) => {
         {currentTab === 3 && (
           <>
             <SelectMyTypes width={'80%'} />
-            <button onClick={() => updateCategoryHandler("types", myTypeArray)}>변경사항 저장</button>
+            <button onClick={() => updateCategoryHandler('types', myTypeArray)}>
+              변경사항 저장
+            </button>
           </>
         )}
       </S.TabContentContainer>
-      {/* <S.Line /> */}
-      {/* <h2>나의 북마크 목록</h2> */}
-      {/* <div style={{ display: 'flex', flexDirection: 'column' }}>
-        {myBookmarkList?.map((item: any, index: number) => {
-          return (
-            <div key={item.PBLANC_NO}>
-              북마크{index + 1}번: {item.HOUSE_NM}
-            </div>
-          );
-        })}
-      </div> */}
     </S.Wrapper>
   );
 };

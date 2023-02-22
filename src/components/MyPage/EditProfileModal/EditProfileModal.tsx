@@ -1,34 +1,33 @@
-import { MdClose } from 'react-icons/md';
-import { useEffect, useState } from 'react';
 import { db, storage } from '@/common/firebase';
-import { doc, updateDoc } from 'firebase/firestore';
-import { confirmAlert } from 'react-confirm-alert';
-import AlertUI from '@/components/GlobalComponents/AlertUI/AlertUI';
-import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
-import transparentProfile from '../../../assets/transparentProfile.png';
+import {
+  currentUserState,
+  nicknameState,
+  profileImgState,
+  usersListState,
+} from '@/store/selectors';
 import { uuidv4 } from '@firebase/util';
-import * as S from './style';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { currentUserState, usersListState } from '@/store/selectors';
+import { doc, updateDoc } from 'firebase/firestore';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import Image from 'next/image';
-import { useMutation, useQueryClient } from 'react-query';
+import { useState } from 'react';
+import { MdClose } from 'react-icons/md';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import * as S from './style';
 
 const EditProfileModal = ({ setIsModalOpen }: any) => {
-  const queryClient = useQueryClient();
+  // 현재 로그인한 유저의 firestore 유저 정보
+  const currentUser = useRecoilValue(currentUserState);
 
-  const [editNickname, setEditNickname] = useState<any>('');
-  const [nickname, setNickname] = useState<any>('');
-  //   const [email, setEmail] = useState<any>('');
-  const [profileImg, setProfileImg] = useState('');
+  const setNickname = useSetRecoilState(nicknameState);
+  const [editNickname, setEditNickname] = useState<any>(currentUser.userName);
+  const [profileImg, setProfileImg] = useRecoilState(profileImgState);
+  const [editProfileImg, setEditProfileImg] = useState(profileImg);
 
   // 파일 업로드 시 업로드한 파일을 담아둘 state
   const [imageUpload, setImageUpload] = useState<any>('');
 
   // 전체 유저의 firestore 정보
   const users = useRecoilValue(usersListState);
-
-  // 현재 로그인한 유저의 firestore 유저 정보
-  const [currentUser, setCurrentUser] = useRecoilState(currentUserState);
 
   //TODO: 이미지 업로드 시 용량 줄여서 올리기
   // [수정 완료] 버튼 클릭 시 작동
@@ -59,8 +58,6 @@ const EditProfileModal = ({ setIsModalOpen }: any) => {
     // 업로드한 이미지의 url 가져오기
     const downloadUrl = await getDownloadURL(response.ref);
 
-    console.log(downloadUrl);
-
     const updateUser = {
       userName: editNickname,
       userImage: imageUpload ? downloadUrl : currentUser.userImage,
@@ -69,6 +66,7 @@ const EditProfileModal = ({ setIsModalOpen }: any) => {
     await updateDoc(doc(db, 'Users', currentUser.userEmail), updateUser);
     setIsModalOpen(false);
     setNickname(editNickname);
+    if (imageUpload) setProfileImg(downloadUrl);
     alert('회원정보 수정 완료');
   };
 
@@ -81,34 +79,11 @@ const EditProfileModal = ({ setIsModalOpen }: any) => {
       reader.readAsDataURL(file);
       reader.onloadend = () => {
         if (typeof reader.result === 'string') {
-          setProfileImg(reader.result);
+          setEditProfileImg(reader.result);
         }
       };
     }
   };
-
-//   const editProfileMutation = useMutation('users', editProfileHandler, {
-//     onSuccess: () => {
-//       queryClient.invalidateQueries('users');
-//     //   setCurrentUser(
-//     //     usersData.find(
-//     //       (user: userProps) => user.userEmail === session?.user?.email,
-//     //     ),
-//     //   );
-
-//     },
-//   });
-
-  // firestore에서 유저 정보 불러오면 state에 저장함
-  useEffect(() => {
-    if (users) {
-      //   setNickname(currentUser.userName);
-      //   setEmail(currentUser.userEmail);
-      setProfileImg(currentUser.userImage);
-      setEditNickname(currentUser.userName);
-    }
-    // eslint-disable-next-line
-  }, [users]);
 
   return (
     <S.ModalBackground>
@@ -123,8 +98,7 @@ const EditProfileModal = ({ setIsModalOpen }: any) => {
 
         <S.EditProfileContainer>
           <Image
-            // 프로필 정보 불러오기 전에는 투명한 이미지를 보여줌(엑박 뜨지 않도록)
-            src={!users ? transparentProfile : profileImg}
+            src={editProfileImg}
             alt="profile"
             width={180}
             height={180}
@@ -146,9 +120,7 @@ const EditProfileModal = ({ setIsModalOpen }: any) => {
             onChange={(e) => setEditNickname(e.target.value)}
             autoFocus
           />
-          <S.ProfileBtn onClick={editProfileHandler}>
-            수정 완료
-          </S.ProfileBtn>
+          <S.ProfileBtn onClick={editProfileHandler}>수정 완료</S.ProfileBtn>
         </S.EditProfileContainer>
       </S.ModalContainer>
     </S.ModalBackground>
