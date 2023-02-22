@@ -64,7 +64,7 @@ export const CardCategory = styled.div`
 
 // 청약 정보 분류 띠
 export const Ribbon = styled.div<{ bg: string }>`
-  z-index: 100;
+  /* z-index: 100; */
   width: 50%;
   height: 11%;
 

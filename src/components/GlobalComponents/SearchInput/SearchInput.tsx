@@ -4,6 +4,7 @@ import { AiOutlineSearch } from 'react-icons/ai';
 import { useRouter } from 'next/router';
 import { confirmAlert } from 'react-confirm-alert';
 import AlertUI from '../AlertUI/AlertUI';
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 
 const SearchInput = () => {
   const router = useRouter();
@@ -13,16 +14,42 @@ const SearchInput = () => {
     setKeyword(e.target.value);
   };
 
+  const options = {
+    title: '',
+    message: '검색어를 입력해주세요.',
+    buttons: [
+      {
+        label: '확인',
+        onClick: () => onclose,
+      },
+      // {
+      //   label: 'No',
+      //   onClick: () => alert('Click No'),
+      // },
+    ],
+    closeOnEscape: true,
+    closeOnClickOutside: true,
+    keyCodeForClose: [8, 32],
+    // willUnmount: () => {},
+    // afterClose: () => {},
+    // onClickOutside: () => {},
+    onKeypress: () => onclose,
+    // onKeypressEscape: () => {},
+    overlayClassName: 'overlay-custom-class-name',
+  };
+
   const searchHandler = () => {
     if (keyword.trim().length === 0) {
       // AlertUI 컴포넌트 사용
-      confirmAlert({
-        customUI: ({ onClose }) => {
-          return (
-            <AlertUI alertText="검색어를 입력해주세요." onClose={onClose} />
-          );
-        },
-      });
+      confirmAlert(options);
+
+      // {
+      //   customUI: ({ onClose }) => {
+      //     return (
+      //       <AlertUI alertText="검색어를 입력해주세요." onClose={onClose} />
+      //     );
+      //   },
+      // }
       setKeyword('');
     } else {
       setKeyword('');

@@ -3,17 +3,12 @@ import styled from 'styled-components';
 // Count Tab
 export const CountSectionBack = styled.div`
   width: 100%;
-  height: 175px;
+  height: 116px;
 
-  background: linear-gradient(
-      0deg,
-      rgba(94, 94, 94, 0.2),
-      rgba(94, 94, 94, 0.2)
-    ),
+  background: linear-gradient(0deg, rgba(71, 70, 103, 1), rgba(94, 94, 94, 0.2)),
     linear-gradient(
       180deg,
-      rgba(56, 93, 164, 0.609) 0%,
-      rgba(63, 128, 255, 0.616) 24.81%,
+      rgba(71, 70, 103, 1) 24.81%,
       rgba(78, 138, 254, 0.287) 110.76%
     );
 
@@ -24,19 +19,6 @@ export const CountSectionBack = styled.div`
 
   position: sticky;
   top: 0;
-`;
-
-// 청약 정보 확인 문구
-export const CountTabTitle = styled.p`
-  height: 26px;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 24px;
-  text-align: center;
-  margin-bottom: 15px;
-
-  color: #ffffff;
 `;
 
 export const CountTabList = styled.ul`

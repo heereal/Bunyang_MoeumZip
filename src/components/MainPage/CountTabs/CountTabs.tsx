@@ -173,7 +173,6 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
   return (
     <>
       <S.CountSectionBack>
-        <S.CountTabTitle>청약 정보 확인해보세요.</S.CountTabTitle>
         <S.CountTabList>
           {tabList.map((el, index) => (
             <li

@@ -38,21 +38,21 @@ const Header = () => {
             style={{ cursor: 'pointer' }}
             priority={true}
           /> */}
-          <div style={{ cursor: 'pointer' }} onClick={pathHandler}>
-            <S.Logo></S.Logo>
-            {/* 로고 대신 글씨 넣어놓은 것 */}
-            <div
-              style={{
-                position: 'absolute',
-                left: '4%',
-                top: '16px',
-                fontSize: '16px',
-                fontWeight: 900,
-              }}
-            >
-              분양모아
-            </div>
+
+          {/* 로고 대신 글씨 넣어놓은 것 */}
+          <div
+            style={{
+              position: 'absolute',
+              left: '4%',
+              top: '16px',
+              fontSize: '16px',
+              fontWeight: 900,
+              cursor: 'pointer',
+            }}
+          >
+            분양모음집
           </div>
+          {/* </div> */}
         </S.LogoBox>
         {/* 검색창 */}
         <S.SearchBox>
@@ -62,7 +62,7 @@ const Header = () => {
           <S.NavContent onClick={() => router.push('/calendar')}>
             청약캘린더
           </S.NavContent>
-          <S.NavContent onClick={() => router.push('/')}>청약정보</S.NavContent>
+          {/* <S.NavContent onClick={() => router.push('/')}>청약정보</S.NavContent> */}
 
           {session ? (
             <>
