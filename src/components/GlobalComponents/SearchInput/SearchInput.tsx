@@ -1,9 +1,9 @@
-import * as S from './style';
-import { useState, KeyboardEvent, ChangeEvent } from 'react';
-import { AiOutlineSearch } from 'react-icons/ai';
+import { customAlert } from '@/common/utils';
 import { useRouter } from 'next/router';
-import { confirmAlert } from 'react-confirm-alert';
-import AlertUI from '../AlertUI/AlertUI';
+import { ChangeEvent, KeyboardEvent, useState } from 'react';
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+import { AiOutlineSearch } from 'react-icons/ai';
+import * as S from './style';
 
 const SearchInput = () => {
   const router = useRouter();
@@ -14,16 +14,8 @@ const SearchInput = () => {
   };
 
   const searchHandler = () => {
-    if (keyword.trim().length === 0) {
-      // AlertUI 컴포넌트 사용
-      confirmAlert({
-        customUI: ({ onClose }) => {
-          return (
-            <AlertUI alertText="검색어를 입력해주세요." onClose={onClose} />
-          );
-        },
-      });
-      setKeyword('');
+    if (keyword.trim().length <= 1) {
+      customAlert('검색어는 2글자 이상 입력해주세요.');
     } else {
       setKeyword('');
       router.push(`/search/${keyword}`);

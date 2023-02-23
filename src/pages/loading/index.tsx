@@ -10,8 +10,8 @@ import {
 } from 'firebase/firestore';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import { regionArray, typesArray } from '@/common/categoryList';
 import LoadingSpinner from '@/components/GlobalComponents/LoadingSpinner/LoadingSpinner';
+import { regionArray, typesArray } from '@/common/categoryList';
 
 // 로그인 후 회원가입 페이지로 이동 전에 보여지는 로딩 페이지
 // 최초 로그인이라면 회원가입 페이지로 이동, 아니면 메인 페이지로 이동
@@ -52,7 +52,7 @@ const Loading = () => {
     // 이미 가입한 유저라면 메인으로 이동,
     // 최초 로그인한 유저라면 firestore에 유저 정보를 새로 저장하며 회원가입 페이지로 이동
     if (array.length >= 1) {
-      router.push('/');
+      router.back();
     } else {
       await setDoc(doc(db, 'Users', email), newUser);
       router.push('/signup');

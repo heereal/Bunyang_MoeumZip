@@ -7,6 +7,8 @@ export const ResultSection = styled.section`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  background-color: #f7f7f7;
 `;
 
 export const TitleBox = styled.div`
@@ -17,6 +19,7 @@ export const TitleBox = styled.div`
   margin: 10px 0;
 `;
 
+// 검색 결과가 있을 때 타이틀
 export const ResultTitle = styled.p`
   font-size: 20px;
   padding-bottom: 12px;

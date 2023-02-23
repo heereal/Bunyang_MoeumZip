@@ -1,18 +1,26 @@
 import { typesArray } from '@/common/categoryList';
 import * as S from '../SelectMyRegion/style';
-import { useRecoilState } from 'recoil';
-import { myTypeArrayState } from '@/store/selectors';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { currentUserState, myTypeArrayState } from '@/store/selectors';
 import { BsFillCheckCircleFill } from 'react-icons/bs';
 import { FaUndo } from 'react-icons/fa';
+import { useEffect } from 'react';
 
-const SelectMyTypes = () => {
+const SelectMyTypes = ({ width }: SelectCategoryProps) => {
   // 유저가 선택한 카테고리 필터링 리스트
   const [myTypeArray, setMyTypeArray] = useRecoilState<any>(myTypeArrayState);
 
+  // 현재 로그인한 유저의 firestore 유저 정보
+  const currentUser = useRecoilValue(currentUserState);
+
+  useEffect(() => {
+    setMyTypeArray(currentUser.types)
+  }, []);
+
   return (
-    <S.CategoryContainer>
+    <S.CategoryContainer width={width}>
       {typesArray.map((type, index) =>
-        type && myTypeArray.includes(type) ? (
+        type && myTypeArray?.includes(type) ? (
           <S.CategoryBtn
             onClick={() =>
               setMyTypeArray(myTypeArray.filter((item: any) => item !== type))

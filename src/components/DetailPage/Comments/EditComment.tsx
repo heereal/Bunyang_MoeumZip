@@ -1,6 +1,5 @@
 import { deleteComment, editComment } from '@/common/api';
-import { getDate } from '@/common/utils';
-import AlertUI from '@/components/GlobalComponents/AlertUI/AlertUI';
+import { customAlert, getDate } from '@/common/utils';
 import { arrayRemove, arrayUnion } from 'firebase/firestore';
 import Image from 'next/image';
 import { KeyboardEvent, useState } from 'react';
@@ -22,30 +21,35 @@ const EditComment = ({
   const date = comment?.date;
 
   const deleteCommentHandler = async (index: number | undefined) => {
-    const decision = confirm('삭제하시겠습니까?');
-
     if (
-      decision &&
       typeof comments === 'object' &&
       typeof postId === 'string' &&
       typeof index === 'number'
-    ) {
-      const comment = {
-        list: arrayRemove(comments[index]),
-      };
-      deleteMutation.mutate({ postId, comment });
-    }
+    )
+      confirmAlert({
+        message: '삭제하시겠습니까?',
+        buttons: [
+          {
+            label: '확인',
+            onClick: () => {
+              const comment = {
+                list: arrayRemove(comments[index]),
+              };
+              deleteMutation.mutate({ postId, comment });
+            },
+          },
+
+          {
+            label: '취소',
+            onClick: () => onclose,
+          },
+        ],
+      });
   };
 
   const editCommentHandler = async (index: number | undefined) => {
     if (editInput === '') {
-      confirmAlert({
-        customUI: ({ onClose }) => {
-          return (
-            <AlertUI alertText="1글자 이상 입력해주세요." onClose={onClose} />
-          );
-        },
-      });
+      customAlert('1글자 이상 입력해주세요.');
       return;
     }
     if (

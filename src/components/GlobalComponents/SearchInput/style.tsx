@@ -2,16 +2,17 @@ import styled from 'styled-components';
 
 // 검색창
 export const SearchBox = styled.div`
-  width: 100%;
+  width: 50%;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  /* position: absolute; */
 `;
 
 export const SearchInput = styled.input`
-  width: 95%;
-  max-width: 310px;
+  width: 30%;
   height: 28px;
+
   border: transparent;
   border-radius: 20px;
   padding-left: 20px;
@@ -19,9 +20,10 @@ export const SearchInput = styled.input`
   box-sizing: border-box;
   font-size: 12px;
   text-align: left;
+
   position: absolute;
-  left: 35%;
-  top: 10px;
+  top: 20%;
+  left: 30%;
   background-color: #f9fafb;
 
   :focus-visible {
@@ -30,12 +32,14 @@ export const SearchInput = styled.input`
 `;
 
 export const SearchBtn = styled.button`
-  /* width: 20px; */
+  width: 20px;
   background-color: transparent;
   border: none;
   outline: none;
-  position: sticky;
-  left: 56%;
+  position: absolute;
+  left: 57%;
+  right: 23.28%;
+  top: 25%;
 
   cursor: pointer;
 `;

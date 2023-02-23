@@ -42,3 +42,14 @@ export const Mapstate = atom({
   key: 'map',
   default: {},
 });
+// 현재 로그인한 유저의 firestore 유저 정보
+export const currentUserState = atom<any>({
+  key: 'currentUser',
+  default: {},
+});
+
+// 전체 유저 리스트
+export const usersListState = atom<any>({
+  key: 'usersList',
+  default: [],
+});

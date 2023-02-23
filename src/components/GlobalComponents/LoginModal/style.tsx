@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import naver from '../../../assets/naver.png';
 
 export const ModalBackground = styled.div`
   position: fixed;
@@ -23,7 +22,6 @@ export const ModalContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  animation: slide-bottom 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 `;
 
 export const CloseBtnContainer = styled.div`
@@ -33,16 +31,18 @@ export const CloseBtnContainer = styled.div`
 `;
 
 export const LogoContainer = styled.div`
-  background-color: lightgray;
   height: 120px;
   width: 120px;
-  border-radius: 50%;
   margin-top: 7px;
+  margin-left: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const BunyangMoaTitle = styled.h1`
   font-size: 21px;
-  padding: 23px 0 32px 0;
+  padding: 13px 0 32px 0;
 `;
 
 export const SocialLoginBtnContainer = styled.div`

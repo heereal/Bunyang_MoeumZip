@@ -7,7 +7,9 @@ export const CategorySection = styled.section`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  z-index: 1000;
+  z-index: 10;
+
+  position: relative;
 `;
 
 // 카테고리 Tabs
@@ -69,16 +71,16 @@ export const TabName = styled.p<{ color: string }>`
 
 // 지역 및 분양형태 카테고리 선택
 export const CategoryContainer = styled.div`
-  width: 17%;
-  height: 27%;
+  width: 220px;
+  height: 250px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
 
   position: absolute;
-  top: 38%;
-  left: 1.7%;
+  top: 110%;
+  left: 24px;
   padding: 5px;
 
   box-sizing: border-box;

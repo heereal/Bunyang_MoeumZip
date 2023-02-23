@@ -10,8 +10,10 @@ export const Header = styled.header`
   align-items: center;
   position: sticky;
   top: 0;
-  z-index: 1000;
+  z-index: 10;
   box-sizing: border-box;
+
+  position: relative;
 `;
 
 export const HSection = styled.div`
@@ -28,17 +30,10 @@ export const HSection = styled.div`
 
 // Logo box
 export const LogoBox = styled.div`
-  width: 20%;
+  /* width: 20%; */
   margin-left: 17px;
   box-sizing: border-box;
-`;
-
-// TODO: 임시 로고
-export const Logo = styled.div`
-  width: 30px;
-  height: 30px;
-  border-radius: 50px;
-  background-color: #3d7fff;
+  cursor: pointer;
 `;
 
 // Search Section

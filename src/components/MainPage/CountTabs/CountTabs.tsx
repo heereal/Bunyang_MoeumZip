@@ -1,5 +1,6 @@
 import { getUsersList } from '@/common/api';
 import { getToday } from '@/common/utils';
+import NoResult from '@/components/GlobalComponents/NoResult/NoResult';
 import TopBtn from '@/components/GlobalComponents/TopBtn/TopBtn';
 import { selectedCategoryList } from '@/store/selectors';
 import { useSession } from 'next-auth/react';
@@ -8,6 +9,7 @@ import { useQuery } from 'react-query';
 import { useRecoilState } from 'recoil';
 import HomeList from '../../GlobalComponents/HomeList/HomeList';
 import CategoryBar from '../CategoryBar/CategoryBar';
+import LoadingSpinner from '@/components/GlobalComponents/LoadingSpinner/LoadingSpinner';
 import * as S from './style';
 
 const CountTabs = ({ list }: CountTabPropsListJ) => {
@@ -173,7 +175,6 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
   return (
     <>
       <S.CountSectionBack>
-        <S.CountTabTitle>청약 정보 확인해보세요.</S.CountTabTitle>
         <S.CountTabList>
           {tabList.map((el, index) => (
             <li
@@ -189,9 +190,18 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
       </S.CountSectionBack>
       <CategoryBar />
       {/* 분양 정보가 없을 때 보여줄 문구 */}
-      {tabList[currentTab].content.length === 0 ? (
-        <div style={{ overflowY: 'scroll', height: '90%', width: '100%' }}>
-          분양 정보가 없습니다.
+      {isLoading ? <LoadingSpinner /> : tabList[currentTab].content.length === 0 ? (
+        <div
+          style={{
+            paddingTop: '12%',
+            textAlign: 'center',
+            overflowY: 'scroll',
+            height: '88%',
+            width: '100%',
+            backgroundColor: '#f7f7f7',
+          }}
+        >
+          <NoResult text="다른 지역 및 분양 형태를 찾아보세요." />
         </div>
       ) : (
         <S.ListSection>

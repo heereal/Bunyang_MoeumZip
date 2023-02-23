@@ -1,14 +1,12 @@
 import { addComment } from '@/common/api';
-import AlertUI from '@/components/GlobalComponents/AlertUI/AlertUI';
+import { customAlert, postTime } from '@/common/utils';
 import { arrayUnion } from 'firebase/firestore';
 import Image from 'next/image';
-import { KeyboardEvent, lazy, useState } from 'react';
-import { confirmAlert } from 'react-confirm-alert';
-import { useMutation, useQueries } from 'react-query';
-import * as S from './style';
+import { KeyboardEvent, useState } from 'react';
 import { RiPencilFill } from 'react-icons/ri';
-import candy from '../../../assets/candy.jpg';
-import { postTime } from '@/common/utils';
+import { useMutation } from 'react-query';
+import logo from '../../../assets/logo.png';
+import * as S from './style';
 
 const AddComment = ({ user, postId, queryClient, refetch }: CommentPropsP) => {
   const [input, setInput] = useState<string>('');
@@ -18,13 +16,7 @@ const AddComment = ({ user, postId, queryClient, refetch }: CommentPropsP) => {
   const addCommentHandler = async (e: any) => {
     setClicked(true);
     if (input === '') {
-      confirmAlert({
-        customUI: ({ onClose }) => {
-          return (
-            <AlertUI alertText="1글자 이상 입력해주세요." onClose={onClose} />
-          );
-        },
-      });
+      customAlert('1글자 이상 입력해주세요.');
 
       return setClicked(false);
     }
@@ -75,10 +67,9 @@ const AddComment = ({ user, postId, queryClient, refetch }: CommentPropsP) => {
           />
         ) : (
           <Image
-            width={45}
-            height={45}
+            height={33}
             alt="profile"
-            src={candy}
+            src={logo}
             quality={75}
             loading="lazy"
             style={{ borderRadius: 25, objectFit: 'cover' }}

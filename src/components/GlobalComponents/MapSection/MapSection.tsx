@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { useRecoilState } from 'recoil';
 import { Section } from './style';
+import * as ReactDOMServer from 'react-dom/server';
+import Overlay from './Overlay';
 
 const MapSection = () => {
   // 맵 로드 시 제어할 boolean state
@@ -35,22 +37,24 @@ const MapSection = () => {
     $script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_MAP_KEY}&libraries=services,clusterer&autoload=false`;
     $script.addEventListener('load', () => setMapLoaded(true));
     document.head.appendChild($script);
+
     if (data) {
       setCoordnates(data?.allHomeData);
     }
     // path 값이 바뀌면  센터와 줌레벨 이 바뀜
-    if (path !== '/') {
+
+    if (path === '/' || !detail) {
+      setCenter({
+        y: 36.3171433799167,
+        x: 127.65261753988,
+      });
+      setZoomLevel(12);
+    } else {
       setCenter({
         y: Number(detail?.COORDINATES.y),
         x: Number(detail?.COORDINATES.x),
       });
       setZoomLevel(4);
-    } else {
-      setCenter({
-        y: 36.3171433799167,
-        x: 127.65261753988,
-      });
-      setZoomLevel(13);
     }
   }, [data, path]);
 
@@ -73,8 +77,6 @@ const MapSection = () => {
           setZoomLevel(level);
         });
 
-        // 지도가 이동, 확대, 축소로 인해 중심좌표가 변경되면 마지막 파라미터로 넘어온 함수를 호출하도록 이벤트를 등록합니다
-
         // 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
         const mapTypeControl = new kakao.maps.MapTypeControl();
 
@@ -82,11 +84,6 @@ const MapSection = () => {
         // kakao.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
         map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
 
-        // kakao.maps.event.addListener(map, 'center_changed', () => {
-        //   // 지도의 중심좌표를 얻어옵니다
-        //   var latlng: any = map.getCenter();
-        //   setCenter({ x: latlng.La, y: latlng.Ma });
-        // });
         coordnates?.map((result: any) => {
           const marker = new kakao.maps.Marker({
             map: map,
@@ -97,30 +94,43 @@ const MapSection = () => {
 
             title: `/detail/${result.PBLANC_NO}`,
             opacity: 0.01,
-            zIndex: 99,
             clickable: true,
+            zIndex: 2,
           });
+
+          // 커스텀 오버레이에 표시할 내용입니다
+          // HTML 문자열 또는 Dom Element 입니다
+          var content = ReactDOMServer.renderToString(
+            <Overlay result={result} />,
+          );
+
+          // 커스텀 오버레이가 표시될 위치입니다
+          var position = new kakao.maps.LatLng(
+            Number(result.COORDINATES.y),
+            Number(result.COORDINATES.x),
+          );
+
+          // 커스텀 오버레이를 생성합니다
+          var customOverlay = new kakao.maps.CustomOverlay({
+            position: position,
+            content: content,
+            xAnchor: 0.5,
+            yAnchor: 1.7,
+          });
+
+          // 커스텀 오버레이를 지도에 표시합니다
+          customOverlay.setMap(map);
 
           // 마커 클릭시 센터 변경 및 줌 레벨 변경됨
           kakao.maps.event.addListener(marker, 'click', () => {
             pathHadnler(marker);
+            setZoomLevel(4);
+
             setCenter({
               y: Number(result.COORDINATES.y),
               x: Number(result.COORDINATES.x),
             });
           });
-
-          // const iwContent =
-          //   //인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-          //   `<div style="padding:3px;">Hello World!</div>`;
-
-          // // 인포윈도우를 생성합니다
-          // const infowindow = new kakao.maps.InfoWindow({
-          //   content: iwContent,
-          // });
-
-          // // 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
-          // infowindow.open(map, marker);
         });
 
         // 클러스터에 들어갈 마커 배열
@@ -164,7 +174,7 @@ const MapSection = () => {
           'clusterclick',
           (cluster: kakao.maps.Cluster) => {
             // 현재 지도 레벨에서 1레벨 확대한 레벨
-            var level = map.getLevel() - 1;
+            const level = map.getLevel() - 1;
             // 지도를 클릭된 클러스터의 마커의 위치를 기준으로 확대합니다
             map.setLevel(level, { anchor: cluster.getCenter() });
           },
