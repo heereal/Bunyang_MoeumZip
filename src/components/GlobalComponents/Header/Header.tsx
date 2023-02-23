@@ -50,10 +50,9 @@ const Header = () => {
             onClick={pathHandler}
             src={logo}
             alt="logoImg"
-            height={23}
+            height={29}
             quality={100}
             //quelity 의 기본값은 75 입니다.
-            style={{ cursor: 'pointer' }}
             priority={true}
           />
 
@@ -62,11 +61,10 @@ const Header = () => {
             onClick={pathHandler}
             style={{
               position: 'absolute',
-              left: '4%',
+              left: '3%',
               top: '16px',
               fontSize: '16px',
               fontWeight: 900,
-              cursor: 'pointer',
             }}
           >
             분양모음집
