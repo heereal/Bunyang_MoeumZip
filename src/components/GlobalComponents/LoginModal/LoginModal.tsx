@@ -34,7 +34,6 @@ const LoginModal = ({ setIsOpen }: loginModalProps) => {
             alt="logoImg"
             height={90}
             quality={100}
-            //quelity 의 기본값은 75 입니다.
             priority={true}
           />
         </S.LogoContainer>

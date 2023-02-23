@@ -2,7 +2,6 @@ import { pathState } from '@/store/selectors';
 import { useRouter } from 'next/router';
 import { useRecoilState } from 'recoil';
 import * as S from './style';
-import { AiOutlineStar } from 'react-icons/ai';
 import { getToday } from '@/common/utils';
 
 const ListList = ({ list }: PropsListJ) => {

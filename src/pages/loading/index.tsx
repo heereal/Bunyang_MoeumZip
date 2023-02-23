@@ -10,7 +10,6 @@ import {
 } from 'firebase/firestore';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import { regionArray, typesArray } from '@/common/categoryList';
 import LoadingSpinner from '@/components/GlobalComponents/LoadingSpinner/LoadingSpinner';
 
 // 로그인 후 회원가입 페이지로 이동 전에 보여지는 로딩 페이지

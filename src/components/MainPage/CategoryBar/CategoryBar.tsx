@@ -28,6 +28,7 @@ const CategoryBar = () => {
 
   useEffect(() => {
     setSelectedList(combineUserCtList);
+    // eslint-disable-next-line
   }, [myRegionArray, myTypeArray]);
 
   // FIXME: 중복, 중복...
