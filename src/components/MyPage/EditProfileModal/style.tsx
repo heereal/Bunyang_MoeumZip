@@ -100,6 +100,7 @@ export const ProfileBtn = styled.button`
 
   :disabled {
     cursor: default;
+    background: #8E8E8E;
   }
 `;
 
