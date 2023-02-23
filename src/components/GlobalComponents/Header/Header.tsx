@@ -7,6 +7,7 @@ import { confirmAlert } from 'react-confirm-alert';
 import { useRecoilState } from 'recoil';
 import LoginModal from '../LoginModal/LoginModal';
 import SearchInput from '../SearchInput/SearchInput';
+import logo from '../../../assets/logo.png';
 import * as S from './style';
 
 const Header = () => {
@@ -45,17 +46,16 @@ const Header = () => {
       {isOpen && <LoginModal setIsOpen={setIsOpen} />}
       <S.Header>
         <S.LogoBox>
-          {/* <Image
+          <Image
             onClick={pathHandler}
-            src={candy}
+            src={logo}
             alt="logoImg"
-            width={90}
-            height={20}
+            height={23}
             quality={100}
             //quelity 의 기본값은 75 입니다.
             style={{ cursor: 'pointer' }}
             priority={true}
-          /> */}
+          />
 
           {/* 로고 대신 글씨 넣어놓은 것 */}
           <div

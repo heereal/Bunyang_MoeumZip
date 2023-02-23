@@ -69,5 +69,6 @@ export const SubmitBtn = styled.button`
 
   :disabled {
     cursor: default;
+    background: #8E8E8E;
   }
 `;

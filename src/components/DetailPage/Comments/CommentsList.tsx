@@ -1,5 +1,4 @@
 import { getComments, getProfile } from '@/common/api';
-import { postTime } from '@/common/utils';
 import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 import { useQuery, useQueryClient } from 'react-query';
@@ -37,6 +36,7 @@ const CommentsList = ({ postId }: DetailPagePropsP) => {
   useEffect(() => {
     setComments(data?.list.sort((a: any, b: any) => b.date - a.date));
     refetchProfile();
+  // eslint-disable-next-line
   }, [data, session]);
 
   return (

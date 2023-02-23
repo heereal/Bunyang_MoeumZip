@@ -31,16 +31,18 @@ export const CloseBtnContainer = styled.div`
 `;
 
 export const LogoContainer = styled.div`
-  background-color: lightgray;
   height: 120px;
   width: 120px;
-  border-radius: 50%;
   margin-top: 7px;
+  margin-left: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const BunyangMoaTitle = styled.h1`
   font-size: 21px;
-  padding: 23px 0 32px 0;
+  padding: 13px 0 32px 0;
 `;
 
 export const SocialLoginBtnContainer = styled.div`

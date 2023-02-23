@@ -30,7 +30,7 @@ export const HSection = styled.div`
 
 // Logo box
 export const LogoBox = styled.div`
-  width: 20%;
+  /* width: 20%; */
   margin-left: 17px;
   box-sizing: border-box;
 `;
