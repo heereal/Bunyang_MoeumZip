@@ -1,6 +1,6 @@
 import { addHomeList } from '@/common/api';
 import { db } from '@/common/firebase';
-import { customAlert } from '@/common/utils';
+import { customAlert, getToday } from '@/common/utils';
 import HeadTitle from '@/components/GlobalComponents/HeadTitle/HeadTitle';
 import axios from 'axios';
 import { doc, getDoc } from 'firebase/firestore';
@@ -66,15 +66,6 @@ const MustHaveToDo = ({
     };
   });
 
-  const getToday = () => {
-    const date = new Date();
-    const year = date.getFullYear();
-    const month = ('0' + (date.getMonth() + 1)).slice(-2);
-    const day = ('0' + date.getDate()).slice(-2);
-    const today = year + '-' + month + '-' + day;
-
-    return today;
-  };
   const today = getToday();
 
   // 청약홈 전체 API 통합 리스트
@@ -84,7 +75,8 @@ const MustHaveToDo = ({
 
   // 청약 마감일이 지나지 않은 전체 리스트
   const possibleAllHomeList = allHomeList.filter(
-    (item: ItemJ) => item.RCEPT_ENDDE >= today,
+    (item: ItemJ) =>
+      item.RCEPT_ENDDE >= today || item.SUBSCRPT_RCEPT_ENDDE >= today,
   );
 
   // Friebase DB에 homeList 추가
@@ -134,22 +126,43 @@ const MustHaveToDo = ({
           item.detail.length === 0
             ? ''
             : item?.detail[0]?.LTTOT_TOP_AMOUNT
-            ? item?.detail[0]?.LTTOT_TOP_AMOUNT + '만원'
-            : item?.detail[0]?.SUPLY_AMOUNT + '만원',
+            ? item?.detail[0]?.LTTOT_TOP_AMOUNT.slice(0, 1) +
+              '.' +
+              item?.detail[0]?.LTTOT_TOP_AMOUNT.slice(1, 2) +
+              '억'
+            : item?.detail[0]?.SUPLY_AMOUNT.slice(0, 1) +
+              '.' +
+              item?.detail[0]?.SUPLY_AMOUNT.slice(1, 2) +
+              '억',
 
         MAX_LTTOT_TOP_AMOUNT:
           item.detail.length === 0
             ? ''
             : item?.detail[item?.detail?.length - 1]?.LTTOT_TOP_AMOUNT
-            ? item?.detail[item?.detail?.length - 1]?.LTTOT_TOP_AMOUNT + '만원'
-            : item?.detail[item?.detail?.length - 1]?.SUPLY_AMOUNT + '만원',
+            ? item?.detail[item?.detail?.length - 1]?.LTTOT_TOP_AMOUNT.slice(
+                0,
+                1,
+              ) +
+              '.' +
+              item?.detail[item?.detail?.length - 1]?.LTTOT_TOP_AMOUNT.slice(
+                1,
+                2,
+              ) +
+              '억'
+            : item?.detail[item?.detail?.length - 1]?.SUPLY_AMOUNT.slice(0, 1) +
+              '.' +
+              item?.detail[item?.detail?.length - 1]?.SUPLY_AMOUNT.slice(1, 2) +
+              '억',
 
         SPSPLY_HSHLDCO: item.SPSPLY_HSHLDCO ? item.SPSPLY_HSHLDCO + '세대' : '',
         SUPLY_HSHLDCO: item.SUPLY_HSHLDCO ? item.SUPLY_HSHLDCO + '세대' : '',
         TOT_SUPLY_HSHLDCO: item.TOT_SUPLY_HSHLDCO + '세대',
         HOUSE_NM: item.HOUSE_NM,
         HOUSE_SECD: item.HOUSE_SECD,
-        HOUSE_SECD_NM: item.HOUSE_SECD_NM,
+        HOUSE_SECD_NM:
+          item.HOUSE_SECD === '02'
+            ? '오피스텔'
+            : item.HOUSE_SECD_NM.replace(/[주택]/g, '').split('/')[0],
         HOUSE_DTL_SECD: item.HOUSE_DTL_SECD ? item.HOUSE_DTL_SECD : '',
         HOUSE_DTL_SECD_NM: item.HOUSE_DTL_SECD_NM ? item.HOUSE_DTL_SECD_NM : '',
         HSSPLY_ADRES: item.HSSPLY_ADRES,
@@ -348,19 +361,19 @@ export const getStaticProps: GetStaticProps = async () => {
   // 청약홈
   const aptDefaultList = await axios
     .get(
-      `${BASE_URL}/${METHOD_APT_DEFAULT}?page=1&perPage=100&&cond%5BRCRIT_PBLANC_DE%3A%3AGTE%5D=2023-01-01&serviceKey=${SERVICE_KEY}`,
+      `${BASE_URL}/${METHOD_APT_DEFAULT}?page=1&perPage=1000&&cond%5BRCRIT_PBLANC_DE%3A%3AGTE%5D=2023-01-01&serviceKey=${SERVICE_KEY}`,
     )
     .then((res) => res.data.data);
 
   const aptRandomDefaultList = await axios
     .get(
-      `${BASE_URL}/${METHOD_RANDOM_DEFAULT}?page=1&perPage=100&&cond%5BRCRIT_PBLANC_DE%3A%3AGTE%5D=2023-01-01&serviceKey=${SERVICE_KEY}`,
+      `${BASE_URL}/${METHOD_RANDOM_DEFAULT}?page=1&perPage=1000&&cond%5BRCRIT_PBLANC_DE%3A%3AGTE%5D=2023-01-01&serviceKey=${SERVICE_KEY}`,
     )
     .then((res) => res.data.data);
 
   const officeDefaultList = await axios
     .get(
-      `${BASE_URL}/${METHOD_OFFICE_DEFAULT}?page=1&perPage=100&&cond%5BRCRIT_PBLANC_DE%3A%3AGTE%5D=2023-01-01&serviceKey=${SERVICE_KEY}`,
+      `${BASE_URL}/${METHOD_OFFICE_DEFAULT}?page=1&perPage=1000&&cond%5BRCRIT_PBLANC_DE%3A%3AGTE%5D=2023-01-01&serviceKey=${SERVICE_KEY}`,
     )
     .then((res) => res.data.data);
 
