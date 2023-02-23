@@ -1,6 +1,8 @@
 <br/>
 
 # 분양모음집🏠
+<img src="https://user-images.githubusercontent.com/117061017/220947714-1db80e24-5d4a-4d99-bb53-9aef057b192a.png" height="150"/>
+
 [분양모음집 방문하기](https://bunyang-moeumzip.vercel.app/)
 
 [팀 노션 링크](https://team-nemo.notion.site/Team-NEMO-fdf2da573c554862b5a702a0e374ba91)  
