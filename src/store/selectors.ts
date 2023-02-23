@@ -3,8 +3,8 @@ import { atom } from 'recoil';
 // categoryBar에서 선택된 categoryList
 export const selectedCategoryList: any = atom({
   key: 'selectedCategoryList',
-  default: []
-})
+  default: [],
+});
 
 export const pathState = atom({
   key: 'path',
@@ -14,11 +14,16 @@ export const pathState = atom({
 // 유저가 선택한 관심 지역 리스트
 export const myRegionArrayState = atom({
   key: 'myRegion',
-  default: []
-})
+  default: [],
+});
 
 // 유저가 선택한 관심 분양 형태 리스트
 export const myTypeArrayState = atom({
   key: 'myTypeArray',
-  default: []
-})
+  default: [],
+});
+
+export const MapState = atom({
+  key: 'naverMap',
+  default: null,
+});

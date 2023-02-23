@@ -225,7 +225,7 @@ const MustHaveToDo = ({
     console.log('전:', allHomeData);
     for (let i = 0; i < allHomeData.length; i++) {
       const geocoder = new kakao.maps.services.Geocoder();
-      await geocoder.addressSearch(
+      geocoder.addressSearch(
         allHomeData[i].FOR_COORDINATES_ADRES,
         (result: any, status: any) => {
           if (status === kakao.maps.services.Status.OK) {

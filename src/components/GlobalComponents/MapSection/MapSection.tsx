@@ -29,8 +29,6 @@ const MapSection = () => {
     }, 300);
   };
 
-  console.log(zoomLevel);
-
   // 최초 로드
   useEffect(() => {
     const $script = document.createElement('script');
@@ -60,7 +58,6 @@ const MapSection = () => {
   useEffect(() => {
     if (!mapLoaded) return;
     kakao.maps.load(() => {
-      console.log('로드 완료!');
       let container = document.getElementById('map');
       let options = {
         center: new kakao.maps.LatLng(center.y, center.x),

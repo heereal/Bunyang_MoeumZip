@@ -1,13 +1,13 @@
 import { INITIAL_CENTER, INITIAL_ZOOM } from '@/hooks/useMap';
 import Script from 'next/script';
 import React, { useEffect, useRef } from 'react';
-import { Coordinates, NaverMap } from 'types/map';
 
 type Props = {
   mapId?: string;
   initialCenter?: Coordinates;
   initialZoom?: number;
   onLoad?: (map: NaverMap) => void;
+  home: any;
 };
 
 const NewMap = ({
@@ -15,6 +15,7 @@ const NewMap = ({
   initialCenter = INITIAL_CENTER,
   initialZoom = INITIAL_ZOOM,
   onLoad,
+  home,
 }: Props) => {
   const mapRef = useRef<NaverMap | null>(null);
 

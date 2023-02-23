@@ -12,9 +12,6 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
   // 유저의 세션 정보 받아오기
   const { data: session, status } = useSession();
 
-  const test = '15881119';
-  console.log(test.slice(0, 4));
-
   // 디테일 페이지에서 사용할 특정한 분양 정보
   const [home, setHome] = useState<HomeP>();
   const [email, setEmail] = useState<string | null | undefined>('');
