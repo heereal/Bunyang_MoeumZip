@@ -1,29 +1,24 @@
-import { INITIAL_CENTER, INITIAL_ZOOM } from '@/hooks/useMap';
+import { centerState, hideState, Mapstate, zoomState } from '@/store/selectors';
 import Script from 'next/script';
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
+import { useRecoilState } from 'recoil';
 
 type Props = {
   mapId?: string;
-  initialCenter?: Coordinates;
-  initialZoom?: number;
   onLoad?: (map: NaverMap) => void;
-  home: any;
 };
 
-const NewMap = ({
-  mapId = 'map',
-  initialCenter = INITIAL_CENTER,
-  initialZoom = INITIAL_ZOOM,
-  onLoad,
-  home,
-}: Props) => {
+const NewMap = ({ mapId = 'map', onLoad }: Props) => {
   const mapRef = useRef<NaverMap | null>(null);
+  const [zoomLevel] = useRecoilState(zoomState);
+  const [initialCenter] = useRecoilState(centerState);
+  const [hideMarker, setHideMarker] = useRecoilState(hideState);
 
+  // 초기 지도 옵션
   const initializeMap = () => {
     const mapOptions = {
-      center: new window.naver.maps.LatLng(...initialCenter),
-      zoom: initialZoom,
-      minZoom: 9,
+      center: new window.naver.maps.LatLng(initialCenter),
+      zoom: zoomLevel,
       scaleControl: false,
       mapDataControl: false,
       logoControlOptions: {
@@ -33,6 +28,15 @@ const NewMap = ({
 
     const map = new window.naver.maps.Map(mapId, mapOptions);
     mapRef.current = map;
+
+    naver.maps.Event.addListener(map, 'zoom_changed', () => {
+      const currentZoom = map.getZoom();
+      if (currentZoom > 12) {
+        setHideMarker(false);
+      } else {
+        setHideMarker(true);
+      }
+    });
 
     if (onLoad) {
       onLoad(map);
@@ -53,7 +57,7 @@ const NewMap = ({
         src={`https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${process.env.NEXT_PUBLIC_NCP_CLIENT_ID}`}
         onReady={initializeMap}
       />
-      <div id={mapId} style={{ width: '100%', height: '100%' }} />
+      <div id={mapId} style={{ width: '40%', height: '100%' }} />
     </>
   );
 };

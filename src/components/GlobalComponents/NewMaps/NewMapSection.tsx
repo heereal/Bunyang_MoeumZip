@@ -19,7 +19,7 @@ const NewMapSection = () => {
 
   return (
     <>
-      <NewMap home={home} onLoad={onLoadMap} />
+      <NewMap onLoad={onLoadMap} />
       <Markers map={naverMap} home={home} />
     </>
   );

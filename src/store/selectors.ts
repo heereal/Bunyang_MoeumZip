@@ -23,7 +23,22 @@ export const myTypeArrayState = atom({
   default: [],
 });
 
-export const MapState = atom({
-  key: 'naverMap',
-  default: null,
+export const zoomState = atom({
+  key: 'zoom',
+  default: 8,
+});
+
+export const centerState = atom({
+  key: 'center',
+  default: { y: 36.2262411, x: 127.65289439 },
+});
+
+export const hideState = atom({
+  key: 'hide',
+  default: true,
+});
+
+export const Mapstate = atom({
+  key: 'map',
+  default: {},
 });

@@ -1,13 +1,14 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 
 interface MarkerProps {
   coordinates: { x: string; y: string };
   map: NaverMap;
   onClick?: () => void;
-  title: string;
+  title?: string;
 }
 
-const Marker = ({ coordinates, map, onClick, title }: MarkerProps) => {
+const Marker = ({ coordinates, map, onClick }: MarkerProps) => {
+  const markers: any = [];
   useEffect(() => {
     let marker: naver.maps.Marker | null = null;
     if (map) {
@@ -18,6 +19,7 @@ const Marker = ({ coordinates, map, onClick, title }: MarkerProps) => {
           Number(coordinates.x),
         ),
       });
+      markers.push(marker);
     }
 
     if (onClick) {
@@ -27,7 +29,7 @@ const Marker = ({ coordinates, map, onClick, title }: MarkerProps) => {
     return () => {
       marker?.setMap(null);
     };
-  }, [map]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [map]); // eslint-disable-line
 
   return null;
 };

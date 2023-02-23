@@ -44,7 +44,6 @@
     "typescript": "4.9.5"
   },
   "devDependencies": {
-    "@types/navermaps": "^3.6.3",
     "@types/styled-components": "^5.1.26",
     "babel-plugin-styled-components": "^2.0.7",
     "prettier": "2.8.1"

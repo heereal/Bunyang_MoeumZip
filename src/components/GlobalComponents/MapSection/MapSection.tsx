@@ -171,7 +171,7 @@ const MapSection = () => {
         );
       }
     });
-  }, [mapLoaded, coordnates, path, router]);
+  }, [mapLoaded, coordnates, path, router]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <>
