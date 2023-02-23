@@ -4,8 +4,9 @@ import { RiKakaoTalkFill } from 'react-icons/ri';
 import { SiNaver } from 'react-icons/si';
 import { BsFacebook } from 'react-icons/bs';
 import { FcGoogle } from 'react-icons/fc';
-
+import logo from '../../../assets/logo.png';
 import * as S from './style';
+import Image from 'next/image';
 
 interface loginModalProps {
   setIsOpen: any;
@@ -27,7 +28,16 @@ const LoginModal = ({ setIsOpen }: loginModalProps) => {
             style={{ cursor: 'pointer' }}
           />
         </S.CloseBtnContainer>
-        <S.LogoContainer />
+        <S.LogoContainer>
+          <Image
+            src={logo}
+            alt="logoImg"
+            height={90}
+            quality={100}
+            //quelity 의 기본값은 75 입니다.
+            priority={true}
+          />
+        </S.LogoContainer>
         <S.BunyangMoaTitle>분양모음집</S.BunyangMoaTitle>
         <S.SocialLoginBtnContainer>
           <S.SocilaLoginBtn
