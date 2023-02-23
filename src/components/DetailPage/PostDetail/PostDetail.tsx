@@ -158,39 +158,47 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
             <S.BoxTitle color="#f4f4f4">모집공고일</S.BoxTitle>
             <S.BoxContent>{home?.RCRIT_PBLANC_DE}</S.BoxContent>
           </S.Article>
-          <S.Article>
-            <S.BoxTitle color="#f4f4f4" style={{ height: 204 }}>
-              청약접수
-            </S.BoxTitle>
-            <S.BoxContent style={{ paddingLeft: 0 }}>
-              <S.Table>
-                <S.THead>
-                  <S.Tbody>구분</S.Tbody>
-                  <S.Tbody>해당지역</S.Tbody>
-                  <S.Tbody>기타경기 </S.Tbody>
-                  <S.Tbody>기타지역</S.Tbody>
-                </S.THead>
-                <S.THead>
-                  <S.Tbody>특별공급</S.Tbody>
-                  <div style={{ textAlign: 'center', width: '70%' }}>
-                    {home?.SPSPLY_RCEPT_BGNDE} ~ {home?.SPSPLY_RCEPT_ENDDE}
-                  </div>
-                </S.THead>
-                <S.THead>
-                  <S.Tbody>1순위</S.Tbody>
-                  <S.Tbody>{home?.GNRL_RNK1_CRSPAREA_RCEPT_PD}</S.Tbody>
-                  <S.Tbody>{home?.GNRL_RNK1_ETC_GG_RCPTDE_PD} </S.Tbody>
-                  <S.Tbody>{home?.GNRL_RNK1_ETC_AREA_RCPTDE_PD}</S.Tbody>
-                </S.THead>
-                <S.THead>
-                  <S.Tbody>2순위</S.Tbody>
-                  <S.Tbody>{home?.GNRL_RNK2_CRSPAREA_RCEPT_PD}</S.Tbody>
-                  <S.Tbody>{home?.GNRL_RNK2_ETC_GG_RCPTDE_PD} </S.Tbody>
-                  <S.Tbody>{home?.GNRL_RNK2_ETC_AREA_RCPTDE_PD}</S.Tbody>
-                </S.THead>
-              </S.Table>
-            </S.BoxContent>
-          </S.Article>
+          {home?.HOUSE_SECD === '02' ||
+            home?.HOUSE_SECD === '06' ||
+            (home?.HOUSE_SECD === '04' ? null : (
+              <S.Article>
+                <S.BoxTitle color="#f4f4f4" style={{ height: 204 }}>
+                  청약접수
+                </S.BoxTitle>
+                <S.BoxContent style={{ paddingLeft: 0 }}>
+                  <S.Table>
+                    <S.THead>
+                      <S.Tbody>구분</S.Tbody>
+                      <S.Tbody>해당지역</S.Tbody>
+                      <S.Tbody>기타경기 </S.Tbody>
+                      <S.Tbody>기타지역</S.Tbody>
+                    </S.THead>
+                    {home?.SPSPLY_RCEPT_BGNDE && (
+                      <S.THead>
+                        <S.Tbody>특별공급</S.Tbody>
+                        <div style={{ textAlign: 'center', width: '70%' }}>
+                          {home?.SPSPLY_RCEPT_BGNDE} ~{' '}
+                          {home?.SPSPLY_RCEPT_ENDDE}
+                        </div>
+                      </S.THead>
+                    )}
+                    <S.THead>
+                      <S.Tbody>1순위</S.Tbody>
+                      <S.Tbody>{home?.GNRL_RNK1_CRSPAREA_RCEPT_PD}</S.Tbody>
+                      <S.Tbody>{home?.GNRL_RNK1_ETC_GG_RCPTDE_PD} </S.Tbody>
+                      <S.Tbody>{home?.GNRL_RNK1_ETC_AREA_RCPTDE_PD}</S.Tbody>
+                    </S.THead>
+                    <S.THead>
+                      <S.Tbody>2순위</S.Tbody>
+                      <S.Tbody>{home?.GNRL_RNK2_CRSPAREA_RCEPT_PD}</S.Tbody>
+                      <S.Tbody>{home?.GNRL_RNK2_ETC_GG_RCPTDE_PD} </S.Tbody>
+                      <S.Tbody>{home?.GNRL_RNK2_ETC_AREA_RCPTDE_PD}</S.Tbody>
+                    </S.THead>
+                  </S.Table>
+                </S.BoxContent>
+              </S.Article>
+            ))}
+
           <S.Article>
             <S.BoxTitle color="#f4f4f4">당첨자 발표일</S.BoxTitle>
             <S.BoxContent>{home?.PRZWNER_PRESNATN_DE}</S.BoxContent>
@@ -238,119 +246,162 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
                 <S.SPLNUM style={{ width: '10%', backgroundColor: '#f4f4f4' }}>
                   {item.MODEL_NO}
                 </S.SPLNUM>
-
-                <S.SPLhead style={{ width: '90%' }}>
-                  <S.SPLTY>
-                    {item.HOUSE_TY}
-                    <a style={{ fontSize: 18, padding: 3 }}>㎡</a>
-                  </S.SPLTY>
-                  <S.SPLTY>
-                    {item.SUPLY_AR}
-                    <a style={{ fontSize: 18, padding: 3 }}>㎡</a>(
-                    {Math.round(item.SUPLY_AR / 3.3)}평)
-                  </S.SPLTY>
-                  <S.SPLTY style={{ border: 'none' }}>
-                    <S.TYDetail style={{ width: '33%' }}>
-                      {item.SUPLY_HSHLDCO}
-                    </S.TYDetail>
-                    <S.TYDetail style={{ width: '33%' }}>
-                      {item.SPSPLY_HSHLDCO}
-                    </S.TYDetail>
-                    <S.TYDetail style={{ width: '33%' }}>
-                      {item.SUPLY_HSHLDCO + item.SPSPLY_HSHLDCO}
-                    </S.TYDetail>
-                  </S.SPLTY>
-                  <S.SPLTY>{item.LTTOT_TOP_AMOUNT}만원</S.SPLTY>
-                </S.SPLhead>
+                {item.HOUSE_TY ? (
+                  <S.SPLhead style={{ width: '90%' }}>
+                    <S.SPLTY>
+                      {item.HOUSE_TY}
+                      <a style={{ fontSize: 18, padding: 3 }}>㎡</a>
+                    </S.SPLTY>
+                    <S.SPLTY>
+                      {item.SUPLY_AR !== null ? item.SUPLY_AR : '-'}
+                      {item.SUPLY_AR !== null ? (
+                        <>
+                          <a style={{ fontSize: 18, padding: 3 }}>㎡</a>
+                          <a>({Math.round(item.SUPLY_AR / 3.3)}평)</a>
+                        </>
+                      ) : null}
+                    </S.SPLTY>
+                    <S.SPLTY style={{ border: 'none' }}>
+                      <S.TYDetail style={{ width: '33%' }}>
+                        {item.SUPLY_HSHLDCO}
+                      </S.TYDetail>
+                      <S.TYDetail style={{ width: '33%' }}>
+                        {item.SPSPLY_HSHLDCO}
+                      </S.TYDetail>
+                      <S.TYDetail style={{ width: '33%' }}>
+                        {item.SUPLY_HSHLDCO + item.SPSPLY_HSHLDCO}
+                      </S.TYDetail>
+                    </S.SPLTY>
+                    <S.SPLTY>{item.LTTOT_TOP_AMOUNT}만원</S.SPLTY>
+                  </S.SPLhead>
+                ) : (
+                  <S.SPLhead style={{ width: '90%' }}>
+                    <S.SPLTY>
+                      {item.EXCLUSE_AR}
+                      <a style={{ fontSize: 18, padding: 3 }}>㎡</a>
+                    </S.SPLTY>
+                    <S.SPLTY>
+                      {item.EXCLUSE_AR}
+                      <a style={{ fontSize: 18, padding: 3 }}>㎡</a>(
+                      {Math.round(item.EXCLUSE_AR / 3.3)}평)
+                    </S.SPLTY>
+                    <S.SPLTY style={{ border: 'none' }}>
+                      <S.TYDetail style={{ width: '33%' }}>
+                        {item.SUPLY_HSHLDCO}
+                      </S.TYDetail>
+                      <S.TYDetail style={{ width: '33%' }}>
+                        {item.SPSPLY_HSHLDCO}
+                      </S.TYDetail>
+                      <S.TYDetail style={{ width: '33%' }}>
+                        {item.SUPLY_HSHLDCO}
+                      </S.TYDetail>
+                    </S.SPLTY>
+                    <S.SPLTY>{item.SUPLY_AMOUNT}만원</S.SPLTY>
+                  </S.SPLhead>
+                )}
               </S.SPLtable>
             );
           })}
         </S.ArticleBox>
+        {home?.HOUSE_SECD === '06' ||
+        home?.HOUSE_SECD === '04' ||
+        home?.HOUSE_SECD === '02' ? (
+          // 계약취소 & 무순위는 특별공급 테이블 안넣음
+          <div></div>
+        ) : (
+          <>
+            <S.ArticleHead>특별공급</S.ArticleHead>
 
-        <S.ArticleHead>특별공급</S.ArticleHead>
-
-        <S.ArticleBox>
-          <S.SPLtable>
-            <S.SpecialHead style={{ width: '20%' }} color="#f4f4f4">
-              주거전용면적
-            </S.SpecialHead>
-            <S.SpecialHead color="#f4f4f4" style={{ flexDirection: 'column' }}>
-              <div style={{ padding: 5 }}>공급세대수</div>
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  width: '100%',
-                  padding: 5,
-                }}
-              >
-                <div style={{ width: '12.5%', fontSize: 14 }}>다자녀</div>
-                <div style={{ width: '12.5%', fontSize: 14 }}>신혼부부</div>
-                <div style={{ width: '12.5%', fontSize: 14 }}>생애최초</div>
-                <div style={{ width: '12.5%', fontSize: 14 }}>노부모</div>
-                <div style={{ width: '12.5%', fontSize: 14 }}>기관추천</div>
-                <div style={{ width: '12.5%', fontSize: 14 }}>기타</div>
-                <div style={{ width: '12.5%', fontSize: 14 }}>이전기관</div>
-                <div style={{ width: '12.5%', fontSize: 14 }}>총계</div>
-              </div>
-            </S.SpecialHead>
-          </S.SPLtable>
-          {home?.DETAIL.map((item: any) => {
-            return (
-              <S.SPLtable key={item.MODEL_NO}>
-                <S.SPLNUM style={{ width: '20%', backgroundColor: '#f4f4f4' }}>
-                  {item.HOUSE_TY}
-                  <a style={{ fontSize: 18 }}>㎡</a>
-                </S.SPLNUM>
-
-                <S.SPLhead style={{ width: '80%' }}>
-                  <S.SPLTY>
-                    <S.TYDetail style={{ width: '12.5%' }}>
-                      {item.MNYCH_HSHLDCO}
-                    </S.TYDetail>
-                    <S.TYDetail style={{ width: '12.5%' }}>
-                      {item.NWWDS_HSHLDCO}
-                    </S.TYDetail>
-                    <S.TYDetail style={{ width: '12.5%' }}>
-                      {item.LFE_FRST_HSHLDCO}
-                    </S.TYDetail>
-                    <S.TYDetail style={{ width: '12.5%' }}>
-                      {item.OLD_PARNTS_SUPORT_HSHLDCO}
-                    </S.TYDetail>
-                    <S.TYDetail style={{ width: '12.5%' }}>
-                      {item.INSTT_RECOMEND_HSHLDCO}
-                    </S.TYDetail>
-                    <S.TYDetail style={{ width: '12.5%' }}>
-                      {item.ETC_HSHLDCO}
-                    </S.TYDetail>
-                    <S.TYDetail style={{ width: '12.5%' }}>
-                      {item.TRANSR_INSTT_ENFSN_HSHLDCO}
-                    </S.TYDetail>
-                    <S.TYDetail style={{ width: '12.5%' }}>
-                      {item.SPSPLY_HSHLDCO}
-                    </S.TYDetail>
-                  </S.SPLTY>
-                </S.SPLhead>
+            <S.ArticleBox>
+              <S.SPLtable>
+                <S.SpecialHead style={{ width: '20%' }} color="#f4f4f4">
+                  주거전용면적
+                </S.SpecialHead>
+                <S.SpecialHead
+                  color="#f4f4f4"
+                  style={{ flexDirection: 'column' }}
+                >
+                  <div style={{ padding: 5 }}>공급세대수</div>
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      width: '100%',
+                      padding: 5,
+                    }}
+                  >
+                    <div style={{ width: '12.5%', fontSize: 14 }}>다자녀</div>
+                    <div style={{ width: '12.5%', fontSize: 14 }}>신혼부부</div>
+                    <div style={{ width: '12.5%', fontSize: 14 }}>생애최초</div>
+                    <div style={{ width: '12.5%', fontSize: 14 }}>노부모</div>
+                    <div style={{ width: '12.5%', fontSize: 14 }}>기관추천</div>
+                    <div style={{ width: '12.5%', fontSize: 14 }}>기타</div>
+                    <div style={{ width: '12.5%', fontSize: 14 }}>이전기관</div>
+                    <div style={{ width: '12.5%', fontSize: 14 }}>총계</div>
+                  </div>
+                </S.SpecialHead>
               </S.SPLtable>
-            );
-          })}
-        </S.ArticleBox>
-        <div
-          style={{
-            color: '#8E8E8E',
-            fontSize: 14,
-            paddingLeft: 10,
-            width: '95%',
-          }}
-        >
-          <a>
-            *공급세대수는 사업주체의 최초 입주자모집 공고문 기준입니다. 특별공급
-            신청 미달 시 잔여물량은 일반공급으로 전환됨에 따라 일반공급 세대
-            수가 변경될 수 있으므로 최종 일반공급 세대수는 일반공급 신청일에
-            `청약접수 경쟁률`에서 확인 또는 사업주체에 문의하시기 바랍니다.
-          </a>
-        </div>
+              {home?.DETAIL.map((item: any) => {
+                return (
+                  <S.SPLtable key={item.MODEL_NO}>
+                    <S.SPLNUM
+                      style={{ width: '20%', backgroundColor: '#f4f4f4' }}
+                    >
+                      {item.HOUSE_TY}
+                      <a style={{ fontSize: 18 }}>㎡</a>
+                    </S.SPLNUM>
+
+                    <S.SPLhead style={{ width: '80%' }}>
+                      <S.SPLTY>
+                        <S.TYDetail style={{ width: '12.5%' }}>
+                          {item.MNYCH_HSHLDCO}
+                        </S.TYDetail>
+                        <S.TYDetail style={{ width: '12.5%' }}>
+                          {item.NWWDS_HSHLDCO}
+                        </S.TYDetail>
+                        <S.TYDetail style={{ width: '12.5%' }}>
+                          {item.LFE_FRST_HSHLDCO}
+                        </S.TYDetail>
+                        <S.TYDetail style={{ width: '12.5%' }}>
+                          {item.OLD_PARNTS_SUPORT_HSHLDCO}
+                        </S.TYDetail>
+                        <S.TYDetail style={{ width: '12.5%' }}>
+                          {item.INSTT_RECOMEND_HSHLDCO}
+                        </S.TYDetail>
+                        <S.TYDetail style={{ width: '12.5%' }}>
+                          {item.ETC_HSHLDCO}
+                        </S.TYDetail>
+                        <S.TYDetail style={{ width: '12.5%' }}>
+                          {item.TRANSR_INSTT_ENFSN_HSHLDCO}
+                        </S.TYDetail>
+                        <S.TYDetail style={{ width: '12.5%' }}>
+                          {item.SPSPLY_HSHLDCO}
+                        </S.TYDetail>
+                      </S.SPLTY>
+                    </S.SPLhead>
+                  </S.SPLtable>
+                );
+              })}
+            </S.ArticleBox>
+            <div
+              style={{
+                color: '#8E8E8E',
+                fontSize: 14,
+                paddingLeft: 10,
+                width: '95%',
+              }}
+            >
+              <a>
+                *공급세대수는 사업주체의 최초 입주자모집 공고문 기준입니다.
+                특별공급 신청 미달 시 잔여물량은 일반공급으로 전환됨에 따라
+                일반공급 세대 수가 변경될 수 있으므로 최종 일반공급 세대수는
+                일반공급 신청일에 `청약접수 경쟁률`에서 확인 또는 사업주체에
+                문의하시기 바랍니다.
+              </a>
+            </div>
+          </>
+        )}
 
         <S.ArticleHead>기타사항</S.ArticleHead>
         <S.ArticleBox>
