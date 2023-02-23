@@ -7,8 +7,6 @@ import {
   collection,
   query,
   getDocs,
-  where,
-  collectionGroup,
 } from 'firebase/firestore';
 import { db } from './firebase';
 
@@ -59,7 +57,7 @@ export const addHomeList = async (allHomeList: any) => {
 
 // Dummy Data
 export const getDummyData = async () => {
-  return axios.get('/dummy.json').then((res) => res.data);
+  return axios.get('/dummy.json').then((res: any) => res.data);
 };
 
 // firestore에서 'Users' 데이터 볼러 옴

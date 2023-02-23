@@ -276,6 +276,7 @@ const MustHaveToDo = ({
   };
 
   // FIXME: 새로고침 해야 날짜가 바뀜!!
+  // eslint-disable-next-line
   useEffect(() => setBtnTime(homeListDB[0]?.BUTTON_DATE), [btnTime]);
 
   return (
@@ -363,19 +364,19 @@ export const getStaticProps: GetStaticProps = async () => {
     .get(
       `${BASE_URL}/${METHOD_APT_DEFAULT}?page=1&perPage=1000&&cond%5BRCRIT_PBLANC_DE%3A%3AGTE%5D=2023-01-01&serviceKey=${SERVICE_KEY}`,
     )
-    .then((res) => res.data.data);
+    .then((res: any) => res.data.data);
 
   const aptRandomDefaultList = await axios
     .get(
       `${BASE_URL}/${METHOD_RANDOM_DEFAULT}?page=1&perPage=1000&&cond%5BRCRIT_PBLANC_DE%3A%3AGTE%5D=2023-01-01&serviceKey=${SERVICE_KEY}`,
     )
-    .then((res) => res.data.data);
+    .then((res: any) => res.data.data);
 
   const officeDefaultList = await axios
     .get(
       `${BASE_URL}/${METHOD_OFFICE_DEFAULT}?page=1&perPage=1000&&cond%5BRCRIT_PBLANC_DE%3A%3AGTE%5D=2023-01-01&serviceKey=${SERVICE_KEY}`,
     )
-    .then((res) => res.data.data);
+    .then((res: any) => res.data.data);
 
   // LH - 2023년 이후 공고중 리스트
   const lhNoticeList = await axios
@@ -383,7 +384,7 @@ export const getStaticProps: GetStaticProps = async () => {
       `${LH_BASE_URL}/${METHOD_LH_DEFAULT}?serviceKey=${SERVICE_KEY}&PG_SZ=1000&PAGE=1&PAN_ST_DT=20230101&PAN_SS="공고중"
       `,
     )
-    .then((res) => res.data[1].dsList);
+    .then((res: any) => res.data[1].dsList);
 
   // LH - 2023년 이후 접수중 리스트
   const lhRegisterList = await axios
@@ -391,7 +392,7 @@ export const getStaticProps: GetStaticProps = async () => {
       `${LH_BASE_URL}/${METHOD_LH_DEFAULT}?serviceKey=${SERVICE_KEY}&PG_SZ=1000&PAGE=1&PAN_ST_DT=20230101&PAN_SS="접수중"
   `,
     )
-    .then((res) => res.data[1].dsList);
+    .then((res: any) => res.data[1].dsList);
 
   // LH - 공고중 + 접수중
   // const lhDefaultList
@@ -403,7 +404,7 @@ export const getStaticProps: GetStaticProps = async () => {
       `${LH_BASE_URL}/${METHOD_LH_DEFAULT}?serviceKey=${SERVICE_KEY}&PG_SZ=1000&PAGE=1&PAN_ST_DT=20230101&PAN_SS="공고중"&UPP_AIS_TP_CD=06
     `,
     )
-    .then((res) => res.data[1].dsList);
+    .then((res: any) => res.data[1].dsList);
 
   // 공고문 상세정보 전체 리스트 가져오기
   // 청약홈
@@ -411,7 +412,7 @@ export const getStaticProps: GetStaticProps = async () => {
     .get(
       `${BASE_URL}/${METHOD_APT_DETAIL}?page=1&perPage=10000&serviceKey=${SERVICE_KEY}`,
     )
-    .then((res) =>
+    .then((res: any) =>
       res.data.data.filter((item: any) => item.PBLANC_NO >= 2023000000),
     );
 
@@ -419,7 +420,7 @@ export const getStaticProps: GetStaticProps = async () => {
     .get(
       `${BASE_URL}/${METHOD_RANDOM_DETAIL}?page=1&perPage=10000&serviceKey=${SERVICE_KEY}`,
     )
-    .then((res) =>
+    .then((res: any) =>
       res.data.data.filter((item: any) => item.PBLANC_NO >= 2023000000),
     );
 
@@ -427,7 +428,7 @@ export const getStaticProps: GetStaticProps = async () => {
     .get(
       `${BASE_URL}/${METHOD_OFFICE_DETAIL}?page=1&perPage=10000&serviceKey=${SERVICE_KEY}`,
     )
-    .then((res) =>
+    .then((res: any) =>
       res.data.data.filter((item: any) => item.PBLANC_NO >= 2023000000),
     );
 
@@ -470,18 +471,18 @@ export const getStaticProps: GetStaticProps = async () => {
   );
 
   // FIXME: 오류.. pp배열에 넣으니 오류는 해결됐는데 값을 어떻게 뱉어야 할지...
-  const lhDetailst = lhNoticeAList.map((item: any) => {
-    const pp: any = [];
-    const list = axios
-      .get(
-        `${LH_BASE_URL}/${METHOD_LH_DETAIL}?serviceKey=${SERVICE_KEY}&SPL_INF_TP_CD=${item.SPL_INF_TP_CD}&CCR_CNNT_SYS_DS_CD=${item.CCR_CNNT_SYS_DS_CD}&PAN_ID=${item.PAN_ID}`,
-      )
-      .then((res) => {
-        // console.log(res.data);
-        pp.push(res.data);
-      });
-    return pp;
-  });
+  // const lhDetailst = lhNoticeAList.map((item: any) => {
+  //   const pp: any = [];
+  //   const list = axios
+  //     .get(
+  //       `${LH_BASE_URL}/${METHOD_LH_DETAIL}?serviceKey=${SERVICE_KEY}&SPL_INF_TP_CD=${item.SPL_INF_TP_CD}&CCR_CNNT_SYS_DS_CD=${item.CCR_CNNT_SYS_DS_CD}&PAN_ID=${item.PAN_ID}`,
+  //     )
+  //     .then((res) => {
+  //       // console.log(res.data);
+  //       pp.push(res.data);
+  //     });
+  //   return pp;
+  // });
 
   // LH Default + Detail 통합 List
   // const lhCombineList2 = await Promise.all(
@@ -507,11 +508,11 @@ export const getStaticProps: GetStaticProps = async () => {
       officeCombineList,
       homeListDB,
       lhNoticeAList,
-      lhDetailst,
+      // lhDetailst,
       // lhDefaultList: lhDefaultList,
       // lhRegisterList: lhRegisterList,
     },
-    // ISR - 12시간 마다 데이터 업데이트
-    revalidate: 43200,
+    // ISR - 6시간 마다 데이터 업데이트
+    revalidate: 21600,
   };
 };
