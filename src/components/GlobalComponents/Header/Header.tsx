@@ -61,7 +61,7 @@ const Header = () => {
             onClick={pathHandler}
             style={{
               position: 'absolute',
-              left: '3%',
+              left: '3.2%',
               top: '16px',
               fontSize: '16px',
               fontWeight: 900,
