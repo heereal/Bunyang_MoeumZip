@@ -2,7 +2,7 @@ import { getUsersList } from '@/common/api';
 import { getToday } from '@/common/utils';
 import NoResult from '@/components/GlobalComponents/NoResult/NoResult';
 import TopBtn from '@/components/GlobalComponents/TopBtn/TopBtn';
-import { selectedCategoryList } from '@/store/selectors';
+import { selectedTypeList, selectedRegionList } from '@/store/selectors';
 import { useSession } from 'next-auth/react';
 import { useState } from 'react';
 import { useQuery } from 'react-query';
@@ -15,7 +15,11 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
   const [currentTab, SetCurrentTab] = useState<number>(0);
 
   // 선택된 지역, 분양 형태 리스트 가져오기
-  const [selectedCtList] = useRecoilState<{}[]>(selectedCategoryList);
+  const [selectedRegionArray] = useRecoilState(selectedRegionList);
+  const [selectedTypeArray] = useRecoilState(selectedTypeList);
+
+  console.log('r', selectedRegionArray);
+  console.log('t', selectedTypeArray);
 
   // 오늘 날짜
   const today = getToday();
@@ -88,22 +92,34 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
   randomList.map((item) => userAllList.push(item));
 
   // 로그인 관계없이 카테고리를 선택했을 때 보이는 리스트
-  // 카테고리 선택이 반영된 필터링 리스트
-  const categoryList = list.filter(
-    (item: ItemJ) =>
-      selectedCtList.includes(item.HOUSE_DTL_SECD_NM) ||
-      selectedCtList.includes(item.SUBSCRPT_AREA_CODE_NM),
+  // 카테고리 선택이 반영된 지역 필터링 리스트
+  const regionCategoryList = list.filter((item: ItemJ) =>
+    selectedRegionArray.includes(item.SUBSCRPT_AREA_CODE_NM),
   );
 
+  // 카테고리 선택이 반영된 분양형태 필터링 리스트
+  const typeCategoryList = list.filter((item: ItemJ) =>
+    selectedTypeArray.includes(item.HOUSE_DTL_SECD_NM),
+  );
+
+  // 지역 선택 후 분양형태로 필터링
+  const categoryFilteredList = regionCategoryList.filter((item) =>
+    selectedTypeArray.includes(item.HOUSE_DTL_SECD_NM),
+  );
+
+  console.log('categoryFilteredList', categoryFilteredList);
+
+  // 분양형태 선택 후 지역으로 필터링
+
   // 카테고리 - 청약 가능 리스트
-  const categoryTodayList = categoryList.filter(
+  const categoryTodayList = regionCategoryList.filter(
     (item: ItemJ) =>
       item.RCEPT_BGNDE <= today &&
       item.RCEPT_ENDDE >= today &&
       item.HOUSE_SECD !== '04',
   );
   // 카테고리 - 청약 예정 리스트
-  const categoryComingList = categoryList.filter(
+  const categoryComingList = regionCategoryList.filter(
     (item: any) => item.RCEPT_BGNDE > today && item.HOUSE_SECD !== '04',
   );
 
@@ -117,14 +133,15 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
     {
       name: '전체',
       content:
-        selectedCtList.length !== 0
+        // TODO: 로직 수정해야 함
+        selectedRegionArray.length || selectedTypeArray.length !== 0
           ? categoryAllList
           : session
           ? userAllList
           : basicAllList,
 
       count:
-        selectedCtList.length !== 0
+        selectedRegionArray.length || selectedTypeArray.length !== 0
           ? categoryAllList.length
           : session
           ? userAllList.length
@@ -133,13 +150,13 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
     {
       name: '청약 가능',
       content:
-        selectedCtList.length !== 0
+        selectedRegionArray.length || selectedTypeArray.length !== 0
           ? categoryTodayList
           : session
           ? userTodayList
           : todayList,
       count:
-        selectedCtList.length !== 0
+        selectedRegionArray.length || selectedTypeArray.length !== 0
           ? categoryTodayList.length
           : session
           ? userTodayList.length
@@ -148,13 +165,13 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
     {
       name: '청약 예정',
       content:
-        selectedCtList.length !== 0
+        selectedRegionArray.length || selectedTypeArray.length !== 0
           ? categoryComingList
           : session
           ? userComingList
           : comingList,
       count:
-        selectedCtList.length !== 0
+        selectedRegionArray.length || selectedTypeArray.length !== 0
           ? categoryComingList.length
           : session
           ? userComingList.length
