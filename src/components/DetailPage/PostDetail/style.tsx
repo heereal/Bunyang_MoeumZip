@@ -38,11 +38,11 @@ export const HeaderTag = styled.p`
   justify-content: center;
   align-items: center;
   height: 28px;
-  width: 65px;
+
   background: #f1f6ff;
   border-radius: 10px;
   color: #3d7fff;
-  padding-top: 5px;
+  padding: 10px;
 `;
 
 export const HeaderTitle = styled.div`
