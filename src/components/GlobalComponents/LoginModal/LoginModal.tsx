@@ -32,7 +32,7 @@ const LoginModal = ({ setIsOpen }: loginModalProps) => {
           <Image
             src={logo}
             alt="logoImg"
-            height={90}
+            height={100}
             quality={100}
             priority={true}
           />

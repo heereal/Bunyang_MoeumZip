@@ -67,7 +67,7 @@ const AddComment = ({ user, postId, queryClient, refetch }: CommentPropsP) => {
           />
         ) : (
           <Image
-            height={29}
+            height={33}
             alt="profile"
             src={logo}
             quality={75}

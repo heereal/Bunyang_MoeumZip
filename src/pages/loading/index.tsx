@@ -11,6 +11,7 @@ import {
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import LoadingSpinner from '@/components/GlobalComponents/LoadingSpinner/LoadingSpinner';
+import { regionArray, typesArray } from '@/common/categoryList';
 
 // 로그인 후 회원가입 페이지로 이동 전에 보여지는 로딩 페이지
 // 최초 로그인이라면 회원가입 페이지로 이동, 아니면 메인 페이지로 이동
@@ -42,8 +43,8 @@ const Loading = () => {
       userName: session?.user?.name,
       userImage: session?.user?.image,
       bookmarkList: [],
-      regions: [],
-      types: [],
+      regions: regionArray,
+      types: typesArray,
     };
 
     email = session?.user?.email;
