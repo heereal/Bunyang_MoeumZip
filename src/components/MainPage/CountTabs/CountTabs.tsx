@@ -9,6 +9,7 @@ import { useQuery } from 'react-query';
 import { useRecoilState } from 'recoil';
 import HomeList from '../../GlobalComponents/HomeList/HomeList';
 import CategoryBar from '../CategoryBar/CategoryBar';
+import LoadingSpinner from '@/components/GlobalComponents/LoadingSpinner/LoadingSpinner';
 import * as S from './style';
 
 const CountTabs = ({ list }: CountTabPropsListJ) => {
@@ -206,7 +207,7 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
       </S.CountSectionBack>
       <CategoryBar />
       {/* 분양 정보가 없을 때 보여줄 문구 */}
-      {tabList[currentTab].content.length === 0 ? (
+      {isLoading ? <LoadingSpinner /> : tabList[currentTab].content.length === 0 ? (
         <div
           style={{
             paddingTop: '12%',

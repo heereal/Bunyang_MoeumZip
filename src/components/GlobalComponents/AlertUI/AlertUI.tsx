@@ -1,4 +1,4 @@
-import { MouseEventHandler, useEffect } from 'react';
+import { MouseEventHandler } from 'react';
 import * as S from './style';
 
 // TODO: type 지정하기

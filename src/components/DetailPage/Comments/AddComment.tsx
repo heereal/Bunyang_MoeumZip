@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { KeyboardEvent, useState } from 'react';
 import { RiPencilFill } from 'react-icons/ri';
 import { useMutation } from 'react-query';
-import candy from '../../../assets/candy.jpg';
+import logo from '../../../assets/logo.png';
 import * as S from './style';
 
 const AddComment = ({ user, postId, queryClient, refetch }: CommentPropsP) => {
@@ -67,10 +67,9 @@ const AddComment = ({ user, postId, queryClient, refetch }: CommentPropsP) => {
           />
         ) : (
           <Image
-            width={45}
-            height={45}
+            height={33}
             alt="profile"
-            src={candy}
+            src={logo}
             quality={75}
             loading="lazy"
             style={{ borderRadius: 25, objectFit: 'cover' }}

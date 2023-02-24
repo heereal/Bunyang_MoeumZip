@@ -4,13 +4,18 @@ import { db } from '@/common/firebase';
 import { customAlert } from '@/common/utils';
 import SelectMyRegion from '@/components/GlobalComponents/SelectMyRegion/SelectMyRegion';
 import SelectMyTypes from '@/components/GlobalComponents/SelectMyTypes/SelectMyTypes';
-import { myRegionArrayState, myTypeArrayState } from '@/store/selectors';
+import {
+  currentUserState,
+  myRegionArrayState,
+  myTypeArrayState,
+  usersListState,
+} from '@/store/selectors';
 import { doc, updateDoc } from 'firebase/firestore';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import * as S from '../../styles/signup.style';
 import HeadTitle from '@/components/GlobalComponents/HeadTitle/HeadTitle';
 
@@ -22,20 +27,25 @@ const SignUp = () => {
   // 유저의 세션 정보 받아오기
   const { data: session, status } = useSession();
 
+  const [currentUser, setCurrentUser] = useRecoilState(currentUserState);
+  const [users, setUsers] = useRecoilState(usersListState);
+
   // 유저가 선택한 카테고리 필터링 리스트
-  const myRegionArray = useRecoilValue<any>(myRegionArrayState);
-  const myTypeArray = useRecoilValue<any>(myTypeArrayState);
+  const [myTypeArray, setMyTypeArray] = useRecoilState<any>(myTypeArrayState);
+  const [myRegionArray, setMyRegionArray] =
+    useRecoilState<any>(myRegionArrayState);
 
   // 닉네임 중복 검사 시 사용
   const [isValidNickname, setIsValidNickname] = useState(false);
 
   const [nickname, setNickname] = useState<any>('');
-  const [email, setEmail] = useState<any>('');
+  // const [email, setEmail] = useState<any>('');
+  console.log('nickname:', nickname);
 
   // [닉네임 중복 확인] 버튼 클릭 시 작동
   const checkNicknameHandler = () => {
     const checkNickname = users.find(
-      (user: userProps) => user.userName === nickname,
+      (user: userProps) => user.userName === nickname && !currentUser.userName,
     );
     //닉네임을 입력하지 않았을 때
     if (!nickname) {
@@ -61,17 +71,28 @@ const SignUp = () => {
     // 관심 카테고리 선택하지 않으면 전체 리스트를 선택한 것으로 간주함
     const updateUser = {
       userName: nickname,
-      regions: myRegionArray.length === 0 ? regionArray : myRegionArray,
-      types: myTypeArray.length === 0 ? typesArray : myTypeArray,
+      regions: myRegionArray,
+      types: myTypeArray,
     };
 
-    await updateDoc(doc(db, 'Users', email), updateUser);
+    await updateDoc(doc(db, 'Users', currentUser.userEmail), updateUser);
     customAlert('회원가입이 완료되었습니다.');
     router.push('/');
   };
 
   // Users 데이터 불러오기
-  const { data: users, isLoading }: any = useQuery('users', getUsersList);
+  const { data: usersData }: any = useQuery('users', getUsersList, {
+    enabled: !!session, // session이 true인 경우에만 useQuery를 실행함
+    // users를 불러오는 데 성공하면 현재 로그인한 유저의 정보를 찾아서 setCurrentUser에 담음
+    onSuccess: (usersData) => {
+      setUsers(usersData);
+      setCurrentUser(
+        usersData.find(
+          (user: userProps) => user.userEmail === session?.user?.email,
+        ),
+      );
+    },
+  });
 
   useEffect(() => {
     // 비로그인 유저일 경우 접근 제한
@@ -81,12 +102,13 @@ const SignUp = () => {
 
   useEffect(() => {
     // session(유저 정보)가 들어왔을 때만 함수를 실행함
-    if (session) {
-      setNickname(session?.user?.name);
-      setEmail(session?.user?.email);
+    if (currentUser) {
+      setNickname(currentUser.userName);
+      setMyRegionArray(currentUser.regions);
+      setMyTypeArray(currentUser.types);
     }
     // eslint-disable-next-line
-  }, [session]);
+  }, [currentUser]);
 
   return (
     <S.Wrapper>
@@ -107,7 +129,6 @@ const SignUp = () => {
             <S.NicknameInput
               value={nickname}
               onChange={(e) => setNickname(e.target.value)}
-              placeholder="닉네임을 입력해주세요."
             />
             <S.CheckNicknameBtn onClick={checkNicknameHandler}>
               중복확인

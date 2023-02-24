@@ -1,5 +1,5 @@
 import { getHomeList } from '@/common/api';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import * as S from './style';
 import SelectMyRegion from '@/components/GlobalComponents/SelectMyRegion/SelectMyRegion';

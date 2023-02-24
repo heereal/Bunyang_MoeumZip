@@ -6,13 +6,13 @@ export const Container = styled.div`
 `;
 
 export const CommentHeader = styled.div`
-  font-size: 25px;
+  font-size: 18px;
   font-weight: 700;
   padding-bottom: 10px;
 `;
 
 export const CommentCount = styled.div`
-  font-size: 25px;
+  font-size: 18px;
   font-weight: 700;
   padding-bottom: 10px;
   padding-left: 10px;

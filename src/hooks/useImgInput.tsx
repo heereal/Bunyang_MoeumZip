@@ -1,8 +1,5 @@
-import { useState } from 'react';
-
 // 이미지 변경 커스텀훅
 const useImgInput = (setImg: any) => {
-
   const onImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files !== null) {
       const file = e.target.files[0];

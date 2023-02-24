@@ -27,6 +27,7 @@ const CategoryBar = () => {
   useEffect(() => {
     setSelectedRegionArray(myRegionArray);
     setSelectedTypeArray(myTypeArray);
+    // eslint-disable-next-line
   }, [myRegionArray, myTypeArray]);
 
   // 지역, 분양형태 카테고리 Tabs를 누를 때마다 Open, Close 전환

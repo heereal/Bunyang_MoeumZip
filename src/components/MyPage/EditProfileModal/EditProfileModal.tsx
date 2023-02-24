@@ -52,8 +52,6 @@ const EditProfileModal = ({ setIsModalOpen }: any) => {
       return;
     }
 
-    // if (imageUpload === null) return;
-
     const imageRef = ref(storage, `profileImages/${uuidv4()}`);
     // Storage에 이미지 업로드
     const response = await uploadBytes(imageRef, imageUpload);

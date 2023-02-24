@@ -181,6 +181,7 @@ const MapSection = () => {
         );
       }
     });
+  // eslint-disable-next-line
   }, [mapLoaded, coordnates, path, router]);
 
   return (
