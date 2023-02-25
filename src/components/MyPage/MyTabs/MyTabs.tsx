@@ -7,16 +7,17 @@ import SelectMyTypes from '@/components/GlobalComponents/SelectMyTypes/SelectMyT
 import HomeList from '@/components/GlobalComponents/HomeList/HomeList';
 import { db } from '@/common/firebase';
 import { doc, updateDoc } from 'firebase/firestore';
-import { useRecoilValue } from 'recoil';
-import { myRegionArrayState, myTypeArrayState } from '@/store/selectors';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { currentUserState, myRegionArrayState, myTypeArrayState } from '@/store/selectors';
 import { customAlert } from '@/common/utils';
 
-const MyTabs = ({ currentUser }: any) => {
+const MyTabs = () => {
   const [currentTab, setCurrentTab] = useState(1);
   const { data: homeList } = useQuery('HomeList', getHomeList);
 
   const myRegionArray = useRecoilValue(myRegionArrayState);
   const myTypeArray = useRecoilValue(myTypeArrayState);
+  const [currentUser, setCurrentUser] = useRecoilState(currentUserState);
 
   // 전체 분양 정보 리스트에서 내가 북마크한 정보만 필터링하기
   const myBookmarkList = homeList?.allHomeData?.filter(
@@ -31,6 +32,10 @@ const MyTabs = ({ currentUser }: any) => {
     };
 
     await updateDoc(doc(db, 'Users', currentUser.userEmail), updateUser);
+    setCurrentUser({
+      ...currentUser,
+      [category]: array,
+    });
     customAlert('관심 카테고리 설정이 업데이트되었습니다.');
   };
 

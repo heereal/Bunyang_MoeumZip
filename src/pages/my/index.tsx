@@ -45,7 +45,7 @@ const MyPage = () => {
       <HeadTitle title="마이페이지" />
 
       <EditProfile users={users} currentUser={currentUser} />
-      <MyTabs currentUser={currentUser} />
+      <MyTabs />
     </S.Wrapper>
   );
 };
