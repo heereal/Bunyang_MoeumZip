@@ -1,8 +1,23 @@
-import { getToday } from '@/common/utils';
+// import { getToday } from '@/common/utils';
 import * as S from './style';
+import { useEffect, useState } from 'react';
 
 const Overlay = ({ result }: any) => {
-  const today = getToday();
+  const [today, setToday] = useState(Date);
+
+  // 오늘 날짜
+  useEffect(() => {
+    const getToday = () => {
+      const date = new Date();
+      const year = date.getFullYear();
+      const month = ('0' + (date.getMonth() + 1)).slice(-2);
+      const day = ('0' + date.getDate()).slice(-2);
+      const today = year + '-' + month + '-' + day;
+
+      return today;
+    };
+    setToday(getToday());
+  }, []);
 
   return (
     <S.OverlayContainer
