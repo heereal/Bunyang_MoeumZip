@@ -14,18 +14,17 @@ const ListList = ({ list }: PropsListJ) => {
     setPath(list.PBLANC_NO);
   };
 
-  const getToday = () => {
-    const date = new Date();
-    const year = date.getFullYear();
-    const month = ('0' + (date.getMonth() + 1)).slice(-2);
-    const day = ('0' + date.getDate()).slice(-2);
-    const today = year + '-' + month + '-' + day;
-
-    return today;
-  };
-
   // 오늘 날짜
   useEffect(() => {
+    const getToday = () => {
+      const date = new Date();
+      const year = date.getFullYear();
+      const month = ('0' + (date.getMonth() + 1)).slice(-2);
+      const day = ('0' + date.getDate()).slice(-2);
+      const today = year + '-' + month + '-' + day;
+
+      return today;
+    };
     setToday(getToday());
   }, []);
 

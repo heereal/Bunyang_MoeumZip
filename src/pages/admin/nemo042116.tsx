@@ -1,6 +1,6 @@
 import { addHomeList } from '@/common/api';
 import { db } from '@/common/firebase';
-import { customAlert, getToday } from '@/common/utils';
+import { customAlert } from '@/common/utils';
 import HeadTitle from '@/components/GlobalComponents/HeadTitle/HeadTitle';
 import axios from 'axios';
 import { doc, getDoc } from 'firebase/firestore';
@@ -20,6 +20,7 @@ const MustHaveToDo = ({
   homeListDB,
 }: ListPropsJ) => {
   const queryClient = useQueryClient();
+  const [today, setToday] = useState(Date);
   const [allHomeData, setAllHomeData] = useState<{ [key: string]: string }[]>(
     [],
   );
@@ -66,7 +67,19 @@ const MustHaveToDo = ({
     };
   });
 
-  const today = getToday();
+  // 오늘 날짜
+  useEffect(() => {
+    const getToday = () => {
+      const date = new Date();
+      const year = date.getFullYear();
+      const month = ('0' + (date.getMonth() + 1)).slice(-2);
+      const day = ('0' + date.getDate()).slice(-2);
+      const today = year + '-' + month + '-' + day;
+
+      return today;
+    };
+    setToday(getToday());
+  }, []);
 
   // 청약홈 전체 API 통합 리스트
   const allHomeList: {}[] = [];

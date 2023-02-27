@@ -19,18 +19,17 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
   // 선택된 지역, 분양 형태 리스트 가져오기
   const [selectedCtList] = useRecoilState<{}[]>(selectedCategoryList);
 
-  const getToday = () => {
-    const date = new Date();
-    const year = date.getFullYear();
-    const month = ('0' + (date.getMonth() + 1)).slice(-2);
-    const day = ('0' + date.getDate()).slice(-2);
-    const today = year + '-' + month + '-' + day;
-
-    return today;
-  };
-
   // 오늘 날짜
   useEffect(() => {
+    const getToday = () => {
+      const date = new Date();
+      const year = date.getFullYear();
+      const month = ('0' + (date.getMonth() + 1)).slice(-2);
+      const day = ('0' + date.getDate()).slice(-2);
+      const today = year + '-' + month + '-' + day;
+
+      return today;
+    };
     setToday(getToday());
   }, []);
   // 로그인 여부 확인
