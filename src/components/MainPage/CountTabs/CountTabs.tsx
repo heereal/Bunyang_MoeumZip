@@ -11,9 +11,17 @@ import HomeList from '../../GlobalComponents/HomeList/HomeList';
 import CategoryBar from '../CategoryBar/CategoryBar';
 import LoadingSpinner from '@/components/GlobalComponents/LoadingSpinner/LoadingSpinner';
 import * as S from './style';
+import dynamic from 'next/dynamic';
 
 const CountTabs = ({ list }: CountTabPropsListJ) => {
   const [currentTab, SetCurrentTab] = useState<number>(0);
+
+  const HomeList = dynamic(
+    () => import('../../GlobalComponents/HomeList/HomeList'),
+    {
+      ssr: false,
+    },
+  );
 
   // 선택된 지역, 분양 형태 리스트 가져오기
   const [selectedRegionArray] = useRecoilState(selectedRegionList);
@@ -207,7 +215,9 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
       </S.CountSectionBack>
       <CategoryBar />
       {/* 분양 정보가 없을 때 보여줄 문구 */}
-      {isLoading ? <LoadingSpinner /> : tabList[currentTab].content.length === 0 ? (
+      {isLoading ? (
+        <LoadingSpinner />
+      ) : tabList[currentTab].content.length === 0 ? (
         <div
           style={{
             paddingTop: '12%',

@@ -7,8 +7,13 @@ import { useRecoilState } from 'recoil';
 import { Section } from './style';
 import * as ReactDOMServer from 'react-dom/server';
 import Overlay from './Overlay';
+import dynamic from 'next/dynamic';
 
 const MapSection = () => {
+  const Overlay = dynamic(() => import('./Overlay'), {
+    ssr: false,
+  });
+
   // 맵 로드 시 제어할 boolean state
   const [mapLoaded, setMapLoaded] = useState<boolean>(false);
   const router = useRouter();
@@ -181,7 +186,7 @@ const MapSection = () => {
         );
       }
     });
-  // eslint-disable-next-line
+    // eslint-disable-next-line
   }, [mapLoaded, coordnates, path, router]);
 
   return (
