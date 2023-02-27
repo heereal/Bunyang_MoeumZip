@@ -58,10 +58,19 @@ const ListList = ({ list }: PropsListJ) => {
             <>
               <S.CardDateTitle>특별 청약일</S.CardDateTitle>
               <S.CardDate>
-                {list.SPSPLY_RCEPT_BGNDE.slice(5, 7).replace(/(^0)/, '')}월
-                {list.SPSPLY_RCEPT_BGNDE.slice(8, 10).replace(/(^0)/, '')}일 ~
-                {list.SPSPLY_RCEPT_ENDDE.slice(5, 7).replace(/(^0)/, '')}월
-                {list.SPSPLY_RCEPT_ENDDE.slice(8, 10).replace(/(^0)/, '')}일
+                {list.SPSPLY_RCEPT_BGNDE === list.SPSPLY_RCEPT_ENDDE
+                  ? list.SPSPLY_RCEPT_BGNDE.slice(5, 7).replace(/(^0)/, '') +
+                    '월 ' +
+                    list.SPSPLY_RCEPT_BGNDE.slice(8, 10).replace(/(^0)/, '') +
+                    '일'
+                  : list.SPSPLY_RCEPT_BGNDE.slice(5, 7).replace(/(^0)/, '') +
+                    '월' +
+                    list.SPSPLY_RCEPT_BGNDE.slice(8, 10).replace(/(^0)/, '') +
+                    '일 ~ ' +
+                    list.SPSPLY_RCEPT_ENDDE.slice(5, 7).replace(/(^0)/, '') +
+                    '월' +
+                    list.SPSPLY_RCEPT_ENDDE.slice(8, 10).replace(/(^0)/, '') +
+                    '일'}
               </S.CardDate>
             </>
           ) : (
@@ -91,9 +100,37 @@ const ListList = ({ list }: PropsListJ) => {
         <S.CardAreaBox>
           <S.CardAreaTitle>분양가격</S.CardAreaTitle>
           <S.CardArea>
-            {list.MIN_LTTOT_TOP_AMOUNT === list.MAX_LTTOT_TOP_AMOUNT
-              ? list.MAX_LTTOT_TOP_AMOUNT
-              : list.MIN_LTTOT_TOP_AMOUNT + ' ~ ' + list.MAX_LTTOT_TOP_AMOUNT}
+            {
+              // TODO:DB에 넣을 때 6자리 미만은 금액에 '만원' 붙이고 6자리 이상은 금액에'억'붙이고 자르기
+              list.MIN_LTTOT_TOP_AMOUNT === list.MAX_LTTOT_TOP_AMOUNT
+                ? list.MAX_LTTOT_TOP_AMOUNT + '만원'
+                : list.MAX_LTTOT_TOP_AMOUNT.split(',')[0].length < 2
+                ? list.MIN_LTTOT_TOP_AMOUNT +
+                  ' ~ ' +
+                  list.MAX_LTTOT_TOP_AMOUNT +
+                  '만원'
+                : list.MAX_LTTOT_TOP_AMOUNT.split(',')[0].length === 2
+                ? list.MIN_LTTOT_TOP_AMOUNT.slice(0, 1) +
+                  '.' +
+                  list.MIN_LTTOT_TOP_AMOUNT.slice(1, 2) +
+                  '억' +
+                  ' ~ ' +
+                  list.MAX_LTTOT_TOP_AMOUNT.slice(0, 1) +
+                  '.' +
+                  list.MAX_LTTOT_TOP_AMOUNT.slice(1, 2) +
+                  '억'
+                : list.MAX_LTTOT_TOP_AMOUNT.split(',')[0].length === 3
+                ? list.MIN_LTTOT_TOP_AMOUNT.slice(0, 1) +
+                  '.' +
+                  list.MIN_LTTOT_TOP_AMOUNT.slice(1, 2) +
+                  '억' +
+                  ' ~ ' +
+                  list.MAX_LTTOT_TOP_AMOUNT.slice(0, 2) +
+                  '.' +
+                  list.MAX_LTTOT_TOP_AMOUNT.slice(2, 3) +
+                  '억'
+                : ''
+            }
           </S.CardArea>
         </S.CardAreaBox>
       </S.CardAreaContainer>
