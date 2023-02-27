@@ -1,6 +1,6 @@
 import { addHomeList } from '@/common/api';
 import { db } from '@/common/firebase';
-import { customAlert, getToday } from '@/common/utils';
+import { getToday } from '@/common/utils';
 import HeadTitle from '@/components/GlobalComponents/HeadTitle/HeadTitle';
 import axios from 'axios';
 import { doc, getDoc } from 'firebase/firestore';
