@@ -102,17 +102,22 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
 
   // 로그인 관계없이 카테고리를 선택했을 때 보이는 리스트
   // 카테고리 선택이 반영된 지역 필터링 리스트
+
   const regionCategoryList = list.filter((item: ItemJ) =>
+    //@ts-ignore
     selectedRegionArray.includes(item.SUBSCRPT_AREA_CODE_NM),
   );
 
   // 카테고리 선택이 반영된 분양형태 필터링 리스트
   const typeCategoryList = list.filter((item: ItemJ) =>
+    //@ts-ignore
     selectedTypeArray.includes(item.HOUSE_DTL_SECD_NM),
   );
 
   // 지역 선택 후 분양형태로 필터링
+
   const categoryFilteredList = regionCategoryList.filter((item) =>
+    //@ts-ignore
     selectedTypeArray.includes(item.HOUSE_DTL_SECD_NM),
   );
 
