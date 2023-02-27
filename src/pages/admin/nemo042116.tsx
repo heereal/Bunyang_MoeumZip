@@ -8,9 +8,9 @@ import { GetStaticProps } from 'next';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
-import coordinatesBtn from '../../assets/apiCallButton_blue.png';
-import lastDbButton from '../../assets/apiCallButton_green.png';
-import firsDbtButton from '../../assets/apiCallButton_red.png';
+import coordinatesBtn from '../../../public/assets/apiCallButton_blue.png';
+import lastDbButton from '../../../public/assets/apiCallButton_green.png';
+import firsDbtButton from '../../../public/assets/apiCallButton_red.png';
 import * as S from '../../styles/admin.style';
 
 const MustHaveToDo = ({

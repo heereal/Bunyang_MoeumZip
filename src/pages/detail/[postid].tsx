@@ -10,7 +10,7 @@ const DeatilPage = ({ dehydratedState }: any) => {
   const router = useRouter();
 
   return (
-    <S.DetailBody>
+    <S.DetailBody id="detailBody">
       <HeadTitle title="상세페이지" />
       <PostDetail postId={router?.query.postid} />
       <CommentsList postId={router?.query.postid} />

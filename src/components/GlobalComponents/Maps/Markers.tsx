@@ -60,6 +60,8 @@ const Markers = ({ map, home }: MarkersProps) => {
           markers.push(marker);
           naver.maps.Event.addListener(marker, 'click', () => {
             router.push(`/detail/${item.PBLANC_NO}`);
+            const detailBody = document.querySelector('#detailBody');
+            detailBody?.scroll(0, 0);
           });
 
           const contentString = ReactDOMServer.renderToString(
@@ -74,11 +76,6 @@ const Markers = ({ map, home }: MarkersProps) => {
             // anchorSkew: true,
             // anchorColor: '#eee',
             pixelOffset: new naver.maps.Point(0, 25),
-          });
-
-          naver.maps.Event.addListener(marker, 'click', function (e) {
-            if (marker !== null && router.asPath !== '/') {
-            }
           });
 
           naver.maps.Event.addListener(marker, 'mouseover', function (e) {
