@@ -50,3 +50,14 @@ export const usersListState = atom<any>({
   key: 'usersList',
   default: [],
 });
+
+// 유저가 선택한 지역 / 분양형태 필터 리스트
+export const selectedRegionList = atom({
+  key: 'selectedRegion',
+  default: []
+})
+
+export const selectedTypeList = atom({
+  key: 'selectedType',
+  default: []
+})

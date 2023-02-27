@@ -1,5 +1,5 @@
 import { regionArray, typesArray } from '@/common/categoryList';
-import { selectedCategoryList } from '@/store/selectors';
+import { selectedRegionList, selectedTypeList } from '@/store/selectors';
 import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import * as S from './style';
@@ -12,26 +12,24 @@ const CategoryBar = () => {
   const [isRegionToggleOpen, setIsRegionToggleOpen] = useState<boolean>(false);
   const [isTypeToggleOpen, setIsTypeToggleOpen] = useState<boolean>(false);
 
-  const [currentTab, SetCurrentTab] = useState(0);
+  const [currentTab, SetCurrentTab] = useState<number>(0);
 
   // 유저가 선택한 카테고리 필터링 리스트
-  const [myRegionArray, setMyRegionArray] = useState<{}[]>([]);
-  const [myTypeArray, setMyTypeArray] = useState<{}[]>([]);
+  const [myRegionArray, setMyRegionArray] = useState<any>([]);
+  const [myTypeArray, setMyTypeArray] = useState<any>([]);
 
-  // 유저가 선택한 지역, 분양형태가 바뀔 때마다 recoil defaultValue를 combineUserCtList로 업데이트
-  const [selectedList, setSelectedList] = useRecoilState(selectedCategoryList);
-
-  // 유저가 선택한 카테고리 통합 리스트
-  const combineUserCtList: {}[] = [];
-  myRegionArray.map((item) => combineUserCtList.push(item));
-  myTypeArray.map((item) => combineUserCtList.push(item));
+  // 선택한 지역, 분양형태가 바뀔 때마다 recoil defaultValue를 업데이트
+  const [selectedRegionArray, setSelectedRegionArray] =
+    useRecoilState(selectedRegionList);
+  const [selectedTypeArray, setSelectedTypeArray] =
+    useRecoilState(selectedTypeList);
 
   useEffect(() => {
-    setSelectedList(combineUserCtList);
+    setSelectedRegionArray(myRegionArray);
+    setSelectedTypeArray(myTypeArray);
     // eslint-disable-next-line
   }, [myRegionArray, myTypeArray]);
 
-  // FIXME: 중복, 중복...
   // 지역, 분양형태 카테고리 Tabs를 누를 때마다 Open, Close 전환
   const openToggleHandler = () => {
     setIsRegionToggleOpen(!isRegionToggleOpen);
@@ -56,9 +54,6 @@ const CategoryBar = () => {
   const selectedCategory = (index: number) => {
     SetCurrentTab(index);
   };
-
-  // FIXME: 컴포넌트 하나로 썼을 때 전체 선택, 초기화 문제
-  // 1. 컴포넌트 하나로 쓰기 2. 각각 따로 하기(원본 필터) -> 컴포넌트 분리
 
   return (
     <S.CategorySection>
@@ -138,7 +133,7 @@ const CategoryBar = () => {
                   <S.CategoryBtn
                     onClick={() =>
                       setMyRegionArray(
-                        myRegionArray.filter((item) => item !== region),
+                        myRegionArray.filter((item: string) => item !== region),
                       )
                     }
                     key={index}
@@ -194,7 +189,7 @@ const CategoryBar = () => {
                   <S.CategoryBtn
                     onClick={() =>
                       setMyTypeArray(
-                        myTypeArray.filter((item) => item !== region),
+                        myTypeArray.filter((item: string) => item !== region),
                       )
                     }
                     key={index}

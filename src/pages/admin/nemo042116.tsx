@@ -88,6 +88,7 @@ const MustHaveToDo = ({
 
   // 버튼 클릭 시 전체 API data가 firebase에 들어감
   const apiCallHandler = async () => {
+    // TODO: 버튼 2개로 줄이기 -> 리스트 변수 선언하기
     possibleAllHomeList.map((item: any) => {
       newList.push({
         COORDINATES: 'x:, y:',
@@ -122,37 +123,20 @@ const MustHaveToDo = ({
                 '.',
               )[0].replace(/(^0)/, '') + '㎡',
 
+        // TODO: 금액이 6자리 이상일 때만 잘라야 억으로 잘림
         MIN_LTTOT_TOP_AMOUNT:
           item.detail.length === 0
             ? ''
             : item?.detail[0]?.LTTOT_TOP_AMOUNT
-            ? item?.detail[0]?.LTTOT_TOP_AMOUNT.slice(0, 1) +
-              '.' +
-              item?.detail[0]?.LTTOT_TOP_AMOUNT.slice(1, 2) +
-              '억'
-            : item?.detail[0]?.SUPLY_AMOUNT.slice(0, 1) +
-              '.' +
-              item?.detail[0]?.SUPLY_AMOUNT.slice(1, 2) +
-              '억',
+            ? item?.detail[0]?.LTTOT_TOP_AMOUNT
+            : item?.detail[0]?.SUPLY_AMOUNT,
 
         MAX_LTTOT_TOP_AMOUNT:
           item.detail.length === 0
             ? ''
             : item?.detail[item?.detail?.length - 1]?.LTTOT_TOP_AMOUNT
-            ? item?.detail[item?.detail?.length - 1]?.LTTOT_TOP_AMOUNT.slice(
-                0,
-                1,
-              ) +
-              '.' +
-              item?.detail[item?.detail?.length - 1]?.LTTOT_TOP_AMOUNT.slice(
-                1,
-                2,
-              ) +
-              '억'
-            : item?.detail[item?.detail?.length - 1]?.SUPLY_AMOUNT.slice(0, 1) +
-              '.' +
-              item?.detail[item?.detail?.length - 1]?.SUPLY_AMOUNT.slice(1, 2) +
-              '억',
+            ? item?.detail[item?.detail?.length - 1]?.LTTOT_TOP_AMOUNT
+            : item?.detail[item?.detail?.length - 1]?.SUPLY_AMOUNT,
 
         SPSPLY_HSHLDCO: item.SPSPLY_HSHLDCO ? item.SPSPLY_HSHLDCO + '세대' : '',
         SUPLY_HSHLDCO: item.SUPLY_HSHLDCO ? item.SUPLY_HSHLDCO + '세대' : '',
@@ -435,25 +419,19 @@ export const getStaticProps: GetStaticProps = async () => {
     .get(
       `${BASE_URL}/${METHOD_APT_DETAIL}?page=1&perPage=10000&serviceKey=${SERVICE_KEY}`,
     )
-    .then((res: any) =>
-      res.data.data.filter((item: any) => item.PBLANC_NO >= 2023000000),
-    );
+    .then((res: any) => res.data.data);
 
   const aptRandomDetailList = await axios
     .get(
       `${BASE_URL}/${METHOD_RANDOM_DETAIL}?page=1&perPage=10000&serviceKey=${SERVICE_KEY}`,
     )
-    .then((res: any) =>
-      res.data.data.filter((item: any) => item.PBLANC_NO >= 2023000000),
-    );
+    .then((res: any) => res.data.data);
 
   const officeDetailList = await axios
     .get(
       `${BASE_URL}/${METHOD_OFFICE_DETAIL}?page=1&perPage=10000&serviceKey=${SERVICE_KEY}`,
     )
-    .then((res: any) =>
-      res.data.data.filter((item: any) => item.PBLANC_NO >= 2023000000),
-    );
+    .then((res: any) => res.data.data);
 
   //LH detailList -
 
