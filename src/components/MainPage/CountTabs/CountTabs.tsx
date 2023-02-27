@@ -15,7 +15,6 @@ import { getToday } from '@/common/utils';
 
 const CountTabs = ({ list }: CountTabPropsListJ) => {
   const [currentTab, SetCurrentTab] = useState<number>(0);
-  // const [today, setToday] = useState(Date);
 
   const HomeList = dynamic(
     () => import('../../GlobalComponents/HomeList/HomeList'),
@@ -27,23 +26,7 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
   // 선택된 지역, 분양 형태 리스트 가져오기
   const [selectedCtList] = useRecoilState<{}[]>(selectedCategoryList);
 
-  // const getToday = dynamic(() => import('../../../common/utils'), {
-  //   ssr: false,
-  // });
-
-  // 오늘 날짜
-
   const today = getToday();
-  // useEffect(() => {
-  //   if (window) {
-  //     const date = new Date();
-  //     const year = date.getFullYear();
-  //     const month = ('0' + (date.getMonth() + 1)).slice(-2);
-  //     const day = ('0' + date.getDate()).slice(-2);
-  //     const today = year + '-' + month + '-' + day;
-  //     setToday(today);
-  //   }
-  // }, []);
 
   // 로그인 여부 확인
   const { data: session } = useSession();
