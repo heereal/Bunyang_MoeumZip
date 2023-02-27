@@ -9,7 +9,7 @@ const DeatilPage = () => {
 
   return (
     <S.DetailBody>
-      <HeadTitle title="상세페이지" />
+      <HeadTitle title="상세페이지 |" />
       <PostDetail postId={router?.query.postid} />
       <CommentsList postId={router?.query.postid} />
     </S.DetailBody>

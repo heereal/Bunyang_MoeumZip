@@ -12,10 +12,12 @@ import CategoryBar from '../CategoryBar/CategoryBar';
 import LoadingSpinner from '@/components/GlobalComponents/LoadingSpinner/LoadingSpinner';
 import * as S from './style';
 import dynamic from 'next/dynamic';
+import useHomeList from '@/hooks/useHomeList';
 
 const CountTabs = ({ list }: CountTabPropsListJ) => {
   const [currentTab, SetCurrentTab] = useState<number>(0);
 
+  // getToday()함수를 쓰는 컴포넌트는 클라이언트에서 실행되게 해야 ssr 418, 423오류가 안 생김
   const HomeList = dynamic(
     () => import('../../GlobalComponents/HomeList/HomeList'),
     {
@@ -23,7 +25,7 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
     },
   );
 
-  // 선택된 지역, 분양 형태 리스트 가져오기
+  // CategoryBar에서 선택된 지역, 분양 형태 리스트 가져오기
   const [selectedRegionArray] = useRecoilState(selectedRegionList);
   const [selectedTypeArray] = useRecoilState(selectedTypeList);
 
@@ -59,142 +61,122 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
   );
 
   // 로그인 안 했을 때 보이는 기본 리스트
-  // 기본 - 청약 가능 리스트
-  const todayList = list.filter(
-    (item: ItemJ) =>
-      item.RCEPT_BGNDE <= today &&
-      item.RCEPT_ENDDE >= today &&
-      item.HOUSE_SECD !== '04',
-  );
-  // 기본 - 청약 예정 리스트
-  const comingList = list.filter(
-    (item: ItemJ) => item.RCEPT_BGNDE > today && item.HOUSE_SECD !== '04',
-  );
-  // 기본 - TODO: 무순위 리스트 - 이름 변경? -선착순..?
-  const randomList = list.filter(
-    (item: ItemJ) => item.HOUSE_SECD === '04' && item.RCEPT_BGNDE >= today,
-  );
-
-  // 기본 - 전체 리스트
-  const basicAllList: {}[] = [];
-  todayList.map((item) => basicAllList.push(item));
-  comingList.map((item) => basicAllList.push(item));
-  randomList.map((item) => basicAllList.push(item));
+  // 기본 - 청약 가능, 청약 예정, 무순위, 전체 리스트
+  const { todayList, comingList, randomList, AllList } = useHomeList(list);
 
   // 로그인 했을 때 보이는 유저의 관심 지역 및 분양형태가 반영 된 리스트
-  // 현재 유저 - 청약 가능 리스트
-  const userTodayList = userList.filter(
-    (item: ItemJ) =>
-      item.RCEPT_BGNDE <= today &&
-      item.RCEPT_ENDDE >= today &&
-      item.HOUSE_SECD !== '04',
-  );
-  // 현재 유저 - 청약 예정 리스트
-  const userComingList = userList.filter(
-    (item: ItemJ) => item.RCEPT_BGNDE > today && item.HOUSE_SECD !== '04',
-  );
-
-  // 유저 - 전체 리스트
-  const userAllList: {}[] = [];
-  userTodayList.map((item) => userAllList.push(item));
-  userComingList.map((item) => userAllList.push(item));
-  randomList.map((item) => userAllList.push(item));
+  // 현재 유저 - 청약 가능, 청약 예정, 무순위, 전체 리스트
+  const {
+    todayList: UserTodayList,
+    comingList: userComingList,
+    randomList: userRandomList,
+    AllList: userAllList,
+  } = useHomeList(userList);
 
   // 로그인 관계없이 카테고리를 선택했을 때 보이는 리스트
   // 카테고리 선택이 반영된 지역 필터링 리스트
-
   const regionCategoryList = list.filter((item: ItemJ) =>
-    //@ts-ignore
     selectedRegionArray.includes(item.SUBSCRPT_AREA_CODE_NM),
   );
 
+  const {
+    todayList: regionCategoryTodayList,
+    comingList: regionCategoryComingList,
+    randomList: regionCategoryRandomList,
+    AllList: regionCategoryAllList,
+  } = useHomeList(regionCategoryList);
+
   // 카테고리 선택이 반영된 분양형태 필터링 리스트
   const typeCategoryList = list.filter((item: ItemJ) =>
-    //@ts-ignore
     selectedTypeArray.includes(item.HOUSE_DTL_SECD_NM),
   );
+
+  const {
+    todayList: typeCategoryTodayList,
+    comingList: typeCategoryComingList,
+    randomList: typeCategoryRandomList,
+    AllList: typeCategoryAllList,
+  } = useHomeList(typeCategoryList);
 
   // 지역 선택 후 분양형태로 필터링
-
-  const categoryFilteredList = regionCategoryList.filter((item) =>
-    //@ts-ignore
+  const regionFilteredTypeList = regionCategoryList.filter((item) =>
     selectedTypeArray.includes(item.HOUSE_DTL_SECD_NM),
   );
 
-  console.log('categoryFilteredList', categoryFilteredList);
-
-  // 분양형태 선택 후 지역으로 필터링
+  const {
+    todayList: regionFilteredTypeTodayList,
+    comingList: regionFilteredTypeComingList,
+    randomList: regionFilteredTypeRandomList,
+    AllList: regionFilteredTypeAllList,
+  } = useHomeList(regionFilteredTypeList);
 
   // 카테고리 - 청약 가능 리스트
-  const categoryTodayList = regionCategoryList.filter(
-    (item: ItemJ) =>
-      item.RCEPT_BGNDE <= today &&
-      item.RCEPT_ENDDE >= today &&
-      item.HOUSE_SECD !== '04',
-  );
+
   // 카테고리 - 청약 예정 리스트
-  const categoryComingList = regionCategoryList.filter(
-    (item: any) => item.RCEPT_BGNDE > today && item.HOUSE_SECD !== '04',
-  );
 
   // 카테고리 - 전체 리스트
-  const categoryAllList: {}[] = [];
-  categoryTodayList.map((item) => categoryAllList.push(item));
-  categoryComingList.map((item) => categoryAllList.push(item));
-  randomList.map((item) => categoryAllList.push(item));
 
   const tabList = [
     {
       name: '전체',
       content:
-        // TODO: 로직 수정해야 함
         selectedRegionArray.length || selectedTypeArray.length !== 0
-          ? categoryAllList
+          ? regionCategoryAllList
           : session
           ? userAllList
-          : basicAllList,
+          : AllList,
 
       count:
         selectedRegionArray.length || selectedTypeArray.length !== 0
-          ? categoryAllList.length
+          ? regionCategoryAllList.length
           : session
           ? userAllList.length
-          : basicAllList.length,
+          : AllList.length,
     },
     {
       name: '청약 가능',
       content:
         selectedRegionArray.length || selectedTypeArray.length !== 0
-          ? categoryTodayList
+          ? regionCategoryTodayList
           : session
-          ? userTodayList
+          ? UserTodayList
           : todayList,
       count:
         selectedRegionArray.length || selectedTypeArray.length !== 0
-          ? categoryTodayList.length
+          ? regionCategoryTodayList.length
           : session
-          ? userTodayList.length
+          ? UserTodayList.length
           : todayList.length,
     },
     {
       name: '청약 예정',
       content:
         selectedRegionArray.length || selectedTypeArray.length !== 0
-          ? categoryComingList
+          ? regionCategoryComingList
           : session
           ? userComingList
           : comingList,
       count:
         selectedRegionArray.length || selectedTypeArray.length !== 0
-          ? categoryComingList.length
+          ? regionCategoryComingList.length
           : session
           ? userComingList.length
           : comingList.length,
     },
     {
       name: '무순위',
-      content: randomList,
-      count: randomList.length,
+      content:
+        selectedRegionArray.length || selectedTypeArray.length !== 0
+          ? regionCategoryRandomList
+          : session
+          ? userRandomList
+          : randomList,
+      count:
+        selectedRegionArray.length || selectedTypeArray.length !== 0
+          ? regionCategoryRandomList.length
+          : session
+          ? userRandomList.length
+          : randomList.length,
     },
   ];
 
