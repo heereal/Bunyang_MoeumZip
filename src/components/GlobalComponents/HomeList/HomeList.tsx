@@ -3,11 +3,12 @@ import { useRouter } from 'next/router';
 import { useRecoilState } from 'recoil';
 import * as S from './style';
 import { useEffect, useState } from 'react';
+import { getToday } from '@/common/utils';
 
 const ListList = ({ list }: PropsListJ) => {
   const router = useRouter();
   const [path, setPath] = useRecoilState(pathState);
-  const [today, setToday] = useState(Date);
+  // const [today, setToday] = useState(Date);
 
   const pathHandler = () => {
     router.push(`/detail/${list.PBLANC_NO}`);
@@ -15,16 +16,17 @@ const ListList = ({ list }: PropsListJ) => {
   };
 
   // 오늘 날짜
-  useEffect(() => {
-    if (window) {
-      const date = new Date();
-      const year = date.getFullYear();
-      const month = ('0' + (date.getMonth() + 1)).slice(-2);
-      const day = ('0' + date.getDate()).slice(-2);
-      const today = year + '-' + month + '-' + day;
-      setToday(today);
-    }
-  }, []);
+  const today = getToday();
+  // useEffect(() => {
+  //   if (window) {
+  //     const date = new Date();
+  //     const year = date.getFullYear();
+  //     const month = ('0' + (date.getMonth() + 1)).slice(-2);
+  //     const day = ('0' + date.getDate()).slice(-2);
+  //     const today = year + '-' + month + '-' + day;
+  //     setToday(today);
+  //   }
+  // }, []);
 
   return (
     <S.ListArticle onClick={pathHandler}>

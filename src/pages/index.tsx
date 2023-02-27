@@ -4,10 +4,18 @@ import TopBtn from '@/components/GlobalComponents/TopBtn/TopBtn';
 import CountTabs from '@/components/MainPage/CountTabs/CountTabs';
 import { doc, getDoc } from 'firebase/firestore';
 import { GetStaticProps } from 'next';
+import dynamic from 'next/dynamic';
 import * as S from '../styles/main.style';
 
 const MainPage = ({ homeList }: HomeListDBPropsJ) => {
   const allHomeList = homeList.allHomeData;
+
+  const CountTabs = dynamic(
+    () => import('@/components/MainPage/CountTabs/CountTabs'),
+    {
+      ssr: false,
+    },
+  );
 
   return (
     <S.MainSection>

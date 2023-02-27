@@ -1,5 +1,4 @@
 import { getUsersList } from '@/common/api';
-// import { getToday } from '@/common/utils';
 import NoResult from '@/components/GlobalComponents/NoResult/NoResult';
 import TopBtn from '@/components/GlobalComponents/TopBtn/TopBtn';
 import { selectedCategoryList } from '@/store/selectors';
@@ -11,12 +10,19 @@ import HomeList from '../../GlobalComponents/HomeList/HomeList';
 import CategoryBar from '../CategoryBar/CategoryBar';
 import LoadingSpinner from '@/components/GlobalComponents/LoadingSpinner/LoadingSpinner';
 import * as S from './style';
-// import { getToday } from '@/common/utils';
 import dynamic from 'next/dynamic';
+import { getToday } from '@/common/utils';
 
 const CountTabs = ({ list }: CountTabPropsListJ) => {
   const [currentTab, SetCurrentTab] = useState<number>(0);
-  const [today, setToday] = useState(Date);
+  // const [today, setToday] = useState(Date);
+
+  const HomeList = dynamic(
+    () => import('../../GlobalComponents/HomeList/HomeList'),
+    {
+      ssr: false,
+    },
+  );
 
   // 선택된 지역, 분양 형태 리스트 가져오기
   const [selectedCtList] = useRecoilState<{}[]>(selectedCategoryList);
@@ -26,16 +32,18 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
   // });
 
   // 오늘 날짜
-  useEffect(() => {
-    if (window) {
-      const date = new Date();
-      const year = date.getFullYear();
-      const month = ('0' + (date.getMonth() + 1)).slice(-2);
-      const day = ('0' + date.getDate()).slice(-2);
-      const today = year + '-' + month + '-' + day;
-      setToday(today);
-    }
-  }, []);
+
+  const today = getToday();
+  // useEffect(() => {
+  //   if (window) {
+  //     const date = new Date();
+  //     const year = date.getFullYear();
+  //     const month = ('0' + (date.getMonth() + 1)).slice(-2);
+  //     const day = ('0' + date.getDate()).slice(-2);
+  //     const today = year + '-' + month + '-' + day;
+  //     setToday(today);
+  //   }
+  // }, []);
 
   // 로그인 여부 확인
   const { data: session } = useSession();
