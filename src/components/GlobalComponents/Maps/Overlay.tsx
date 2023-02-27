@@ -13,15 +13,9 @@ const Overlay = ({ result }: any) => {
             : '#BD6FD9',
       }}
     >
-      {result.RCEPT_BGNDE <= today && result.RCEPT_ENDDE >= today && (
-        <div>청약가능</div>
-      )}
-      {result.RCEPT_BGNDE > today && <div>청약예정</div>}
+      <div>{result?.HOUSE_NM}</div>
 
-      <div>
-        {result?.MIN_LTTOT_TOP_AMOUNT.slice(0, 1)}.
-        {result?.MIN_LTTOT_TOP_AMOUNT.slice(1, 2)}억
-      </div>
+      <div>{result?.HSSPLY_ADRES}</div>
     </S.OverlayContainer>
   );
 };

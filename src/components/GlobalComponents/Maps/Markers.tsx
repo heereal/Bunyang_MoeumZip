@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import * as ReactDOMServer from 'react-dom/server';
 import Overlay from './Overlay';
+
 interface MarkersProps {
   map: any;
   home: DocumentData | undefined;
@@ -51,27 +52,22 @@ const Markers = ({ map, home }: MarkersProps) => {
             router.push(`/detail/${item.PBLANC_NO}`);
           });
 
-          var contentString = ReactDOMServer.renderToString(
+          const contentString = ReactDOMServer.renderToString(
             <Overlay result={item} />,
           );
 
-          var infowindow = new naver.maps.InfoWindow({
+          const infowindow = new naver.maps.InfoWindow({
             content: contentString,
-            maxWidth: 140,
+            maxWidth: 300,
             backgroundColor: '#eee',
-            borderColor: '#2db400',
-            borderWidth: 5,
-            anchorSize: new naver.maps.Size(30, 30),
-            anchorSkew: true,
-            anchorColor: '#eee',
-            pixelOffset: new naver.maps.Point(20, -20),
+            // anchorSize: new naver.maps.Size(20, 20),
+            // anchorSkew: true,
+            // anchorColor: '#eee',
+            pixelOffset: new naver.maps.Point(0, 25),
           });
-          if (marker !== null) {
-            infowindow.open(map, marker);
-          }
+
           naver.maps.Event.addListener(marker, 'click', function (e) {
             if (marker !== null && router.asPath !== '/') {
-              infowindow.open(map, marker);
             }
           });
 
@@ -87,8 +83,7 @@ const Markers = ({ map, home }: MarkersProps) => {
           });
         });
 
-        // NOTE: MarkerClustering 생성. option을 하나하나 살펴보지는 않았습니다. 자유롭게 변경해주세요!
-        var markerClustering = new MarkerClustering({
+        const markerClustering = new MarkerClustering({
           minClusterSize: 1,
           maxZoom: 11,
           map: map,
