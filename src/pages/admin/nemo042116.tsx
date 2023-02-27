@@ -233,17 +233,41 @@ const MustHaveToDo = ({
   };
 
   // 좌표 만드는 함수
+
+  // const testHandler = async () => {
+  //   naver.maps.Service.geocode(
+  //     { query: '경기 평택시 현덕면 운정리 산71' },
+  //     (status, response) => {
+  //       if (
+  //         status === naver.maps.Service.Status.OK &&
+  //         response.v2.addresses[0]
+  //       ) {
+  //         console.log(response.v2);
+  //       } else {
+  //         console.log('결과없음');
+  //       }
+  //     },
+  //   );
+  // };
+
   const locationHandler = async () => {
-    console.log('전:', allHomeData);
+    console.log('데이터:', allHomeData);
     for (let i = 0; i < allHomeData.length; i++) {
-      const geocoder = new kakao.maps.services.Geocoder();
-      geocoder.addressSearch(
-        allHomeData[i].FOR_COORDINATES_ADRES,
-        (result: any, status: any) => {
-          if (status === kakao.maps.services.Status.OK) {
+      naver.maps.Service.geocode(
+        {
+          query: allHomeData[i].FOR_COORDINATES_ADRES,
+        },
+        (status, response) => {
+          if (
+            status === naver.maps.Service.Status.OK &&
+            response.v2.addresses[0]
+          ) {
             filteredArr.push({
               ...allHomeData[i],
-              COORDINATES: { x: result[0].x, y: result[0].y },
+              COORDINATES: {
+                x: response.v2.addresses[0].x,
+                y: response.v2.addresses[0].y,
+              },
             });
           } else {
             filteredArr.push({
@@ -255,8 +279,7 @@ const MustHaveToDo = ({
                 allHomeData[i].FOR_COORDINATES_ADRES
               } 채워주세요~`,
             );
-
-            customAlert(
+            alert(
               `근무자님, ${[i]}번째에 있는 ${
                 allHomeData[i].FOR_COORDINATES_ADRES
               } 채워주세요~`,
