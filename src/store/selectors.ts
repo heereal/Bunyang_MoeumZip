@@ -1,11 +1,6 @@
 import { useCallback } from 'react';
 import { atom, selector } from 'recoil';
 
-// categoryBar에서 선택된 categoryList
-export const selectedCategoryList: any = atom({
-  key: 'selectedCategoryList',
-  default: [],
-});
 
 export const pathState = atom({
   key: 'path',
@@ -51,12 +46,13 @@ export const usersListState = atom<any>({
   default: [],
 });
 
-// 유저가 선택한 지역 / 분양형태 필터 리스트
+// Main Page - 유저가 선택한 지역 카테고리 리스트
 export const selectedRegionList = atom({
   key: 'selectedRegion',
   default: []
 })
 
+// Main Page - 유저가 선택한 분양형태 카테고리 리스트
 export const selectedTypeList = atom({
   key: 'selectedType',
   default: []

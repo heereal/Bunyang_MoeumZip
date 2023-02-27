@@ -29,7 +29,6 @@ const useHomeList = (list: ItemJ[]) => {
     comingList.map((item) => AllList.push(item));
     randomList.map((item) => AllList.push(item));
 
-
     return { todayList, comingList, randomList, AllList };
 
 }

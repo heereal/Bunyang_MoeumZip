@@ -1,19 +1,17 @@
 import { getUsersList } from '@/common/api';
-import { getToday } from '@/common/utils';
+import LoadingSpinner from '@/components/GlobalComponents/LoadingSpinner/LoadingSpinner';
 import NoResult from '@/components/GlobalComponents/NoResult/NoResult';
 import TopBtn from '@/components/GlobalComponents/TopBtn/TopBtn';
-import { selectedTypeList, selectedRegionList } from '@/store/selectors';
+import useHomeList from '@/hooks/useHomeList';
+import useTabList from '@/hooks/useTabList';
+import { selectedRegionList, selectedTypeList } from '@/store/selectors';
 import { useSession } from 'next-auth/react';
+import dynamic from 'next/dynamic';
 import { useState } from 'react';
 import { useQuery } from 'react-query';
 import { useRecoilState } from 'recoil';
-import HomeList from '../../GlobalComponents/HomeList/HomeList';
 import CategoryBar from '../CategoryBar/CategoryBar';
-import LoadingSpinner from '@/components/GlobalComponents/LoadingSpinner/LoadingSpinner';
 import * as S from './style';
-import dynamic from 'next/dynamic';
-import useHomeList from '@/hooks/useHomeList';
-import useTabList from '@/hooks/useTabList';
 
 const CountTabs = ({ list }: CountTabPropsListJ) => {
   const [currentTab, SetCurrentTab] = useState<number>(0);
@@ -72,7 +70,7 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
   // 지역 필터링 리스트
   const regionCategoryList = list.filter((item: ItemJ) =>
     // @ts-ignore
-    selectedRegionArray.includes(item.SUBSCRPT_AREA_CODE_NM),
+    selectedRegionArray?.includes(item.SUBSCRPT_AREA_CODE_NM),
   );
 
   // 청약 가능, 예정, 무순위, 전체 리스트
@@ -86,7 +84,7 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
   // 분양형태 필터링 리스트
   const typeCategoryList = list.filter((item: ItemJ) =>
     // @ts-ignore
-    selectedTypeArray.includes(item.HOUSE_DTL_SECD_NM),
+    selectedTypeArray?.includes(item.HOUSE_DTL_SECD_NM),
   );
 
   // 청약 가능, 예정, 무순위, 전체 리스트

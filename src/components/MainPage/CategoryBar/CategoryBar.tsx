@@ -1,7 +1,11 @@
 import { regionArray, typesArray } from '@/common/categoryList';
-import { selectedRegionList, selectedTypeList } from '@/store/selectors';
+import {
+  currentUserState,
+  selectedRegionList,
+  selectedTypeList,
+} from '@/store/selectors';
 import { useEffect, useState } from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import * as S from './style';
 import InfoLink from '../InfoLink/InfoLink';
 import { RiArrowDownSLine, RiArrowUpSLine } from 'react-icons/ri';
@@ -11,8 +15,9 @@ import { IoReload } from 'react-icons/io5';
 const CategoryBar = () => {
   const [isRegionToggleOpen, setIsRegionToggleOpen] = useState<boolean>(false);
   const [isTypeToggleOpen, setIsTypeToggleOpen] = useState<boolean>(false);
-
   const [currentTab, SetCurrentTab] = useState<number>(0);
+
+  const currentUser = useRecoilValue(currentUserState);
 
   // 유저가 선택한 카테고리 필터링 리스트
   const [myRegionArray, setMyRegionArray] = useState<any>([]);
@@ -25,6 +30,10 @@ const CategoryBar = () => {
     useRecoilState(selectedTypeList);
 
   useEffect(() => {
+    if (currentUser) {
+      setMyRegionArray(currentUser.regions);
+    }
+
     setSelectedRegionArray(myRegionArray);
     setSelectedTypeArray(myTypeArray);
     // eslint-disable-next-line
