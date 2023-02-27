@@ -2,7 +2,6 @@ import { pathState } from '@/store/selectors';
 import { useRouter } from 'next/router';
 import { useRecoilState } from 'recoil';
 import * as S from './style';
-import { getToday } from '@/common/utils';
 import { useEffect, useState } from 'react';
 
 const ListList = ({ list }: PropsListJ) => {
@@ -13,6 +12,16 @@ const ListList = ({ list }: PropsListJ) => {
   const pathHandler = () => {
     router.push(`/detail/${list.PBLANC_NO}`);
     setPath(list.PBLANC_NO);
+  };
+
+  const getToday = () => {
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = ('0' + (date.getMonth() + 1)).slice(-2);
+    const day = ('0' + date.getDate()).slice(-2);
+    const today = year + '-' + month + '-' + day;
+
+    return today;
   };
 
   // 오늘 날짜

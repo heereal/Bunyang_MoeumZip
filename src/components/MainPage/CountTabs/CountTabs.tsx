@@ -1,10 +1,10 @@
 import { getUsersList } from '@/common/api';
-import { getToday } from '@/common/utils';
+// import { getToday } from '@/common/utils';
 import NoResult from '@/components/GlobalComponents/NoResult/NoResult';
 import TopBtn from '@/components/GlobalComponents/TopBtn/TopBtn';
 import { selectedCategoryList } from '@/store/selectors';
 import { useSession } from 'next-auth/react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useQuery } from 'react-query';
 import { useRecoilState } from 'recoil';
 import HomeList from '../../GlobalComponents/HomeList/HomeList';
@@ -14,13 +14,25 @@ import * as S from './style';
 
 const CountTabs = ({ list }: CountTabPropsListJ) => {
   const [currentTab, SetCurrentTab] = useState<number>(0);
+  const [today, setToday] = useState(Date);
 
   // 선택된 지역, 분양 형태 리스트 가져오기
   const [selectedCtList] = useRecoilState<{}[]>(selectedCategoryList);
 
-  // 오늘 날짜
-  const today = getToday();
+  const getToday = () => {
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = ('0' + (date.getMonth() + 1)).slice(-2);
+    const day = ('0' + date.getDate()).slice(-2);
+    const today = year + '-' + month + '-' + day;
 
+    return today;
+  };
+
+  // 오늘 날짜
+  useEffect(() => {
+    setToday(getToday());
+  }, []);
   // 로그인 여부 확인
   const { data: session } = useSession();
 
@@ -190,7 +202,9 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
       </S.CountSectionBack>
       <CategoryBar />
       {/* 분양 정보가 없을 때 보여줄 문구 */}
-      {isLoading ? <LoadingSpinner /> : tabList[currentTab].content.length === 0 ? (
+      {isLoading ? (
+        <LoadingSpinner />
+      ) : tabList[currentTab].content.length === 0 ? (
         <div
           style={{
             paddingTop: '12%',
