@@ -1,10 +1,12 @@
+import { getHomeList } from '@/common/api';
 import CommentsList from '@/components/DetailPage/Comments/CommentsList';
 import PostDetail from '@/components/DetailPage/PostDetail/PostDetail';
 import HeadTitle from '@/components/GlobalComponents/HeadTitle/HeadTitle';
 import { useRouter } from 'next/router';
+import { dehydrate, QueryClient } from 'react-query';
 import * as S from '../../styles/detail.style';
 
-const DeatilPage = () => {
+const DeatilPage = ({ dehydratedState }: any) => {
   const router = useRouter();
 
   return (
@@ -17,8 +19,13 @@ const DeatilPage = () => {
 };
 
 export const getServerSideProps = async () => {
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery('detail', getHomeList);
+
   return {
-    props: {},
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
   };
 };
 

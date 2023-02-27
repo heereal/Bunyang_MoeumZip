@@ -7,11 +7,6 @@ export const selectedCategoryList: any = atom({
   default: [],
 });
 
-export const pathState = atom({
-  key: 'path',
-  default: '/',
-});
-
 // 유저가 선택한 관심 지역 리스트
 export const myRegionArrayState = atom({
   key: 'myRegion',
@@ -54,10 +49,10 @@ export const usersListState = atom<any>({
 // 유저가 선택한 지역 / 분양형태 필터 리스트
 export const selectedRegionList = atom({
   key: 'selectedRegion',
-  default: []
-})
+  default: [],
+});
 
 export const selectedTypeList = atom({
   key: 'selectedType',
-  default: []
-})
+  default: [],
+});

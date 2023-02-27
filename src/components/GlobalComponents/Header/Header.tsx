@@ -12,10 +12,6 @@ const Header = () => {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const pathHandler = () => {
-    router.push('/');
-  };
-
   // [로그아웃] 버튼 클릭 시 작동
   const LogOutHandler = () => {
     confirmAlert({
@@ -43,7 +39,7 @@ const Header = () => {
       <S.Header>
         <S.LogoBox>
           <Image
-            onClick={pathHandler}
+            onClick={() => router.push('/')}
             src={logo}
             alt="logoImg"
             height={29}
@@ -54,7 +50,7 @@ const Header = () => {
 
           {/* 로고 대신 글씨 넣어놓은 것 */}
           <div
-            onClick={pathHandler}
+            onClick={() => router.push('/')}
             style={{
               position: 'absolute',
               left: '3.2%',

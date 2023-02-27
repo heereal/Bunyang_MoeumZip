@@ -102,9 +102,7 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
       <S.Container>
         <S.ArticleHead>입주자모집공고 주요정보</S.ArticleHead>
         <S.ArticleBox>
-          <S.ArticleTitle>
-            <a>{home?.HOUSE_NM}</a>
-          </S.ArticleTitle>
+          <S.ArticleTitle>{home?.HOUSE_NM}</S.ArticleTitle>
           <S.Article>
             <S.BoxTitle>공급위치</S.BoxTitle>
             <S.BoxContent>{home?.HSSPLY_ADRES}</S.BoxContent>
