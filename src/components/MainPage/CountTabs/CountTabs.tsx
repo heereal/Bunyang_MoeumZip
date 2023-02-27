@@ -27,9 +27,6 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
   const [selectedRegionArray] = useRecoilState(selectedRegionList);
   const [selectedTypeArray] = useRecoilState(selectedTypeList);
 
-  console.log('r', selectedRegionArray);
-  console.log('t', selectedTypeArray);
-
   // 오늘 날짜
   const today = getToday();
 
@@ -120,8 +117,6 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
     //@ts-ignore
     selectedTypeArray.includes(item.HOUSE_DTL_SECD_NM),
   );
-
-  console.log('categoryFilteredList', categoryFilteredList);
 
   // 분양형태 선택 후 지역으로 필터링
 
