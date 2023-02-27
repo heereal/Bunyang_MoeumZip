@@ -12,8 +12,8 @@ const Overlay = ({ result }: any) => {
       const year = date.getFullYear();
       const month = ('0' + (date.getMonth() + 1)).slice(-2);
       const day = ('0' + date.getDate()).slice(-2);
-      const todayDate = year + '-' + month + '-' + day;
-      setToday(todayDate);
+      const today = year + '-' + month + '-' + day;
+      setToday(today);
     }
   }, []);
 

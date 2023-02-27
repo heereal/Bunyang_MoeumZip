@@ -1,10 +1,11 @@
 import { addHomeList } from '@/common/api';
 import { db } from '@/common/firebase';
-import { customAlert } from '@/common/utils';
+import { customAlert, getToday } from '@/common/utils';
 import HeadTitle from '@/components/GlobalComponents/HeadTitle/HeadTitle';
 import axios from 'axios';
 import { doc, getDoc } from 'firebase/firestore';
 import { GetStaticProps } from 'next';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
