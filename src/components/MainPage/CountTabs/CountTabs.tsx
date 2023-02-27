@@ -13,6 +13,7 @@ import LoadingSpinner from '@/components/GlobalComponents/LoadingSpinner/Loading
 import * as S from './style';
 import dynamic from 'next/dynamic';
 import useHomeList from '@/hooks/useHomeList';
+import useTabList from '@/hooks/useTabList';
 
 const CountTabs = ({ list }: CountTabPropsListJ) => {
   const [currentTab, SetCurrentTab] = useState<number>(0);
@@ -28,12 +29,6 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
   // CategoryBar에서 선택된 지역, 분양 형태 리스트 가져오기
   const [selectedRegionArray] = useRecoilState(selectedRegionList);
   const [selectedTypeArray] = useRecoilState(selectedTypeList);
-
-  console.log('r', selectedRegionArray);
-  console.log('t', selectedTypeArray);
-
-  // 오늘 날짜
-  const today = getToday();
 
   // 로그인 여부 확인
   const { data: session } = useSession();
@@ -74,11 +69,12 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
   } = useHomeList(userList);
 
   // 로그인 관계없이 카테고리를 선택했을 때 보이는 리스트
-  // 카테고리 선택이 반영된 지역 필터링 리스트
+  // 지역 필터링 리스트
   const regionCategoryList = list.filter((item: ItemJ) =>
     selectedRegionArray.includes(item.SUBSCRPT_AREA_CODE_NM),
   );
 
+  // 청약 가능, 예정, 무순위, 전체 리스트
   const {
     todayList: regionCategoryTodayList,
     comingList: regionCategoryComingList,
@@ -86,11 +82,12 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
     AllList: regionCategoryAllList,
   } = useHomeList(regionCategoryList);
 
-  // 카테고리 선택이 반영된 분양형태 필터링 리스트
+  // 분양형태 필터링 리스트
   const typeCategoryList = list.filter((item: ItemJ) =>
     selectedTypeArray.includes(item.HOUSE_DTL_SECD_NM),
   );
 
+  // 청약 가능, 예정, 무순위, 전체 리스트
   const {
     todayList: typeCategoryTodayList,
     comingList: typeCategoryComingList,
@@ -98,11 +95,12 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
     AllList: typeCategoryAllList,
   } = useHomeList(typeCategoryList);
 
-  // 지역 선택 후 분양형태로 필터링
+  // 지역 선택 후 분양형태로 한 번 더 필터링한 리스트
   const regionFilteredTypeList = regionCategoryList.filter((item) =>
     selectedTypeArray.includes(item.HOUSE_DTL_SECD_NM),
   );
 
+  // 청약 가능, 예정, 무순위, 전체 리스트
   const {
     todayList: regionFilteredTypeTodayList,
     comingList: regionFilteredTypeComingList,
@@ -110,73 +108,65 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
     AllList: regionFilteredTypeAllList,
   } = useHomeList(regionFilteredTypeList);
 
-  // 카테고리 - 청약 가능 리스트
+  // customHook을 사용한 전체 TabList
+  const { ListContent, ListCount } = useTabList(
+    regionFilteredTypeAllList,
+    regionCategoryAllList,
+    typeCategoryAllList,
+    userAllList,
+    AllList,
+  );
 
-  // 카테고리 - 청약 예정 리스트
+  // 청약 가능 TabList
+  const { ListContent: TodayListContent, ListCount: TodayListCount } =
+    useTabList(
+      regionFilteredTypeTodayList,
+      regionCategoryTodayList,
+      typeCategoryTodayList,
+      UserTodayList,
+      todayList,
+    );
 
-  // 카테고리 - 전체 리스트
+  // 청약 예정 TabList
+  const { ListContent: ComingListContent, ListCount: ComingListCount } =
+    useTabList(
+      regionFilteredTypeComingList,
+      regionCategoryComingList,
+      typeCategoryComingList,
+      userComingList,
+      comingList,
+    );
+
+  // 무순위 TabList
+  const { ListContent: RandomListContent, ListCount: RandomListCount } =
+    useTabList(
+      regionFilteredTypeRandomList,
+      regionCategoryRandomList,
+      typeCategoryRandomList,
+      userRandomList,
+      randomList,
+    );
 
   const tabList = [
     {
       name: '전체',
-      content:
-        selectedRegionArray.length || selectedTypeArray.length !== 0
-          ? regionCategoryAllList
-          : session
-          ? userAllList
-          : AllList,
-
-      count:
-        selectedRegionArray.length || selectedTypeArray.length !== 0
-          ? regionCategoryAllList.length
-          : session
-          ? userAllList.length
-          : AllList.length,
+      content: ListContent,
+      count: ListCount,
     },
     {
       name: '청약 가능',
-      content:
-        selectedRegionArray.length || selectedTypeArray.length !== 0
-          ? regionCategoryTodayList
-          : session
-          ? UserTodayList
-          : todayList,
-      count:
-        selectedRegionArray.length || selectedTypeArray.length !== 0
-          ? regionCategoryTodayList.length
-          : session
-          ? UserTodayList.length
-          : todayList.length,
+      content: TodayListContent,
+      count: TodayListCount,
     },
     {
       name: '청약 예정',
-      content:
-        selectedRegionArray.length || selectedTypeArray.length !== 0
-          ? regionCategoryComingList
-          : session
-          ? userComingList
-          : comingList,
-      count:
-        selectedRegionArray.length || selectedTypeArray.length !== 0
-          ? regionCategoryComingList.length
-          : session
-          ? userComingList.length
-          : comingList.length,
+      content: ComingListContent,
+      count: ComingListCount,
     },
     {
       name: '무순위',
-      content:
-        selectedRegionArray.length || selectedTypeArray.length !== 0
-          ? regionCategoryRandomList
-          : session
-          ? userRandomList
-          : randomList,
-      count:
-        selectedRegionArray.length || selectedTypeArray.length !== 0
-          ? regionCategoryRandomList.length
-          : session
-          ? userRandomList.length
-          : randomList.length,
+      content: RandomListContent,
+      count: RandomListCount,
     },
   ];
 
