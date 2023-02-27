@@ -1,4 +1,5 @@
-import { atom } from 'recoil';
+import { useCallback } from 'react';
+import { atom, selector } from 'recoil';
 
 // categoryBar에서 선택된 categoryList
 export const selectedCategoryList: any = atom({
@@ -23,6 +24,21 @@ export const myTypeArrayState = atom({
   default: [],
 });
 
+export const zoomState = atom({
+  key: 'zoom',
+  default: 8,
+});
+
+export const centerState = atom({
+  key: 'center',
+  default: { y: 36.2262411, x: 127.65289439 },
+});
+
+export const hideState = atom({
+  key: 'hide',
+  default: true,
+});
+
 // 현재 로그인한 유저의 firestore 유저 정보
 export const currentUserState = atom<any>({
   key: 'currentUser',
@@ -34,3 +50,14 @@ export const usersListState = atom<any>({
   key: 'usersList',
   default: [],
 });
+
+// 유저가 선택한 지역 / 분양형태 필터 리스트
+export const selectedRegionList = atom({
+  key: 'selectedRegion',
+  default: []
+})
+
+export const selectedTypeList = atom({
+  key: 'selectedType',
+  default: []
+})

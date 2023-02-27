@@ -1,16 +1,12 @@
-import { pathState } from '@/store/selectors';
-import { useRouter } from 'next/router';
-import { useRecoilState } from 'recoil';
-import * as S from './style';
 import { getToday } from '@/common/utils';
+import { useRouter } from 'next/router';
+import * as S from './style';
 
 const ListList = ({ list }: PropsListJ) => {
   const router = useRouter();
-  const [path, setPath] = useRecoilState(pathState);
 
   const pathHandler = () => {
     router.push(`/detail/${list.PBLANC_NO}`);
-    setPath(list.PBLANC_NO);
   };
 
   // 오늘 날짜

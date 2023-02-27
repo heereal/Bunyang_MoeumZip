@@ -1,6 +1,6 @@
 import { addHomeList } from '@/common/api';
 import { db } from '@/common/firebase';
-import { customAlert, getToday } from '@/common/utils';
+import { getToday } from '@/common/utils';
 import HeadTitle from '@/components/GlobalComponents/HeadTitle/HeadTitle';
 import axios from 'axios';
 import { doc, getDoc } from 'firebase/firestore';
@@ -124,37 +124,20 @@ const MustHaveToDo = ({
                 '.',
               )[0].replace(/(^0)/, '') + '㎡',
 
+        // TODO: 금액이 6자리 이상일 때만 잘라야 억으로 잘림
         MIN_LTTOT_TOP_AMOUNT:
           item.detail.length === 0
             ? ''
             : item?.detail[0]?.LTTOT_TOP_AMOUNT
-            ? item?.detail[0]?.LTTOT_TOP_AMOUNT.slice(0, 1) +
-              '.' +
-              item?.detail[0]?.LTTOT_TOP_AMOUNT.slice(1, 2) +
-              '억'
-            : item?.detail[0]?.SUPLY_AMOUNT.slice(0, 1) +
-              '.' +
-              item?.detail[0]?.SUPLY_AMOUNT.slice(1, 2) +
-              '억',
+            ? item?.detail[0]?.LTTOT_TOP_AMOUNT
+            : item?.detail[0]?.SUPLY_AMOUNT,
 
         MAX_LTTOT_TOP_AMOUNT:
           item.detail.length === 0
             ? ''
             : item?.detail[item?.detail?.length - 1]?.LTTOT_TOP_AMOUNT
-            ? item?.detail[item?.detail?.length - 1]?.LTTOT_TOP_AMOUNT.slice(
-                0,
-                1,
-              ) +
-              '.' +
-              item?.detail[item?.detail?.length - 1]?.LTTOT_TOP_AMOUNT.slice(
-                1,
-                2,
-              ) +
-              '억'
-            : item?.detail[item?.detail?.length - 1]?.SUPLY_AMOUNT.slice(0, 1) +
-              '.' +
-              item?.detail[item?.detail?.length - 1]?.SUPLY_AMOUNT.slice(1, 2) +
-              '억',
+            ? item?.detail[item?.detail?.length - 1]?.LTTOT_TOP_AMOUNT
+            : item?.detail[item?.detail?.length - 1]?.SUPLY_AMOUNT,
 
         SPSPLY_HSHLDCO: item.SPSPLY_HSHLDCO ? item.SPSPLY_HSHLDCO + '세대' : '',
         SUPLY_HSHLDCO: item.SUPLY_HSHLDCO ? item.SUPLY_HSHLDCO + '세대' : '',
@@ -236,17 +219,41 @@ const MustHaveToDo = ({
   };
 
   // 좌표 만드는 함수
+
+  // const testHandler = async () => {
+  //   naver.maps.Service.geocode(
+  //     { query: '경기 평택시 현덕면 운정리 산71' },
+  //     (status, response) => {
+  //       if (
+  //         status === naver.maps.Service.Status.OK &&
+  //         response.v2.addresses[0]
+  //       ) {
+  //         console.log(response.v2);
+  //       } else {
+  //         console.log('결과없음');
+  //       }
+  //     },
+  //   );
+  // };
+
   const locationHandler = async () => {
-    console.log('전:', allHomeData);
+    console.log('데이터:', allHomeData);
     for (let i = 0; i < allHomeData.length; i++) {
-      const geocoder = new kakao.maps.services.Geocoder();
-      await geocoder.addressSearch(
-        allHomeData[i].FOR_COORDINATES_ADRES,
-        (result: any, status: any) => {
-          if (status === kakao.maps.services.Status.OK) {
+      naver.maps.Service.geocode(
+        {
+          query: allHomeData[i].FOR_COORDINATES_ADRES,
+        },
+        (status, response) => {
+          if (
+            status === naver.maps.Service.Status.OK &&
+            response.v2.addresses[0]
+          ) {
             filteredArr.push({
               ...allHomeData[i],
-              COORDINATES: { x: result[0].x, y: result[0].y },
+              COORDINATES: {
+                x: response.v2.addresses[0].x,
+                y: response.v2.addresses[0].y,
+              },
             });
           } else {
             filteredArr.push({
@@ -258,8 +265,7 @@ const MustHaveToDo = ({
                 allHomeData[i].FOR_COORDINATES_ADRES
               } 채워주세요~`,
             );
-
-            customAlert(
+            alert(
               `근무자님, ${[i]}번째에 있는 ${
                 allHomeData[i].FOR_COORDINATES_ADRES
               } 채워주세요~`,
@@ -415,25 +421,19 @@ export const getStaticProps: GetStaticProps = async () => {
     .get(
       `${BASE_URL}/${METHOD_APT_DETAIL}?page=1&perPage=10000&serviceKey=${SERVICE_KEY}`,
     )
-    .then((res: any) =>
-      res.data.data.filter((item: any) => item.PBLANC_NO >= 2023000000),
-    );
+    .then((res: any) => res.data.data);
 
   const aptRandomDetailList = await axios
     .get(
       `${BASE_URL}/${METHOD_RANDOM_DETAIL}?page=1&perPage=10000&serviceKey=${SERVICE_KEY}`,
     )
-    .then((res: any) =>
-      res.data.data.filter((item: any) => item.PBLANC_NO >= 2023000000),
-    );
+    .then((res: any) => res.data.data);
 
   const officeDetailList = await axios
     .get(
       `${BASE_URL}/${METHOD_OFFICE_DETAIL}?page=1&perPage=10000&serviceKey=${SERVICE_KEY}`,
     )
-    .then((res: any) =>
-      res.data.data.filter((item: any) => item.PBLANC_NO >= 2023000000),
-    );
+    .then((res: any) => res.data.data);
 
   //LH detailList -
 

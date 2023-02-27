@@ -1,5 +1,5 @@
 import Layout from '@/components/GlobalComponents/Layout/Layout';
-import MapSection from '@/components/GlobalComponents/MapSection/MapSection';
+import MapSection from '@/components/GlobalComponents/Maps/MapSection';
 import '@/styles/globals.css';
 import { SessionProvider } from 'next-auth/react';
 import type { AppProps } from 'next/app';

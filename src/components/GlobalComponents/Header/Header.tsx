@@ -1,23 +1,19 @@
-import { pathState } from '@/store/selectors';
 import { signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { confirmAlert } from 'react-confirm-alert';
-import { useRecoilState } from 'recoil';
+import logo from '../../../assets/logo.png';
 import LoginModal from '../LoginModal/LoginModal';
 import SearchInput from '../SearchInput/SearchInput';
-import logo from '../../../assets/logo.png';
 import * as S from './style';
 
 const Header = () => {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [path, setPath] = useRecoilState(pathState);
 
   const pathHandler = () => {
     router.push('/');
-    setPath('/');
   };
 
   // [로그아웃] 버튼 클릭 시 작동
