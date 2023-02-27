@@ -21,16 +21,14 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
 
   // 오늘 날짜
   useEffect(() => {
-    const getToday = () => {
+    if (window) {
       const date = new Date();
       const year = date.getFullYear();
       const month = ('0' + (date.getMonth() + 1)).slice(-2);
       const day = ('0' + date.getDate()).slice(-2);
       const today = year + '-' + month + '-' + day;
-
-      return today;
-    };
-    setToday(getToday());
+      setToday(today);
+    }
   }, []);
   // 로그인 여부 확인
   const { data: session } = useSession();
