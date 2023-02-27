@@ -1,4 +1,5 @@
-import { atom } from 'recoil';
+import { useCallback } from 'react';
+import { atom, selector } from 'recoil';
 
 // categoryBar에서 선택된 categoryList
 export const selectedCategoryList: any = atom({
@@ -21,6 +22,21 @@ export const myRegionArrayState = atom({
 export const myTypeArrayState = atom({
   key: 'myTypeArray',
   default: [],
+});
+
+export const zoomState = atom({
+  key: 'zoom',
+  default: 8,
+});
+
+export const centerState = atom({
+  key: 'center',
+  default: { y: 36.2262411, x: 127.65289439 },
+});
+
+export const hideState = atom({
+  key: 'hide',
+  default: true,
 });
 
 // 현재 로그인한 유저의 firestore 유저 정보

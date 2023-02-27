@@ -16,6 +16,5 @@ export const OverlayContainer = styled.div`
   font-size: 12px;
   color: #ffffff;
   font-weight: 500;
-  border-radius: 5px;
-  margin-bottom: 5px;
+  gap: 3px;
 `;

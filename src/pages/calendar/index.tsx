@@ -1,24 +1,18 @@
 import { db } from '@/common/firebase';
 import HeadTitle from '@/components/GlobalComponents/HeadTitle/HeadTitle';
-import { pathState } from '@/store/selectors';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import FullCalendar from '@fullcalendar/react';
 import { doc, getDoc } from 'firebase/firestore';
 import { GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
-import { useRecoilState } from 'recoil';
 import * as S from '../../styles/claendar.style';
 
 const Calender = ({ homeList }: any) => {
   const router = useRouter();
-  const [path, setPath] = useRecoilState(pathState);
 
   const pathHandler = (e: any) => {
-    setTimeout(() => {
-      router.push(`/detail/${e.event.id}`);
-      setPath(e.event.id);
-    }, 500);
+    router.push(`/detail/${e.event.id}`);
   };
 
   // 캘린더에 이벤트를 보여주기 위해 기존 분양 데이터를 재가공함
