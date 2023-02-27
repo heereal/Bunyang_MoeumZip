@@ -11,6 +11,7 @@ export const Wrapper = styled.div`
 export const EditProfileContainer = styled.div`
   width: 100%;
   height: 100%;
+  min-height: 500px;
   padding: 50px 20px;
   border-radius: 20px;
   border: 1px solid lightgray;
@@ -41,7 +42,6 @@ export const Email = styled.div`
 
 export const ProfileBtn = styled.div`
   width: 90%;
-  height: 40px;
   font-weight: 600;
   font-size: 13px;
   background: #f9fafb;
@@ -53,6 +53,7 @@ export const ProfileBtn = styled.div`
   color: #7b7b7b;
   margin-bottom: 10px;
   cursor: pointer;
+  min-height: 40px;
 `;
 
 export const Line = styled.div`

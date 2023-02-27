@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { confirmAlert } from 'react-confirm-alert';
-import logo from '../../../assets/logo.png';
+import logo from '../../../../public/assets/logo.png';
 import LoginModal from '../LoginModal/LoginModal';
 import SearchInput from '../SearchInput/SearchInput';
 import * as S from './style';
