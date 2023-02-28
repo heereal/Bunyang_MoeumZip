@@ -3,6 +3,7 @@ import { useBookmark } from '@/hooks';
 import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
+import APTRealPrice from '../APTRealPrice/APTRealPrice';
 import DetailHeader from './DetailHeader';
 import DetailKeyInfo from './DetailKeyInfo';
 import { ExtraInfo } from './ExtraInfo';
@@ -79,6 +80,7 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
         editBookMark={editBookmark}
         email={email}
       />
+      <APTRealPrice />
       <S.Container>
         <DetailKeyInfo home={home} />
         <SubscriptionSchedule home={home} />
