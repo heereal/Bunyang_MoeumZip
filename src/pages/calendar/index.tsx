@@ -23,7 +23,7 @@ const Calender = ({ homeList }: any) => {
 
   return (
     <S.CalendarContainer>
-      <HeadTitle title="청약캘린더" />
+      <HeadTitle title="청약캘린더 |" />
 
       <FullCalendar
         plugins={[dayGridPlugin, interactionPlugin]}

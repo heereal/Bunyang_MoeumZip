@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import { dehydrate, QueryClient } from 'react-query';
 import * as S from '../../styles/detail.style';
 
-const DeatilPage = ({ dehydratedState }: any) => {
+const DetailPage = ({ dehydratedState }: any) => {
   const router = useRouter();
 
   return (
@@ -35,4 +35,4 @@ export const getServerSideProps = async () => {
   };
 };
 
-export default DeatilPage;
+export default DetailPage;

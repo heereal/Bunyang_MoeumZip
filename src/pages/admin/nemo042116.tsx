@@ -290,7 +290,7 @@ const MustHaveToDo = ({
 
   return (
     <>
-      <HeadTitle title={'관리자페이지'} />
+      <HeadTitle title={'관리자페이지 |'} />
       <S.AdminSection>
         <S.TitleBox>
           <S.DbTimeTitle>{btnTime}</S.DbTimeTitle>
