@@ -18,8 +18,16 @@ const MustHaveToDo = ({
   aptRandomCombineList,
   officeCombineList,
   homeListDB,
+  lhCombineList,
+  lhNoticeList,
+  lhDetailList,
 }: ListPropsJ) => {
   const queryClient = useQueryClient();
+
+  console.log('lhNoticeList', lhNoticeList);
+  console.log('lhDetailList', lhDetailList);
+
+  console.log('lhCombineList', lhCombineList);
 
   // DB에 들어가는 최종 분양 정보 리스트
   const [allHomeData, setAllHomeData] = useState<{ [key: string]: string }[]>(
@@ -86,13 +94,13 @@ const MustHaveToDo = ({
   aptCombineList?.map((item: ItemJ) => allHomeList.push(item));
   replaceAreaNameAptOfficeList.map((item: ItemJ) => allHomeList.push(item));
 
-  // 청약 마감일이 지나지 않은 전체 리스트
+  // 청약이 마감되지 않은 전체 API 통합 리스트
   const possibleAllHomeList = allHomeList.filter(
     (item: ItemJ) =>
       item.RCEPT_ENDDE >= today || item.SUBSCRPT_RCEPT_ENDDE >= today,
   );
 
-  // 기존 분양 데이터의 PBLANC_NO만 추출해서 생성한 배열
+  // firestore에서 불러 온 기존 분양 데이터의 PBLANC_NO만 추출해서 생성한 배열
   const PBLANCArray = homeListDB.map((item) => item.PBLANC_NO);
 
   // firestore에서 불러 온 기존 데이터 중 접수일이 종료되지 않은 것만 필터링함
@@ -293,7 +301,7 @@ const MustHaveToDo = ({
     return setAllHomeData([...oldDataArray, ...newGeoArray]);
   };
 
-  // 좌표가 생성된 최종 데이터를 다시 DB에 넣음
+  // [3번 버튼] 좌표가 생성된 최종 데이터를 다시 DB에 넣음
   const updateInfoHandler = async () => {
     addHomeListMutate.mutate({ allHomeData });
 
@@ -411,18 +419,18 @@ export const getStaticProps: GetStaticProps = async () => {
     )
     .then((res: any) => res.data.data);
 
-  // LH - 2023년 이후 공고중 리스트
+  // LH - 공고중 리스트
   const lhNoticeList = await axios
     .get(
-      `${LH_BASE_URL}/${METHOD_LH_DEFAULT}?serviceKey=${SERVICE_KEY}&PG_SZ=1000&PAGE=1&PAN_ST_DT=20230101&PAN_SS="공고중"
+      `${LH_BASE_URL}/${METHOD_LH_DEFAULT}?serviceKey=${SERVICE_KEY}&PG_SZ=1000&PAGE=1&PAN_SS="공고중"
       `,
     )
     .then((res: any) => res.data[1].dsList);
 
-  // LH - 2023년 이후 접수중 리스트
+  // LH - 접수중 리스트
   const lhRegisterList = await axios
     .get(
-      `${LH_BASE_URL}/${METHOD_LH_DEFAULT}?serviceKey=${SERVICE_KEY}&PG_SZ=1000&PAGE=1&PAN_ST_DT=20230101&PAN_SS="접수중"
+      `${LH_BASE_URL}/${METHOD_LH_DEFAULT}?serviceKey=${SERVICE_KEY}&PG_SZ=1000&PAGE=1&PAN_SS="접수중"
   `,
     )
     .then((res: any) => res.data[1].dsList);
@@ -459,7 +467,16 @@ export const getStaticProps: GetStaticProps = async () => {
     )
     .then((res: any) => res.data.data);
 
-  //LH detailList -
+  //LH detailList
+  const lhDetailList = await Promise.all(
+    lhNoticeList.map(async (item: any) =>
+      axios
+        .get(
+          `${LH_BASE_URL}/${METHOD_LH_DETAIL}?serviceKey=${SERVICE_KEY}&SPL_INF_TP_CD=${item.SPL_INF_TP_CD}&CCR_CNNT_SYS_DS_CD=${item.CCR_CNNT_SYS_DS_CD}&PAN_ID=${item.PAN_ID}`,
+        )
+        .then((res) => res.data),
+    ),
+  );
 
   // APT Default + Detail 통합 List
   const aptCombineList = await Promise.all(
@@ -497,29 +514,17 @@ export const getStaticProps: GetStaticProps = async () => {
     }),
   );
 
-  // FIXME: 오류.. pp배열에 넣으니 오류는 해결됐는데 값을 어떻게 뱉어야 할지...
-  // const lhDetailst = lhNoticeAList.map((item: any) => {
-  //   const pp: any = [];
-  //   const list = axios
-  //     .get(
-  //       `${LH_BASE_URL}/${METHOD_LH_DETAIL}?serviceKey=${SERVICE_KEY}&SPL_INF_TP_CD=${item.SPL_INF_TP_CD}&CCR_CNNT_SYS_DS_CD=${item.CCR_CNNT_SYS_DS_CD}&PAN_ID=${item.PAN_ID}`,
-  //     )
-  //     .then((res) => {
-  //       // console.log(res.data);
-  //       pp.push(res.data);
-  //     });
-  //   return pp;
-  // });
-
   // LH Default + Detail 통합 List
-  // const lhCombineList2 = await Promise.all(
-  //   lhDefaultList.map(async (item: any) => {
-  //     return {
-  //       ...item,
-  //       detail: lhNoticeAList.filter((i: any) => i?.dsSch?.PAN_ID),
-  //     };
-  //   }),
-  // );
+  const lhCombineList = await Promise.all(
+    lhNoticeList.map(async (item: any) => {
+      return {
+        ...item,
+        detail: lhDetailList.filter(
+          (i: any) => i?.dsSch?.PAN_ID === item.PAN_ID,
+        ),
+      };
+    }),
+  );
 
   // TODO: client에서 불러오기
   // 통합 리스트 불러오기 - 버튼 누른 날짜 화면에 표시하기
@@ -534,10 +539,10 @@ export const getStaticProps: GetStaticProps = async () => {
       aptRandomCombineList,
       officeCombineList,
       homeListDB,
-      lhNoticeAList,
-      // lhDetailst,
-      // lhDefaultList: lhDefaultList,
-      // lhRegisterList: lhRegisterList,
+      lhNoticeList,
+      lhDetailList,
+      // lhRegisterList,
+      lhCombineList,
     },
     // ISR - 6시간 마다 데이터 업데이트
     revalidate: 21600,
