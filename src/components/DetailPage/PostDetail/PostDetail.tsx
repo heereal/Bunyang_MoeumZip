@@ -80,7 +80,7 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
         editBookMark={editBookmark}
         email={email}
       />
-      <APTRealPrice />
+      <APTRealPrice detail={detail}/>
       <S.Container>
         <DetailKeyInfo home={home} />
         <SubscriptionSchedule home={home} />
