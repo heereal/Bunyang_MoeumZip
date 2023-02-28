@@ -42,16 +42,22 @@ const MustHaveToDo = ({
   // 최종으로 DB 업데이트한 시각
   const [btnTime, setBtnTime] = useState<string>('');
 
-  // 지역이름이 없는 APT 무순위, 오피스텔 리스트 합치기
+  console.log(lhCombineList.map((item) => item[0]));
+
+  // 지역이름이 없는 1.APT 무순위, 2.오피스텔 리스트 + 지역이름이 4자인 3.LH 리스트 합치기
   const randomOfficeList: { [key: string]: string }[] = [];
   aptRandomCombineList?.map((item: ItemJ) => randomOfficeList.push(item));
   officeCombineList?.map((item: ItemJ) => randomOfficeList.push(item));
+  lhCombineList?.map((item: ItemJ) => randomOfficeList.push(item));
 
-  // APT 무순위 + 오피스텔 리스트에 주소 앞부분을 잘라 지역 이름 추가하기
+  // APT 무순위 + 오피스텔 리스트는 주소 앞부분을 잘라 지역 이름 추가하기
+  // LH 리스트는 지역이름(4자) 그대로 넣기
   const addAreaNameList = randomOfficeList.map((item) => {
     return {
       ...item,
-      SUBSCRPT_AREA_CODE_NM: item.HSSPLY_ADRES.slice(0, 4),
+      SUBSCRPT_AREA_CODE_NM: item.CNP_CD_NM
+        ? item.CNP_CD_NM
+        : item.HSSPLY_ADRES.slice(0, 4),
     };
   });
 
@@ -81,18 +87,25 @@ const MustHaveToDo = ({
     };
   });
 
+  // 오늘 날짜 구하기
   const today = getToday();
 
-  // 청약홈 전체 API 통합 리스트
+  // 청약홈 전체 API + LH 통합 리스트
   const allHomeList: {}[] = [];
   aptCombineList?.map((item: ItemJ) => allHomeList.push(item));
   replaceAreaNameAptOfficeList.map((item: ItemJ) => allHomeList.push(item));
 
-  // 청약이 마감되지 않은 전체 API 통합 리스트
+  // console.log('allHomeList', allHomeList);
+
+  // 청약이 마감되지 않은 전체 API + LH 통합 리스트
   const possibleAllHomeList = allHomeList.filter(
     (item: ItemJ) =>
-      item.RCEPT_ENDDE >= today || item.SUBSCRPT_RCEPT_ENDDE >= today,
+      item.RCEPT_ENDDE >= today ||
+      item.SUBSCRPT_RCEPT_ENDDE >= today ||
+      item.SBSC_ACP_CLSG_DT >= today,
   );
+
+  console.log('possible', possibleAllHomeList);
 
   // firestore에서 불러 온 기존 분양 데이터의 PBLANC_NO만 추출해서 생성한 배열
   const PBLANCArray = homeListDB.map((item) => item.PBLANC_NO);
