@@ -18,21 +18,10 @@ const MustHaveToDo = ({
   aptCombineList,
   aptRandomCombineList,
   officeCombineList,
-  homeListDB,
   lhCombineList,
-  lhNoticeList,
-  lhDetailList,
+  homeListDB,
 }: ListPropsJ) => {
   const queryClient = useQueryClient();
-
-  // console.log('lhNoticeList', lhNoticeList);
-  // console.log('lhDetailList', lhDetailList);
-  // console.log(
-  //   'detail',
-  //   lhDetailList.map((item) => item[0].dsSch[0].PAN_ID),
-  // );
-
-  console.log('lhCombineList', lhCombineList);
 
   // DB에 들어가는 최종 분양 정보 리스트
   const [allHomeData, setAllHomeData] = useState<{ [key: string]: string }[]>(
@@ -424,36 +413,39 @@ export const getStaticProps: GetStaticProps = async () => {
     )
     .then((res: any) => res.data.data);
 
-  // LH - 공고중 리스트
-  const lhNoticeList = await axios
+  // LH 기본 - 공고중 리스트
+  const lhNoticeALLList = await axios
     .get(
       `${LH_BASE_URL}/${METHOD_LH_DEFAULT}?serviceKey=${SERVICE_KEY}&PG_SZ=1000&PAGE=1&PAN_SS="공고중"
       `,
     )
     .then((res: any) => res.data[1].dsList);
 
-  // LH - 접수중 리스트
-  const lhRegisterList = await axios
+  // LH 기본 - 공고중 리스트에서 토지, 상가 제외한 리스트
+  const lhNoticeList = lhNoticeALLList.filter(
+    (item: ItemJ) => item.UPP_AIS_TP_CD !== '01' && item.UPP_AIS_TP_CD !== '22',
+  );
+
+  // LH 기본 - 접수중 리스트
+  const lhRegisterALLList = await axios
     .get(
       `${LH_BASE_URL}/${METHOD_LH_DEFAULT}?serviceKey=${SERVICE_KEY}&PG_SZ=1000&PAGE=1&PAN_SS="접수중"
   `,
     )
     .then((res: any) => res.data[1].dsList);
 
-  // LH - 공고중 + 접수중
-  // const lhDefaultList
-  // TODO: 지역까지 넣어서 리스트 가져와야 할 경우 map 돌려서 해보기.. 지역을 빈 배열에 넣어서!
+  // LH 기본 - 접수중 리스트에서 토지, 상가 제외한 리스트
+  const lhRegisterList = lhRegisterALLList.filter(
+    (item: ItemJ) => item.UPP_AIS_TP_CD !== '01' && item.UPP_AIS_TP_CD !== '22',
+  );
 
-  // LH - 2023년 이후 + 공고중 + 임대주택 -> TODO: 변경하기 => 분양주택, 임대주택, 신혼희망타운
-  const lhNoticeAList = await axios
-    .get(
-      `${LH_BASE_URL}/${METHOD_LH_DEFAULT}?serviceKey=${SERVICE_KEY}&PG_SZ=1000&PAGE=1&PAN_ST_DT=20230101&PAN_SS="공고중"&UPP_AIS_TP_CD=06
-    `,
-    )
-    .then((res: any) => res.data[1].dsList);
+  // LH 기본 - 공고중 + 접수중 리스트(토지, 상가 제외)
+  const lhDefaultList: {}[] = [];
+  lhNoticeList.map((item: ItemJ) => lhDefaultList.push(item));
+  lhRegisterList.map((item: ItemJ) => lhDefaultList.push(item));
 
-  // 공고문 상세정보 전체 리스트 가져오기
-  // 청약홈
+  // 공고문 상세정보 리스트 가져오기
+  // 청약홈 - 상세 정보 전체 가져오기
   const aptDetailList = await axios
     .get(
       `${BASE_URL}/${METHOD_APT_DETAIL}?page=1&perPage=10000&serviceKey=${SERVICE_KEY}`,
@@ -472,9 +464,9 @@ export const getStaticProps: GetStaticProps = async () => {
     )
     .then((res: any) => res.data.data);
 
-  //LH detailList
+  //LH detailList - 기본 리스트에서 request parameter를 3개 넘겨 해당 상세 정보 가져오기
   const lhDetailList = await Promise.all(
-    lhNoticeList.map((item: any) =>
+    lhDefaultList.map((item: any) =>
       axios
         .get(
           `${LH_BASE_URL}/${METHOD_LH_DETAIL}?serviceKey=${SERVICE_KEY}&SPL_INF_TP_CD=${item.SPL_INF_TP_CD}&CCR_CNNT_SYS_DS_CD=${item.CCR_CNNT_SYS_DS_CD}&PAN_ID=${item.PAN_ID}`,
@@ -521,7 +513,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
   // LH Default + Detail 통합 List
   const lhCombineList = await Promise.all(
-    lhNoticeList.map((item: any) => {
+    lhDefaultList.map((item: any) => {
       return {
         ...item,
         detail: lhDetailList.filter(
@@ -543,11 +535,8 @@ export const getStaticProps: GetStaticProps = async () => {
       aptCombineList,
       aptRandomCombineList,
       officeCombineList,
-      homeListDB,
-      lhNoticeList,
-      lhDetailList,
-      // lhRegisterList,
       lhCombineList,
+      homeListDB,
     },
     // ISR - 6시간 마다 데이터 업데이트
     revalidate: 21600,
