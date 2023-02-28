@@ -112,11 +112,6 @@ const MustHaveToDo = ({
     );
 
     newDataArray.map((item: any) => {
-  // 버튼 클릭 시 전체 API data가 firebase에 들어감
-  const apiCallHandler = async () => {
-    // DB 마지막으로 업데이트한 시각
-    const onClickDate = new Date().toLocaleString();
-    possibleAllHomeList.map((item: any) => {
       newList.push({
         COORDINATES: 'x:, y:',
         BUTTON_DATE: onClickDate,
