@@ -20,7 +20,7 @@ const NoResult = ({ keyword, text }: keywordPropsJ) => {
             수 없습니다.
           </>
         ) : (
-          '분양 정보가 없습니다.'
+          '현재 설정하신 필터에 해당되는 분양정보가 없습니다.'
         )}
       </S.NoResultTitle>
       <S.NoResultText>{text}</S.NoResultText>
