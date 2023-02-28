@@ -20,84 +20,25 @@ const MustHaveToDo = ({
   homeListDB,
 }: ListPropsJ) => {
   const queryClient = useQueryClient();
+
+  // DB에 들어가는 최종 분양 정보 리스트
   const [allHomeData, setAllHomeData] = useState<{ [key: string]: string }[]>(
     [],
   );
+
+  // 새로 들어온 분양 정보
   const [newHomeData, setNewHomeData] = useState<{ [key: string]: string }[]>(
     [],
   );
 
+  const newList: {}[] = [];
+  const filteredArr: {}[] = [];
 
   // 새로 들어온 데이터에 좌표까지 추가한 배열
   const [newGeoArray, setNewGeoArray] = useState<any>([]);
-  const newList: {}[] = [];
-  const filteredArr: {}[] = [];
-  const [btnTime, setBtnTime] = useState<string>('');
 
-  //FIXME: 테스트 코드 지우기!!
-  const testInfo = {
-    BSNS_MBY_NM: '경산서희지역주택조합',
-    CNSTRCT_ENTRPS_NM: '(주)서희건설',
-    CNTRCT_CNCLS_BGNDE: '2023-03-27',
-    CNTRCT_CNCLS_ENDDE: '2023-03-29',
-    GNRL_RNK1_CRSPAREA_RCEPT_PD: '2023-03-07',
-    GNRL_RNK1_ETC_AREA_RCPTDE_PD: '2023-03-07',
-    GNRL_RNK1_ETC_GG_RCPTDE_PD: null,
-    GNRL_RNK2_CRSPAREA_RCEPT_PD: '2023-03-08',
-    GNRL_RNK2_ETC_AREA_RCPTDE_PD: '2023-03-08',
-    GNRL_RNK2_ETC_GG_RCPTDE_PD: null,
-    HMPG_ADRES: 'http://gsjb-starhills.com/',
-    HOUSE_DTL_SECD: '01',
-    HOUSE_DTL_SECD_NM: '민영',
-    HOUSE_MANAGE_NO: 2022000894,
-    HOUSE_NM: '경산서희스타힐스',
-    HOUSE_SECD: '01',
-    HOUSE_SECD_NM: 'APT',
-    HSSPLY_ADRES: '경상북도 경산시 중방동 288-22번지 일원',
-    HSSPLY_ZIP: '38624',
-    IMPRMN_BSNS_AT: 'N',
-    LRSCL_BLDLND_AT: 'N',
-    MDAT_TRGET_AREA_SECD: 'N',
-    MDHS_TELNO: '0538013900',
-    MVN_PREARNGE_YM: '202306',
-    NPLN_PRVOPR_PUBLIC_HOUSE_AT: 'N',
-    PARCPRC_ULS_AT: 'N',
-    PBLANC_NO: 20000009,
-    PBLANC_URL:
-      'https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2022000894&pblancNo=2022000894',
-    PRZWNER_PRESNATN_DE: '2023-03-14',
-    PUBLIC_HOUSE_EARTH_AT: 'N',
-    RCEPT_BGNDE: '2023-03-06',
-    RCEPT_ENDDE: '2023-03-08',
-    RCRIT_PBLANC_DE: '2023-02-24',
-    RENT_SECD: '0',
-    RENT_SECD_NM: '분양주택',
-    SPECLT_RDN_EARTH_AT: 'N',
-    SPSPLY_RCEPT_BGNDE: '2023-03-06',
-    SPSPLY_RCEPT_ENDDE: '2023-03-06',
-    SUBSCRPT_AREA_CODE: '712',
-    SUBSCRPT_AREA_CODE_NM: '경북',
-    TOT_SUPLY_HSHLDCO: 64,
-    detail: [
-      {
-        ETC_HSHLDCO: 0,
-        HOUSE_MANAGE_NO: 2023000006,
-        HOUSE_TY: '059.6202 ',
-        INSTT_RECOMEND_HSHLDCO: 4,
-        LFE_FRST_HSHLDCO: 4,
-        LTTOT_TOP_AMOUNT: '77,320',
-        MNYCH_HSHLDCO: 0,
-        MODEL_NO: '01',
-        NWWDS_HSHLDCO: 27,
-        OLD_PARNTS_SUPORT_HSHLDCO: 4,
-        PBLANC_NO: 2023000006,
-        SPSPLY_HSHLDCO: 39,
-        SUPLY_AR: '77.9673',
-        SUPLY_HSHLDCO: 27,
-        TRANSR_INSTT_ENFSN_HSHLDCO: 0,
-      },
-    ],
-  };
+  // 최종으로 DB 업데이트한 시각
+  const [btnTime, setBtnTime] = useState<string>('');
 
   // 지역이름이 없는 APT 무순위, 오피스텔 리스트 합치기
   const randomOfficeList: { [key: string]: string }[] = [];
@@ -150,8 +91,8 @@ const MustHaveToDo = ({
     (item: ItemJ) =>
       item.RCEPT_ENDDE >= today || item.SUBSCRPT_RCEPT_ENDDE >= today,
   );
-  const possibleAllHomeList22 = [...possibleAllHomeList, testInfo];
 
+  // 기존 분양 데이터의 PBLANC_NO만 추출해서 생성한 배열
   const PBLANCArray = homeListDB.map((item) => item.PBLANC_NO);
 
   // firestore에서 불러 온 기존 데이터 중 접수일이 종료되지 않은 것만 필터링함
@@ -160,8 +101,8 @@ const MustHaveToDo = ({
       item.RCEPT_ENDDE >= today || item.SUBSCRPT_RCEPT_ENDDE >= today,
   );
 
-  //TODO: 테스트용 함수입니다.
-  const hee1 = () => {
+  // [1번 버튼] 클릭 시 새로 들어온 데이터를 재가공함
+  const apiCallHandler = () => {
     // DB 마지막으로 업데이트한 시각
     const onClickDate = new Date().toLocaleString();
 
@@ -293,14 +234,21 @@ const MustHaveToDo = ({
       setNewHomeData(newList);
     });
     setAllHomeData([...oldDataArray]);
+    setBtnTime(onClickDate);
+
     console.log('1번 버튼 실행 완료👇');
     console.log('firebase에서 불러온 기존 데이터', oldDataArray);
     console.log(`새로 들어온 데이터 ${newHomeData.length}개:`, newHomeData);
-    console.log(`allHomeData는 총 ${oldDataArray.length+newHomeData.length}개가 되어야 합니다!`);
+    console.log(
+      `allHomeData는 총 ${
+        oldDataArray.length + newHomeData.length
+      }개가 되어야 합니다!`,
+    );
   };
 
-  const hee2 = async () => {
-    
+  // [2번 버튼] 클릭 시 새로 들어온 데이터에 좌표를 추가하고
+  // 기존 + 새로운 데이터를 합쳐서 allHomeData에 담음
+  const locationHandler = async () => {
     for (let i = 0; i < newHomeData.length; i++) {
       naver.maps.Service.geocode(
         {
@@ -337,21 +285,20 @@ const MustHaveToDo = ({
         },
       );
     }
-    console.log('2번 버튼 실행 완료👇');
-    // console.log('filteredArr.length:', filteredArr.length);
     setNewGeoArray(filteredArr);
+
+    console.log('2번 버튼 실행 완료👇');
     console.log('NewGeoArray:', newGeoArray);
     console.log('allHomeData:', [...oldDataArray, ...newGeoArray]);
     return setAllHomeData([...oldDataArray, ...newGeoArray]);
   };
-  
-  const hee3 = async () => {
-    // 좌표가 생성된 데이터를 다시 DB에 넣음
-    console.log('allHomeData:',allHomeData);
+
+  // 좌표가 생성된 최종 데이터를 다시 DB에 넣음
+  const updateInfoHandler = async () => {
     addHomeListMutate.mutate({ allHomeData });
-    // console.log('버튼 누른 후:', allHomeData);
-    // console.log('데이터 업로드 완료!');
-    
+
+    console.log('firesotre에 업로드 완료👇');
+    console.log('allHomeData:', allHomeData);
   };
 
   // Friebase DB에 homeList 추가
@@ -360,204 +307,6 @@ const MustHaveToDo = ({
       queryClient.invalidateQueries('HomeList');
     },
   });
-
-  // 버튼 클릭 시 전체 API data가 firebase에 들어감
-  const apiCallHandler = async () => {
-    // DB 마지막으로 업데이트한 시각
-    const onClickDate = new Date().toLocaleString();
-    possibleAllHomeList.map((item: any) => {
-      newList.push({
-        COORDINATES: 'x:, y:',
-        BUTTON_DATE: onClickDate,
-        DETAIL: item.detail,
-        FOR_COORDINATES_ADRES: item.HSSPLY_ADRES.split(',')[0].split('외')[0],
-
-        MIN_SUPLY_AR: item?.detail[0]?.SUPLY_AR
-          ? item?.detail[0]?.SUPLY_AR?.split('.')[0].replace(/(^0)/, '') + '㎡'
-          : '',
-
-        MAX_SUPLY_AR: item?.detail[0]?.SUPLY_AR
-          ? item?.detail[item?.detail?.length - 1]?.SUPLY_AR?.split(
-              '.',
-            )[0]?.replace(/(^0)/, '') + '㎡'
-          : '',
-
-        MIN_HOUSE_TY:
-          item.detail.length === 0
-            ? ''
-            : item?.detail[0]?.EXCLUSE_AR
-            ? Math.floor(item?.detail[0]?.EXCLUSE_AR) + '㎡'
-            : item?.detail[0]?.HOUSE_TY.split('.')[0].replace(/(^0)/, '') +
-              '㎡',
-
-        MAX_HOUSE_TY:
-          item.detail.length === 0
-            ? ''
-            : item?.detail[item?.detail?.length - 1]?.EXCLUSE_AR
-            ? Math.floor(item?.detail[0]?.EXCLUSE_AR) + '㎡'
-            : item?.detail[item?.detail?.length - 1]?.HOUSE_TY.split(
-                '.',
-              )[0].replace(/(^0)/, '') + '㎡',
-
-        // TODO: 금액이 6자리 이상일 때만 잘라야 억으로 잘림
-        MIN_LTTOT_TOP_AMOUNT:
-          item.detail.length === 0
-            ? ''
-            : item?.detail[0]?.LTTOT_TOP_AMOUNT
-            ? item?.detail[0]?.LTTOT_TOP_AMOUNT
-            : item?.detail[0]?.SUPLY_AMOUNT,
-
-        MAX_LTTOT_TOP_AMOUNT:
-          item.detail.length === 0
-            ? ''
-            : item?.detail[item?.detail?.length - 1]?.LTTOT_TOP_AMOUNT
-            ? item?.detail[item?.detail?.length - 1]?.LTTOT_TOP_AMOUNT
-            : item?.detail[item?.detail?.length - 1]?.SUPLY_AMOUNT,
-
-        SPSPLY_HSHLDCO: item.SPSPLY_HSHLDCO ? item.SPSPLY_HSHLDCO + '세대' : '',
-        SUPLY_HSHLDCO: item.SUPLY_HSHLDCO ? item.SUPLY_HSHLDCO + '세대' : '',
-        TOT_SUPLY_HSHLDCO: item.TOT_SUPLY_HSHLDCO + '세대',
-        HOUSE_NM: item.HOUSE_NM,
-        HOUSE_SECD: item.HOUSE_SECD,
-        HOUSE_SECD_NM:
-          item.HOUSE_SECD === '02'
-            ? '오피스텔'
-            : item.HOUSE_SECD_NM.replace(/[주택]/g, '').split('/')[0],
-        HOUSE_DTL_SECD: item.HOUSE_DTL_SECD ? item.HOUSE_DTL_SECD : '',
-        HOUSE_DTL_SECD_NM: item.HOUSE_DTL_SECD_NM ? item.HOUSE_DTL_SECD_NM : '',
-        HSSPLY_ADRES: item.HSSPLY_ADRES,
-        SUBSCRPT_AREA_CODE: item.UBSCRPT_AREA_CODE
-          ? item.UBSCRPT_AREA_CODE
-          : '',
-        SUBSCRPT_AREA_CODE_NM: item.SUBSCRPT_AREA_CODE_NM
-          ? item.SUBSCRPT_AREA_CODE_NM.slice(0, 2)
-          : '',
-        RCEPT_BGNDE: item.RCEPT_BGNDE
-          ? item.RCEPT_BGNDE
-          : item.SUBSCRPT_RCEPT_BGNDE,
-        RCEPT_ENDDE: item.RCEPT_ENDDE
-          ? item.RCEPT_ENDDE
-          : item.SUBSCRPT_RCEPT_ENDDE,
-        SPSPLY_RCEPT_BGNDE: item.SPSPLY_RCEPT_BGNDE
-          ? item.SPSPLY_RCEPT_BGNDE
-          : '',
-        SPSPLY_RCEPT_ENDDE: item.SPSPLY_RCEPT_ENDDE
-          ? item.SPSPLY_RCEPT_ENDDE
-          : '',
-        GNRL_RNK1_CRSPAREA_RCEPT_PD: item.GNRL_RNK1_CRSPAREA_RCEPT_PD
-          ? item.GNRL_RNK1_CRSPAREA_RCEPT_PD
-          : '',
-        GNRL_RNK1_ETC_GG_RCPTDE_PD: item.GNRL_RNK1_ETC_GG_RCPTDE_PD
-          ? item.GNRL_RNK1_ETC_GG_RCPTDE_PD
-          : '',
-        GNRL_RNK1_ETC_AREA_RCPTDE_PD: item.GNRL_RNK1_ETC_AREA_RCPTDE_PD
-          ? item.GNRL_RNK1_ETC_AREA_RCPTDE_PD
-          : '',
-        GNRL_RNK2_CRSPAREA_RCEPT_PD: item.GNRL_RNK2_CRSPAREA_RCEPT_PD
-          ? item.GNRL_RNK2_CRSPAREA_RCEPT_PD
-          : '',
-        GNRL_RNK2_ETC_GG_RCPTDE_PD: item.GNRL_RNK2_ETC_GG_RCPTDE_PD
-          ? item.GNRL_RNK2_ETC_GG_RCPTDE_PD
-          : '',
-        GNRL_RNK2_ETC_AREA_RCPTDE_PD: item.GNRL_RNK2_ETC_AREA_RCPTDE_PD
-          ? item.GNRL_RNK2_ETC_AREA_RCPTDE_PD
-          : '',
-        HMPG_ADRES: item.HMPG_ADRES,
-        RCRIT_PBLANC_DE: item.RCRIT_PBLANC_DE,
-        PRZWNER_PRESNATN_DE: item.PRZWNER_PRESNATN_DE,
-        CNSTRCT_ENTRPS_NM: item.CNSTRCT_ENTRPS_NM ? item.CNSTRCT_ENTRPS_NM : '',
-        BSNS_MBY_NM: item.BSNS_MBY_NM,
-        MDHS_TELNO: item.MDHS_TELNO,
-        CNTRCT_CNCLS_BGNDE: item.CNTRCT_CNCLS_BGNDE,
-        CNTRCT_CNCLS_ENDDE: item.CNTRCT_CNCLS_ENDDE,
-        MVN_PREARNGE_YM: item.MVN_PREARNGE_YM,
-        SPECLT_RDN_EARTH_AT: item.SPECLT_RDN_EARTH_AT
-          ? item.SPECLT_RDN_EARTH_AT
-          : '',
-        MDAT_TRGET_AREA_SECD: item.MDAT_TRGET_AREA_SECD
-          ? item.MDAT_TRGET_AREA_SECD
-          : '',
-        PBLANC_URL: item.PBLANC_URL,
-        PBLANC_NO: `${item.PBLANC_NO}`,
-        GNRL_RCEPT_BGNDE: item.GNRL_RCEPT_BGNDE ? item.GNRL_RCEPT_BGNDE : '',
-        GNRL_RCEPT_ENDDE: item.GNRL_RCEPT_ENDDE ? item.GNRL_RCEPT_ENDDE : '',
-        SUBSCRPT_REQST_AMOUNT: item.detail[0]?.SUBSCRPT_REQST_AMOUNT
-          ? item.detail[0]?.SUBSCRPT_REQST_AMOUNT + '만원'
-          : '',
-      });
-      setAllHomeData(newList);
-    });
-    // addHomeListMutate.mutate({ allHomeData });
-    setBtnTime(onClickDate);
-    console.log('버튼 누른 후:', allHomeData);
-    console.log('데이터 업로드 완료!');
-  };
-
-  // 좌표 만드는 함수
-
-  // const testHandler = async () => {
-  //   naver.maps.Service.geocode(
-  //     { query: '경기 평택시 현덕면 운정리 산71' },
-  //     (status, response) => {
-  //       if (
-  //         status === naver.maps.Service.Status.OK &&
-  //         response.v2.addresses[0]
-  //       ) {
-  //         console.log(response.v2);
-  //       } else {
-  //         console.log('결과없음');
-  //       }
-  //     },
-  //   );
-  // };
-
-  const locationHandler = async () => {
-    console.log('데이터:', allHomeData);
-    for (let i = 0; i < allHomeData.length; i++) {
-      naver.maps.Service.geocode(
-        {
-          query: allHomeData[i].FOR_COORDINATES_ADRES,
-        },
-        (status, response) => {
-          if (
-            status === naver.maps.Service.Status.OK &&
-            response.v2.addresses[0]
-          ) {
-            filteredArr.push({
-              ...allHomeData[i],
-              COORDINATES: {
-                x: response.v2.addresses[0].x,
-                y: response.v2.addresses[0].y,
-              },
-            });
-          } else {
-            filteredArr.push({
-              ...allHomeData[i],
-              COORDINATES: { x: '이거채워야함', y: '이거채워야함' },
-            });
-            console.log(
-              `근무자님, ${[i]}번째에 있는 ${
-                allHomeData[i].FOR_COORDINATES_ADRES
-              } 채워주세요~`,
-            );
-            alert(
-              `근무자님, ${[i]}번째에 있는 ${
-                allHomeData[i].FOR_COORDINATES_ADRES
-              } 채워주세요~`,
-            );
-          }
-        },
-      );
-    }
-    return setAllHomeData(filteredArr);
-  };
-
-  // 좌표가 생성된 데이터를 다시 DB에 넣음
-  const updateInfoHandler = async () => {
-    addHomeListMutate.mutate({ allHomeData });
-    console.log('버튼 누른 후:', allHomeData);
-    console.log('데이터 업로드 완료!');
-  };
 
   // FIXME: 새로고침 해야 날짜가 바뀜!!
   // eslint-disable-next-line
@@ -570,9 +319,6 @@ const MustHaveToDo = ({
         <S.TitleBox>
           <S.DbTimeTitle>{btnTime}</S.DbTimeTitle>
         </S.TitleBox>
-        <button onClick={hee1}>테스트 버튼 1번</button>
-        <button onClick={hee2}>테스트 버튼 2번</button>
-        <button onClick={hee3}>테스트 버튼 3번</button>
         <S.BtnSection>
           <S.ApiCallBtn>
             <Image
