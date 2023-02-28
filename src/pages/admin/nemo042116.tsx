@@ -272,12 +272,12 @@ const MustHaveToDo = ({
               COORDINATES: { x: '이거채워야함', y: '이거채워야함' },
             });
             console.log(
-              `근무자님, ${[i]}번째에 있는 ${
+              `근무자님, ${oldDataArray.length + i - 1}번째에 있는 ${
                 newHomeData[i].FOR_COORDINATES_ADRES
               } 채워주세요~`,
             );
             alert(
-              `근무자님, ${[i]}번째에 있는 ${
+              `근무자님, ${oldDataArray.length + i - 1}번째에 있는 ${
                 newHomeData[i].FOR_COORDINATES_ADRES
               } 채워주세요~`,
             );
