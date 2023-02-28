@@ -12,7 +12,7 @@ export const Header = styled.header`
   top: 0;
   z-index: 10;
   box-sizing: border-box;
-
+  padding: 0 25px;
   position: relative;
 `;
 
@@ -30,10 +30,10 @@ export const HSection = styled.div`
 
 // Logo box
 export const LogoBox = styled.div`
-  /* width: 20%; */
-  margin-left: 17px;
   box-sizing: border-box;
   cursor: pointer;
+  display: flex;
+  align-items: center;
 `;
 
 // Search Section
@@ -56,7 +56,7 @@ export const NavBar = styled.div`
 
 // 청약 캘린더, 청약 정보
 export const NavContent = styled.nav`
-  width: 61px;
+  padding: 0 5px;
   height: 17px;
 
   font-weight: 600;

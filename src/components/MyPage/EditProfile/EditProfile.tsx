@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { useState } from 'react';
 import EditProfileModal from '../EditProfileModal/EditProfileModal';
-import transparentProfile from '../../../assets/transparentProfile.png';
+import transparentProfile from '../../../../public/assets/transparentProfile.png';
 import * as S from './style';
 
 const EditProfile = ({ currentUser }: any) => {

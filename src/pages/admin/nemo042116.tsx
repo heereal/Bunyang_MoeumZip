@@ -8,9 +8,9 @@ import { GetStaticProps } from 'next';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
-import coordinatesBtn from '../../assets/apiCallButton_blue.png';
-import lastDbButton from '../../assets/apiCallButton_green.png';
-import firsDbtButton from '../../assets/apiCallButton_red.png';
+import coordinatesBtn from '../../../public/assets/apiCallButton_blue.png';
+import lastDbButton from '../../../public/assets/apiCallButton_green.png';
+import firsDbtButton from '../../../public/assets/apiCallButton_red.png';
 import * as S from '../../styles/admin.style';
 
 const MustHaveToDo = ({
@@ -88,11 +88,12 @@ const MustHaveToDo = ({
 
   // 버튼 클릭 시 전체 API data가 firebase에 들어감
   const apiCallHandler = async () => {
-    // TODO: 버튼 2개로 줄이기 -> 리스트 변수 선언하기
+    // DB 마지막으로 업데이트한 시각
+    const onClickDate = new Date().toLocaleString();
     possibleAllHomeList.map((item: any) => {
       newList.push({
         COORDINATES: 'x:, y:',
-        BUTTON_DATE: new Date().toLocaleString(),
+        BUTTON_DATE: onClickDate,
         DETAIL: item.detail,
         FOR_COORDINATES_ADRES: item.HSSPLY_ADRES.split(',')[0].split('외')[0],
 
@@ -212,6 +213,7 @@ const MustHaveToDo = ({
       setAllHomeData(newList);
     });
     addHomeListMutate.mutate({ allHomeData });
+    setBtnTime(onClickDate)
     console.log('버튼 누른 후:', allHomeData);
     console.log('데이터 업로드 완료!');
   };
@@ -284,7 +286,7 @@ const MustHaveToDo = ({
 
   // FIXME: 새로고침 해야 날짜가 바뀜!!
   // eslint-disable-next-line
-  useEffect(() => setBtnTime(homeListDB[0]?.BUTTON_DATE), [btnTime]);
+  useEffect(() => setBtnTime(homeListDB[0]?.BUTTON_DATE), []);
 
   return (
     <>

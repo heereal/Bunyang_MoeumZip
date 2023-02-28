@@ -4,7 +4,7 @@ import { RiKakaoTalkFill } from 'react-icons/ri';
 import { SiNaver } from 'react-icons/si';
 import { BsFacebook } from 'react-icons/bs';
 import { FcGoogle } from 'react-icons/fc';
-import logo from '../../../assets/logo.png';
+import logo from '../../../../public/assets/logo.png';
 import * as S from './style';
 import Image from 'next/image';
 

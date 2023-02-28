@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { confirmAlert } from 'react-confirm-alert';
-import logo from '../../../assets/logo.png';
+import logo from '../../../../public/assets/logo.png';
 import LoginModal from '../LoginModal/LoginModal';
 import SearchInput from '../SearchInput/SearchInput';
 import * as S from './style';
@@ -11,10 +11,6 @@ import * as S from './style';
 const Header = () => {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState<boolean>(false);
-
-  const pathHandler = () => {
-    router.push('/');
-  };
 
   // [로그아웃] 버튼 클릭 시 작동
   const LogOutHandler = () => {
@@ -43,10 +39,10 @@ const Header = () => {
       <S.Header>
         <S.LogoBox>
           <Image
-            onClick={pathHandler}
+            onClick={() => router.push('/')}
             src={logo}
             alt="logoImg"
-            height={29}
+            height={23}
             quality={100}
             //quelity 의 기본값은 75 입니다.
             priority={true}
@@ -54,11 +50,9 @@ const Header = () => {
 
           {/* 로고 대신 글씨 넣어놓은 것 */}
           <div
-            onClick={pathHandler}
+            onClick={() => router.push('/')}
             style={{
-              position: 'absolute',
-              left: '3.2%',
-              top: '16px',
+              marginLeft: 10,
               fontSize: '16px',
               fontWeight: 900,
             }}

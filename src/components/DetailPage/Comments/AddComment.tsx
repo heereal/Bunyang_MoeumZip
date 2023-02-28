@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { KeyboardEvent, useState } from 'react';
 import { RiPencilFill } from 'react-icons/ri';
 import { useMutation } from 'react-query';
-import logo from '../../../assets/logo.png';
+import logo from '../../../../public/assets/logo.png';
 import * as S from './style';
 
 const AddComment = ({ user, postId, queryClient, refetch }: CommentPropsP) => {

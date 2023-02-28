@@ -5,15 +5,11 @@ import * as S from './style';
 const ListList = ({ list }: PropsListJ) => {
   const router = useRouter();
 
-  const pathHandler = () => {
-    router.push(`/detail/${list.PBLANC_NO}`);
-  };
-
   // 오늘 날짜
   const today = getToday();
 
   return (
-    <S.ListArticle onClick={pathHandler}>
+    <S.ListArticle onClick={() => router.push(`/detail/${list.PBLANC_NO}`)}>
       <S.CardHeader>
         <S.CardCategoryBox>
           {list.HOUSE_DTL_SECD_NM ? (
