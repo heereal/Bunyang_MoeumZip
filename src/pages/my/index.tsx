@@ -42,10 +42,10 @@ const MyPage = () => {
 
   return (
     <S.Wrapper>
-      <HeadTitle title="마이페이지" />
+      <HeadTitle title="마이페이지 |" />
 
       <EditProfile users={users} currentUser={currentUser} />
-      <MyTabs currentUser={currentUser} />
+      <MyTabs />
     </S.Wrapper>
   );
 };

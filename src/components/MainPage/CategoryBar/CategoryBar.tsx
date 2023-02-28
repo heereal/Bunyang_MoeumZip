@@ -11,7 +11,6 @@ import { IoReload } from 'react-icons/io5';
 const CategoryBar = () => {
   const [isRegionToggleOpen, setIsRegionToggleOpen] = useState<boolean>(false);
   const [isTypeToggleOpen, setIsTypeToggleOpen] = useState<boolean>(false);
-
   const [currentTab, SetCurrentTab] = useState<number>(0);
 
   // 유저가 선택한 카테고리 필터링 리스트

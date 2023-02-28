@@ -27,7 +27,7 @@ const SearchResult = ({ homeList }: HomeListDBPropsJ) => {
 
   return (
     <S.ResultSection>
-      <HeadTitle title="검색" />
+      <HeadTitle title="검색결과 |" />
       {resultsList.length === 0 ? (
         <NoResult keyword={keyword} text="다른 키워드로 검색해주세요." />
       ) : (

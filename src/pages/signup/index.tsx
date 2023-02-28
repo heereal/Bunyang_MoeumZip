@@ -112,7 +112,7 @@ const SignUp = () => {
 
   return (
     <S.Wrapper>
-      <HeadTitle title="회원가입" />
+      <HeadTitle title="회원가입 |" />
 
       <S.SignUpContainer>
         <S.SignUpDesc>

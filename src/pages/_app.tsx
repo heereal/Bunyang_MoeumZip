@@ -4,8 +4,9 @@ import '@/styles/globals.css';
 import { SessionProvider } from 'next-auth/react';
 import type { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 import { RecoilRoot } from 'recoil';
+import { ReactQueryDevtools } from 'react-query/devtools';
 
 const App = ({ Component, pageProps }: AppProps) => {
   const router = useRouter();
@@ -21,25 +22,28 @@ const App = ({ Component, pageProps }: AppProps) => {
   return (
     <SessionProvider session={pageProps.session} refetchOnWindowFocus={false}>
       <QueryClientProvider client={queryClient}>
-        <RecoilRoot>
-          <Layout>
-            <div
-              style={{
-                width: '100vw',
-                height: '91vh',
-                display: 'flex',
-              }}
-            >
-              <Component {...pageProps} />
-              {router.asPath === '/' ||
-              router.asPath.includes('detail') ||
-              router.asPath.includes('search') ||
-              router.asPath.includes('admin') ? (
-                <MapSection />
-              ) : null}
-            </div>
-          </Layout>
-        </RecoilRoot>
+        <Hydrate state={pageProps.dehydratedState}>
+          <RecoilRoot>
+            <Layout>
+              <div
+                style={{
+                  width: '100vw',
+                  height: '91vh',
+                  display: 'flex',
+                }}
+              >
+                <Component {...pageProps} />
+                {router.asPath === '/' ||
+                router.asPath.includes('detail') ||
+                router.asPath.includes('search') ||
+                router.asPath.includes('admin') ? (
+                  <MapSection />
+                ) : null}
+              </div>
+            </Layout>
+          </RecoilRoot>
+        </Hydrate>
+        <ReactQueryDevtools />
       </QueryClientProvider>
     </SessionProvider>
   );

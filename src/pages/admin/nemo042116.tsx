@@ -8,9 +8,9 @@ import { GetStaticProps } from 'next';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
-import coordinatesBtn from '../../assets/apiCallButton_blue.png';
-import lastDbButton from '../../assets/apiCallButton_green.png';
-import firsDbtButton from '../../assets/apiCallButton_red.png';
+import coordinatesBtn from '../../../public/assets/apiCallButton_blue.png';
+import lastDbButton from '../../../public/assets/apiCallButton_green.png';
+import firsDbtButton from '../../../public/assets/apiCallButton_red.png';
 import * as S from '../../styles/admin.style';
 
 const MustHaveToDo = ({
@@ -112,6 +112,11 @@ const MustHaveToDo = ({
     );
 
     newDataArray.map((item: any) => {
+  // 버튼 클릭 시 전체 API data가 firebase에 들어감
+  const apiCallHandler = async () => {
+    // DB 마지막으로 업데이트한 시각
+    const onClickDate = new Date().toLocaleString();
+    possibleAllHomeList.map((item: any) => {
       newList.push({
         COORDINATES: 'x:, y:',
         BUTTON_DATE: onClickDate,
@@ -314,7 +319,7 @@ const MustHaveToDo = ({
 
   return (
     <>
-      <HeadTitle title={'관리자페이지'} />
+      <HeadTitle title={'관리자페이지 |'} />
       <S.AdminSection>
         <S.TitleBox>
           <S.DbTimeTitle>{btnTime}</S.DbTimeTitle>
