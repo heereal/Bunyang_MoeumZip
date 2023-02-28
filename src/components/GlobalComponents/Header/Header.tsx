@@ -46,7 +46,7 @@ const Header = () => {
             onClick={pathHandler}
             src={logo}
             alt="logoImg"
-            height={29}
+            height={23}
             quality={100}
             //quelity 의 기본값은 75 입니다.
             priority={true}
@@ -56,9 +56,7 @@ const Header = () => {
           <div
             onClick={pathHandler}
             style={{
-              position: 'absolute',
-              left: '3.2%',
-              top: '16px',
+              marginLeft: 10,
               fontSize: '16px',
               fontWeight: 900,
             }}
