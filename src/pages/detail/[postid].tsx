@@ -19,7 +19,13 @@ const DeatilPage = ({ dehydratedState }: any) => {
 };
 
 export const getServerSideProps = async () => {
-  const queryClient = new QueryClient();
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        cacheTime: 1000 * 60 * 60 * 3,
+      },
+    },
+  });
   await queryClient.prefetchQuery('detail', getHomeList);
 
   return {
