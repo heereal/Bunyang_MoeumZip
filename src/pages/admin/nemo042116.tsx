@@ -2,6 +2,7 @@ import { addHomeList } from '@/common/api';
 import { db } from '@/common/firebase';
 import { getToday } from '@/common/utils';
 import HeadTitle from '@/components/GlobalComponents/HeadTitle/HeadTitle';
+import { async } from '@firebase/util';
 import axios from 'axios';
 import { doc, getDoc } from 'firebase/firestore';
 import { GetStaticProps } from 'next';
@@ -24,8 +25,12 @@ const MustHaveToDo = ({
 }: ListPropsJ) => {
   const queryClient = useQueryClient();
 
-  console.log('lhNoticeList', lhNoticeList);
-  console.log('lhDetailList', lhDetailList);
+  // console.log('lhNoticeList', lhNoticeList);
+  // console.log('lhDetailList', lhDetailList);
+  // console.log(
+  //   'detail',
+  //   lhDetailList.map((item) => item[0].dsSch[0].PAN_ID),
+  // );
 
   console.log('lhCombineList', lhCombineList);
 
@@ -469,7 +474,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
   //LH detailList
   const lhDetailList = await Promise.all(
-    lhNoticeList.map(async (item: any) =>
+    lhNoticeList.map((item: any) =>
       axios
         .get(
           `${LH_BASE_URL}/${METHOD_LH_DETAIL}?serviceKey=${SERVICE_KEY}&SPL_INF_TP_CD=${item.SPL_INF_TP_CD}&CCR_CNNT_SYS_DS_CD=${item.CCR_CNNT_SYS_DS_CD}&PAN_ID=${item.PAN_ID}`,
@@ -516,11 +521,11 @@ export const getStaticProps: GetStaticProps = async () => {
 
   // LH Default + Detail 통합 List
   const lhCombineList = await Promise.all(
-    lhNoticeList.map(async (item: any) => {
+    lhNoticeList.map((item: any) => {
       return {
         ...item,
         detail: lhDetailList.filter(
-          (i: any) => i?.dsSch?.PAN_ID === item.PAN_ID,
+          (i: any) => i[0]?.dsSch[0]?.PAN_ID === item.PAN_ID,
         ),
       };
     }),
