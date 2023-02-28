@@ -20,11 +20,24 @@ const MustHaveToDo = ({
   homeListDB,
 }: ListPropsJ) => {
   const queryClient = useQueryClient();
+
+  // DB에 들어가는 최종 분양 정보 리스트
   const [allHomeData, setAllHomeData] = useState<{ [key: string]: string }[]>(
     [],
   );
+
+  // 새로 들어온 분양 정보
+  const [newHomeData, setNewHomeData] = useState<{ [key: string]: string }[]>(
+    [],
+  );
+
   const newList: {}[] = [];
   const filteredArr: {}[] = [];
+
+  // 새로 들어온 데이터에 좌표까지 추가한 배열
+  const [newGeoArray, setNewGeoArray] = useState<any>([]);
+
+  // 최종으로 DB 업데이트한 시각
   const [btnTime, setBtnTime] = useState<string>('');
 
   // 지역이름이 없는 APT 무순위, 오피스텔 리스트 합치기
@@ -79,13 +92,26 @@ const MustHaveToDo = ({
       item.RCEPT_ENDDE >= today || item.SUBSCRPT_RCEPT_ENDDE >= today,
   );
 
-  // Friebase DB에 homeList 추가
-  const addHomeListMutate = useMutation(addHomeList, {
-    onSuccess: () => {
-      queryClient.invalidateQueries('HomeList');
-    },
-  });
+  // 기존 분양 데이터의 PBLANC_NO만 추출해서 생성한 배열
+  const PBLANCArray = homeListDB.map((item) => item.PBLANC_NO);
 
+  // firestore에서 불러 온 기존 데이터 중 접수일이 종료되지 않은 것만 필터링함
+  const oldDataArray = homeListDB.filter(
+    (item: ItemJ) =>
+      item.RCEPT_ENDDE >= today || item.SUBSCRPT_RCEPT_ENDDE >= today,
+  );
+
+  // [1번 버튼] 클릭 시 새로 들어온 데이터를 재가공함
+  const apiCallHandler = () => {
+    // DB 마지막으로 업데이트한 시각
+    const onClickDate = new Date().toLocaleString();
+
+    // 기존 데이터 제외 새로 들어온 데이터만 필터링함
+    const newDataArray = possibleAllHomeList.filter(
+      (item: any) => !PBLANCArray.includes(`${item.PBLANC_NO}`),
+    );
+
+    newDataArray.map((item: any) => {
   // 버튼 클릭 시 전체 API data가 firebase에 들어감
   const apiCallHandler = async () => {
     // DB 마지막으로 업데이트한 시각
@@ -210,38 +236,28 @@ const MustHaveToDo = ({
           ? item.detail[0]?.SUBSCRPT_REQST_AMOUNT + '만원'
           : '',
       });
-      setAllHomeData(newList);
+      setNewHomeData(newList);
     });
-    addHomeListMutate.mutate({ allHomeData });
-    setBtnTime(onClickDate)
-    console.log('버튼 누른 후:', allHomeData);
-    console.log('데이터 업로드 완료!');
+    setAllHomeData([...oldDataArray]);
+    setBtnTime(onClickDate);
+
+    console.log('1번 버튼 실행 완료👇');
+    console.log('firebase에서 불러온 기존 데이터', oldDataArray);
+    console.log(`새로 들어온 데이터 ${newHomeData.length}개:`, newHomeData);
+    console.log(
+      `allHomeData는 총 ${
+        oldDataArray.length + newHomeData.length
+      }개가 되어야 합니다!`,
+    );
   };
 
-  // 좌표 만드는 함수
-
-  // const testHandler = async () => {
-  //   naver.maps.Service.geocode(
-  //     { query: '경기 평택시 현덕면 운정리 산71' },
-  //     (status, response) => {
-  //       if (
-  //         status === naver.maps.Service.Status.OK &&
-  //         response.v2.addresses[0]
-  //       ) {
-  //         console.log(response.v2);
-  //       } else {
-  //         console.log('결과없음');
-  //       }
-  //     },
-  //   );
-  // };
-
+  // [2번 버튼] 클릭 시 새로 들어온 데이터에 좌표를 추가하고
+  // 기존 + 새로운 데이터를 합쳐서 allHomeData에 담음
   const locationHandler = async () => {
-    console.log('데이터:', allHomeData);
-    for (let i = 0; i < allHomeData.length; i++) {
+    for (let i = 0; i < newHomeData.length; i++) {
       naver.maps.Service.geocode(
         {
-          query: allHomeData[i].FOR_COORDINATES_ADRES,
+          query: newHomeData[i].FOR_COORDINATES_ADRES,
         },
         (status, response) => {
           if (
@@ -249,7 +265,7 @@ const MustHaveToDo = ({
             response.v2.addresses[0]
           ) {
             filteredArr.push({
-              ...allHomeData[i],
+              ...newHomeData[i],
               COORDINATES: {
                 x: response.v2.addresses[0].x,
                 y: response.v2.addresses[0].y,
@@ -257,32 +273,45 @@ const MustHaveToDo = ({
             });
           } else {
             filteredArr.push({
-              ...allHomeData[i],
+              ...newHomeData[i],
               COORDINATES: { x: '이거채워야함', y: '이거채워야함' },
             });
             console.log(
-              `근무자님, ${[i]}번째에 있는 ${
-                allHomeData[i].FOR_COORDINATES_ADRES
+              `근무자님, ${oldDataArray.length + i - 1}번째에 있는 ${
+                newHomeData[i].FOR_COORDINATES_ADRES
               } 채워주세요~`,
             );
             alert(
-              `근무자님, ${[i]}번째에 있는 ${
-                allHomeData[i].FOR_COORDINATES_ADRES
+              `근무자님, ${oldDataArray.length + i - 1}번째에 있는 ${
+                newHomeData[i].FOR_COORDINATES_ADRES
               } 채워주세요~`,
             );
           }
         },
       );
     }
-    return setAllHomeData(filteredArr);
+    setNewGeoArray(filteredArr);
+
+    console.log('2번 버튼 실행 완료👇');
+    console.log('NewGeoArray:', newGeoArray);
+    console.log('allHomeData:', [...oldDataArray, ...newGeoArray]);
+    return setAllHomeData([...oldDataArray, ...newGeoArray]);
   };
 
-  // 좌표가 생성된 데이터를 다시 DB에 넣음
+  // 좌표가 생성된 최종 데이터를 다시 DB에 넣음
   const updateInfoHandler = async () => {
     addHomeListMutate.mutate({ allHomeData });
-    console.log('버튼 누른 후:', allHomeData);
-    console.log('데이터 업로드 완료!');
+
+    console.log('firesotre에 업로드 완료👇');
+    console.log('allHomeData:', allHomeData);
   };
+
+  // Friebase DB에 homeList 추가
+  const addHomeListMutate = useMutation(addHomeList, {
+    onSuccess: () => {
+      queryClient.invalidateQueries('HomeList');
+    },
+  });
 
   // FIXME: 새로고침 해야 날짜가 바뀜!!
   // eslint-disable-next-line
