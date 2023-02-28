@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import NoResultImage from '../../../assets/NoResult.png';
+import NoResultImage from '../../../../public/assets/NoResult.png';
 import * as S from './style';
 
 const NoResult = ({ keyword, text }: keywordPropsJ) => {

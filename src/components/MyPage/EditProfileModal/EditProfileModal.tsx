@@ -9,7 +9,7 @@ import { useState } from 'react';
 import { BsCameraFill } from 'react-icons/bs';
 import { MdClose } from 'react-icons/md';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import transparentProfile from '../../../assets/transparentProfile.png';
+import transparentProfile from '../../../../public/assets/transparentProfile.png';
 import * as S from './style';
 
 const EditProfileModal = ({ setIsModalOpen }: any) => {

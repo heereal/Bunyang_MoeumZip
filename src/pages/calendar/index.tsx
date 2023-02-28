@@ -11,10 +11,6 @@ import * as S from '../../styles/claendar.style';
 const Calender = ({ homeList }: any) => {
   const router = useRouter();
 
-  const pathHandler = (e: any) => {
-    router.push(`/detail/${e.event.id}`);
-  };
-
   // 캘린더에 이벤트를 보여주기 위해 기존 분양 데이터를 재가공함
   const array: any = [];
   homeList.allHomeData.map((item: any) =>
@@ -46,7 +42,7 @@ const Calender = ({ homeList }: any) => {
         // eventDisplay={'list-item'}
         eventColor="#6096B4"
         // eventMouseEnter={(e)=>e.target.style={}}
-        eventClick={(e) => pathHandler(e)}
+        eventClick={(e) => router.push(`/detail/${e.event.id}`)}
       />
     </S.CalendarContainer>
   );

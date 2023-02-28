@@ -1,4 +1,4 @@
-import spinner from '../../../assets/spinner.gif';
+import spinner from '../../../../public/assets/spinner.gif';
 import Image from 'next/image';
 
 const LoadingSpinner = () => {
@@ -15,5 +15,5 @@ const LoadingSpinner = () => {
     </div>
   );
 };
- 
+
 export default LoadingSpinner;

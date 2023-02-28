@@ -2,6 +2,7 @@ import { DocumentData } from 'firebase/firestore';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import * as ReactDOMServer from 'react-dom/server';
+import MarkerIcon from './MarkerIcon';
 import Overlay from './Overlay';
 
 interface MarkersProps {
@@ -40,16 +41,27 @@ const Markers = ({ map, home }: MarkersProps) => {
         // NOTE: home 데이터를 이용하여 markers 배열 생성
         const markers: naver.maps.Marker[] = [];
         home?.forEach((item: any) => {
+          const markerIcon = ReactDOMServer.renderToString(
+            <MarkerIcon result={item} />,
+          );
           const marker = new naver.maps.Marker({
             map: map,
             position: new naver.maps.LatLng(
               Number(item?.COORDINATES.y),
               Number(item?.COORDINATES.x),
             ),
+            icon: {
+              content: markerIcon,
+
+              size: new naver.maps.Size(38, 58),
+              anchor: new naver.maps.Point(0, 0),
+            },
           });
           markers.push(marker);
           naver.maps.Event.addListener(marker, 'click', () => {
             router.push(`/detail/${item.PBLANC_NO}`);
+            const detailBody = document.querySelector('#detailBody');
+            detailBody?.scroll(0, 0);
           });
 
           const contentString = ReactDOMServer.renderToString(
@@ -64,11 +76,6 @@ const Markers = ({ map, home }: MarkersProps) => {
             // anchorSkew: true,
             // anchorColor: '#eee',
             pixelOffset: new naver.maps.Point(0, 25),
-          });
-
-          naver.maps.Event.addListener(marker, 'click', function (e) {
-            if (marker !== null && router.asPath !== '/') {
-            }
           });
 
           naver.maps.Event.addListener(marker, 'mouseover', function (e) {

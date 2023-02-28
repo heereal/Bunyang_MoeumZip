@@ -6,4 +6,5 @@ export const Wrapper = styled.div`
   display: flex;
   padding: 30px 50px;
   background: #f9fafb;
+  min-height: 600px;
 `;
