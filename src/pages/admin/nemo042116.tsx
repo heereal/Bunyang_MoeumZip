@@ -19,19 +19,22 @@ const MustHaveToDo = ({
   aptRandomCombineList,
   officeCombineList,
   lhCombineList,
-  homeListDB,
-}: ListPropsJ) => {
+}: // homeListDB,
+ListPropsJ) => {
   const queryClient = useQueryClient();
-
-  // DB에 들어가는 최종 분양 정보 리스트
   const [allHomeData, setAllHomeData] = useState<{ [key: string]: string }[]>(
     [],
   );
 
-  // 새로 들어온 분양 정보
-  const [newHomeData, setNewHomeData] = useState<{ [key: string]: string }[]>(
-    [],
-  );
+  // // DB에 들어가는 최종 분양 정보 리스트
+  // const [allHomeData, setAllHomeData] = useState<{ [key: string]: string }[]>(
+  //   [],
+  // );
+
+  // // 새로 들어온 분양 정보
+  // const [newHomeData, setNewHomeData] = useState<{ [key: string]: string }[]>(
+  //   [],
+  // );
 
   // 재가공한 전체 API데이터를 담는 배열
   const newList: {}[] = [];
@@ -44,7 +47,7 @@ const MustHaveToDo = ({
   const reprocessingMarriageLHList: {}[] = [];
 
   // 새로 들어온 데이터에 좌표까지 추가한 배열
-  const [newGeoArray, setNewGeoArray] = useState<any>([]);
+  // const [newGeoArray, setNewGeoArray] = useState<any>([]);
 
   // 최종으로 DB 업데이트한 시각
   const [btnTime, setBtnTime] = useState<string>('');
@@ -304,28 +307,35 @@ const MustHaveToDo = ({
       item.RCEPT_ENDDE >= today || item.SUBSCRPT_RCEPT_ENDDE >= today,
   );
 
-  // firestore에서 불러 온 기존 분양 데이터의 PBLANC_NO만 추출해서 생성한 배열
-  const PBLANCArray = homeListDB.map((item) => item.PBLANC_NO);
+  // // firestore에서 불러 온 기존 분양 데이터의 PBLANC_NO만 추출해서 생성한 배열
+  // const PBLANCArray = homeListDB.map((item) => item.PBLANC_NO);
 
-  // firestore에서 불러 온 기존 데이터 중 접수일이 종료되지 않은 것만 필터링함
-  const oldDataArray = homeListDB.filter(
-    (item: ItemJ) =>
-      item.RCEPT_ENDDE >= today || item.SUBSCRPT_RCEPT_ENDDE >= today,
-    // TODO: 수정하기 = db에서 불러온 거면 재가공된 후라 RCEPT_ENDDE만 써도 될 듯?
-  );
+  // // firestore에서 불러 온 기존 데이터 중 접수일이 종료되지 않은 것만 필터링함
+  // const oldDataArray = homeListDB.filter(
+  //   (item: ItemJ) =>
+  //     item.RCEPT_ENDDE >= today || item.SUBSCRPT_RCEPT_ENDDE >= today,
+  //   // TODO: 수정하기 = db에서 불러온 거면 재가공된 후라 RCEPT_ENDDE만 써도 될 듯?
+  // );
+
+  // Friebase DB에 homeList 추가
+  const addHomeListMutate = useMutation(addHomeList, {
+    onSuccess: () => {
+      queryClient.invalidateQueries('HomeList');
+    },
+  });
 
   // [1번 버튼] 클릭 시 새로 들어온 데이터를 재가공함
   const apiCallHandler = () => {
     // DB 마지막으로 업데이트한 시각
     const onClickDate = new Date().toLocaleString();
 
-    // 기존 데이터 제외 새로 들어온 데이터만 필터링함
-    const newDataArray = possibleAllHomeList.filter(
-      (item: any) => !PBLANCArray.includes(`${item.PBLANC_NO}`),
-    );
+    // // 기존 데이터 제외 새로 들어온 데이터만 필터링함
+    // const newDataArray = possibleAllHomeList.filter(
+    //   (item: any) => !PBLANCArray.includes(`${item.PBLANC_NO}`),
+    // );
 
     // API 전체 통합 데이터 재가공하기
-    newDataArray.map((item: any) => {
+    possibleAllHomeList.map((item: any) => {
       newList.push({
         COORDINATES: 'x:, y:',
         BUTTON_DATE: onClickDate,
@@ -357,37 +367,93 @@ const MustHaveToDo = ({
             )[0].replace(/(^0)/, '') + '㎡',
 
         MIN_LTTOT_TOP_AMOUNT:
-          item.detail[0]?.LTTOT_TOP_AMOUNT.split(',')[0].length < 2
+          item.detail[0]?.LTTOT_TOP_AMOUNT?.split(',')[0].length < 2
             ? item.detail[0]?.LTTOT_TOP_AMOUNT + '만원'
-            : item.detail[0]?.LTTOT_TOP_AMOUNT.split(',')[0].length === 2
-            ? item.detail[0]?.LTTOT_TOP_AMOUNT.slice(0, 1) +
+            : item.detail[0]?.LTTOT_TOP_AMOUNT?.split(',')[0].length === 2
+            ? item.detail[0]?.LTTOT_TOP_AMOUNT?.slice(0, 1) +
               '.' +
-              item.detail[0]?.LTTOT_TOP_AMOUNT.slice(1, 2) +
+              item.detail[0]?.LTTOT_TOP_AMOUNT?.slice(1, 2) +
               '억'
-            : item.detail[0]?.LTTOT_TOP_AMOUNT.split(',')[0].length === 3
-            ? item.detail[0]?.LTTOT_TOP_AMOUNT.slice(0, 2) +
+            : item.detail[0]?.LTTOT_TOP_AMOUNT?.split(',')[0].length === 3
+            ? item.detail[0]?.LTTOT_TOP_AMOUNT?.slice(0, 2) +
               '.' +
-              item.detail[0]?.LTTOT_TOP_AMOUNT.slice(2, 3) +
+              item.detail[0]?.LTTOT_TOP_AMOUNT?.slice(2, 3) +
               '억'
-            : item?.detail[0]?.SUPLY_AMOUNT.split(',')[0].length < 2
+            : item?.detail[0]?.SUPLY_AMOUNT?.split(',')[0].length < 2
             ? item?.detail[0]?.SUPLY_AMOUNT + '만원'
-            : item?.detail[0]?.SUPLY_AMOUNT.split(',')[0].length === 2
-            ? item?.detail[0]?.SUPLY_AMOUNT.slice(0, 1) +
+            : item?.detail[0]?.SUPLY_AMOUNT?.split(',')[0].length === 2
+            ? item?.detail[0]?.SUPLY_AMOUNT?.slice(0, 1) +
               '.' +
-              item?.detail[0]?.SUPLY_AMOUNT.slice(1, 2) +
+              item?.detail[0]?.SUPLY_AMOUNT?.slice(1, 2) +
               '억'
-            : item?.detail[0]?.SUPLY_AMOUNT.split(',')[0].length === 3
-            ? item?.detail[0]?.SUPLY_AMOUNT.slice(0, 2) +
+            : item?.detail[0]?.SUPLY_AMOUNT?.split(',')[0].length === 3
+            ? item?.detail[0]?.SUPLY_AMOUNT?.slice(0, 2) +
               '.' +
-              item?.detail[0]?.SUPLY_AMOUNT.slice(2, 3) +
+              item?.detail[0]?.SUPLY_AMOUNT?.slice(2, 3) +
               '억'
             : '',
 
-        MAX_LTTOT_TOP_AMOUNT: item.detail[item?.detail?.length - 1]
-          ?.LTTOT_TOP_AMOUNT
-          ? item?.detail[item?.detail?.length - 1]?.LTTOT_TOP_AMOUNT
-          : item?.detail[item?.detail?.length - 1]?.SUPLY_AMOUNT,
-
+        MAX_LTTOT_TOP_AMOUNT:
+          item.detail[item?.detail?.length - 1]?.LTTOT_TOP_AMOUNT?.split(',')[0]
+            .length < 2
+            ? item.detail[item?.detail?.length - 1]?.LTTOT_TOP_AMOUNT + '만원'
+            : item.detail[item?.detail?.length - 1]?.LTTOT_TOP_AMOUNT?.split(
+                ',',
+              )[0].length === 2
+            ? item.detail[item?.detail?.length - 1]?.LTTOT_TOP_AMOUNT?.slice(
+                0,
+                1,
+              ) +
+              '.' +
+              item.detail[item?.detail?.length - 1]?.LTTOT_TOP_AMOUNT?.slice(
+                1,
+                2,
+              ) +
+              '억'
+            : item.detail[item?.detail?.length - 1]?.LTTOT_TOP_AMOUNT?.split(
+                ',',
+              )[0].length === 3
+            ? item.detail[item?.detail?.length - 1]?.LTTOT_TOP_AMOUNT?.slice(
+                0,
+                2,
+              ) +
+              '.' +
+              item.detail[item?.detail?.length - 1]?.LTTOT_TOP_AMOUNT?.slice(
+                2,
+                3,
+              ) +
+              '억'
+            : item?.detail[item?.detail?.length - 1]?.SUPLY_AMOUNT?.split(
+                ',',
+              )[0].length < 2
+            ? item?.detail[item?.detail?.length - 1]?.SUPLY_AMOUNT + '만원'
+            : item?.detail[item?.detail?.length - 1]?.SUPLY_AMOUNT?.split(
+                ',',
+              )[0].length === 2
+            ? item?.detail[item?.detail?.length - 1]?.SUPLY_AMOUNT?.slice(
+                0,
+                1,
+              ) +
+              '.' +
+              item?.detail[item?.detail?.length - 1]?.SUPLY_AMOUNT?.slice(
+                1,
+                2,
+              ) +
+              '억'
+            : item?.detail[item?.detail?.length - 1]?.SUPLY_AMOUNT?.split(
+                ',',
+              )[0].length === 3
+            ? item?.detail[item?.detail?.length - 1]?.SUPLY_AMOUNT?.slice(
+                0,
+                2,
+              ) +
+              '.' +
+              item?.detail[item?.detail?.length - 1]?.SUPLY_AMOUNT?.slice(
+                2,
+                3,
+              ) +
+              '억'
+            : '',
         SPSPLY_HSHLDCO: item.SPSPLY_HSHLDCO ? item.SPSPLY_HSHLDCO + '세대' : '',
         SUPLY_HSHLDCO: item.SUPLY_HSHLDCO ? item.SUPLY_HSHLDCO + '세대' : '',
         TOT_SUPLY_HSHLDCO: item.TOT_SUPLY_HSHLDCO + '세대',
@@ -476,19 +542,23 @@ const MustHaveToDo = ({
         PAN_NT_ST_DT: item.PAN_NT_ST_DT ? item.PAN_NT_ST_DT : '',
         CLSG_DT: item.CLSG_DT ? item.CLSG_DT : '',
       });
-      setNewHomeData(newList);
+      // setNewHomeData(newList);
+      setAllHomeData(newList);
     });
-    setAllHomeData([...oldDataArray]);
-    setBtnTime(onClickDate);
+    // setAllHomeData([...oldDataArray]);
+    // setBtnTime(onClickDate);
+    addHomeListMutate.mutate({ allHomeData });
+    console.log('버튼 누른 후:', allHomeData);
+    console.log('데이터 업로드 완료!');
 
-    console.log('1번 버튼 실행 완료👇');
-    console.log('firebase에서 불러온 기존 데이터', oldDataArray);
-    console.log(`새로 들어온 데이터 ${newHomeData.length}개:`, newHomeData);
-    console.log(
-      `allHomeData는 총 ${
-        oldDataArray.length + newHomeData.length
-      }개가 되어야 합니다!`,
-    );
+    // console.log('1번 버튼 실행 완료👇');
+    // console.log('firebase에서 불러온 기존 데이터', oldDataArray);
+    // console.log(`새로 들어온 데이터 ${newHomeData.length}개:`, newHomeData);
+    // console.log(
+    //   `allHomeData는 총 ${
+    //     oldDataArray.length + newHomeData.length
+    //   }개가 되어야 합니다!`,
+    // );
   };
 
   // [2번 버튼] 클릭 시 새로 들어온 데이터에 좌표를 추가하고
@@ -547,15 +617,15 @@ const MustHaveToDo = ({
   };
 
   // Friebase DB에 homeList 추가
-  const addHomeListMutate = useMutation(addHomeList, {
-    onSuccess: () => {
-      queryClient.invalidateQueries('HomeList');
-    },
-  });
+  // const addHomeListMutate = useMutation(addHomeList, {
+  //   onSuccess: () => {
+  //     queryClient.invalidateQueries('HomeList');
+  //   },
+  // });
 
   // FIXME: 새로고침 해야 날짜가 바뀜!!
   // eslint-disable-next-line
-  useEffect(() => setBtnTime(homeListDB[0]?.BUTTON_DATE), []);
+  // useEffect(() => setBtnTime(homeListDB[0]?.BUTTON_DATE), []);
 
   return (
     <>
@@ -774,10 +844,10 @@ export const getStaticProps: GetStaticProps = async () => {
 
   // TODO: client에서 불러오기
   // 통합 리스트 불러오기 - 버튼 누른 날짜 화면에 표시하기
-  const docRef = doc(db, 'HomeList', 'homeData');
-  const docSnap = await getDoc(docRef);
-  const homeList = docSnap.data();
-  const homeListDB = homeList?.allHomeData;
+  // const docRef = doc(db, 'HomeList', 'homeData');
+  // const docSnap = await getDoc(docRef);
+  // const homeList = docSnap.data();
+  // const homeListDB = homeList?.allHomeData;
 
   return {
     props: {
@@ -785,7 +855,7 @@ export const getStaticProps: GetStaticProps = async () => {
       aptRandomCombineList,
       officeCombineList,
       lhCombineList,
-      homeListDB,
+      // homeListDB,
     },
     // ISR - 6시간 마다 데이터 업데이트
     revalidate: 21600,
