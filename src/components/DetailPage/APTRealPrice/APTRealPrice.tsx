@@ -26,7 +26,7 @@ const APTRealPrice = ({ detail }: any) => {
     return data;
   };
 
-  const { data } = useQuery('APTRealPriceList', getAPTRealPriceList, {
+  const { data, refetch } = useQuery('APTRealPriceList', getAPTRealPriceList, {
     enabled: !!LAWD_CD, // LAWD_CD이 있는 경우에만 useQuery를 실행함
     // 지역코드로 불러온 아파트 매매 실거래가 리스트에서 '읍면동' 기준으로 필터링하기
     onSuccess: (data) => {
@@ -44,6 +44,11 @@ const APTRealPrice = ({ detail }: any) => {
     },
   });
   console.log('data:', data);
+
+  useEffect(() => {
+    refetch();
+    // eslint-disable-next-line
+  }, [detail]);
 
   // 유효성 검사 위한 주석이니 삭제하지 말아 주세요😇
   // console.log(
@@ -64,12 +69,14 @@ const APTRealPrice = ({ detail }: any) => {
 
   return (
     <S.Wrapper>
-      {dongList?.map((item: any, index) => (
-        <div key={item.index}>
-          {item.아파트} | {item.법정동}
-          {item.도로명} | 거래금액: {item.거래금액}만원
-        </div>
-      ))}
+      {dongList.length === 0
+        ? '해당 지역의 최근 아파트 매매 실거래가 정보가 없습니다.'
+        : dongList?.map((item: any, index) => (
+            <div key={index}>
+              {item.아파트} | {item.법정동}
+              {item.도로명} | 거래금액: {item.거래금액}만원
+            </div>
+          ))}
     </S.Wrapper>
   );
 };

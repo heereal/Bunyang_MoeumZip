@@ -114,7 +114,7 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
       )}
 
       {/* 아파트 매매 실거래가 탭 */}
-      {isRealPriceTab && <APTRealPrice detail={detail} />}
+    {isRealPriceTab && <APTRealPrice detail={detail} />}
     </S.Section>
   );
 };
