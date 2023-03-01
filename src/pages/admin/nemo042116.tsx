@@ -590,6 +590,9 @@ const MustHaveToDo = ({
         SPL_INF_TP_CD: item.SPL_INF_TP_CD ? item.SPL_INF_TP_CD : '',
         PAN_NT_ST_DT: item.PAN_NT_ST_DT ? item.PAN_NT_ST_DT : '',
         CLSG_DT: item.CLSG_DT ? item.CLSG_DT : '',
+        PPR_ACP_ST_DT: item.PPR_ACP_ST_DT ? item.PPR_ACP_ST_DT : '',
+        PPR_ACP_CLSG_DT: item.PPR_ACP_CLSG_DT ? item.PPR_ACP_CLSG_DT : '',
+        AHFL_URL: item.AHFL_URL ? item.AHFL_URL : '',
       });
       setNewHomeData(newList);
     });
