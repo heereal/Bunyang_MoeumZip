@@ -374,8 +374,6 @@ const MustHaveToDo = ({
     },
   });
 
-  console.log(homeListDB.filter((item) => item.API === 'LH'));
-
   // [1번 버튼] 클릭 시 새로 들어온 데이터를 재가공함
   const apiCallHandler = () => {
     // DB 마지막으로 업데이트한 시각
