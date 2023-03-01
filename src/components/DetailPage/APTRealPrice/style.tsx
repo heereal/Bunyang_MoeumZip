@@ -19,6 +19,7 @@ export const TableRow = styled.tr`
 
 export const TableHead = styled.th`
   font-weight: 700;
+  font-size: 15px;
   padding: 15px 25px;
   background-color: lightgray;
 `;
@@ -27,4 +28,10 @@ export const TableData = styled.td`
   border: 1px solid #aaa;
   padding: 15px 25px;
   text-align: center;
+  font-size: 15px;
+
+  span {
+    font-size: 13px;
+    color: gray;
+  }
 `;
