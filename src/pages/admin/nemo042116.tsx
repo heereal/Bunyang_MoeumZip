@@ -144,7 +144,35 @@ ListPropsJ) => {
         : '',
       MIN_LTTOT_TOP_AMOUNT: null,
       MAX_LTTOT_TOP_AMOUNT: null,
-      detail: item.detail[0][1],
+      detail: [
+        {
+          PBLANC_NO: item.PAN_ID,
+          HOUSE_MANAGE_NO: item.PAN_ID,
+          HOUSE_TY: item.detail[0][1].dsSbd
+            ? item.detail[0][1].dsSbd[0].DDO_AR
+            : '',
+          TOT_SUPLY_HSHLDCO: item.detail[0][1].dsSbd
+            ? item.detail[0][1].dsSbd[0].HSH_CNT
+            : '',
+          MODEL_NO: null,
+          SUPLY_AR: null,
+          SUPLY_HSHLDCO: null,
+          SPSPLY_HSHLDCO: null,
+          NWWDS_HSHLDCO: null,
+          LFE_FRST_HSHLDCO: null,
+          INSTT_RECOMEND_HSHLDCO: null,
+          OLD_PARNTS_SUPORT_HSHLDCO: null,
+          TRANSR_INSTT_ENFSN_HSHLDCO: null,
+          MNYCH_HSHLDCO: null,
+          ETC_HSHLDCO: null,
+          LTTOT_TOP_AMOUNT: null,
+          FILE: item.detail[0][1].dsAhflInfo,
+          REGISTER: item.detail[0][1].dsCtrtPlc,
+          DETAIL: item.detail[0][1].dsSbd,
+          IMAGE: item.detail[0][1].dsSbdAhfl,
+          SCHEDULE: item.detail[0][1].dsSplScdl,
+        },
+      ],
     });
   });
 
@@ -242,7 +270,31 @@ ListPropsJ) => {
         : '',
       MIN_LTTOT_TOP_AMOUNT: null,
       MAX_LTTOT_TOP_AMOUNT: null,
-      detail: item.detail[0][1],
+      detail: [
+        {
+          PBLANC_NO: item.PAN_ID,
+          HOUSE_MANAGE_NO: item.PAN_ID,
+          HOUSE_TY: item.detail[0][1].dsSbd[0].MIN_MAX_RSDN_DDO_AR,
+          TOT_SUPLY_HSHLDCO: item.detail[0][1].dsSbd[0].SUM_TOT_HSH_CNT,
+          MODEL_NO: null,
+          SUPLY_AR: null,
+          SUPLY_HSHLDCO: null,
+          SPSPLY_HSHLDCO: null,
+          NWWDS_HSHLDCO: null,
+          LFE_FRST_HSHLDCO: null,
+          INSTT_RECOMEND_HSHLDCO: null,
+          OLD_PARNTS_SUPORT_HSHLDCO: null,
+          TRANSR_INSTT_ENFSN_HSHLDCO: null,
+          MNYCH_HSHLDCO: null,
+          ETC_HSHLDCO: null,
+          LTTOT_TOP_AMOUNT: null,
+          FILE: item.detail[0][1].dsAhflInfo,
+          REGISTER: item.detail[0][1].dsCtrtPlc,
+          DETAIL: item.detail[0][1].dsSbd,
+          IMAGE: item.detail[0][1].dsSbdAhfl,
+          SCHEDULE: item.detail[0][1].dsSplScdl,
+        },
+      ],
     });
   });
 

@@ -96,13 +96,9 @@ const ListList = ({ list }: PropsListJ) => {
         <S.CardAreaBox>
           <S.CardAreaTitle>분양가격</S.CardAreaTitle>
           <S.CardArea>
-            {
-              // TODO:DB에 넣을 때 ',' 기준으로 split?
-              //OR 6자리 미만은 금액에 '만원' 붙이고 6자리 이상은 금액에'억'붙이고 자르기
-              list.MIN_LTTOT_TOP_AMOUNT === list.MAX_LTTOT_TOP_AMOUNT
-                ? list.MAX_LTTOT_TOP_AMOUNT
-                : list.MIN_LTTOT_TOP_AMOUNT + ' ~ ' + list.MAX_LTTOT_TOP_AMOUNT
-            }
+            {list.MIN_LTTOT_TOP_AMOUNT === list.MAX_LTTOT_TOP_AMOUNT
+              ? list.MAX_LTTOT_TOP_AMOUNT
+              : list.MIN_LTTOT_TOP_AMOUNT + ' ~ ' + list.MAX_LTTOT_TOP_AMOUNT}
           </S.CardArea>
         </S.CardAreaBox>
       </S.CardAreaContainer>
