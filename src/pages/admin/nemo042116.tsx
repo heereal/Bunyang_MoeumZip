@@ -33,8 +33,15 @@ const MustHaveToDo = ({
     [],
   );
 
+  // 재가공한 전체 API데이터를 담는 배열
   const newList: {}[] = [];
   const filteredArr: {}[] = [];
+
+  // 재가공한 LH 행복주택~ 데이터를 담는 배열
+  const reprocessingHappyLHList: {}[] = [];
+
+  // 재가공한 LH 신혼희망~ 데이터를 담는 배열
+  const reprocessingMarriageLHList: {}[] = [];
 
   // 새로 들어온 데이터에 좌표까지 추가한 배열
   const [newGeoArray, setNewGeoArray] = useState<any>([]);
@@ -42,27 +49,220 @@ const MustHaveToDo = ({
   // 최종으로 DB 업데이트한 시각
   const [btnTime, setBtnTime] = useState<string>('');
 
-  console.log(lhCombineList.map((item) => item[0]));
+  // 1. LH 상세 데이터 두 종류 각각 재가공하기
+  // 2. 두 종류 데이터 통합하기
+  // 3. 청약홈에 합치기
+
+  // LH 통합 데이터(기본 + 상세)에서 행복 주택, 국민 임대 등으로 분리
+  const splitHappyLH = lhCombineList.filter(
+    (item) =>
+      item.SPL_INF_TP_CD === '051' ||
+      item.SPL_INF_TP_CD === '061' ||
+      item.SPL_INF_TP_CD === '062' ||
+      item.SPL_INF_TP_CD === '063',
+  );
+
+  // LH 통합 데이터(기본 + 상세)에서 신혼 희망 타운, 분양 주택 등으로 분리
+  const splitMarriageLH = lhCombineList.filter(
+    (item) =>
+      item.SPL_INF_TP_CD === '050' ||
+      item.SPL_INF_TP_CD === '390' ||
+      item.SPL_INF_TP_CD === '060',
+  );
+
+  // TODO: 전화번호..
+  // console.log(
+  //   'DB',
+  //   homeListDB.map((item) => item.MDHS_TELNO),
+  // );
+
+  // LH - 행복 주택~ 데이터 재가공 - KEY, Data 형식을 청약홈과 통일시키기
+  splitHappyLH.map((item: any) => {
+    reprocessingHappyLHList.push({
+      // LH에만 있는 것
+      SPL_INF_TP_CD: item.SPL_INF_TP_CD,
+      PAN_NT_ST_DT: item.PAN_NT_ST_DT
+        ? item.PAN_NT_ST_DT.replace(/['.']/g, '-')
+        : '',
+      CLSG_DT: item.CLSG_DT ? item.CLSG_DT.replace(/['.']/g, '-') : '',
+      AHFL_URL: item.detail[0][1].dsAhflInfo
+        ? item.detail[0][1].dsAhflInfo[1].AHFL_URL
+        : '',
+
+      // 청약홈과 통일
+      PBLANC_NO: item.PAN_ID,
+      HOUSE_DTL_SECD_NM: item.AIS_TP_CD_NM,
+      SUBSCRPT_AREA_CODE_NM: item.CNP_CD_NM,
+      RCRIT_PBLANC_DE: item.PAN_DT,
+      PBLANC_URL: item.DTL_URL,
+      MIN_HOUSE_TY: item.detail[0][1].dsSbd
+        ? item.detail[0][1].dsSbd[0].DDO_AR.split('~')[0].split('.')[0] + '㎡'
+        : '',
+      MAX_HOUSE_TY: item.detail[0][1].dsSbd
+        ? item.detail[0][1].dsSbd[0].DDO_AR.split('~')[1].split('.')[0] + '㎡'
+        : '',
+      TOT_SUPLY_HSHLDCO: item.detail[0][1].dsSbd
+        ? item.detail[0][1].dsSbd[0].HSH_CNT
+        : '',
+      HOUSE_NM: item.detail[0][1].dsSbd
+        ? item.detail[0][1].dsSbd[0].LCC_NT_NM
+        : '',
+      HSSPLY_ADRES: item.detail[0][1].dsSbd
+        ? item.detail[0][1].dsSbd[0].LGDN_ADR +
+          ' ' +
+          item.detail[0][1].dsSbd[0].LGDN_DTL_ADR
+        : '',
+      MVN_PREARNGE_YM: item.detail[0][1].dsSbd
+        ? item.detail[0][1].dsSbd[0].MVIN_XPC_YM.replace('.', '년 ') + '월'
+        : '',
+      RCEPT_BGNDE: item.detail[0][1].dsSplScdl
+        ? item.detail[0][1].dsSplScdl[0].SBSC_ACP_ST_DT.replace(/['.']/g, '-')
+        : '',
+      RCEPT_ENDDE: item.detail[0][1].dsSplScdl
+        ? item.detail[0][1].dsSplScdl[0].SBSC_ACP_CLSG_DT.replace(/['.']/g, '-')
+        : '',
+      CNTRCT_CNCLS_BGNDE: item.detail[0][1].dsSplScdl
+        ? item.detail[0][1].dsSplScdl[0].CTRT_ST_DT.replace(/['.']/g, '-')
+        : '',
+      CNTRCT_CNCLS_ENDDE: item.detail[0][1].dsSplScdl
+        ? item.detail[0][1].dsSplScdl[0].CTRT_ED_DT.replace(/['.']/g, '-')
+        : '',
+      PRZWNER_PRESNATN_DE: item.detail[0][1].dsSplScdl
+        ? item.detail[0][1].dsSplScdl[0].PZWR_ANC_DT.replace(/['.']/g, '-')
+        : '',
+      PPR_ACP_ST_DT: item.detail[0][1].dsSplScdl
+        ? item.detail[0][1].dsSplScdl[0].PPR_ACP_ST_DT.replace(/['.']/g, '-')
+        : '',
+      PPR_ACP_CLSG_DT: item.detail[0][1].dsSplScdl
+        ? item.detail[0][1].dsSplScdl[0].PPR_ACP_CLSG_DT.replace(/['.']/g, '-')
+        : '',
+      MDHS_TELNO: item.detail[0][1].dsCtrtPlc
+        ? item.detail[0][1].dsCtrtPlc[0].SIL_OFC_TLNO
+        : '',
+      detail: item.detail[0][1],
+    });
+  });
+
+  // LH - 신혼희망타운~ 데이터 재가공
+  splitMarriageLH.map((item: any) => {
+    reprocessingMarriageLHList.push({
+      // LH에만 있는 것
+      SPL_INF_TP_CD: item.SPL_INF_TP_CD,
+      PAN_NT_ST_DT: item.PAN_NT_ST_DT
+        ? item.PAN_NT_ST_DT.replace(/['.']/g, '-')
+        : '',
+      CLSG_DT: item.CLSG_DT ? item.CLSG_DT.replace(/['.']/g, '-') : '',
+      AHFL_URL: item.detail[0][1].dsAhflInfo
+        ? item.detail[0][1].dsAhflInfo[1].AHFL_URL
+        : '',
+
+      // 청약홈과 통일
+      PBLANC_NO: item.PAN_ID,
+      HOUSE_DTL_SECD_NM: item.AIS_TP_CD_NM,
+      SUBSCRPT_AREA_CODE_NM: item.CNP_CD_NM,
+      RCRIT_PBLANC_DE: item.PAN_DT,
+      PBLANC_URL: item.DTL_URL,
+      MIN_HOUSE_TY: item.detail[0][1].dsSbd
+        ? item.detail[0][1].dsSbd[0].MIN_MAX_RSDN_DDO_AR.split('~')[0].split(
+            '.',
+          )[0] + '㎡'
+        : '',
+      MAX_HOUSE_TY: item.detail[0][1].dsSbd
+        ? item.detail[0][1].dsSbd[0].MIN_MAX_RSDN_DDO_AR.split('~')[1].split(
+            '.',
+          )[0] + '㎡'
+        : '',
+      TOT_SUPLY_HSHLDCO: item.detail[0][1].dsSbd
+        ? item.detail[0][1].dsSbd[0].SUM_TOT_HSH_CNT
+        : '',
+      HOUSE_NM: item.detail[0][1].dsSbd
+        ? item.detail[0][1].dsSbd[0].BZDT_NM
+        : '',
+      HSSPLY_ADRES: item.detail[0][1].dsSbd
+        ? item.detail[0][1].dsSbd[0].LCT_ARA_ADR +
+          ' ' +
+          item.detail[0][1].dsSbd[0].LCT_ARA_DTL_ADR
+        : '',
+      MVN_PREARNGE_YM: item.detail[0][1].dsSbd
+        ? item.detail[0][1].dsSbd[0].MVIN_XPC_YM
+        : '',
+      RCEPT_BGNDE: item.detail[0][1].dsSplScdl
+        ? item.detail[0][1].dsSplScdl[0].ACP_DTTM.split('~')[0]
+            .slice(0, 11)
+            .replace(/['.']/g, '-')
+        : '',
+      RCEPT_ENDDE: item.detail[0][1].dsSplScdl
+        ? item.detail[0][1].dsSplScdl[0].ACP_DTTM.split('~')[1]
+            .slice(0, 11)
+            .replace(/['.']/g, '-')
+        : '',
+      CNTRCT_CNCLS_BGNDE: item.detail[0][1].dsSplScdl
+        ? item.detail[0][1].dsSplScdl[0].CTRT_ST_DT.slice(0, 4) +
+          '-' +
+          item.detail[0][1].dsSplScdl[0].CTRT_ST_DT.slice(4, 6) +
+          '-' +
+          item.detail[0][1].dsSplScdl[0].CTRT_ST_DT.slice(-2)
+        : '',
+      CNTRCT_CNCLS_ENDDE: item.detail[0][1].dsSplScdl
+        ? item.detail[0][1].dsSplScdl[0].CTRT_ED_DT.slice(0, 4) +
+          '-' +
+          item.detail[0][1].dsSplScdl[0].CTRT_ED_DT.slice(4, 6) +
+          '-' +
+          item.detail[0][1].dsSplScdl[0].CTRT_ED_DT.slice(-2)
+        : '',
+      PRZWNER_PRESNATN_DE: item.detail[0][1].dsSplScdl
+        ? item.detail[0][1].dsSplScdl[0].PZWR_ANC_DT.slice(0, 4) +
+          '-' +
+          item.detail[0][1].dsSplScdl[0].PZWR_ANC_DT.slice(4, 6) +
+          '-' +
+          item.detail[0][1].dsSplScdl[0].PZWR_ANC_DT.slice(-2)
+        : '',
+
+      PPR_ACP_ST_DT: item.detail[0][1].dsSplScdl
+        ? item.detail[0][1].dsSplScdl[0].PZWR_PPR_SBM_ST_DT.slice(0, 4) +
+          '-' +
+          item.detail[0][1].dsSplScdl[0].PZWR_PPR_SBM_ST_DT.slice(4, 6) +
+          '-' +
+          item.detail[0][1].dsSplScdl[0].PZWR_PPR_SBM_ST_DT.slice(-2)
+        : '',
+      PPR_ACP_CLSG_DT: item.detail[0][1].dsSplScdl
+        ? item.detail[0][1].dsSplScdl[0].PZWR_PPR_SBM_ED_DT.slice(0, 4) +
+          '-' +
+          item.detail[0][1].dsSplScdl[0].PZWR_PPR_SBM_ED_DT.slice(4, 6) +
+          '-' +
+          item.detail[0][1].dsSplScdl[0].PZWR_PPR_SBM_ED_DT.slice(-2)
+        : '',
+      MDHS_TELNO: item.detail[0][1].dsCtrtPlc
+        ? item.detail[0][1].dsCtrtPlc[0].SIL_OFC_TLNO
+        : '',
+      detail: item.detail[0][1],
+    });
+  });
+
+  // 재가공한 LH 행복 주택~ 리스트 + 신혼희망타운~ 리스트를 통합한 전체 LH 리스트
+  const reprocessingAllLHList: {}[] = [];
+  reprocessingHappyLHList.map((item) => reprocessingAllLHList.push(item));
+  reprocessingMarriageLHList.map((item) => reprocessingAllLHList.push(item));
 
   // 지역이름이 없는 1.APT 무순위, 2.오피스텔 리스트 + 지역이름이 4자인 3.LH 리스트 합치기
-  const randomOfficeList: { [key: string]: string }[] = [];
-  aptRandomCombineList?.map((item: ItemJ) => randomOfficeList.push(item));
-  officeCombineList?.map((item: ItemJ) => randomOfficeList.push(item));
-  lhCombineList?.map((item: ItemJ) => randomOfficeList.push(item));
+  const randomOfficeLHList: { [key: string]: string }[] = [];
+  aptRandomCombineList?.map((item: ItemJ) => randomOfficeLHList.push(item));
+  officeCombineList?.map((item: ItemJ) => randomOfficeLHList.push(item));
+  reprocessingAllLHList?.map((item: ItemJ) => randomOfficeLHList.push(item));
 
   // APT 무순위 + 오피스텔 리스트는 주소 앞부분을 잘라 지역 이름 추가하기
   // LH 리스트는 지역이름(4자) 그대로 넣기
-  const addAreaNameList = randomOfficeList.map((item) => {
+  const addAreaNameList = randomOfficeLHList.map((item) => {
     return {
       ...item,
-      SUBSCRPT_AREA_CODE_NM: item.CNP_CD_NM
-        ? item.CNP_CD_NM
+      SUBSCRPT_AREA_CODE_NM: item.SUBSCRPT_AREA_CODE_NM
+        ? item.SUBSCRPT_AREA_CODE_NM
         : item.HSSPLY_ADRES.slice(0, 4),
     };
   });
 
   // 지역 이름 통일하기
-  const replaceAreaNameAptOfficeList = addAreaNameList.map((item) => {
+  const replaceAreaNameAptOfficeLHList = addAreaNameList.map((item) => {
     return {
       ...item,
       SUBSCRPT_AREA_CODE_NM:
@@ -90,22 +290,16 @@ const MustHaveToDo = ({
   // 오늘 날짜 구하기
   const today = getToday();
 
-  // 청약홈 전체 API + LH 통합 리스트
+  // 청약홈 + LH 전체 API 통합 리스트
   const allHomeList: {}[] = [];
   aptCombineList?.map((item: ItemJ) => allHomeList.push(item));
-  replaceAreaNameAptOfficeList.map((item: ItemJ) => allHomeList.push(item));
+  replaceAreaNameAptOfficeLHList.map((item: ItemJ) => allHomeList.push(item));
 
-  // console.log('allHomeList', allHomeList);
-
-  // 청약이 마감되지 않은 전체 API + LH 통합 리스트
+  // 청약이 마감되지 않은 청약홈 + LH 전체 API 통합 리스트
   const possibleAllHomeList = allHomeList.filter(
     (item: ItemJ) =>
-      item.RCEPT_ENDDE >= today ||
-      item.SUBSCRPT_RCEPT_ENDDE >= today ||
-      item.SBSC_ACP_CLSG_DT >= today,
+      item.RCEPT_ENDDE >= today || item.SUBSCRPT_RCEPT_ENDDE >= today,
   );
-
-  console.log('possible', possibleAllHomeList);
 
   // firestore에서 불러 온 기존 분양 데이터의 PBLANC_NO만 추출해서 생성한 배열
   const PBLANCArray = homeListDB.map((item) => item.PBLANC_NO);
@@ -114,6 +308,7 @@ const MustHaveToDo = ({
   const oldDataArray = homeListDB.filter(
     (item: ItemJ) =>
       item.RCEPT_ENDDE >= today || item.SUBSCRPT_RCEPT_ENDDE >= today,
+    // TODO: 수정하기 = db에서 불러온 거면 재가공된 후라 RCEPT_ENDDE만 써도 될 듯?
   );
 
   // [1번 버튼] 클릭 시 새로 들어온 데이터를 재가공함
@@ -126,6 +321,8 @@ const MustHaveToDo = ({
       (item: any) => !PBLANCArray.includes(`${item.PBLANC_NO}`),
     );
 
+    // TODO:  item.detail.length === 0 대신 해당 키 값 여부로 수정하기
+    // API 전체 통합 데이터 재가공하기
     newDataArray.map((item: any) => {
       newList.push({
         COORDINATES: 'x:, y:',
@@ -143,47 +340,43 @@ const MustHaveToDo = ({
             )[0]?.replace(/(^0)/, '') + '㎡'
           : '',
 
-        MIN_HOUSE_TY:
-          item.detail.length === 0
-            ? ''
-            : item?.detail[0]?.EXCLUSE_AR
-            ? Math.floor(item?.detail[0]?.EXCLUSE_AR) + '㎡'
-            : item?.detail[0]?.HOUSE_TY.split('.')[0].replace(/(^0)/, '') +
-              '㎡',
+        MIN_HOUSE_TY: item.MIN_HOUSE_TY
+          ? item.MIN_HOUSE_TY
+          : item?.detail[0]?.EXCLUSE_AR
+          ? Math.floor(item?.detail[0]?.EXCLUSE_AR) + '㎡'
+          : item?.detail[0]?.HOUSE_TY.split('.')[0].replace(/(^0)/, '') + '㎡',
 
-        MAX_HOUSE_TY:
-          item.detail.length === 0
-            ? ''
-            : item?.detail[item?.detail?.length - 1]?.EXCLUSE_AR
-            ? Math.floor(item?.detail[0]?.EXCLUSE_AR) + '㎡'
-            : item?.detail[item?.detail?.length - 1]?.HOUSE_TY.split(
-                '.',
-              )[0].replace(/(^0)/, '') + '㎡',
+        MAX_HOUSE_TY: item.MAX_HOUSE_TY
+          ? item.MAX_HOUSE_TY
+          : item?.detail[item?.detail?.length - 1]?.EXCLUSE_AR
+          ? Math.floor(item?.detail[0]?.EXCLUSE_AR) + '㎡'
+          : item?.detail[item?.detail?.length - 1]?.HOUSE_TY.split(
+              '.',
+            )[0].replace(/(^0)/, '') + '㎡',
 
         // TODO: 금액이 6자리 이상일 때만 잘라야 억으로 잘림
-        MIN_LTTOT_TOP_AMOUNT:
-          item.detail.length === 0
-            ? ''
-            : item?.detail[0]?.LTTOT_TOP_AMOUNT
-            ? item?.detail[0]?.LTTOT_TOP_AMOUNT
-            : item?.detail[0]?.SUPLY_AMOUNT,
+        MIN_LTTOT_TOP_AMOUNT: !item.MIN_LTTOT_TOP_AMOUNT
+          ? ''
+          : item.detail[0]?.LTTOT_TOP_AMOUNT
+          ? item?.detail[0]?.LTTOT_TOP_AMOUNT
+          : item?.detail[0]?.SUPLY_AMOUNT,
 
-        MAX_LTTOT_TOP_AMOUNT:
-          item.detail.length === 0
-            ? ''
-            : item?.detail[item?.detail?.length - 1]?.LTTOT_TOP_AMOUNT
-            ? item?.detail[item?.detail?.length - 1]?.LTTOT_TOP_AMOUNT
-            : item?.detail[item?.detail?.length - 1]?.SUPLY_AMOUNT,
+        MAX_LTTOT_TOP_AMOUNT: !item.MAX_LTTOT_TOP_AMOUNT
+          ? ''
+          : item.detail[item?.detail?.length - 1]?.LTTOT_TOP_AMOUNT
+          ? item?.detail[item?.detail?.length - 1]?.LTTOT_TOP_AMOUNT
+          : item?.detail[item?.detail?.length - 1]?.SUPLY_AMOUNT,
 
         SPSPLY_HSHLDCO: item.SPSPLY_HSHLDCO ? item.SPSPLY_HSHLDCO + '세대' : '',
         SUPLY_HSHLDCO: item.SUPLY_HSHLDCO ? item.SUPLY_HSHLDCO + '세대' : '',
         TOT_SUPLY_HSHLDCO: item.TOT_SUPLY_HSHLDCO + '세대',
         HOUSE_NM: item.HOUSE_NM,
-        HOUSE_SECD: item.HOUSE_SECD,
-        HOUSE_SECD_NM:
-          item.HOUSE_SECD === '02'
-            ? '오피스텔'
-            : item.HOUSE_SECD_NM.replace(/[주택]/g, '').split('/')[0],
+        HOUSE_SECD: item.HOUSE_SECD ? item.HOUSE_SECD : '',
+        HOUSE_SECD_NM: !item.HOUSE_SECD_NM
+          ? ''
+          : item.HOUSE_SECD === '02'
+          ? '오피스텔'
+          : item.HOUSE_SECD_NM.replace(/[주택]/g, '').split('/')[0],
         HOUSE_DTL_SECD: item.HOUSE_DTL_SECD ? item.HOUSE_DTL_SECD : '',
         HOUSE_DTL_SECD_NM: item.HOUSE_DTL_SECD_NM ? item.HOUSE_DTL_SECD_NM : '',
         HSSPLY_ADRES: item.HSSPLY_ADRES,
@@ -223,14 +416,21 @@ const MustHaveToDo = ({
         GNRL_RNK2_ETC_AREA_RCPTDE_PD: item.GNRL_RNK2_ETC_AREA_RCPTDE_PD
           ? item.GNRL_RNK2_ETC_AREA_RCPTDE_PD
           : '',
-        HMPG_ADRES: item.HMPG_ADRES,
-        RCRIT_PBLANC_DE: item.RCRIT_PBLANC_DE,
-        PRZWNER_PRESNATN_DE: item.PRZWNER_PRESNATN_DE,
+        HMPG_ADRES: item.HMPG_ADRES ? item.HMPG_ADRES : '',
+        RCRIT_PBLANC_DE: item.RCRIT_PBLANC_DE ? item.RCRIT_PBLANC_DE : '',
+        PRZWNER_PRESNATN_DE: item.PRZWNER_PRESNATN_DE
+          ? item.PRZWNER_PRESNATN_DE
+          : '',
         CNSTRCT_ENTRPS_NM: item.CNSTRCT_ENTRPS_NM ? item.CNSTRCT_ENTRPS_NM : '',
-        BSNS_MBY_NM: item.BSNS_MBY_NM,
-        MDHS_TELNO: item.MDHS_TELNO,
-        CNTRCT_CNCLS_BGNDE: item.CNTRCT_CNCLS_BGNDE,
-        CNTRCT_CNCLS_ENDDE: item.CNTRCT_CNCLS_ENDDE,
+        BSNS_MBY_NM: item.BSNS_MBY_NM ? item.BSNS_MBY_NM : '',
+        MDHS_TELNO: item.MDHS_TELNO ? item.MDHS_TELNO : '',
+        CNTRCT_CNCLS_BGNDE: item.CNTRCT_CNCLS_BGNDE
+          ? item.CNTRCT_CNCLS_BGNDE
+          : '',
+        CNTRCT_CNCLS_ENDDE: item.CNTRCT_CNCLS_ENDDE
+          ? item.CNTRCT_CNCLS_BGNDE
+          : '',
+        // TODO: 청약홈 데이터 =202306 -> 수정하기
         MVN_PREARNGE_YM: item.MVN_PREARNGE_YM,
         SPECLT_RDN_EARTH_AT: item.SPECLT_RDN_EARTH_AT
           ? item.SPECLT_RDN_EARTH_AT
@@ -245,6 +445,10 @@ const MustHaveToDo = ({
         SUBSCRPT_REQST_AMOUNT: item.detail[0]?.SUBSCRPT_REQST_AMOUNT
           ? item.detail[0]?.SUBSCRPT_REQST_AMOUNT + '만원'
           : '',
+        // LH에만 있는 것
+        SPL_INF_TP_CD: item.SPL_INF_TP_CD ? item.SPL_INF_TP_CD : '',
+        PAN_NT_ST_DT: item.PAN_NT_ST_DT ? item.PAN_NT_ST_DT : '',
+        CLSG_DT: item.CLSG_DT ? item.CLSG_DT : '',
       });
       setNewHomeData(newList);
     });
@@ -434,9 +638,12 @@ export const getStaticProps: GetStaticProps = async () => {
     )
     .then((res: any) => res.data[1].dsList);
 
-  // LH 기본 - 공고중 리스트에서 토지, 상가 제외한 리스트
+  // LH 기본 - 공고중 리스트에서 토지, 상가, 주거복지 제외한 리스트
   const lhNoticeList = lhNoticeALLList.filter(
-    (item: ItemJ) => item.UPP_AIS_TP_CD !== '01' && item.UPP_AIS_TP_CD !== '22',
+    (item: ItemJ) =>
+      item.UPP_AIS_TP_CD !== '01' &&
+      item.UPP_AIS_TP_CD !== '22' &&
+      item.UPP_AIS_TP_CD !== '13',
   );
 
   // LH 기본 - 접수중 리스트
@@ -447,12 +654,15 @@ export const getStaticProps: GetStaticProps = async () => {
     )
     .then((res: any) => res.data[1].dsList);
 
-  // LH 기본 - 접수중 리스트에서 토지, 상가 제외한 리스트
+  // LH 기본 - 접수중 리스트에서 토지, 상가, 주거복지 제외한 리스트
   const lhRegisterList = lhRegisterALLList.filter(
-    (item: ItemJ) => item.UPP_AIS_TP_CD !== '01' && item.UPP_AIS_TP_CD !== '22',
+    (item: ItemJ) =>
+      item.UPP_AIS_TP_CD !== '01' &&
+      item.UPP_AIS_TP_CD !== '22' &&
+      item.UPP_AIS_TP_CD !== '13',
   );
 
-  // LH 기본 - 공고중 + 접수중 리스트(토지, 상가 제외)
+  // LH 기본 - 공고중 + 접수중 리스트(토지, 상가, 주거복지 제외)
   const lhDefaultList: {}[] = [];
   lhNoticeList.map((item: ItemJ) => lhDefaultList.push(item));
   lhRegisterList.map((item: ItemJ) => lhDefaultList.push(item));
