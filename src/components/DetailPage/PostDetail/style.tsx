@@ -10,6 +10,22 @@ export const Section = styled.div`
   box-sizing: border-box;
 `;
 
+export const TabContainer = styled.div`
+  display: flex;
+  background-color: white;
+  width: 100%;
+  padding: 10px 20px 0 20px;
+`;
+
+export const TabBtn = styled.div<{ font: string; line: string }>`
+  font-weight: 700;
+  font-size: 15px;
+  padding: 15px 35px;
+  border-bottom: 5px solid ${(props) => props.line};
+  color: ${(props) => props.font};
+  cursor: pointer;
+`;
+
 export const PageHeader = styled.div`
   display: flex;
   justify-content: center;

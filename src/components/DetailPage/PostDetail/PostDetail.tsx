@@ -22,6 +22,9 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
   const [home, setHome] = useState<HomeP>();
   const [email, setEmail] = useState<string | null | undefined>('');
 
+  // 탭 선택 시 사용
+  const [isRealPriceTab, setIsRealPriceTab] = useState(false);
+
   // 북마크 리스트 볼러오기
   const { data: bookmarksList, refetch: bookmarksListRefetch } = useQuery(
     'Bookmarks',
@@ -80,14 +83,38 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
         editBookMark={editBookmark}
         email={email}
       />
-      <APTRealPrice detail={detail}/>
-      <S.Container>
-        <DetailKeyInfo home={home} />
-        <SubscriptionSchedule home={home} />
-        <SupplyInfo home={home} />
-        <SpecialSupply home={home} />
-        <ExtraInfo home={home} />
-      </S.Container>
+
+      {/* 탭 선택 */}
+      <S.TabContainer>
+        <S.TabBtn
+          font={!isRealPriceTab ? '#3D7FFF' : 'black'}
+          line={!isRealPriceTab ? '#3D7FFF' : '#f4f4f4'}
+          onClick={() => setIsRealPriceTab(false)}
+        >
+          분양 상세 정보
+        </S.TabBtn>
+        <S.TabBtn
+          font={isRealPriceTab ? '#3D7FFF' : 'black'}
+          line={isRealPriceTab ? '#3D7FFF' : '#f4f4f4'}
+          onClick={() => setIsRealPriceTab(true)}
+        >
+          주변 아파트 실거래가
+        </S.TabBtn>
+      </S.TabContainer>
+
+      {/* 분양 상세 정보 탭 */}
+      {!isRealPriceTab && (
+        <S.Container>
+          <DetailKeyInfo home={home} />
+          <SubscriptionSchedule home={home} />
+          <SupplyInfo home={home} />
+          <SpecialSupply home={home} />
+          <ExtraInfo home={home} />
+        </S.Container>
+      )}
+
+      {/* 아파트 매매 실거래가 탭 */}
+      {isRealPriceTab && <APTRealPrice detail={detail} />}
     </S.Section>
   );
 };
