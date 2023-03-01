@@ -12,12 +12,21 @@ const ListList = ({ list }: PropsListJ) => {
     <S.ListArticle onClick={() => router.push(`/detail/${list.PBLANC_NO}`)}>
       <S.CardHeader>
         <S.CardCategoryBox>
-          {list.HOUSE_DTL_SECD_NM ? (
+          {list.HOUSE_DTL_SECD_NM === list.HOUSE_SECD_NM ? (
+            <S.CardCategory>{list.HOUSE_DTL_SECD_NM}</S.CardCategory>
+          ) : list.HOUSE_DTL_SECD_NM && list.HOUSE_SECD_NM ? (
+            <>
+              <S.CardCategory>{list.HOUSE_DTL_SECD_NM}</S.CardCategory>
+              <S.CardCategory>{list.HOUSE_SECD_NM}</S.CardCategory>
+            </>
+          ) : !list.HOUSE_DTL_SECD_NM ? (
+            <S.CardCategory>{list.HOUSE_SECD_NM}</S.CardCategory>
+          ) : !list.HOUSE_SECD_NM ? (
             <S.CardCategory>{list.HOUSE_DTL_SECD_NM}</S.CardCategory>
           ) : (
             ''
           )}
-          <S.CardCategory>{list.HOUSE_SECD_NM}</S.CardCategory>
+
           <S.CardCategory>{list.SUBSCRPT_AREA_CODE_NM}</S.CardCategory>
         </S.CardCategoryBox>
       </S.CardHeader>
@@ -96,8 +105,14 @@ const ListList = ({ list }: PropsListJ) => {
         <S.CardAreaBox>
           <S.CardAreaTitle>분양가격</S.CardAreaTitle>
           <S.CardArea>
-            {list.MIN_LTTOT_TOP_AMOUNT === list.MAX_LTTOT_TOP_AMOUNT
+            {!list.MIN_LTTOT_TOP_AMOUNT
+              ? '공고문 확인'
+              : list.MIN_LTTOT_TOP_AMOUNT === list.MAX_LTTOT_TOP_AMOUNT
               ? list.MAX_LTTOT_TOP_AMOUNT
+              : list.MIN_LTTOT_TOP_AMOUNT.includes('만원')
+              ? list.MIN_LTTOT_TOP_AMOUNT.slice(0, -2) +
+                ' ~ ' +
+                list.MAX_LTTOT_TOP_AMOUNT
               : list.MIN_LTTOT_TOP_AMOUNT + ' ~ ' + list.MAX_LTTOT_TOP_AMOUNT}
           </S.CardArea>
         </S.CardAreaBox>
