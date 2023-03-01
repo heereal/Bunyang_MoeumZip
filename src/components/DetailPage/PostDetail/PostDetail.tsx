@@ -11,9 +11,12 @@ import SpecialSupply from './SpecialSupply';
 import * as S from './style';
 import SubscriptionSchedule from './SubscriptionSchedule';
 import SupplyInfo from './SupplyInfo';
+import axios from 'axios';
+import { LAWD_CD_Code } from '@/common/LAWD_CD';
 
 const PostDetail = ({ postId }: DetailPagePropsP) => {
   const queryClient = useQueryClient();
+  const SERVICE_KEY = process.env.NEXT_PUBLIC_HOME_API_KEY;
 
   // 유저의 세션 정보 받아오기
   const { data: session, status } = useSession();
@@ -24,6 +27,9 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
 
   // 탭 선택 시 사용
   const [isRealPriceTab, setIsRealPriceTab] = useState(false);
+
+  // 아파트 매매 실거라개 '읍면동'으로 필터링한 리스트
+  const [dongList, setDongList] = useState([]);
 
   // 북마크 리스트 볼러오기
   const { data: bookmarksList, refetch: bookmarksListRefetch } = useQuery(
@@ -58,6 +64,45 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
 
   const detail = data?.allHomeData.find(
     (home: { PBLANC_NO: string }) => `${home.PBLANC_NO}` === postId,
+  );
+
+  // '시군구' 정보 기준으로 현재 디테일 페이지에 해당하는 지역 코드 찾기
+  const LAWD_CD: any = LAWD_CD_Code.find(
+    (item: string) => item.split(':')[1] === detail.HSSPLY_ADRES.split(' ')[1],
+  );
+
+  // '시군구' 정보를 기준으로 아파트 매매 실거래가 정보를 가져옴
+  const getAPTRealPriceList = async () => {
+    const data = await axios
+      .get(
+        `/api/APTRealPrice?numOfRows=1000&LAWD_CD=${
+          LAWD_CD?.split(':')[0]
+        }&DEAL_YMD=202302&serviceKey=${SERVICE_KEY}`,
+      )
+      .then((res) => res.data.response.body.items.item);
+    return data;
+  };
+
+  const { data: APTRealPriceList, refetch: APTRealPriceRefetch } = useQuery(
+    'APTRealPriceList',
+    getAPTRealPriceList,
+    {
+      enabled: !!LAWD_CD, // LAWD_CD이 있는 경우에만 useQuery를 실행함
+      // 지역코드로 불러온 아파트 매매 실거래가 리스트에서 '읍면동' 기준으로 필터링하기
+      onSuccess: (APTRealPriceList) => {
+        setDongList(
+          APTRealPriceList?.filter(
+            (item: any) =>
+              (item.법정동.split(' ')[0] === ''
+                ? item.법정동.split(' ')[1]
+                : item.법정동.split(' ')[0]) ===
+              (detail.HSSPLY_ADRES.split('(').length > 1
+                ? detail.HSSPLY_ADRES.split('(')[1].slice(0, 3)
+                : detail.HSSPLY_ADRES.split(' ')[2]),
+          ),
+        );
+      },
+    },
   );
 
   useEffect(() => {
@@ -114,7 +159,13 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
       )}
 
       {/* 아파트 매매 실거래가 탭 */}
-    {isRealPriceTab && <APTRealPrice detail={detail} />}
+      {isRealPriceTab && (
+        <APTRealPrice
+          detail={detail}
+          dongList={dongList}
+          APTRealPriceRefetch={APTRealPriceRefetch}
+        />
+      )}
     </S.Section>
   );
 };
