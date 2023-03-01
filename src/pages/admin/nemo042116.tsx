@@ -84,7 +84,6 @@ const MustHaveToDo = ({
       AHFL_URL: item.detail[0][1].dsAhflInfo
         ? item.detail[0][1].dsAhflInfo[1].AHFL_URL
         : '',
-
       API: 'LH',
       // 청약홈과 통일
       PBLANC_NO: item.PAN_ID,
@@ -134,7 +133,10 @@ const MustHaveToDo = ({
         ? item.detail[0][1].dsSplScdl[0].PPR_ACP_CLSG_DT.replace(/['.']/g, '-')
         : '',
       MDHS_TELNO: item.detail[0][1].dsCtrtPlc
-        ? item.detail[0][1].dsCtrtPlc[0].SIL_OFC_TLNO
+        ? item.detail[0][1].dsCtrtPlc[0].SIL_OFC_TLNO.split(',')[0].replace(
+            /[-]/g,
+            '',
+          )
         : '',
       MIN_LTTOT_TOP_AMOUNT: null,
       MAX_LTTOT_TOP_AMOUNT: null,
@@ -261,7 +263,10 @@ const MustHaveToDo = ({
           item.detail[0][1].dsSplScdl[0].PZWR_PPR_SBM_ED_DT.slice(-2)
         : '',
       MDHS_TELNO: item.detail[0][1].dsCtrtPlc
-        ? item.detail[0][1].dsCtrtPlc[0].SIL_OFC_TLNO
+        ? item.detail[0][1].dsCtrtPlc[0].SIL_OFC_TLNO.split(',')[0].replace(
+            /[-]/g,
+            '',
+          )
         : '',
       MIN_LTTOT_TOP_AMOUNT: null,
       MAX_LTTOT_TOP_AMOUNT: null,
@@ -892,7 +897,7 @@ export const getStaticProps: GetStaticProps = async () => {
       lhCombineList,
       homeListDB,
     },
-    // ISR - 6시간 마다 데이터 업데이트
-    revalidate: 21600,
+    // ISR - 1시간 마다 데이터 업데이트
+    revalidate: 3600,
   };
 };
