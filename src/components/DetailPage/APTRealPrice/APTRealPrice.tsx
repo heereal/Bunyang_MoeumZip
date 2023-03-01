@@ -28,7 +28,7 @@ const APTRealPrice = ({ detail }: any) => {
 
   const { data } = useQuery('APTRealPriceList', getAPTRealPriceList, {
     enabled: !!LAWD_CD, // LAWD_CD이 있는 경우에만 useQuery를 실행함
-    // 지역코드로 불러온 아파트 매매 실거래가 리스트에서 '동' 기준으로 필터링하기
+    // 지역코드로 불러온 아파트 매매 실거래가 리스트에서 '읍면동' 기준으로 필터링하기
     onSuccess: (data) => {
       setDongList(
         data?.filter(
@@ -36,19 +36,37 @@ const APTRealPrice = ({ detail }: any) => {
             (item.법정동.split(' ')[0] === ''
               ? item.법정동.split(' ')[1]
               : item.법정동.split(' ')[0]) ===
-            detail.HSSPLY_ADRES.split(' ')[2],
+            (detail.HSSPLY_ADRES.split('(').length > 1
+              ? detail.HSSPLY_ADRES.split('(')[1].slice(0, 3)
+              : detail.HSSPLY_ADRES.split(' ')[2]),
         ),
       );
     },
   });
+  console.log('data:', data);
 
-  console.log('dongList:', dongList);
+  // 유효성 검사 위한 주석이니 삭제하지 말아 주세요😇
+  // console.log(
+  //   '디테일 페이지 동 주소:',
+  //   detail.HSSPLY_ADRES.split('(').length > 1
+  //     ? detail.HSSPLY_ADRES.split('(')[1].slice(0, 3)
+  //     : detail.HSSPLY_ADRES.split(' ')[2],
+  // );
+
+  // 유효성 검사 위한 주석이니 삭제하지 말아 주세요😇
+  // data?.map((item: any) =>
+  //   console.log(
+  //     item.법정동.split(' ')[0] === ''
+  //       ? item.법정동.split(' ')[1]
+  //       : item.법정동.split(' ')[0],
+  //   ),
+  // );
 
   return (
     <S.Wrapper>
       <button onClick={getAPTRealPriceList}>✨클릭하세요✨</button>
-      {dongList?.map((item: any) => (
-        <div key={item.일련번호}>
+      {dongList?.map((item: any, index) => (
+        <div key={item.index}>
           {item.아파트} | {item.법정동}
           {item.도로명} | 거래금액: {item.거래금액}만원
         </div>
