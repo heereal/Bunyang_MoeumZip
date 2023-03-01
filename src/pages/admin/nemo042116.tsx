@@ -112,7 +112,7 @@ const MustHaveToDo = ({
           ' ' +
           item.detail[0][1].dsSbd[0].LGDN_DTL_ADR
         : '',
-      MVN_PREARNGE_YM: item.detail[0][1].dsSbd
+      MVN_PREARNGE_YM_LH: item.detail[0][1].dsSbd
         ? item.detail[0][1].dsSbd[0].MVIN_XPC_YM.replace('.', '년 ') + '월'
         : '',
       RCEPT_BGNDE: item.detail[0][1].dsSplScdl
@@ -139,6 +139,8 @@ const MustHaveToDo = ({
       MDHS_TELNO: item.detail[0][1].dsCtrtPlc
         ? item.detail[0][1].dsCtrtPlc[0].SIL_OFC_TLNO
         : '',
+      MIN_LTTOT_TOP_AMOUNT: null,
+      MAX_LTTOT_TOP_AMOUNT: null,
       detail: item.detail[0][1],
     });
   });
@@ -183,7 +185,7 @@ const MustHaveToDo = ({
           ' ' +
           item.detail[0][1].dsSbd[0].LCT_ARA_DTL_ADR
         : '',
-      MVN_PREARNGE_YM: item.detail[0][1].dsSbd
+      MVN_PREARNGE_YM_LH: item.detail[0][1].dsSbd
         ? item.detail[0][1].dsSbd[0].MVIN_XPC_YM
         : '',
       RCEPT_BGNDE: item.detail[0][1].dsSplScdl
@@ -235,6 +237,8 @@ const MustHaveToDo = ({
       MDHS_TELNO: item.detail[0][1].dsCtrtPlc
         ? item.detail[0][1].dsCtrtPlc[0].SIL_OFC_TLNO
         : '',
+      MIN_LTTOT_TOP_AMOUNT: null,
+      MAX_LTTOT_TOP_AMOUNT: null,
       detail: item.detail[0][1],
     });
   });
@@ -287,14 +291,13 @@ const MustHaveToDo = ({
     };
   });
 
-  // 오늘 날짜 구하기
-  const today = getToday();
-
   // 청약홈 + LH 전체 API 통합 리스트
   const allHomeList: {}[] = [];
   aptCombineList?.map((item: ItemJ) => allHomeList.push(item));
   replaceAreaNameAptOfficeLHList.map((item: ItemJ) => allHomeList.push(item));
 
+  // 오늘 날짜 구하기
+  const today = getToday();
   // 청약이 마감되지 않은 청약홈 + LH 전체 API 통합 리스트
   const possibleAllHomeList = allHomeList.filter(
     (item: ItemJ) =>
@@ -321,7 +324,6 @@ const MustHaveToDo = ({
       (item: any) => !PBLANCArray.includes(`${item.PBLANC_NO}`),
     );
 
-    // TODO:  item.detail.length === 0 대신 해당 키 값 여부로 수정하기
     // API 전체 통합 데이터 재가공하기
     newDataArray.map((item: any) => {
       newList.push({
@@ -354,16 +356,35 @@ const MustHaveToDo = ({
               '.',
             )[0].replace(/(^0)/, '') + '㎡',
 
-        // TODO: 금액이 6자리 이상일 때만 잘라야 억으로 잘림
-        MIN_LTTOT_TOP_AMOUNT: !item.MIN_LTTOT_TOP_AMOUNT
-          ? ''
-          : item.detail[0]?.LTTOT_TOP_AMOUNT
-          ? item?.detail[0]?.LTTOT_TOP_AMOUNT
-          : item?.detail[0]?.SUPLY_AMOUNT,
+        MIN_LTTOT_TOP_AMOUNT:
+          item.detail[0]?.LTTOT_TOP_AMOUNT.split(',')[0].length < 2
+            ? item.detail[0]?.LTTOT_TOP_AMOUNT + '만원'
+            : item.detail[0]?.LTTOT_TOP_AMOUNT.split(',')[0].length === 2
+            ? item.detail[0]?.LTTOT_TOP_AMOUNT.slice(0, 1) +
+              '.' +
+              item.detail[0]?.LTTOT_TOP_AMOUNT.slice(1, 2) +
+              '억'
+            : item.detail[0]?.LTTOT_TOP_AMOUNT.split(',')[0].length === 3
+            ? item.detail[0]?.LTTOT_TOP_AMOUNT.slice(0, 2) +
+              '.' +
+              item.detail[0]?.LTTOT_TOP_AMOUNT.slice(2, 3) +
+              '억'
+            : item?.detail[0]?.SUPLY_AMOUNT.split(',')[0].length < 2
+            ? item?.detail[0]?.SUPLY_AMOUNT + '만원'
+            : item?.detail[0]?.SUPLY_AMOUNT.split(',')[0].length === 2
+            ? item?.detail[0]?.SUPLY_AMOUNT.slice(0, 1) +
+              '.' +
+              item?.detail[0]?.SUPLY_AMOUNT.slice(1, 2) +
+              '억'
+            : item?.detail[0]?.SUPLY_AMOUNT.split(',')[0].length === 3
+            ? item?.detail[0]?.SUPLY_AMOUNT.slice(0, 2) +
+              '.' +
+              item?.detail[0]?.SUPLY_AMOUNT.slice(2, 3) +
+              '억'
+            : '',
 
-        MAX_LTTOT_TOP_AMOUNT: !item.MAX_LTTOT_TOP_AMOUNT
-          ? ''
-          : item.detail[item?.detail?.length - 1]?.LTTOT_TOP_AMOUNT
+        MAX_LTTOT_TOP_AMOUNT: item.detail[item?.detail?.length - 1]
+          ?.LTTOT_TOP_AMOUNT
           ? item?.detail[item?.detail?.length - 1]?.LTTOT_TOP_AMOUNT
           : item?.detail[item?.detail?.length - 1]?.SUPLY_AMOUNT,
 
@@ -431,7 +452,12 @@ const MustHaveToDo = ({
           ? item.CNTRCT_CNCLS_BGNDE
           : '',
         // TODO: 청약홈 데이터 =202306 -> 수정하기
-        MVN_PREARNGE_YM: item.MVN_PREARNGE_YM,
+        MVN_PREARNGE_YM: item.MVN_PREARNGE_YM_LH
+          ? item.MVN_PREARNGE_YM_LH
+          : item.MVN_PREARNGE_YM.slice(0, 4) +
+            '년 ' +
+            item.MVN_PREARNGE_YM.slice(-2) +
+            '월',
         SPECLT_RDN_EARTH_AT: item.SPECLT_RDN_EARTH_AT
           ? item.SPECLT_RDN_EARTH_AT
           : '',

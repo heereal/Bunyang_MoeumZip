@@ -101,32 +101,34 @@ const ListList = ({ list }: PropsListJ) => {
               //OR 6자리 미만은 금액에 '만원' 붙이고 6자리 이상은 금액에'억'붙이고 자르기
               list.MIN_LTTOT_TOP_AMOUNT === list.MAX_LTTOT_TOP_AMOUNT
                 ? list.MAX_LTTOT_TOP_AMOUNT + '만원'
-                : list.MAX_LTTOT_TOP_AMOUNT.split(',')[0].length < 2
-                ? list.MIN_LTTOT_TOP_AMOUNT +
-                  ' ~ ' +
-                  list.MAX_LTTOT_TOP_AMOUNT +
-                  '만원'
-                : list.MAX_LTTOT_TOP_AMOUNT.split(',')[0].length === 2
-                ? list.MIN_LTTOT_TOP_AMOUNT.slice(0, 1) +
-                  '.' +
-                  list.MIN_LTTOT_TOP_AMOUNT.slice(1, 2) +
-                  '억' +
-                  ' ~ ' +
-                  list.MAX_LTTOT_TOP_AMOUNT.slice(0, 1) +
-                  '.' +
-                  list.MAX_LTTOT_TOP_AMOUNT.slice(1, 2) +
-                  '억'
-                : list.MAX_LTTOT_TOP_AMOUNT.split(',')[0].length === 3
-                ? list.MIN_LTTOT_TOP_AMOUNT.slice(0, 1) +
-                  '.' +
-                  list.MIN_LTTOT_TOP_AMOUNT.slice(1, 2) +
-                  '억' +
-                  ' ~ ' +
-                  list.MAX_LTTOT_TOP_AMOUNT.slice(0, 2) +
-                  '.' +
-                  list.MAX_LTTOT_TOP_AMOUNT.slice(2, 3) +
-                  '억'
-                : ''
+                : list.MIN_LTTOT_TOP_AMOUNT + ' ~ ' + list.MAX_LTTOT_TOP_AMOUNT
+
+              // list.MAX_LTTOT_TOP_AMOUNT.split(',')[0].length < 2
+              // ? list.MIN_LTTOT_TOP_AMOUNT +
+              //   ' ~ ' +
+              //   list.MAX_LTTOT_TOP_AMOUNT +
+              //   '만원'
+              // : list.MAX_LTTOT_TOP_AMOUNT.split(',')[0].length === 2
+              // ? list.MIN_LTTOT_TOP_AMOUNT.slice(0, 1) +
+              //   '.' +
+              //   list.MIN_LTTOT_TOP_AMOUNT.slice(1, 2) +
+              //   '억' +
+              //   ' ~ ' +
+              //   list.MAX_LTTOT_TOP_AMOUNT.slice(0, 1) +
+              //   '.' +
+              //   list.MAX_LTTOT_TOP_AMOUNT.slice(1, 2) +
+              //   '억'
+              // : list.MAX_LTTOT_TOP_AMOUNT.split(',')[0].length === 3
+              // ? list.MIN_LTTOT_TOP_AMOUNT.slice(0, 1) +
+              //   '.' +
+              //   list.MIN_LTTOT_TOP_AMOUNT.slice(1, 2) +
+              //   '억' +
+              //   ' ~ ' +
+              //   list.MAX_LTTOT_TOP_AMOUNT.slice(0, 2) +
+              //   '.' +
+              //   list.MAX_LTTOT_TOP_AMOUNT.slice(2, 3) +
+              //   '억'
+              // : ''
             }
           </S.CardArea>
         </S.CardAreaBox>
