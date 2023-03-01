@@ -109,6 +109,7 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
     setHome(detail);
     homeListRefetch();
     bookmarksListRefetch();
+    APTRealPriceRefetch();
     // eslint-disable-next-line
   }, [detail]);
 
@@ -159,13 +160,7 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
       )}
 
       {/* 아파트 매매 실거래가 탭 */}
-      {isRealPriceTab && (
-        <APTRealPrice
-          detail={detail}
-          dongList={dongList}
-          APTRealPriceRefetch={APTRealPriceRefetch}
-        />
-      )}
+      {isRealPriceTab && <APTRealPrice dongList={dongList} />}
     </S.Section>
   );
 };
