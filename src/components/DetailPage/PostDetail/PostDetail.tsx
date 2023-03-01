@@ -11,7 +11,7 @@ import SpecialSupply from './SpecialSupply';
 import * as S from './style';
 import SubscriptionSchedule from './SubscriptionSchedule';
 import SupplyInfo from './SupplyInfo';
-import axios from 'axios';
+import { getAPTRealPriceList } from '@/common/api';
 import { LAWD_CD_Code } from '@/common/LAWD_CD';
 
 const PostDetail = ({ postId }: DetailPagePropsP) => {
@@ -71,23 +71,13 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
     (item: string) => item.split(':')[1] === detail.HSSPLY_ADRES.split(' ')[1],
   );
 
-  // '시군구' 정보를 기준으로 아파트 매매 실거래가 정보를 가져옴
-  const getAPTRealPriceList = async () => {
-    const data = await axios
-      .get(
-        `/api/APTRealPrice?numOfRows=1000&LAWD_CD=${
-          LAWD_CD?.split(':')[0]
-        }&DEAL_YMD=202302&serviceKey=${SERVICE_KEY}`,
-      )
-      .then((res) => res.data.response.body.items.item);
-    return data;
-  };
-
+  // 아파트 매매 실거래가 API 가져오기
   const { data: APTRealPriceList, refetch: APTRealPriceRefetch } = useQuery(
     'APTRealPriceList',
-    getAPTRealPriceList,
+    () => getAPTRealPriceList(LAWD_CD),
     {
       enabled: !!LAWD_CD, // LAWD_CD이 있는 경우에만 useQuery를 실행함
+
       // 지역코드로 불러온 아파트 매매 실거래가 리스트에서 '읍면동' 기준으로 필터링하기
       onSuccess: (APTRealPriceList) => {
         setDongList(
@@ -99,7 +89,7 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
               (detail.HSSPLY_ADRES.split('(').length > 1
                 ? detail.HSSPLY_ADRES.split('(')[1].slice(0, 3)
                 : detail.HSSPLY_ADRES.split(' ')[2]),
-          ),
+          ).reverse(),
         );
       },
     },
@@ -144,7 +134,7 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
           line={isRealPriceTab ? '#3D7FFF' : '#f4f4f4'}
           onClick={() => setIsRealPriceTab(true)}
         >
-          주변 아파트 실거래가
+          주변 아파트 매매 실거래가
         </S.TabBtn>
       </S.TabContainer>
 

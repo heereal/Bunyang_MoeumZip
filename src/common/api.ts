@@ -95,3 +95,15 @@ export const getProfile = async (email: string | null | undefined) => {
     }
   }
 };
+
+// '시군구' 정보를 기준으로 아파트 매매 실거래가 정보를 가져옴
+export const getAPTRealPriceList = async (LAWD_CD: string) => {
+  const data = await axios
+    .get(
+      `/api/APTRealPrice?numOfRows=1000&LAWD_CD=${
+        LAWD_CD?.split(':')[0]
+      }&DEAL_YMD=202302&serviceKey=${SERVICE_KEY}`,
+    )
+    .then((res) => res.data.response.body.items.item);
+  return data;
+};
