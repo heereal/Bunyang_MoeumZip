@@ -85,6 +85,7 @@ const MustHaveToDo = ({
         ? item.detail[0][1].dsAhflInfo[1].AHFL_URL
         : '',
 
+      API: 'LH',
       // 청약홈과 통일
       PBLANC_NO: item.PAN_ID,
       HOUSE_DTL_SECD_NM: item.AIS_TP_CD_NM,
@@ -183,6 +184,7 @@ const MustHaveToDo = ({
         : '',
 
       // 청약홈과 통일
+      API: 'LH',
       PBLANC_NO: item.PAN_ID,
       HOUSE_DTL_SECD_NM: item.AIS_TP_CD_NM,
       SUBSCRPT_AREA_CODE_NM: item.CNP_CD_NM,
@@ -380,6 +382,7 @@ const MustHaveToDo = ({
     // API 전체 통합 데이터 재가공하기
     newDataArray.map((item: any) => {
       newList.push({
+        API: item.API ? 'LH' : '청약홈',
         COORDINATES: 'x:, y:',
         BUTTON_DATE: onClickDate,
         DETAIL: item.detail,
@@ -394,7 +397,6 @@ const MustHaveToDo = ({
               '.',
             )[0]?.replace(/(^0)/, '') + '㎡'
           : '',
-
         MIN_HOUSE_TY: item.MIN_HOUSE_TY
           ? item.MIN_HOUSE_TY
           : item?.detail[0]?.EXCLUSE_AR
