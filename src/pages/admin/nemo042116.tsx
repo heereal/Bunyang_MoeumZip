@@ -66,12 +66,6 @@ const MustHaveToDo = ({
       item.SPL_INF_TP_CD === '060',
   );
 
-  // TODO: 전화번호..
-  // console.log(
-  //   'DB',
-  //   homeListDB.map((item) => item.MDHS_TELNO),
-  // );
-
   // LH - 행복 주택~ 데이터 재가공 - KEY, Data 형식을 청약홈과 통일시키기
   splitHappyLH.map((item: any) => {
     reprocessingHappyLHList.push({
