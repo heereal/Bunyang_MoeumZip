@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 import { RecoilRoot } from 'recoil';
 import { ReactQueryDevtools } from 'react-query/devtools';
+import styled from 'styled-components';
 
 const App = ({ Component, pageProps }: AppProps) => {
   const router = useRouter();
@@ -25,13 +26,7 @@ const App = ({ Component, pageProps }: AppProps) => {
         <Hydrate state={pageProps.dehydratedState}>
           <RecoilRoot>
             <Layout>
-              <div
-                style={{
-                  width: '100vw',
-                  height: '91vh',
-                  display: 'flex',
-                }}
-              >
+              <Container>
                 <Component {...pageProps} />
                 {router.asPath === '/' ||
                 router.asPath.includes('detail') ||
@@ -39,7 +34,7 @@ const App = ({ Component, pageProps }: AppProps) => {
                 router.asPath.includes('admin') ? (
                   <MapSection />
                 ) : null}
-              </div>
+              </Container>
             </Layout>
           </RecoilRoot>
         </Hydrate>
@@ -50,3 +45,12 @@ const App = ({ Component, pageProps }: AppProps) => {
 };
 
 export default App;
+
+const Container = styled.div`
+  width: 100vw;
+  height: 91vh;
+  display: flex;
+  @media screen and (max-width: 768px) {
+    flex-direction: column-reverse;
+  }
+`;

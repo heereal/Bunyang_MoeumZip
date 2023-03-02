@@ -74,18 +74,28 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
   return (
     <S.Section>
       <DetailHeader
-        bookmarkList={bookmarksList}
+        bookmarksList={bookmarksList}
         home={home}
-        editBookMark={editBookmark}
+        editBookmark={editBookmark}
         email={email}
       />
-      <S.Container>
-        <DetailKeyInfo home={home} />
-        <SubscriptionSchedule home={home} />
-        <SupplyInfo home={home} />
-        <SpecialSupply home={home} />
-        <ExtraInfo home={home} />
-      </S.Container>
+
+      {home?.API === '청약홈' && (
+        <>
+          <S.Container>
+            <DetailKeyInfo home={home} />
+            <SubscriptionSchedule home={home} />
+            <SupplyInfo home={home} />
+            <SpecialSupply home={home} />
+            <ExtraInfo home={home} />
+          </S.Container>
+        </>
+      )}
+      {home?.API === 'LH' && (
+        <S.Container>
+          <DetailKeyInfo home={home} />
+        </S.Container>
+      )}
     </S.Section>
   );
 };

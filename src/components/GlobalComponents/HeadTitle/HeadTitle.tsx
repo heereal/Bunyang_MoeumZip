@@ -1,6 +1,10 @@
 import Head from 'next/head';
 
-const HeadTitle = ({ title }: any) => {
+interface TitleProps {
+  title: string;
+}
+
+const HeadTitle = ({ title }: TitleProps) => {
   return (
     <Head>
       <title>{`${title} 분양모음집`}</title>

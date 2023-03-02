@@ -1,7 +1,11 @@
 import Link from 'next/link';
 import * as S from './style';
 
-const DetailKeyInfo = ({ home }: any) => {
+interface PropsP {
+  home: HomeP | undefined;
+}
+
+const DetailKeyInfo = ({ home }: PropsP) => {
   return (
     <>
       <S.ArticleHead>입주자모집공고 주요정보</S.ArticleHead>

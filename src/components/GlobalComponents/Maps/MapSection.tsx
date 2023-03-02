@@ -6,6 +6,7 @@ import { useQuery } from 'react-query';
 import { useRecoilState } from 'recoil';
 import Map from './Map';
 import Markers from './Markers';
+import { MapContainer } from './style';
 
 const MapSection = () => {
   const router = useRouter();
@@ -43,10 +44,10 @@ const MapSection = () => {
   }, [router.asPath]); //eslint-disable-line
 
   return (
-    <>
+    <MapContainer>
       <Map onLoad={onLoadMap} />
       <Markers map={naverMap} home={home} />
-    </>
+    </MapContainer>
   );
 };
 
