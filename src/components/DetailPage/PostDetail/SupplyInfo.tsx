@@ -1,6 +1,8 @@
 import * as S from './style';
-
-const SupplyInfo = ({ home }: any) => {
+interface PropsP {
+  home: HomeP | undefined;
+}
+const SupplyInfo = ({ home }: PropsP) => {
   return (
     <>
       <S.ArticleHead>공급개요 </S.ArticleHead>
@@ -29,7 +31,7 @@ const SupplyInfo = ({ home }: any) => {
           </S.SPLhead>
           <S.SPLhead color="#f4f4f4">공급금액(최고가 기준)</S.SPLhead>
         </S.SPLtable>
-        {home?.DETAIL.map((item: any) => {
+        {home?.DETAIL.map((item: ItemJ) => {
           return (
             <S.SPLtable key={item.MODEL_NO}>
               <S.SPLNUM style={{ width: '10%', backgroundColor: '#f4f4f4' }}>
@@ -46,7 +48,13 @@ const SupplyInfo = ({ home }: any) => {
                     {item.SUPLY_AR !== null ? (
                       <>
                         <a style={{ fontSize: 18, padding: 3 }}>㎡</a>
-                        <a>({Math.round(item.SUPLY_AR / 3.3)}평)</a>
+                        <a>
+                          (
+                          {typeof item.SUPLY_AR === 'number'
+                            ? Math.round(item.SUPLY_AR / 3.3)
+                            : null}
+                          평)
+                        </a>
                       </>
                     ) : null}
                   </S.SPLTY>
@@ -72,7 +80,10 @@ const SupplyInfo = ({ home }: any) => {
                   <S.SPLTY>
                     {item.EXCLUSE_AR}
                     <a style={{ fontSize: 18, padding: 3 }}>㎡</a>(
-                    {Math.round(item.EXCLUSE_AR / 3.3)}평)
+                    {typeof item.EXCLUSE_AR === 'number'
+                      ? Math.round(item.EXCLUSE_AR / 3.3)
+                      : null}
+                    평)
                   </S.SPLTY>
                   <S.SPLTY style={{ border: 'none' }}>
                     <S.TYDetail style={{ width: '33%' }}>

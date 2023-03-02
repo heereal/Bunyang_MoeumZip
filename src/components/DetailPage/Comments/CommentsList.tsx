@@ -8,6 +8,7 @@ import * as S from './style';
 
 const CommentsList = ({ postId }: DetailPagePropsP) => {
   const [comments, setComments] = useState<[]>();
+  const [replies, setReplies] = useState<[]>();
   const queryClient = useQueryClient();
   const [user, setUser] = useState<any>();
   // 유저의 세션 정보 받아오기
@@ -22,7 +23,9 @@ const CommentsList = ({ postId }: DetailPagePropsP) => {
     },
     {
       onSuccess(profile) {
-        setUser(profile);
+        if (profile) {
+          setUser(profile);
+        }
       },
     },
   );
@@ -34,9 +37,18 @@ const CommentsList = ({ postId }: DetailPagePropsP) => {
   });
 
   useEffect(() => {
-    setComments(data?.list?.sort((a: any, b: any) => b.date - a.date));
+    setComments(
+      data?.list?.sort(
+        (a: { date: number }, b: { date: number }) => b.date - a.date,
+      ),
+    );
+    setReplies(
+      data?.replies?.sort(
+        (a: { date: number }, b: { date: number }) => b.date - a.date,
+      ),
+    );
     refetchProfile();
-  // eslint-disable-next-line
+    // eslint-disable-next-line
   }, [data, session]);
 
   return (
@@ -63,6 +75,7 @@ const CommentsList = ({ postId }: DetailPagePropsP) => {
               queryClient={queryClient}
               comments={comments}
               refetch={refetch}
+              replies={replies}
             />
           );
         })}

@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import Script from 'next/script';
 import { useEffect, useRef } from 'react';
 import { useRecoilState } from 'recoil';
+import { MapBox } from './style';
 
 type Props = {
   mapId?: string;
@@ -23,9 +24,11 @@ const Map = ({ mapId = 'map', onLoad }: Props) => {
       scaleControl: true,
       minZoom: 7,
       zoomControl: true,
+
       zoomControlOptions: {
         //줌 컨트롤의 옵션
         position: naver.maps.Position.TOP_RIGHT,
+        style: naver.maps.ZoomControlStyle.SMALL,
       },
       mapDataControl: true,
       mapTypeControl: true,
@@ -67,12 +70,10 @@ const Map = ({ mapId = 'map', onLoad }: Props) => {
         src={`https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${process.env.NEXT_PUBLIC_NCP_CLIENT_ID}&submodules=geocoder,panorama`}
         onReady={initializeMap}
       />
-      <div
+      <MapBox
         id={mapId}
         style={{
           display: router.asPath === '/admin/nemo042116' ? 'none' : 'block',
-          width: '40%',
-          height: '100%',
         }}
       />
     </>

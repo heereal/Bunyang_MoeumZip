@@ -1,6 +1,10 @@
 import * as S from './style';
 
-const SpecialSupply = ({ home }: any) => {
+interface PropsP {
+  home: HomeP | undefined;
+}
+
+const SpecialSupply = ({ home }: PropsP) => {
   return (
     <>
       {home?.HOUSE_SECD === '06' ||
@@ -42,7 +46,7 @@ const SpecialSupply = ({ home }: any) => {
                 </div>
               </S.SpecialHead>
             </S.SPLtable>
-            {home?.DETAIL.map((item: any) => {
+            {home?.DETAIL.map((item: ItemJ) => {
               return (
                 <S.SPLtable key={item.MODEL_NO}>
                   <S.SPLNUM

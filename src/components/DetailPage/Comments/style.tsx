@@ -56,7 +56,7 @@ export const UserNameBox = styled.div`
   font-size: 15px;
 `;
 
-export const CommentListBox = styled.div<{ blur: any }>`
+export const CommentListBox = styled.div<{ blur: string }>`
   padding: 20px;
   display: flex;
   justify-content: center;
@@ -84,12 +84,34 @@ export const EditInput = styled.input`
   padding-left: 10px;
   width: 90%;
   height: 100%;
-  font-weight: 500;
+  font-weight: 400;
   border-radius: 10px;
   border: 2px solid #b9b9b9;
   height: 30px;
   background-color: white;
   font-size: 16px;
+`;
+export const EditSubmit = styled.button`
+  all: unset;
+  width: 70px;
+  text-align: center;
+  background-color: #4f70e4;
+  border-radius: 7px;
+  color: white;
+  font-size: 12px;
+  padding: 1px;
+  cursor: pointer;
+`;
+export const EditCancel = styled.button`
+  all: unset;
+  width: 50px;
+  text-align: center;
+  background-color: #e44f72;
+  border-radius: 7px;
+  color: white;
+  font-size: 12px;
+  padding: 1px;
+  cursor: pointer;
 `;
 
 export const Btn = styled.div`
@@ -107,4 +129,25 @@ export const BtnBox = styled.div`
   padding-right: 10px;
   margin-top: 3px;
   cursor: pointer;
+`;
+
+export const ReplyInputBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 85%;
+`;
+export const ReplyContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding-left: 90px;
+`;
+export const ReplyHeader = styled.div`
+  display: flex;
+  gap: 10px;
+`;
+
+export const ReplyBox = styled.div`
+  display: flex;
+  flex-direction: column;
 `;

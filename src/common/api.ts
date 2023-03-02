@@ -55,11 +55,6 @@ export const addHomeList = async (allHomeList: any) => {
   await setDoc(doc(db, 'HomeList', 'homeData'), allHomeList);
 };
 
-// Dummy Data
-export const getDummyData = async () => {
-  return axios.get('/dummy.json').then((res: any) => res.data);
-};
-
 // firestore에서 'Users' 데이터 볼러 옴
 export const getUsersList = async () => {
   const array: any[] = [];

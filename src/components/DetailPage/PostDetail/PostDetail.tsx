@@ -16,7 +16,6 @@ import { LAWD_CD_Code } from '@/common/LAWD_CD';
 
 const PostDetail = ({ postId }: DetailPagePropsP) => {
   const queryClient = useQueryClient();
-  const SERVICE_KEY = process.env.NEXT_PUBLIC_HOME_API_KEY;
 
   // 유저의 세션 정보 받아오기
   const { data: session, status } = useSession();
@@ -114,9 +113,9 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
   return (
     <S.Section>
       <DetailHeader
-        bookmarkList={bookmarksList}
+        bookmarksList={bookmarksList}
         home={home}
-        editBookMark={editBookmark}
+        editBookmark={editBookmark}
         email={email}
       />
 
@@ -139,13 +138,19 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
       </S.TabContainer>
 
       {/* 분양 상세 정보 탭 */}
-      {!isRealPriceTab && (
+      {home?.API === '청약홈' && !isRealPriceTab && (
         <S.Container>
           <DetailKeyInfo home={home} />
           <SubscriptionSchedule home={home} />
           <SupplyInfo home={home} />
           <SpecialSupply home={home} />
           <ExtraInfo home={home} />
+        </S.Container>
+      )}
+
+      {home?.API === 'LH' && !isRealPriceTab && (
+        <S.Container>
+          <DetailKeyInfo home={home} />
         </S.Container>
       )}
 

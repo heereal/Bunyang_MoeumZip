@@ -4,7 +4,6 @@ import styled from 'styled-components';
 export const CountSectionBack = styled.div`
   width: 100%;
   height: 116px;
-
   background-color: rgba(71, 70, 103, 1);
   /* background: linear-gradient(0deg, rgba(71, 70, 103, 1), rgba(94, 94, 94, 0.2)),
     linear-gradient(

@@ -1,6 +1,10 @@
 import * as S from './style';
 
-export const ExtraInfo = ({ home }: any) => {
+interface PropsP {
+  home: HomeP | undefined;
+}
+
+export const ExtraInfo = ({ home }: PropsP) => {
   return (
     <>
       <S.ArticleHead>기타사항</S.ArticleHead>

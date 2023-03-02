@@ -12,12 +12,21 @@ const ListList = ({ list }: PropsListJ) => {
     <S.ListArticle onClick={() => router.push(`/detail/${list.PBLANC_NO}`)}>
       <S.CardHeader>
         <S.CardCategoryBox>
-          {list.HOUSE_DTL_SECD_NM ? (
+          {list.HOUSE_DTL_SECD_NM === list.HOUSE_SECD_NM ? (
+            <S.CardCategory>{list.HOUSE_DTL_SECD_NM}</S.CardCategory>
+          ) : list.HOUSE_DTL_SECD_NM && list.HOUSE_SECD_NM ? (
+            <>
+              <S.CardCategory>{list.HOUSE_DTL_SECD_NM}</S.CardCategory>
+              <S.CardCategory>{list.HOUSE_SECD_NM}</S.CardCategory>
+            </>
+          ) : !list.HOUSE_DTL_SECD_NM ? (
+            <S.CardCategory>{list.HOUSE_SECD_NM}</S.CardCategory>
+          ) : !list.HOUSE_SECD_NM ? (
             <S.CardCategory>{list.HOUSE_DTL_SECD_NM}</S.CardCategory>
           ) : (
             ''
           )}
-          <S.CardCategory>{list.HOUSE_SECD_NM}</S.CardCategory>
+
           <S.CardCategory>{list.SUBSCRPT_AREA_CODE_NM}</S.CardCategory>
         </S.CardCategoryBox>
       </S.CardHeader>
@@ -96,38 +105,15 @@ const ListList = ({ list }: PropsListJ) => {
         <S.CardAreaBox>
           <S.CardAreaTitle>분양가격</S.CardAreaTitle>
           <S.CardArea>
-            {
-              // TODO:DB에 넣을 때 ',' 기준으로 split?
-              //OR 6자리 미만은 금액에 '만원' 붙이고 6자리 이상은 금액에'억'붙이고 자르기
-              list.MIN_LTTOT_TOP_AMOUNT === list.MAX_LTTOT_TOP_AMOUNT
-                ? list.MAX_LTTOT_TOP_AMOUNT + '만원'
-                : list.MAX_LTTOT_TOP_AMOUNT.split(',')[0].length < 2
-                ? list.MIN_LTTOT_TOP_AMOUNT +
-                  ' ~ ' +
-                  list.MAX_LTTOT_TOP_AMOUNT +
-                  '만원'
-                : list.MAX_LTTOT_TOP_AMOUNT.split(',')[0].length === 2
-                ? list.MIN_LTTOT_TOP_AMOUNT.slice(0, 1) +
-                  '.' +
-                  list.MIN_LTTOT_TOP_AMOUNT.slice(1, 2) +
-                  '억' +
-                  ' ~ ' +
-                  list.MAX_LTTOT_TOP_AMOUNT.slice(0, 1) +
-                  '.' +
-                  list.MAX_LTTOT_TOP_AMOUNT.slice(1, 2) +
-                  '억'
-                : list.MAX_LTTOT_TOP_AMOUNT.split(',')[0].length === 3
-                ? list.MIN_LTTOT_TOP_AMOUNT.slice(0, 1) +
-                  '.' +
-                  list.MIN_LTTOT_TOP_AMOUNT.slice(1, 2) +
-                  '억' +
-                  ' ~ ' +
-                  list.MAX_LTTOT_TOP_AMOUNT.slice(0, 2) +
-                  '.' +
-                  list.MAX_LTTOT_TOP_AMOUNT.slice(2, 3) +
-                  '억'
-                : ''
-            }
+            {!list.MIN_LTTOT_TOP_AMOUNT
+              ? '공고문 확인'
+              : list.MIN_LTTOT_TOP_AMOUNT === list.MAX_LTTOT_TOP_AMOUNT
+              ? list.MAX_LTTOT_TOP_AMOUNT
+              : list.MIN_LTTOT_TOP_AMOUNT.includes('만원')
+              ? list.MIN_LTTOT_TOP_AMOUNT.slice(0, -2) +
+                ' ~ ' +
+                list.MAX_LTTOT_TOP_AMOUNT
+              : list.MIN_LTTOT_TOP_AMOUNT + ' ~ ' + list.MAX_LTTOT_TOP_AMOUNT}
           </S.CardArea>
         </S.CardAreaBox>
       </S.CardAreaContainer>

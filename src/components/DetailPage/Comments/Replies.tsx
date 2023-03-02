@@ -1,71 +1,62 @@
 import { deleteComment, editComment } from '@/common/api';
-import { customAlert, getDate, postTime } from '@/common/utils';
+import { customAlert, getDate } from '@/common/utils';
 import { arrayRemove, arrayUnion } from 'firebase/firestore';
 import Image from 'next/image';
 import { KeyboardEvent, useState } from 'react';
 import { confirmAlert } from 'react-confirm-alert';
 import { useMutation } from 'react-query';
-import AddReply from './AddReply';
-import Replies from './Replies';
 import * as S from './style';
 
-const EditComment = ({
-  comment,
-  index,
-  postId,
+const Replies = ({
+  list,
   user,
   queryClient,
-  comments,
   refetch,
   replies,
+  postId,
+  index,
+  comment,
 }: CommentPropsP) => {
   const [isOpen, setIsOpen] = useState(false);
   const [editInput, setEditInput] = useState<string | undefined>('');
-  const date = comment?.date;
+  const date = list?.date;
   const id = comment?.commentId;
 
-  const deleteCommentHandler = async (index: number | undefined) => {
-    if (
-      typeof comments === 'object' &&
-      typeof postId === 'string' &&
-      typeof index === 'number'
-    )
-      confirmAlert({
-        message: '삭제하시겠습니까?',
-        buttons: [
-          {
-            label: '확인',
-            onClick: () => {
-              const comment = {
-                list: arrayRemove(comments[index]),
-              };
+  const deleteReplyHandler = async (index: number) => {
+    confirmAlert({
+      message: '삭제하시겠습니까?',
+      buttons: [
+        {
+          label: '확인',
+          onClick: () => {
+            const comment = {
+              replies: arrayRemove(replies[index]),
+            };
+            if (typeof postId === 'string') {
               deleteMutation.mutate({ postId, comment });
-            },
+            }
           },
+        },
 
-          {
-            label: '취소',
-            onClick: () => onclose,
-          },
-        ],
-      });
+        {
+          label: '취소',
+          onClick: () => onclose,
+        },
+      ],
+    });
   };
 
-  const editCommentHandler = async (index: number | undefined) => {
+  const editReplyHandler = async (index: number | undefined) => {
     if (editInput === '') {
       customAlert('1글자 이상 입력해주세요.');
       return;
     }
-    if (
-      typeof comments === 'object' &&
-      typeof postId === 'string' &&
-      typeof index === 'number'
-    ) {
+    if (typeof postId === 'string' && typeof index === 'number') {
       const comment = {
-        list: arrayRemove(comments[index]),
+        replies: arrayRemove(replies[index]),
       };
       const newComment = {
-        list: arrayUnion({
+        replies: arrayUnion({
           commentId: id,
           contents: editInput,
           date: date,
@@ -80,36 +71,38 @@ const EditComment = ({
       setIsOpen(false);
     }
   };
+
   const deleteMutation = useMutation(deleteComment, {
     onSuccess: () => {
-      return queryClient.invalidateQueries('comments'), refetch();
+      return queryClient.invalidateQueries('reply'), refetch();
     },
   });
+
   const editMutation = useMutation(editComment, {
     onSuccess: () => {
-      return queryClient.invalidateQueries('comments'), refetch();
+      return queryClient.invalidateQueries('reply'), refetch();
     },
   });
 
   const OnKeyPressHandler = (
-    e: KeyboardEvent<HTMLDivElement>,
+    e: KeyboardEvent<HTMLInputElement>,
     type: string,
   ): void => {
     if (e.key === 'Enter' && type === 'edit' && typeof index === 'number') {
-      editCommentHandler(index);
+      editReplyHandler(index);
     }
   };
 
   return (
-    <>
+    <S.ReplyBox>
       <S.CommentListBox blur={!user ? '4px' : '0'}>
         <S.ImageBox>
-          {comment?.userImage && (
+          {list?.userImage && (
             <Image
               width={45}
               height={45}
               alt="profile"
-              src={comment?.userImage}
+              src={list?.userImage}
               quality={75}
               loading="lazy"
               style={{ borderRadius: 25, objectFit: 'cover' }}
@@ -125,41 +118,46 @@ const EditComment = ({
                 alignItems: 'center',
               }}
             >
-              <div>{comment?.nickName}</div>
+              <div>{list?.nickName}</div>
               <div style={{ fontSize: 13, color: '#B9B9B9' }}>
-                {getDate(comment?.date)}
+                {typeof list?.date === 'string' && getDate(list?.date)}
               </div>
-              {comment?.edit && <div>수정됨</div>}
+              {list?.edit && <div>수정됨</div>}
             </div>
             <div style={{ display: 'flex', gap: 4 }}>
-              {!isOpen && user?.userEmail === comment?.userEmail && (
+              {!isOpen && user?.userEmail === list?.userEmail && (
                 <>
                   <S.Btn
                     onClick={() => {
-                      setIsOpen(true), setEditInput(comment?.contents);
+                      setIsOpen(true);
+                      setEditInput(list?.contents);
                     }}
                   >
                     수정
                   </S.Btn>
-                  <S.Btn onClick={() => deleteCommentHandler(index)}>
+                  <S.Btn
+                    onClick={() => {
+                      typeof index === 'number' && deleteReplyHandler(index);
+                    }}
+                  >
                     삭제
                   </S.Btn>
                 </>
               )}
-              {isOpen && user?.userEmail === comment?.userEmail && (
+              {isOpen && user?.userEmail === list?.userEmail && (
                 <>
                   <S.Btn onClick={() => setIsOpen(false)}>취소</S.Btn>
-                  <S.Btn onClick={() => editCommentHandler(index)}>완료</S.Btn>
+                  <S.Btn onClick={() => editReplyHandler(index)}>완료</S.Btn>
                 </>
               )}
             </div>
           </S.UserNameBox>
-          {!isOpen && <S.ContentsBox>{comment?.contents}</S.ContentsBox>}
+          {!isOpen && <S.ContentsBox>{list?.contents}</S.ContentsBox>}
           {isOpen && (
             <S.ContentsBox>
               <S.EditInput
                 onChange={(e) => setEditInput(e.currentTarget.value)}
-                defaultValue={comment?.contents}
+                defaultValue={list?.contents}
                 autoFocus
                 onKeyPress={(e) => OnKeyPressHandler(e, 'edit')}
               />
@@ -167,37 +165,8 @@ const EditComment = ({
           )}
         </S.CommentBox>
       </S.CommentListBox>
-      <S.ReplyContainer>
-        <AddReply
-          comment={comment}
-          refetch={refetch}
-          queryClient={queryClient}
-          date={date}
-          index={index}
-          comments={comments}
-          postId={postId}
-          user={user}
-        />
-        {replies
-          ?.filter((reply: ItemJ) => reply.commentId === comment?.commentId)
-          .map((list: {}[], index: number) => {
-            return (
-              <Replies
-                replies={replies}
-                key={index}
-                list={list}
-                user={user}
-                queryClient={queryClient}
-                refetch={refetch}
-                postId={postId}
-                index={index}
-                comment={comment}
-              />
-            );
-          })}
-      </S.ReplyContainer>
-    </>
+    </S.ReplyBox>
   );
 };
 
-export default EditComment;
+export default Replies;
