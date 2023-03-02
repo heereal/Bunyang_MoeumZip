@@ -11,9 +11,9 @@ export const SearchBox = styled.div`
 
 export const SearchInput = styled.input`
   width: 30%;
-  height: 28px;
+  height: 36px;
 
-  border: transparent;
+  border: 1px solid #bcc0cb;
   border-radius: 20px;
   padding-left: 20px;
   padding-right: 40px;
@@ -24,7 +24,7 @@ export const SearchInput = styled.input`
   position: absolute;
   top: 20%;
   left: 30%;
-  background-color: #f9fafb;
+  background-color: #ffffff;
 
   :focus-visible {
     outline: none;
@@ -37,9 +37,8 @@ export const SearchBtn = styled.button`
   border: none;
   outline: none;
   position: absolute;
-  left: 57%;
-  right: 23.28%;
-  top: 25%;
+  left: 56%;
+  top: 30%;
 
   cursor: pointer;
 `;

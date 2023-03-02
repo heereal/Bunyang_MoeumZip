@@ -64,7 +64,10 @@ const Header = () => {
           <SearchInput />
         </S.SearchBox>
         <S.NavBar>
-          <S.NavContent onClick={() => router.push('/calendar')}>
+          <S.NavContent
+            onClick={() => router.push('/calendar')}
+            color={router.asPath === '/calendar' ? '#356EFF' : 'black'}
+          >
             청약캘린더
           </S.NavContent>
 
@@ -74,13 +77,18 @@ const Header = () => {
                 onClick={() => {
                   router.push('/my');
                 }}
+                color={router.asPath === '/my' ? '#356EFF' : 'black'}
               >
                 마이페이지
               </S.NavContent>
-              <S.NavContent onClick={LogOutHandler}>로그아웃</S.NavContent>
+              <S.NavContent onClick={LogOutHandler} color={'black'}>
+                로그아웃
+              </S.NavContent>
             </>
           ) : (
-            <S.NavContent onClick={() => setIsOpen(true)}>로그인</S.NavContent>
+            <S.NavContent onClick={() => setIsOpen(true)} color={'black'}>
+              로그인
+            </S.NavContent>
           )}
         </S.NavBar>
       </S.Header>

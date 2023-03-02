@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Header = styled.header`
   width: 100vw;
-  height: 48px;
+  height: 60px;
   background-color: #ffffff;
   display: flex;
   flex-direction: row;
@@ -16,17 +16,17 @@ export const Header = styled.header`
   position: relative;
 `;
 
-export const HSection = styled.div`
-  margin-inline: auto;
-  justify-content: center;
-  align-items: center;
-  display: flex;
-  height: 100%;
-  width: 100%;
-  position: relative;
-  z-index: 100;
-  box-sizing: border-box;
-`;
+// export const HSection = styled.div`
+//   margin-inline: auto;
+//   justify-content: center;
+//   align-items: center;
+//   display: flex;
+//   height: 100%;
+//   width: 100%;
+//   position: relative;
+//   z-index: 100;
+//   box-sizing: border-box;
+// `;
 
 // Logo box
 export const LogoBox = styled.div`
@@ -55,7 +55,7 @@ export const NavBar = styled.div`
 `;
 
 // 청약 캘린더, 청약 정보
-export const NavContent = styled.nav`
+export const NavContent = styled.nav<{ color: string }>`
   padding: 0 5px;
   height: 17px;
 
@@ -63,5 +63,11 @@ export const NavContent = styled.nav`
   font-size: 14px;
   line-height: 17px;
 
+  color: ${(props) => props.color};
+
   cursor: pointer;
+
+  :hover {
+    color: #356eff;
+  }
 `;
