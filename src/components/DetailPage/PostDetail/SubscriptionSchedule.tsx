@@ -16,6 +16,7 @@ const SubscriptionSchedule = ({ home }: PropsP) => {
         </S.Article>
         {home?.HOUSE_SECD === '02' ||
           home?.HOUSE_SECD === '06' ||
+          home?.HOUSE_SECD === '03' ||
           (home?.HOUSE_SECD === '04' ? null : (
             <S.Article>
               <S.BoxTitle color="#f4f4f4" style={{ height: 204 }}>

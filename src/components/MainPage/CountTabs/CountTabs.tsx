@@ -212,9 +212,12 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
         <S.ListSection>
           {/* 분양 리스트 */}
           {/* 현재 선택된 tab의 list를 map돌려서 HomeList 컴포넌트에 전달 */}
-          {tabList[currentTab].content?.map((item: ItemJ) => {
-            return <HomeList key={item.PBLANC_NO} list={item} />;
-          })}
+          <S.ListBox>
+            {tabList[currentTab].content?.map((item: ItemJ) => {
+              return <HomeList key={item.PBLANC_NO} list={item} />;
+            })}
+          </S.ListBox>
+
           <TopBtn />
         </S.ListSection>
       )}

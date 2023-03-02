@@ -98,14 +98,31 @@ export const CountTabNum = styled(CountTabName)`
 export const ListSection = styled.section`
   width: 100%;
   height: 90%;
+  background: #f7f7f7;
+  overflow-y: scroll;
+
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   align-items: flex-start;
   align-content: flex-start;
   justify-content: center;
-  overflow-y: scroll;
   margin: auto;
+`;
 
-  background: #f7f7f7;
+export const ListBox = styled.div`
+  width: 100%;
+  max-width: 750px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border: 1px solid red;
+
+  @media screen and (max-width: 1280px) {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 500px;
+  }
+  @media screen and (max-width: 768px) {
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 750px;
+  }
 `;

@@ -5,10 +5,13 @@ interface PropsP {
 }
 
 const SpecialSupply = ({ home }: PropsP) => {
+  console.log(home?.HOUSE_SECD);
+
   return (
     <>
       {home?.HOUSE_SECD === '06' ||
       home?.HOUSE_SECD === '04' ||
+      home?.HOUSE_SECD === '03' ||
       home?.HOUSE_SECD === '02' ? (
         // 계약취소 & 무순위는 특별공급 테이블 안넣음
         <div></div>
