@@ -161,7 +161,6 @@ export const Article = styled.div`
 export const BoxTitle = styled.div`
   font-size: 15px;
   width: 20%;
-  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;

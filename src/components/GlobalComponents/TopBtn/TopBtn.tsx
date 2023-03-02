@@ -3,29 +3,34 @@ import * as S from './style';
 
 const TopBtn = () => {
   const [showButton, setShowButton] = useState(false);
+  const topBtnScroll = document.querySelector('#topBtnScroll');
+
+  const [scrollY, setScrollY] = useState<number | undefined>();
 
   // 버튼 클릭 시 '맨 위로' 실행되는 함수
   const topBtn = () => {
-    window.scroll({
+    topBtnScroll?.scroll({
       top: 0,
       behavior: 'smooth',
     });
   };
 
-  useEffect(() => {
-    const handleShowButton = () => {
-      if (window.scrollY > 500) {
-        setShowButton(true);
-      } else {
-        setShowButton(false);
-      }
-    };
+  const handleShowButton = () => {
+    setScrollY(topBtnScroll?.scrollTop);
+    if (scrollY! > 400) {
+      setShowButton(true);
+    } else {
+      setShowButton(false);
+    }
+  };
 
-    window.addEventListener('scroll', handleShowButton);
+  useEffect(() => {
+    topBtnScroll?.addEventListener('scroll', handleShowButton);
     return () => {
-      window.removeEventListener('scroll', handleShowButton);
+      topBtnScroll?.removeEventListener('scroll', handleShowButton);
     };
-  }, []);
+  }, [scrollY]);
+
   return (
     <>
       {showButton && (

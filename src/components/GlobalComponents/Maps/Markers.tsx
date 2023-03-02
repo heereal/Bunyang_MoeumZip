@@ -60,7 +60,7 @@ const Markers = ({ map, home }: MarkersProps) => {
           markers.push(marker);
           naver.maps.Event.addListener(marker, 'click', () => {
             router.push(`/detail/${item.PBLANC_NO}`);
-            const detailBody = document.querySelector('#detailBody');
+            const detailBody = document.querySelector('#topBtnScroll');
             detailBody?.scroll(0, 0);
           });
 

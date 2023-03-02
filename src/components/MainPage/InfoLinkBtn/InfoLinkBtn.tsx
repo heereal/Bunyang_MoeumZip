@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import * as S from './style';
 
-const InfoLink = () => {
+const InfoLinkBtn = () => {
   return (
     <S.Container>
       <S.BtnBox>
@@ -31,4 +31,4 @@ const InfoLink = () => {
   );
 };
 
-export default InfoLink;
+export default InfoLinkBtn;

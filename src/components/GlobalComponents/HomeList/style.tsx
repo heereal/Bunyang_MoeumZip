@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const ListArticle = styled.article`
-  width: 210px;
+  max-width: 210px;
   height: 241px;
 
   border-radius: 20px;
