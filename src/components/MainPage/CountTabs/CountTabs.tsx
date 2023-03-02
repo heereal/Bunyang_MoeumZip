@@ -91,7 +91,7 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
   // 분양형태 필터링 리스트
   const typeCategoryList = list.filter((item: ItemJ) =>
     // @ts-ignore
-    selectedTypeArray?.includes(item.HOUSE_DTL_SECD_NM),
+    selectedTypeArray?.includes(item.HOUSE_DTL_SECD_NM || item.HOUSE_SECD_NM),
   );
 
   // 청약 가능, 예정, 무순위, 전체 리스트
