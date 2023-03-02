@@ -48,16 +48,7 @@ const Header = () => {
             priority={true}
           />
 
-          <div
-            onClick={() => router.push('/')}
-            style={{
-              marginLeft: 10,
-              fontSize: '16px',
-              fontWeight: 900,
-            }}
-          >
-            분양모음집
-          </div>
+          <S.LogoText onClick={() => router.push('/')}>분양모음집</S.LogoText>
         </S.LogoBox>
         {/* 검색창 */}
         <S.SearchBox>

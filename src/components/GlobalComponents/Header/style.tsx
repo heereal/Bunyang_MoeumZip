@@ -16,24 +16,26 @@ export const Header = styled.header`
   position: relative;
 `;
 
-// export const HSection = styled.div`
-//   margin-inline: auto;
-//   justify-content: center;
-//   align-items: center;
-//   display: flex;
-//   height: 100%;
-//   width: 100%;
-//   position: relative;
-//   z-index: 100;
-//   box-sizing: border-box;
-// `;
-
 // Logo box
 export const LogoBox = styled.div`
   box-sizing: border-box;
   cursor: pointer;
   display: flex;
   align-items: center;
+`;
+
+// Logo Text
+export const LogoText = styled.div`
+  font-family: 'PyeongChang';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 18px;
+
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.02em;
+  margin-left: 9px;
 `;
 
 // Search Section
