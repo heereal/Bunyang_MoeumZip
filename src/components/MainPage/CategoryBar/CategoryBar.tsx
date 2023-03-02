@@ -45,8 +45,24 @@ const CategoryBar = () => {
   };
   // 카테고리 Tab 분류
   const categoryList = [
-    { name: '지역', category: regionArray },
-    { name: '분양형태', category: typesArray },
+    {
+      name:
+        myRegionArray.length !== 0 && myRegionArray.length === 1
+          ? myRegionArray[0]
+          : myRegionArray.length > 1
+          ? myRegionArray[0] + '+' + (myRegionArray.length - 1).toString()
+          : '지역',
+      category: regionArray,
+    },
+    {
+      name:
+        myTypeArray.length !== 0 && myTypeArray.length === 1
+          ? myTypeArray[0]
+          : myTypeArray.length > 1
+          ? myTypeArray[0] + '+' + (myTypeArray.length - 1).toString()
+          : '분양형태',
+      category: typesArray,
+    },
   ];
 
   // 선택한 카테고리 Tab으로 변경
@@ -63,7 +79,8 @@ const CategoryBar = () => {
               key={item.name}
               onClick={() => selectedCategory(index)}
             >
-              {item.name === '지역' ? (
+              {/* index===0 은 지역 Tab, 1은 분양형태 Tab */}
+              {index === 0 ? (
                 <S.RegionTab
                   bd={isRegionToggleOpen ? '#3d7fff' : '#bcc0cb'}
                   bg={isRegionToggleOpen ? '#f1f6ff' : '#ffffff'}
