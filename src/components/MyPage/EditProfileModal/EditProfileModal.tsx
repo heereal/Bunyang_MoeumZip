@@ -30,8 +30,7 @@ const EditProfileModal = ({ setIsModalOpen }: any) => {
   const editProfileHandler = async () => {
     // 중복되는 닉네임이 있는지 검색하기
     const checkNickname = users.find(
-      (user: userProps) =>
-        user.userName === editNickname && !currentUser.userName,
+      (user: userProps) => user.userName === editNickname,
     );
 
     // TODO: customAlert css 적용해서 모달 위에 뜨게 하기
@@ -65,7 +64,10 @@ const EditProfileModal = ({ setIsModalOpen }: any) => {
     };
 
     setIsModalOpen(false);
-    await updateDoc(doc(db, 'Users', `${currentUser.provider}_${currentUser.userEmail}`), updateUser);
+    await updateDoc(
+      doc(db, 'Users', `${currentUser.provider}_${currentUser.userEmail}`),
+      updateUser,
+    );
     //FIXME: 쿼리 refetch나 invalidateQueries 사용해서 DB 정보로 업데이트 해주는 방법은 없을까?
     setCurrentUser({
       ...currentUser,
@@ -93,7 +95,9 @@ const EditProfileModal = ({ setIsModalOpen }: any) => {
   // [회원탈퇴] 버튼 클릭 시 작동
   const withdrawMembershipHandler = async () => {
     if (confirm('정말 탈퇴하실건가요?🥹🥹🥹🥹')) {
-      await deleteDoc(doc(db, 'Users', `${currentUser.provider}_${currentUser.userEmail}`));
+      await deleteDoc(
+        doc(db, 'Users', `${currentUser.provider}_${currentUser.userEmail}`),
+      );
       alert('회원탈퇴가 완료되었습니다.');
       signOut({ callbackUrl: '/' });
     }
