@@ -7,6 +7,7 @@ import { doc, getDoc } from 'firebase/firestore';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import * as S from '../../styles/search.style';
+import dynamic from 'next/dynamic';
 
 const SearchResult = ({ homeList }: HomeListDBPropsJ) => {
   const router = useRouter();
@@ -25,6 +26,13 @@ const SearchResult = ({ homeList }: HomeListDBPropsJ) => {
       (typeof keyword === 'string' && item.HOUSE_DTL_SECD_NM.includes(keyword)),
   );
 
+  const TopBtn = dynamic(
+    () => import('@/components/GlobalComponents/TopBtn/TopBtn'),
+    {
+      ssr: false,
+    },
+  );
+
   return (
     <S.ResultSection>
       <HeadTitle title="검색결과 |" />
@@ -38,7 +46,7 @@ const SearchResult = ({ homeList }: HomeListDBPropsJ) => {
               <span>{resultsList.length}</span>건입니다.
             </S.ResultTitle>
           </S.TitleBox>
-          <S.ResultListArticle>
+          <S.ResultListArticle id="topBtnScroll">
             {resultsList.map((item: ItemJ) => (
               // 검색 결과 리스트
               <SearchResults key={item.PBLANC_NO} list={item} />
