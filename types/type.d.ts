@@ -8,14 +8,15 @@ declare interface AddCommentP {
     email: string;
   };
   queryClient?: QueryClient;
+  reply?: any;
 }
 
 //댓글 Props
 interface CommentPropsP {
   postId: string | string[] | undefined;
   user:
-  | { userName?: string; userEmail?: string; userImage?: string }
-  | undefined;
+    | { userName?: string; userEmail?: string; userImage?: string }
+    | undefined;
   queryClient?: QueryClient;
   comment?: {
     date: number;
@@ -23,10 +24,21 @@ interface CommentPropsP {
     contents: string;
     nickName: string;
     userImage?: string;
+    commentId?: string;
+    edit?: boolean;
   };
   index?: number;
   comments?: [];
   refetch?: refetch;
+  replies?: any;
+  list?: {
+    date: string;
+    userImage?: string;
+    nickName?: string;
+    edit?: boolean;
+    userEmail?: string;
+    contents?: string;
+  };
 }
 
 //DetailPage Props
@@ -111,7 +123,6 @@ interface CategoryBtnStyledProps {
 interface SelectCategoryProps {
   width: string;
 }
-
 
 // 검색어 타입
 type keywordJ = string | string[] | undefined;

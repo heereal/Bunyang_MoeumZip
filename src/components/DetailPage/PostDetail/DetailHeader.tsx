@@ -1,15 +1,29 @@
 import * as S from './style';
 
-const DetailHeader = ({ bookmarksList, editBookmark, home, email }: any) => {
+interface DetailHeaderProps {
+  bookmarksList: any;
+  editBookmark: any;
+  home: HomeP | undefined;
+  email: string | null | undefined;
+}
+
+const DetailHeader = ({
+  bookmarksList,
+  editBookmark,
+  home,
+  email,
+}: DetailHeaderProps) => {
   return (
     <S.PageHeader>
       <S.BmrkBox>
         <S.BmrBtn
           onClick={() => editBookmark.mutate()}
           style={{
-            color: bookmarksList?.usersList.includes(email)
-              ? ' #FFEF5A     '
-              : '#ffffff',
+            color:
+              typeof email === 'string' &&
+              bookmarksList?.usersList.includes(email)
+                ? ' #FFEF5A     '
+                : '#ffffff',
           }}
         >
           ★
@@ -22,8 +36,16 @@ const DetailHeader = ({ bookmarksList, editBookmark, home, email }: any) => {
           ) : (
             ''
           )}
-          <S.HeaderTag>{home?.HOUSE_SECD_NM}</S.HeaderTag>
-          <S.HeaderTag>{home?.SUBSCRPT_AREA_CODE_NM}</S.HeaderTag>
+          {home?.HOUSE_SECD_NM ? (
+            <S.HeaderTag>{home?.HOUSE_SECD_NM}</S.HeaderTag>
+          ) : (
+            ''
+          )}
+          {home?.SUBSCRPT_AREA_CODE_NM ? (
+            <S.HeaderTag>{home?.SUBSCRPT_AREA_CODE_NM}</S.HeaderTag>
+          ) : (
+            ''
+          )}
         </S.HeaderTagBox>
         <S.HeaderTitle>{home?.HOUSE_NM}</S.HeaderTitle>
         <S.HeaderAdres>{home?.FOR_COORDINATES_ADRES}</S.HeaderAdres>

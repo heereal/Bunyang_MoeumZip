@@ -7,13 +7,14 @@ import { RiPencilFill } from 'react-icons/ri';
 import { useMutation } from 'react-query';
 import logo from '../../../../public/assets/logo.png';
 import * as S from './style';
+import { uuidv4 } from '@firebase/util';
 
 const AddComment = ({ user, postId, queryClient, refetch }: CommentPropsP) => {
   const [input, setInput] = useState<string>('');
   const [clicked, setClicked] = useState(true);
   const postDate = postTime();
 
-  const addCommentHandler = async (e: any) => {
+  const addCommentHandler = async () => {
     setClicked(true);
     if (input === '') {
       customAlert('1글자 이상 입력해주세요.');
@@ -27,6 +28,7 @@ const AddComment = ({ user, postId, queryClient, refetch }: CommentPropsP) => {
         nickName: user?.userName,
         userEmail: user?.userEmail,
         userImage: user?.userImage,
+        commentId: uuidv4(),
       }),
     };
     if (typeof postId === 'string') {
@@ -48,7 +50,7 @@ const AddComment = ({ user, postId, queryClient, refetch }: CommentPropsP) => {
     type: string,
   ): void => {
     if (e.key === 'Enter' && type === 'add' && user) {
-      addCommentHandler(e);
+      addCommentHandler();
     }
   };
 

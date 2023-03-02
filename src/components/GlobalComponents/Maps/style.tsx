@@ -1,9 +1,12 @@
 import styled from 'styled-components';
 
 export const Section = styled.div`
-  border: 1px sold gainsboro;
   width: 40%;
   height: 100%;
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    height: 20%;
+  }
 `;
 
 export const OverlayContainer = styled.div`
@@ -28,4 +31,18 @@ export const MarkerIconContainer = styled.div`
   width: 70px;
   height: 35px;
   border-radius: 5px;
+`;
+
+export const MapBox = styled.div<any>`
+  width: 100%;
+  height: 100%;
+`;
+
+export const MapContainer = styled.div`
+  width: 40%;
+  height: 100%;
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    height: 50%;
+  }
 `;

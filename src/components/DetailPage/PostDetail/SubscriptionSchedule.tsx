@@ -1,6 +1,11 @@
+import React from 'react';
 import * as S from './style';
 
-const SubscriptionSchedule = ({ home }: any) => {
+interface PropsP {
+  home: HomeP | undefined;
+}
+
+const SubscriptionSchedule = ({ home }: PropsP) => {
   return (
     <>
       <S.ArticleHead>청약일정</S.ArticleHead>

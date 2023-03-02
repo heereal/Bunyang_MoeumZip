@@ -235,3 +235,16 @@ export const SpecialHead = styled.div`
   background-color: ${(props) => props.color};
   height: 65px;
 `;
+export const DetailMapContainer = styled.div`
+  width: 100%;
+  height: 200px;
+  background-color: blue;
+`;
+export const DetailMapBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 200px;
+  background-color: rebeccapurple;
+`;
