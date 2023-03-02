@@ -37,7 +37,7 @@ export const SearchBtn = styled.button`
   border: none;
   outline: none;
   position: absolute;
-  left: 56%;
+  left: 57%;
   top: 30%;
 
   cursor: pointer;

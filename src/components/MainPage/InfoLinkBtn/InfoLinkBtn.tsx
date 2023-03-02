@@ -11,7 +11,7 @@ const InfoLinkBtn = () => {
           }
           legacyBehavior
         >
-          <a style={{ textDecoration: 'none', color: '#7b7b7b' }}>
+          <a style={{ textDecoration: 'none', color: '#356eff' }}>
             청약경쟁률 확인
           </a>
         </Link>
@@ -22,7 +22,7 @@ const InfoLinkBtn = () => {
           href={'https://www.applyhome.co.kr/wa/waa/selectAptPrzwinDescList.do'}
           legacyBehavior
         >
-          <a style={{ textDecoration: 'none', color: '#7b7b7b' }}>
+          <a style={{ textDecoration: 'none', color: '#356eff' }}>
             청약당첨자 확인
           </a>
         </Link>

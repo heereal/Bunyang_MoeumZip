@@ -7,11 +7,16 @@ import useTabList from '@/hooks/useTabList';
 import { selectedRegionList, selectedTypeList } from '@/store/selectors';
 import { useSession } from 'next-auth/react';
 import dynamic from 'next/dynamic';
+import Image from 'next/image';
 import { useState } from 'react';
 import { useQuery } from 'react-query';
 import { useRecoilState } from 'recoil';
 import CategoryBar from '../CategoryBar/CategoryBar';
 import * as S from './style';
+import all from '../../../../public/assets/all.png';
+import today from '../../../../public/assets/today.png';
+import coming from '../../../../public/assets/coming.png';
+import random from '../../../../public/assets/random.png';
 
 const CountTabs = ({ list }: CountTabPropsListJ) => {
   const [currentTab, SetCurrentTab] = useState<number>(0);
@@ -192,7 +197,25 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
               className={index === currentTab ? 'baseTab focused' : 'baseTab'}
               onClick={() => clickTabHandler(index)}
             >
-              <S.CountTabName>{el.name}</S.CountTabName>
+              <S.CountTabName>
+                <Image
+                  width={28}
+                  height={21}
+                  src={
+                    el.name === '전체'
+                      ? all
+                      : el.name === '청약 가능'
+                      ? today
+                      : el.name === '청약 예정'
+                      ? coming
+                      : random
+                  }
+                  alt="allIcon"
+                  quality={100}
+                  priority={true}
+                />
+                <p style={{ paddingTop: '3px' }}>{el.name}</p>
+              </S.CountTabName>
               <S.CountTabNum>{el.count}</S.CountTabNum>
             </li>
           ))}

@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const CategorySection = styled.section`
   width: 100%;
-  height: 52px;
+  height: 62px;
   background-color: #ffffff;
   display: flex;
   flex-direction: row;
@@ -15,12 +15,13 @@ export const CategorySection = styled.section`
 // 카테고리 Tabs
 export const CategoryTabList = styled.ul`
   width: 30%;
-  height: 54px;
+  height: 30px;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  padding: 10px 0px;
   gap: 10px;
+  padding: 6px 0;
+
   position: fixed;
   margin-left: 24px;
 `;
@@ -42,7 +43,6 @@ export const RegionTab = styled.button<{ bd: string; bg: string }>`
 
   :hover {
     border-color: #3d7fff;
-    background-color: #f1f6ff;
   }
 `;
 
@@ -70,9 +70,9 @@ export const TabName = styled.p<{ color: string }>`
 `;
 
 // 지역 및 분양형태 카테고리 선택
-export const CategoryContainer = styled.div`
-  width: 220px;
-  height: 250px;
+export const RegionCategoryContainer = styled.div`
+  width: 229px;
+  height: 255px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -82,11 +82,18 @@ export const CategoryContainer = styled.div`
   top: 110%;
   left: 24px;
   padding: 5px;
-
   box-sizing: border-box;
+
   background: #ffffff;
+  border: 1px solid #e8eaef;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 20px;
+`;
+
+export const TypeCategoryContainer = styled(RegionCategoryContainer)`
+  width: 265px;
+  height: 214px;
+  left: 98px;
 `;
 
 export const CategoryBox = styled.div`
@@ -133,7 +140,7 @@ export const CategoryBtn = styled.button<{
 
   :hover {
     color: #3d7fff;
-    background-color: #f1f6ff;
+    background-color: #f0f4ff;
   }
 `;
 
@@ -146,17 +153,34 @@ export const CommonBtnBox = styled.div`
   align-items: center;
 
   padding: 0 8px;
+  padding-bottom: 15px;
   position: absolute;
   top: 88%;
 `;
 
-export const CategoryCommonBtn = styled(CategoryBtn)<any>`
-  text-decoration: underline;
+export const CategoryCommonBtn = styled.button<{ color: string }>`
   border: none;
-  width: 80px;
+
   height: 12px;
-  font-style: normal;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-end;
+  padding: 2px 12px;
+  gap: 6px;
+
   font-weight: 600;
-  font-size: 12px;
+  font-size: 13px;
   line-height: 12px;
+  text-decoration-line: underline;
+
+  background: transparent;
+  color: ${(props) => props.color};
+
+  cursor: pointer;
+
+  :hover {
+    color: #3d7fff;
+  }
 `;
