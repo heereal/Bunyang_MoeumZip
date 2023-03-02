@@ -2,9 +2,11 @@ import { db, storage } from '@/common/firebase';
 import { customAlert } from '@/common/utils';
 import { currentUserState, usersListState } from '@/store/selectors';
 import { uuidv4 } from '@firebase/util';
-import { doc, updateDoc } from 'firebase/firestore';
+import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { signOut } from 'next-auth/react';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { BsCameraFill } from 'react-icons/bs';
 import { MdClose } from 'react-icons/md';
@@ -89,6 +91,15 @@ const EditProfileModal = ({ setIsModalOpen }: any) => {
     }
   };
 
+  // [회원탈퇴] 버튼 클릭 시 작동
+  const withdrawMembershipHandler = async () => {
+    if (confirm('정말 탈퇴하실건가요?🥹🥹🥹🥹')) {
+      await deleteDoc(doc(db, 'Users', currentUser.userEmail));
+      alert('회원탈퇴가 완료되었습니다.');
+      signOut({ callbackUrl: '/' });
+    }
+  };
+
   return (
     <S.ModalBackground>
       <S.ModalContainer>
@@ -142,7 +153,9 @@ const EditProfileModal = ({ setIsModalOpen }: any) => {
             수정 완료
           </S.ProfileBtn>
           <S.WithdrawUserBtnContainer>
-            <S.WithdrawUserBtn>회원탈퇴</S.WithdrawUserBtn>
+            <S.WithdrawUserBtn onClick={withdrawMembershipHandler}>
+              회원탈퇴
+            </S.WithdrawUserBtn>
           </S.WithdrawUserBtnContainer>
         </S.EditProfileContainer>
       </S.ModalContainer>
