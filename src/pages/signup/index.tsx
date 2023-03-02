@@ -25,7 +25,7 @@ const SignUp = () => {
   const router = useRouter();
 
   // 유저의 세션 정보 받아오기
-  const { data: session, status } = useSession();
+  const { data: session, status }: any = useSession();
 
   const [currentUser, setCurrentUser] = useRecoilState(currentUserState);
   const [users, setUsers] = useRecoilState(usersListState);
@@ -88,7 +88,7 @@ const SignUp = () => {
       setUsers(usersData);
       setCurrentUser(
         usersData.find(
-          (user: userProps) => user.userEmail === session?.user?.email,
+          (user: userProps) => user.userEmail === session?.user?.email && user.provider === session?.user?.provider,
         ),
       );
     },

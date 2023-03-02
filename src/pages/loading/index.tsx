@@ -29,6 +29,7 @@ const Loading = () => {
     const q = query(
       collection(db, 'Users'),
       where('userEmail', '==', session?.user?.email),
+      where('provider', '==', session?.user?.provider),
     );
 
     const querySnapshot = await getDocs(q);

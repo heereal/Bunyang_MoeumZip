@@ -17,7 +17,7 @@ const MyPage = () => {
   const [users, setUsers] = useRecoilState(usersListState);
 
   // 유저의 세션 정보 받아오기
-  const { data: session, status } = useSession();
+  const { data: session, status }: any = useSession();
   console.log('session:', session);
 
   // Users 데이터 불러오기
@@ -28,7 +28,7 @@ const MyPage = () => {
       setUsers(usersData);
       setCurrentUser(
         usersData.find(
-          (user: userProps) => user.userEmail === session?.user?.email,
+          (user: userProps) => user.userEmail === session?.user?.email && user.provider === session?.user?.provider,
         ),
       );
     },
