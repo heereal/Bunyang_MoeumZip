@@ -18,8 +18,6 @@ const APTRealPrice = ({ dongList }: any) => {
   //   ),
   // );
 
-  console.log('dongList:', dongList);
-
   return (
     <S.Wrapper>
       {dongList.length === 0 ? (
