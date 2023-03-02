@@ -37,22 +37,24 @@ export const EmailContainer = styled.div`
   margin-bottom: 30px;
 `;
 
-export const ProviderIcon = styled.div`
-  width: 17px;
-  height: 17px;
+export const ProviderIcon = styled.div<{bg: string}>`
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
-  background-color: gray;
-  margin-right: 7px;
+  background-color: ${(props) => props.bg};
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 `;
 
 export const Email = styled.div`
   font-weight: 500;
   font-size: 14px;
   color: #7b7b7b;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 5px;
 `;
 
 export const ProfileBtn = styled.div`
