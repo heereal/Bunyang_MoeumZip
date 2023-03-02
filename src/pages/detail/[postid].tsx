@@ -2,6 +2,8 @@ import { getHomeList } from '@/common/api';
 import CommentsList from '@/components/DetailPage/Comments/CommentsList';
 import PostDetail from '@/components/DetailPage/PostDetail/PostDetail';
 import HeadTitle from '@/components/GlobalComponents/HeadTitle/HeadTitle';
+import TopBtn from '@/components/GlobalComponents/TopBtn/TopBtn';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { dehydrate, QueryClient } from 'react-query';
 import * as S from '../../styles/detail.style';
@@ -9,11 +11,19 @@ import * as S from '../../styles/detail.style';
 const DetailPage = ({ dehydratedState }: any) => {
   const router = useRouter();
 
+  const TopBtn = dynamic(
+    () => import('@/components/GlobalComponents/TopBtn/TopBtn'),
+    {
+      ssr: false,
+    },
+  );
+
   return (
-    <S.DetailBody id="detailBody">
+    <S.DetailBody id="topBtnScroll">
       <HeadTitle title="상세페이지" />
       <PostDetail postId={router?.query.postid} />
       <CommentsList postId={router?.query.postid} />
+      <TopBtn />
     </S.DetailBody>
   );
 };

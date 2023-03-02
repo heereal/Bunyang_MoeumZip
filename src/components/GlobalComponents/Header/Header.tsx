@@ -48,7 +48,6 @@ const Header = () => {
             priority={true}
           />
 
-          {/* 로고 대신 글씨 넣어놓은 것 */}
           <div
             onClick={() => router.push('/')}
             style={{
@@ -68,7 +67,6 @@ const Header = () => {
           <S.NavContent onClick={() => router.push('/calendar')}>
             청약캘린더
           </S.NavContent>
-          {/* <S.NavContent onClick={() => router.push('/')}>청약정보</S.NavContent> */}
 
           {session ? (
             <>

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 // Top button
 export const TopBtnSection = styled.div`
   position: fixed;
-  right: 3%;
+  right: 43%;
   bottom: 5%;
   z-index: 1;
 `;
