@@ -19,7 +19,7 @@ const Loading = () => {
   const router = useRouter();
 
   // 유저의 세션 정보 받아오기
-  const { data: session } = useSession();
+  const { data: session }: any = useSession();
 
   // 현재 로그인한 유저의 정보가 firestore 'Users' collection에 존재하는지 비교함
   const redirectUser = async () => {
@@ -42,6 +42,7 @@ const Loading = () => {
       userEmail: session?.user?.email,
       userName: session?.user?.name,
       userImage: session?.user?.image,
+      provider: session?.user?.provider,
       bookmarkList: [],
       regions: regionArray,
       types: typesArray,

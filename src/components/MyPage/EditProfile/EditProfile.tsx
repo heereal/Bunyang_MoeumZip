@@ -25,7 +25,11 @@ const EditProfile = ({ currentUser }: any) => {
           priority={true}
         />
         <S.Nickname>{currentUser.userName}</S.Nickname>
-        <S.Email>{currentUser.userEmail}</S.Email>
+        <S.EmailContainer>
+          {/* {currentUser} */}
+          <S.ProviderIcon></S.ProviderIcon>
+          <S.Email>{currentUser.userEmail}</S.Email>
+        </S.EmailContainer>
         <S.ProfileBtn onClick={() => setIsModalOpen(true)}>
           회원정보 수정
         </S.ProfileBtn>

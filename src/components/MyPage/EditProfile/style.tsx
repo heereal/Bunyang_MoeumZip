@@ -32,12 +32,27 @@ export const Nickname = styled.div`
   padding: 20px 0 5px 0;
 `;
 
+export const EmailContainer = styled.div`
+  display: flex;
+  margin-bottom: 30px;
+`;
+
+export const ProviderIcon = styled.div`
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  background-color: gray;
+  margin-right: 7px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 export const Email = styled.div`
   font-weight: 500;
   font-size: 14px;
   color: #7b7b7b;
   text-align: center;
-  margin-bottom: 30px;
 `;
 
 export const ProfileBtn = styled.div`
