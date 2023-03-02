@@ -2,7 +2,6 @@ import { addHomeList } from '@/common/api';
 import { db } from '@/common/firebase';
 import { getToday } from '@/common/utils';
 import HeadTitle from '@/components/GlobalComponents/HeadTitle/HeadTitle';
-import { async } from '@firebase/util';
 import axios from 'axios';
 import { doc, getDoc } from 'firebase/firestore';
 import { GetStaticProps } from 'next';
@@ -735,7 +734,7 @@ export const getStaticProps: GetStaticProps = async () => {
   const METHOD_OFFICE_DEFAULT = 'getUrbtyOfctlLttotPblancDetail';
   const METHOD_OFFICE_DETAIL = 'getUrbtyOfctlLttotPblancMdl';
 
-  // LH TODO: 다시 살펴보기
+  // LH
   const METHOD_LH_DEFAULT = 'lhLeaseNoticeInfo1/lhLeaseNoticeInfo1';
   const METHOD_LH_DETAIL = 'lhLeaseNoticeDtlInfo1/getLeaseNoticeDtlInfo1';
 
@@ -831,7 +830,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
   // APT Default + Detail 통합 List
   const aptCombineList = await Promise.all(
-    aptDefaultList.map(async (item: any) => {
+    aptDefaultList.map((item: any) => {
       return {
         ...item,
         detail: aptDetailList.filter(
@@ -843,7 +842,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
   // APT 무순위 Default + Detail 통합 List
   const aptRandomCombineList = await Promise.all(
-    aptRandomDefaultList.map(async (item: any) => {
+    aptRandomDefaultList.map((item: any) => {
       return {
         ...item,
         detail: aptRandomDetailList.filter(
@@ -855,7 +854,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
   // 오피스텔/도시형/민간임대 Default + Detail 통합 List
   const officeCombineList = await Promise.all(
-    officeDefaultList.map(async (item: any) => {
+    officeDefaultList.map((item: any) => {
       return {
         ...item,
         detail: officeDetailList.filter(
