@@ -36,7 +36,7 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
   const [selectedTypeArray] = useRecoilState(selectedTypeList);
 
   // 로그인 여부 확인
-  const { data: session } = useSession();
+  const { data: session }: any = useSession();
 
   // Users 데이터 불러오기
   const { data: users, isLoading }: any = useQuery('users', getUsersList, {
@@ -45,7 +45,7 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
 
   // 현재 유저의 데이터 불러오기
   const currentUser = users?.find(
-    (item: ItemJ) => item.userEmail === session?.user?.email,
+    (item: ItemJ) => item.userEmail === session?.user?.email  && item.provider === session?.user?.provider,
   );
 
   // 현재 유저의 관심 지역 및 분양 형태 통합 리스트
