@@ -13,6 +13,7 @@ import SubscriptionSchedule from './SubscriptionSchedule';
 import SupplyInfo from './SupplyInfo';
 import { getAPTRealPriceList } from '@/common/api';
 import { LAWD_CD_Code } from '@/common/LAWD_CD';
+import LHDetail from './LHDetail';
 
 const PostDetail = ({ postId }: DetailPagePropsP) => {
   const queryClient = useQueryClient();
@@ -151,6 +152,7 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
       {home?.API === 'LH' && !isRealPriceTab && (
         <S.Container>
           <DetailKeyInfo home={home} />
+          <LHDetail home={home} />
         </S.Container>
       )}
 

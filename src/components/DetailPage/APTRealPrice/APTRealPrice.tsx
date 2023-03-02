@@ -18,11 +18,9 @@ const APTRealPrice = ({ dongList }: any) => {
   //   ),
   // );
 
-  console.log('dongList:', dongList);
-
   return (
     <S.Wrapper>
-      {dongList.length === 0 ? (
+      {dongList?.length === 0 ? (
         '해당 지역의 최근 아파트 매매 실거래가 정보가 없습니다.'
       ) : (
         <S.Table>
