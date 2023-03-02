@@ -78,8 +78,29 @@ const ListList = ({ list }: PropsListJ) => {
                     '일'}
               </S.CardDate>
             </>
+          ) : list.PPR_ACP_ST_DT ? (
+            <>
+              <S.CardDateTitle>사전 접수일</S.CardDateTitle>
+              <S.CardDate>
+                {list.PPR_ACP_ST_DT === list.PPR_ACP_CLSG_DT
+                  ? list.PPR_ACP_ST_DT.slice(5, 7).replace(/(^0)/, '') +
+                    '월 ' +
+                    list.PPR_ACP_ST_DT.slice(8, 10).replace(/(^0)/, '') +
+                    '일'
+                  : list.PPR_ACP_ST_DT.slice(5, 7).replace(/(^0)/, '') +
+                    '월' +
+                    list.PPR_ACP_ST_DT.slice(8, 10).replace(/(^0)/, '') +
+                    '일 ~ ' +
+                    list.PPR_ACP_CLSG_DT.slice(5, 7).replace(/(^0)/, '') +
+                    '월' +
+                    list.PPR_ACP_CLSG_DT.slice(8, 10).replace(/(^0)/, '') +
+                    '일'}
+              </S.CardDate>
+            </>
+          ) : list.API === 'LH' ? (
+            <S.NoDate>사전 접수일 정보가 없습니다.</S.NoDate>
           ) : (
-            <S.NoDate>특별 청약일이 없습니다.</S.NoDate>
+            <S.NoDate>특별 청약일 정보가 없습니다.</S.NoDate>
           )}
         </S.CardDateBox>
         <S.CardDateBox>
