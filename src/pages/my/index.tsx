@@ -18,6 +18,7 @@ const MyPage = () => {
 
   // 유저의 세션 정보 받아오기
   const { data: session, status } = useSession();
+  console.log('session:', session);
 
   // Users 데이터 불러오기
   const { data: usersData }: any = useQuery('users', getUsersList, {
@@ -36,7 +37,8 @@ const MyPage = () => {
   //TODO: 로딩페이지에서 넘어온 거 아니면 접근 못하도록 제한하기
   useEffect(() => {
     // 비로그인 유저일 경우 접근 제한
-    if (status === 'unauthenticated' || currentUser === undefined) router.push('/');
+    if (status === 'unauthenticated' || currentUser === undefined)
+      router.push('/');
     // eslint-disable-next-line
   }, [session]);
 

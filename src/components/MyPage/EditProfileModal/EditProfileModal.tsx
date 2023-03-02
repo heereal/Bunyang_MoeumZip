@@ -6,7 +6,6 @@ import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { signOut } from 'next-auth/react';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { BsCameraFill } from 'react-icons/bs';
 import { MdClose } from 'react-icons/md';

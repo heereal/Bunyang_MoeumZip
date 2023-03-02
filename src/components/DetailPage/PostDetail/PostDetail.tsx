@@ -94,30 +94,11 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
     },
   );
 
-   console.log(
-    '디테일 페이지 동 주소:',
-    detail.HSSPLY_ADRES.split('(').length > 1
-      ? detail.HSSPLY_ADRES.split('(')[1].slice(0, 3)
-      : detail.HSSPLY_ADRES.split(' ')[2],
-  );
-
-  // 유효성 검사 위한 주석이니 삭제하지 말아 주세요😇
-  APTRealPriceList?.map((item: any) =>
-    console.log(
-      item.법정동.split(' ')[0] === ''
-        ? item.법정동.split(' ')[1]
-        : item.법정동.split(' ')[0],
-    ),
-  );
-
-  console.log('APTRealPriceList:', APTRealPriceList);
-  console.log('LAWD_CD:', LAWD_CD);
-
   useEffect(() => {
     setHome(detail);
     homeListRefetch();
     bookmarksListRefetch();
-    // APTRealPriceRefetch();
+    APTRealPriceRefetch();
     // eslint-disable-next-line
   }, [detail]);
 
