@@ -8,12 +8,12 @@ const SupplyInfo = ({ home }: PropsP) => {
       <S.ArticleHead>공급개요 </S.ArticleHead>
       <S.ArticleBox>
         <S.SPLtable>
-          <S.SPLNUM style={{ width: '10%', backgroundColor: '#f4f4f4' }}>
+          <S.SPLNUM style={{ width: '10%', backgroundColor: '#f0f4ff' }}>
             번호
           </S.SPLNUM>
-          <S.SPLhead color="#f4f4f4">주거전용면적</S.SPLhead>
-          <S.SPLhead color="#f4f4f4">공급면적</S.SPLhead>
-          <S.SPLhead color="#f4f4f4" style={{ flexDirection: 'column' }}>
+          <S.SPLhead color="#f0f4ff">주거전용면적</S.SPLhead>
+          <S.SPLhead color="#f0f4ff">공급면적</S.SPLhead>
+          <S.SPLhead color="#f0f4ff" style={{ flexDirection: 'column' }}>
             <div style={{ padding: 5 }}>공급세대수</div>
             <div
               style={{
@@ -29,7 +29,7 @@ const SupplyInfo = ({ home }: PropsP) => {
               <div style={{ width: '33%' }}>총계</div>
             </div>
           </S.SPLhead>
-          <S.SPLhead color="#f4f4f4" style={{ flexDirection: 'column' }}>
+          <S.SPLhead color="#f0f4ff" style={{ flexDirection: 'column' }}>
             <p>공급금액</p>
             <p>(최고가 기준)</p>
           </S.SPLhead>
@@ -37,7 +37,7 @@ const SupplyInfo = ({ home }: PropsP) => {
         {home?.DETAIL.map((item: ItemJ) => {
           return (
             <S.SPLtable key={item.MODEL_NO}>
-              <S.SPLNUM style={{ width: '10%', backgroundColor: '#f4f4f4' }}>
+              <S.SPLNUM style={{ width: '10%', backgroundColor: '#f0f4ff' }}>
                 {item.MODEL_NO}
               </S.SPLNUM>
               {item.HOUSE_TY ? (

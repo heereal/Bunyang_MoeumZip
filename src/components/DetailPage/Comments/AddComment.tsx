@@ -2,16 +2,19 @@ import { addComment } from '@/common/api';
 import { customAlert, postTime } from '@/common/utils';
 import { arrayUnion } from 'firebase/firestore';
 import Image from 'next/image';
+import favicon from 'public/favicon.ico';
 import { KeyboardEvent, useState } from 'react';
-import { RiPencilFill } from 'react-icons/ri';
 import { useMutation } from 'react-query';
-import logo from '../../../../public/assets/logo.png';
-import * as S from './style';
+
 import { uuidv4 } from '@firebase/util';
+import * as S from './style';
 
 const AddComment = ({ user, postId, queryClient, refetch }: CommentPropsP) => {
   const [input, setInput] = useState<string>('');
   const [clicked, setClicked] = useState(true);
+  const [borderProps, setBorderProps] = useState<string>('2px solid #b9b9b9');
+  const [boxOpen, setBoxOpen] = useState<boolean>(false);
+
   const postDate = postTime();
 
   const addCommentHandler = async () => {
@@ -29,6 +32,7 @@ const AddComment = ({ user, postId, queryClient, refetch }: CommentPropsP) => {
         userEmail: user?.userEmail,
         userImage: user?.userImage,
         commentId: uuidv4(),
+        provider: user?.provider,
       }),
     };
     if (typeof postId === 'string') {
@@ -36,6 +40,8 @@ const AddComment = ({ user, postId, queryClient, refetch }: CommentPropsP) => {
     }
     setInput('');
     setClicked(false);
+    setBoxOpen(false);
+    setBorderProps('2px solid #b9b9b9');
   };
 
   const addMutation = useMutation(addComment, {
@@ -55,38 +61,59 @@ const AddComment = ({ user, postId, queryClient, refetch }: CommentPropsP) => {
   };
 
   return (
-    <S.AddCommentBox>
-      <S.ImageBox>
-        <Image
-          width={45}
-          height={45}
-          alt="profile"
-          src={typeof user?.userImage === 'string' ? user?.userImage : logo}
-          quality={75}
-          loading="lazy"
-          style={{ borderRadius: 25, objectFit: 'cover' }}
-        />
-      </S.ImageBox>
+    <>
+      <S.AddCommentBox>
+        <S.ImageBox>
+          <Image
+            width={40}
+            height={40}
+            alt="profile"
+            src={
+              typeof user?.userImage === 'string' ? user?.userImage : favicon
+            }
+            quality={75}
+            loading="lazy"
+            style={{ borderRadius: 25, objectFit: 'cover' }}
+          />
+        </S.ImageBox>
 
-      <S.InputBox>
-        <S.Input
-          placeholder={
-            user
-              ? '댓글을 남겨주세요.'
-              : '로그인을 하시면 댓글 기능을 이용할 수 있습니다.'
-          }
-          onChange={(e) => setInput(e.currentTarget.value)}
-          value={input}
-          onKeyPress={(e) => OnKeyPressHandler(e, 'add')}
-          disabled={user || clicked === false ? false : true}
-        />
-      </S.InputBox>
-      <S.BtnBox>
-        <S.SubmitBtn onClick={user ? addCommentHandler : undefined}>
-          댓글 게시
-        </S.SubmitBtn>
-      </S.BtnBox>
-    </S.AddCommentBox>
+        <S.InputBox
+          border={borderProps}
+          onClick={() => {
+            setBorderProps('2px solid black');
+            setBoxOpen(true);
+          }}
+        >
+          <S.Input
+            placeholder={
+              user
+                ? '댓글을 남겨주세요.'
+                : '로그인을 하시면 댓글 기능을 이용할 수 있습니다.'
+            }
+            onChange={(e) => setInput(e.currentTarget.value)}
+            value={input}
+            onKeyPress={(e) => OnKeyPressHandler(e, 'add')}
+            disabled={user || clicked === false ? false : true}
+          />
+        </S.InputBox>
+      </S.AddCommentBox>
+      {boxOpen && (
+        <S.BtnBox>
+          <S.SubmitBtn onClick={user ? addCommentHandler : undefined}>
+            게시
+          </S.SubmitBtn>
+          <S.SubmitBtn
+            onClick={() => {
+              setBoxOpen(false);
+              setBorderProps('2px solid #b9b9b9');
+            }}
+            style={{ backgroundColor: '#E8EAEF', color: '#7B7B7B' }}
+          >
+            취소
+          </S.SubmitBtn>
+        </S.BtnBox>
+      )}
+    </>
   );
 };
 

@@ -16,7 +16,12 @@ interface CommentPropsP {
   date?: string;
   postId: string | string[] | undefined;
   user:
-    | { userName?: string; userEmail?: string; userImage?: string }
+    | {
+        userName?: string;
+        userEmail?: string;
+        userImage?: string;
+        provider?: string;
+      }
     | undefined;
   queryClient?: QueryClient;
   comment?: {
@@ -27,6 +32,7 @@ interface CommentPropsP {
     userImage?: string;
     commentId?: string;
     edit?: boolean;
+    provider?: string;
   };
   index?: number;
   comments?: [];
@@ -39,6 +45,7 @@ interface CommentPropsP {
     edit?: boolean;
     userEmail?: string;
     contents?: string;
+    provider?: string;
   };
 }
 

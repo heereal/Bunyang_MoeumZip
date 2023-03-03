@@ -19,11 +19,11 @@ const SpecialSupply = ({ home }: PropsP) => {
 
           <S.ArticleBox>
             <S.SPLtable>
-              <S.SpecialHead style={{ width: '20%' }} color="#f4f4f4">
+              <S.SpecialHead style={{ width: '20%' }} color="#f0f4ff">
                 주거전용면적
               </S.SpecialHead>
               <S.SpecialHead
-                color="#f4f4f4"
+                color="#f0f4ff"
                 style={{ flexDirection: 'column' }}
               >
                 <div style={{ padding: 5 }}>공급세대수</div>
@@ -51,7 +51,7 @@ const SpecialSupply = ({ home }: PropsP) => {
               return (
                 <S.SPLtable key={item.MODEL_NO}>
                   <S.SPLNUM
-                    style={{ width: '20%', backgroundColor: '#f4f4f4' }}
+                    style={{ width: '20%', backgroundColor: '#f0f4ff' }}
                   >
                     {item.HOUSE_TY}
                   </S.SPLNUM>

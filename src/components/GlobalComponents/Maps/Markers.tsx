@@ -2,6 +2,9 @@ import { DocumentData } from 'firebase/firestore';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import * as ReactDOMServer from 'react-dom/server';
+import ClusterLarge from './Cluster/ClusterLarge';
+import ClusterMid from './Cluster/ClusterMid';
+import ClusterSmall from './Cluster/ClusterSmall';
 import MarkerIcon from './MarkerIcon';
 import Overlay from './Overlay';
 
@@ -16,24 +19,19 @@ const Markers = ({ map, home }: MarkersProps) => {
   useEffect(() => {
     if (map) {
       // NOTE: 'naver is not defined' 오류를 피하기 위한 hack 코드.  dynamic import를 사용
-      import('./cluster').then(({ MarkerClustering }) => {
+      import('./Cluster/cluster').then(({ MarkerClustering }) => {
         var htmlMarker1 = {
-            content: [
-              `<div style='width: 40px; height: 40px; border-radius: 50%;  background: #b08fc5;
-                           display: flex; align-items: center; justify-content: center'>`,
-              `<span style='color: white; font-size: 0.875rem'>1</span>`,
-              `</div>`,
-            ].join(''),
+            content: ReactDOMServer.renderToString(<ClusterSmall />),
             size: new naver.maps.Size(40, 40),
             anchor: new naver.maps.Point(20, 20),
           },
           htmlMarker2 = {
-            content: [
-              `<div style='width: 80px; height: 80px; border-radius: 50%;  background: skyblue; opacity:0.6; 
-                           display: flex; align-items: center; justify-content: center'>`,
-              `<span style='color: white; font-size: 1.2rem'>2</span>`,
-              `</div>`,
-            ].join(''),
+            content: ReactDOMServer.renderToString(<ClusterMid />),
+            size: new naver.maps.Size(40, 40),
+            anchor: new naver.maps.Point(20, 20),
+          },
+          htmlMarker3 = {
+            content: ReactDOMServer.renderToString(<ClusterLarge />),
             size: new naver.maps.Size(40, 40),
             anchor: new naver.maps.Point(20, 20),
           };
@@ -97,7 +95,7 @@ const Markers = ({ map, home }: MarkersProps) => {
           markers: markers,
           disableClickZoom: false,
           gridSize: 120,
-          icons: [htmlMarker1, htmlMarker2],
+          icons: [htmlMarker1, htmlMarker2, htmlMarker3],
           indexGenerator: [3, 5],
           stylingFunction: function (clusterMarker: any, count: number) {
             // NOTE: MarkerClustering.js가 자바스크립트라 임시로 any 적용

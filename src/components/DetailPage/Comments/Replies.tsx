@@ -21,6 +21,7 @@ const Replies = ({
   const [editInput, setEditInput] = useState<string | undefined>('');
   const date = list?.date;
   const id = comment?.commentId;
+  const provider = comment?.provider;
 
   const deleteReplyHandler = async (index: number) => {
     confirmAlert({
@@ -64,6 +65,7 @@ const Replies = ({
           userEmail: user?.userEmail,
           userImage: user?.userImage,
           edit: true,
+          provider: provider,
         }),
       };
       editMutation.mutate({ postId, comment, newComment });
@@ -99,8 +101,8 @@ const Replies = ({
         <S.ImageBox>
           {list?.userImage && (
             <Image
-              width={45}
-              height={45}
+              width={35}
+              height={35}
               alt="profile"
               src={list?.userImage}
               quality={75}
@@ -116,43 +118,62 @@ const Replies = ({
                 display: 'flex',
                 gap: 10,
                 alignItems: 'center',
+                fontSize: 14,
               }}
             >
               <div>{list?.nickName}</div>
               <div style={{ fontSize: 13, color: '#B9B9B9' }}>
                 {typeof list?.date === 'string' && getDate(list?.date)}
               </div>
-              {list?.edit && <div>수정됨</div>}
+              {list?.edit && (
+                <div
+                  style={{ color: '#7B7B7B', fontSize: 12, fontWeight: 500 }}
+                >
+                  수정됨
+                </div>
+              )}
             </div>
             <div style={{ display: 'flex', gap: 4 }}>
-              {!isOpen && user?.userEmail === list?.userEmail && (
-                <>
-                  <S.Btn
-                    onClick={() => {
-                      setIsOpen(true);
-                      setEditInput(list?.contents);
-                    }}
-                  >
-                    수정
-                  </S.Btn>
-                  <S.Btn
-                    onClick={() => {
-                      typeof index === 'number' && deleteReplyHandler(index);
-                    }}
-                  >
-                    삭제
-                  </S.Btn>
-                </>
-              )}
+              {!isOpen &&
+                user?.userEmail === list?.userEmail &&
+                user?.provider === list?.provider && (
+                  <div style={{ display: 'flex', gap: 10 }}>
+                    <S.Btn
+                      onClick={() => {
+                        setIsOpen(true);
+                        setEditInput(list?.contents);
+                      }}
+                    >
+                      수정
+                    </S.Btn>
+                    <S.Btn
+                      onClick={() => {
+                        typeof index === 'number' && deleteReplyHandler(index);
+                      }}
+                    >
+                      삭제
+                    </S.Btn>
+                  </div>
+                )}
               {isOpen && user?.userEmail === list?.userEmail && (
-                <>
+                <div style={{ display: 'flex', gap: 10 }}>
                   <S.Btn onClick={() => setIsOpen(false)}>취소</S.Btn>
                   <S.Btn onClick={() => editReplyHandler(index)}>완료</S.Btn>
-                </>
+                </div>
               )}
             </div>
           </S.UserNameBox>
-          {!isOpen && <S.ContentsBox>{list?.contents}</S.ContentsBox>}
+          {!isOpen && (
+            <S.ContentsBox
+              style={{
+                fontSize: 14,
+                width: '100%',
+                wordBreak: 'break-all',
+              }}
+            >
+              <p>{list?.contents}</p>
+            </S.ContentsBox>
+          )}
           {isOpen && (
             <S.ContentsBox>
               <S.EditInput
@@ -160,6 +181,7 @@ const Replies = ({
                 defaultValue={list?.contents}
                 autoFocus
                 onKeyPress={(e) => OnKeyPressHandler(e, 'edit')}
+                style={{ fontSize: 14, color: 'black' }}
               />
             </S.ContentsBox>
           )}

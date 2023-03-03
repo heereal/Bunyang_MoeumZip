@@ -65,3 +65,17 @@ export const NavContent = styled.nav`
 
   cursor: pointer;
 `;
+export const NavContent2 = styled.nav`
+  padding: 0 5px;
+  height: 17px;
+
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 17px;
+  display: none;
+
+  cursor: pointer;
+  @media screen and (max-width: 768px) {
+    display: block;
+  }
+`;

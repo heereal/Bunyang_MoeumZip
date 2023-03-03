@@ -11,7 +11,7 @@ const SubscriptionSchedule = ({ home }: PropsP) => {
       <S.ArticleHead>청약일정</S.ArticleHead>
       <S.ArticleBox>
         <S.Article>
-          <S.BoxTitle color="#f4f4f4">모집공고일</S.BoxTitle>
+          <S.BoxTitle color="#f0f4ff">모집공고일</S.BoxTitle>
           <S.BoxContent>{home?.RCRIT_PBLANC_DE}</S.BoxContent>
         </S.Article>
         {home?.HOUSE_SECD === '02' ||
@@ -19,7 +19,7 @@ const SubscriptionSchedule = ({ home }: PropsP) => {
           home?.HOUSE_SECD === '03' ||
           (home?.HOUSE_SECD === '04' ? null : (
             <S.Article>
-              <S.BoxTitle color="#f4f4f4" style={{ height: 204 }}>
+              <S.BoxTitle color="#f0f4ff" style={{ height: 204 }}>
                 청약접수
               </S.BoxTitle>
               <S.BoxContent style={{ paddingLeft: 0 }}>
@@ -27,7 +27,7 @@ const SubscriptionSchedule = ({ home }: PropsP) => {
                   <S.THead>
                     <S.Tbody
                       style={{
-                        backgroundColor: '#E5EDFF',
+                        backgroundColor: '#f0f4ff',
                         color: '#356EFF',
                         fontWeight: 600,
                       }}
@@ -36,7 +36,7 @@ const SubscriptionSchedule = ({ home }: PropsP) => {
                     </S.Tbody>
                     <S.Tbody
                       style={{
-                        backgroundColor: '#E5EDFF',
+                        backgroundColor: '#f0f4ff',
                         color: '#356EFF',
                         fontWeight: 600,
                       }}
@@ -45,7 +45,7 @@ const SubscriptionSchedule = ({ home }: PropsP) => {
                     </S.Tbody>
                     <S.Tbody
                       style={{
-                        backgroundColor: '#E5EDFF',
+                        backgroundColor: '#f0f4ff',
                         color: '#356EFF',
                         fontWeight: 600,
                       }}
@@ -54,7 +54,7 @@ const SubscriptionSchedule = ({ home }: PropsP) => {
                     </S.Tbody>
                     <S.Tbody
                       style={{
-                        backgroundColor: '#E5EDFF',
+                        backgroundColor: '#f0f4ff',
                         color: '#356EFF',
                         fontWeight: 600,
                       }}

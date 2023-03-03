@@ -28,12 +28,13 @@ export const AddCommentBox = styled.div`
   gap: 10px;
 `;
 
-export const ImageBox = styled.div``;
+export const ImageBox = styled.div`
+  height: 100%;
+`;
 
-export const InputBox = styled.div`
-  width: 85%;
-  border-radius: 10px;
-  border: 2px solid #b9b9b9;
+export const InputBox = styled.div<any>`
+  width: 95%;
+  border-bottom: ${(props) => props.border};
   height: 40px;
   background-color: white;
   display: flex;
@@ -42,7 +43,7 @@ export const InputBox = styled.div`
 
 export const Input = styled.input`
   all: unset;
-  padding-left: 10px;
+  padding-left: 5px;
   width: 80%;
   height: 100%;
 `;
@@ -57,10 +58,10 @@ export const CommentListBox = styled.div<{ blur: string }>`
   padding: 20px;
   display: flex;
   justify-content: center;
-  align-items: center;
   width: 100%;
   filter: blur(${(props) => props.blur});
   gap: 10px;
+  height: 100%;
 `;
 
 export const CommentBox = styled.div`
@@ -69,6 +70,7 @@ export const CommentBox = styled.div`
   width: 92%;
   height: 50px;
   justify-content: center;
+  height: 100%;
 `;
 
 export const ContentsBox = styled.div`
@@ -80,19 +82,19 @@ export const ContentsBox = styled.div`
 `;
 export const EditInput = styled.input`
   all: unset;
-  padding-left: 10px;
+  padding-left: 5px;
   width: 90%;
   height: 100%;
   font-weight: 400;
-  border-radius: 10px;
-  border: 2px solid #b9b9b9;
-  height: 30px;
+  border-bottom: 2px solid black;
+  height: 20px;
   background-color: white;
   font-size: 16px;
 `;
 export const EditSubmit = styled.button`
   all: unset;
-  width: 70px;
+  width: 45px;
+  height: 25px;
   text-align: center;
   background-color: #4f70e4;
   border-radius: 7px;
@@ -103,11 +105,12 @@ export const EditSubmit = styled.button`
 `;
 export const EditCancel = styled.button`
   all: unset;
-  width: 50px;
+  width: 45px;
+  height: 25px;
   text-align: center;
-  background-color: #e44f72;
+  background-color: #e8eaef;
   border-radius: 7px;
-  color: white;
+  color: #7b7b7b;
   font-size: 12px;
   padding: 1px;
   cursor: pointer;
@@ -116,18 +119,19 @@ export const EditCancel = styled.button`
 export const Btn = styled.div`
   display: flex;
   align-items: center;
-  padding: 11px 13px;
+
   height: 25px;
-  background: #f1f6ff;
-  border-radius: 10px;
-  color: #3d7fff;
+  color: #8e8e8e;
   font-size: 13px;
   cursor: pointer;
 `;
 export const BtnBox = styled.div`
-  padding-right: 10px;
-  margin-top: 3px;
+  display: flex;
+  flex-direction: row-reverse;
+  padding-right: 20px;
+  margin-top: -10px;
   cursor: pointer;
+  gap: 5px;
 `;
 
 export const SubmitBtn = styled.div`
@@ -136,8 +140,8 @@ export const SubmitBtn = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 83px;
-  height: 40px;
+  width: 55px;
+  height: 33px;
   cursor: pointer;
   padding: 8px;
   color: white;
