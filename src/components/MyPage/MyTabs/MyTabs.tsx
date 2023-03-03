@@ -8,7 +8,11 @@ import HomeList from '@/components/GlobalComponents/HomeList/HomeList';
 import { db } from '@/common/firebase';
 import { doc, updateDoc } from 'firebase/firestore';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { currentUserState, myRegionArrayState, myTypeArrayState } from '@/store/selectors';
+import {
+  currentUserState,
+  myRegionArrayState,
+  myTypeArrayState,
+} from '@/store/selectors';
 import { customAlert } from '@/common/utils';
 
 const MyTabs = () => {
@@ -31,7 +35,10 @@ const MyTabs = () => {
       [category]: array,
     };
 
-    await updateDoc(doc(db, 'Users', `${currentUser.provider}_${currentUser.userEmail}`), updateUser);
+    await updateDoc(
+      doc(db, 'Users', `${currentUser.provider}_${currentUser.userEmail}`),
+      updateUser,
+    );
     setCurrentUser({
       ...currentUser,
       [category]: array,
@@ -66,9 +73,13 @@ const MyTabs = () => {
         {/* 북마크 목록 */}
         {currentTab === 1 && (
           <S.BookmarkListContainer>
-            {myBookmarkList?.map((item: ItemJ) => {
-              return <HomeList list={item} key={item.PBLANC_NO} />;
-            })}
+            {myBookmarkList?.length === 0 ? (
+              <div>북마크 없음</div>
+            ) : (
+              myBookmarkList?.map((item: ItemJ) => {
+                return <HomeList list={item} key={item.PBLANC_NO} />;
+              })
+            )}
           </S.BookmarkListContainer>
         )}
         {/* 관심 지역 */}
