@@ -32,15 +32,15 @@ export const CountTabList = styled.ul<{ bd: string; bs: string }>`
   /* CountTab */
   .baseTab {
     // 기본 Tab
-    width: 17%;
-    height: 72px;
+    width: 110px;
+    height: 76px;
 
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
     padding: 11px;
-    gap: 10px;
+    gap: 14px;
 
     background: #ffffff;
     border: 1.5px solid #d8d8d8;
