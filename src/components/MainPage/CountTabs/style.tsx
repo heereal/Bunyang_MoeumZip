@@ -69,10 +69,11 @@ export const BaseCountTab = styled.li<{ bd: string; bs: string }>`
 export const CountTabName = styled.div`
   width: 100%;
   font-style: normal;
-  font-weight: 600;
-  font-size: 12px;
+  font-weight: 700;
+  font-size: 13px;
   line-height: 140%;
   text-align: center;
+  color: #8e8e8e;
 
   display: flex;
   justify-content: flex-start;
@@ -86,6 +87,7 @@ export const CountTabNum = styled(CountTabName)`
   font-weight: 700;
   font-size: 22px;
   line-height: 80%;
+  color: #000;
 `;
 
 // 리스트

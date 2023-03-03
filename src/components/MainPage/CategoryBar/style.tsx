@@ -58,7 +58,7 @@ export const TabNameBox = styled.div`
 export const TabName = styled.p<{ color: string }>`
   font-style: normal;
   font-weight: 600;
-  font-size: 12px;
+  font-size: 13px;
   line-height: 17px;
   color: ${(props) => props.color};
 

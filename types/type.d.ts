@@ -15,8 +15,8 @@ declare interface AddCommentP {
 interface CommentPropsP {
   postId: string | string[] | undefined;
   user:
-    | { userName?: string; userEmail?: string; userImage?: string }
-    | undefined;
+  | { userName?: string; userEmail?: string; userImage?: string }
+  | undefined;
   queryClient?: QueryClient;
   comment?: {
     date: number;
@@ -132,4 +132,7 @@ type keywordJ = string | string[] | undefined;
 interface keywordPropsJ {
   keyword?: keywordJ;
   text: string;
+  text2?: string;
+  text3?: string;
+  wrong?: string;
 }
