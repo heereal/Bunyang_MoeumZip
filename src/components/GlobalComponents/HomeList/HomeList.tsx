@@ -1,6 +1,11 @@
 import { getToday } from '@/common/utils';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 import * as S from './style';
+import allIcon from 'public/assets/all.png';
+import todayIcon from 'public/assets/today.png';
+import comingIcon from 'public/assets/coming.png';
+import randomIcon from 'public/assets/random.png';
 
 const ListList = ({ list }: PropsListJ) => {
   const router = useRouter();
@@ -10,7 +15,44 @@ const ListList = ({ list }: PropsListJ) => {
 
   return (
     <S.ListArticle onClick={() => router.push(`/detail/${list.PBLANC_NO}`)}>
-      <S.CardHeader>
+      {/* 분류 띠 */}
+      <S.Ribbon>
+        <Image
+          width={28}
+          height={22}
+          src={
+            list.HOUSE_SECD === '04'
+              ? randomIcon
+              : list.RCEPT_BGNDE <= today
+              ? todayIcon
+              : list.RCEPT_BGNDE > today
+              ? comingIcon
+              : allIcon
+          }
+          alt="allIcon"
+          quality={100}
+          priority={true}
+        />
+        <S.RibbonText>
+          {list.HOUSE_SECD === '04'
+            ? '무순위'
+            : list.RCEPT_BGNDE > today
+            ? '청약예정'
+            : '청약가능'}
+        </S.RibbonText>
+      </S.Ribbon>
+
+      {/* 주택 이름 */}
+      <S.CardTitleBox>
+        <S.CardTitle>
+          {list.HOUSE_NM.length < 13
+            ? list.HOUSE_NM
+            : list.HOUSE_NM.slice(0, 13) + '...'}
+        </S.CardTitle>
+      </S.CardTitleBox>
+
+      <S.CardCategoryContainer>
+        {/* 분양형태 / 주택 형태 */}
         <S.CardCategoryBox>
           {list.HOUSE_DTL_SECD_NM === list.HOUSE_SECD_NM ? (
             <S.CardCategory>{list.HOUSE_DTL_SECD_NM}</S.CardCategory>
@@ -27,35 +69,35 @@ const ListList = ({ list }: PropsListJ) => {
             ''
           )}
 
+          {/* 지역 이름 */}
           <S.CardCategory>{list.SUBSCRPT_AREA_CODE_NM}</S.CardCategory>
         </S.CardCategoryBox>
-      </S.CardHeader>
+      </S.CardCategoryContainer>
 
-      <S.CardTitleBox>
-        <S.CardTitle>
-          {list.HOUSE_NM.length < 13
-            ? list.HOUSE_NM
-            : list.HOUSE_NM.slice(0, 13) + '...'}
-        </S.CardTitle>
-      </S.CardTitleBox>
-      {/* 분류 띠 */}
-      <S.Ribbon
-        bg={
-          list.HOUSE_SECD === '04'
-            ? '#D2C975'
-            : list.RCEPT_BGNDE > today
-            ? '#BD6FD9'
-            : '#64c590'
-        }
-      >
-        <S.RibbonText>
-          {list.HOUSE_SECD === '04'
-            ? '무순위'
-            : list.RCEPT_BGNDE > today
-            ? '청약예정'
-            : '청약가능'}
-        </S.RibbonText>
-      </S.Ribbon>
+      <S.CardAreaContainer>
+        <S.CardAreaBox>
+          <S.CardAreaTitle>전용면적</S.CardAreaTitle>
+          <S.CardArea>
+            {list.MIN_HOUSE_TY === list.MAX_HOUSE_TY
+              ? list.MAX_HOUSE_TY
+              : list.MIN_HOUSE_TY + ' ~ ' + list.MAX_HOUSE_TY}
+          </S.CardArea>
+        </S.CardAreaBox>
+        <S.CardAreaBox>
+          <S.CardAreaTitle>분양가격</S.CardAreaTitle>
+          <S.CardArea>
+            {!list.MIN_LTTOT_TOP_AMOUNT
+              ? '공고문 확인'
+              : list.MIN_LTTOT_TOP_AMOUNT === list.MAX_LTTOT_TOP_AMOUNT
+              ? list.MAX_LTTOT_TOP_AMOUNT
+              : list.MIN_LTTOT_TOP_AMOUNT.includes('만원')
+              ? list.MIN_LTTOT_TOP_AMOUNT.slice(0, -2) +
+                ' ~ ' +
+                list.MAX_LTTOT_TOP_AMOUNT
+              : list.MIN_LTTOT_TOP_AMOUNT + ' ~ ' + list.MAX_LTTOT_TOP_AMOUNT}
+          </S.CardArea>
+        </S.CardAreaBox>
+      </S.CardAreaContainer>
 
       <div>
         <S.CardDateBox>
@@ -113,31 +155,6 @@ const ListList = ({ list }: PropsListJ) => {
           </S.CardDate>
         </S.CardDateBox>
       </div>
-
-      <S.CardAreaContainer>
-        <S.CardAreaBox>
-          <S.CardAreaTitle>전용면적</S.CardAreaTitle>
-          <S.CardArea>
-            {list.MIN_HOUSE_TY === list.MAX_HOUSE_TY
-              ? list.MAX_HOUSE_TY
-              : list.MIN_HOUSE_TY + ' ~ ' + list.MAX_HOUSE_TY}
-          </S.CardArea>
-        </S.CardAreaBox>
-        <S.CardAreaBox>
-          <S.CardAreaTitle>분양가격</S.CardAreaTitle>
-          <S.CardArea>
-            {!list.MIN_LTTOT_TOP_AMOUNT
-              ? '공고문 확인'
-              : list.MIN_LTTOT_TOP_AMOUNT === list.MAX_LTTOT_TOP_AMOUNT
-              ? list.MAX_LTTOT_TOP_AMOUNT
-              : list.MIN_LTTOT_TOP_AMOUNT.includes('만원')
-              ? list.MIN_LTTOT_TOP_AMOUNT.slice(0, -2) +
-                ' ~ ' +
-                list.MAX_LTTOT_TOP_AMOUNT
-              : list.MIN_LTTOT_TOP_AMOUNT + ' ~ ' + list.MAX_LTTOT_TOP_AMOUNT}
-          </S.CardArea>
-        </S.CardAreaBox>
-      </S.CardAreaContainer>
     </S.ListArticle>
   );
 };

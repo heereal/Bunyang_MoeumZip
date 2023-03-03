@@ -27,6 +27,7 @@ export const LogoBox = styled.div`
 // Logo Text
 export const LogoText = styled.div`
   font-family: 'PyeongChang';
+  /* TODO: font 추가 */
   font-style: normal;
   font-weight: 700;
   font-size: 16px;

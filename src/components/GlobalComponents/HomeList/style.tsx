@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 export const ListArticle = styled.article`
-  max-width: 210px;
-  height: 241px;
+  max-width: 208px;
+  height: 230px;
 
   border-radius: 20px;
   background: #ffffff;
@@ -21,8 +21,52 @@ export const ListArticle = styled.article`
   overflow: hidden;
 `;
 
-// Home Card
-export const CardHeader = styled.div`
+// 청약 정보 분류(청약 예정~)
+export const Ribbon = styled.div`
+  width: 75px;
+  height: 22px;
+
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  padding: 0px;
+  gap: 5px;
+`;
+
+export const RibbonText = styled.p`
+  width: 42px;
+  height: 14px;
+
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 14px;
+  text-align: center;
+  color: #8e8e8e;
+`;
+
+// 분양 주택명
+export const CardTitleBox = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+`;
+
+export const CardTitle = styled.p`
+  height: 19px;
+
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
+  margin-top: 8px;
+  margin-bottom: 3px;
+
+  color: #000000;
+`;
+
+// 카테고리(분양형태, 주택형태, 지역)
+export const CardCategoryContainer = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -30,7 +74,6 @@ export const CardHeader = styled.div`
   align-items: center;
 `;
 
-// 카테고리(분양형태, 주택형태, 지역)
 export const CardCategoryBox = styled.div`
   width: 80%;
   height: 22px;
@@ -61,56 +104,6 @@ export const CardCategory = styled.div`
   line-height: 12px;
   text-align: center;
   color: #3d7fff;
-`;
-
-// 청약 정보 분류 띠
-export const Ribbon = styled.div<{ bg: string }>`
-  width: 50%;
-  height: 11%;
-
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  position: absolute;
-  top: 4%;
-  left: 64%;
-
-  background-color: ${(props) => props.bg};
-  transform: rotate(47.24deg);
-`;
-
-export const RibbonText = styled.p`
-  width: 42px;
-  height: 14px;
-
-  font-style: normal;
-  font-weight: 600;
-  font-size: 12px;
-  line-height: 14px;
-  text-align: center;
-  color: #ffffff;
-`;
-
-// 분양 주택명
-export const CardTitleBox = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: flex-start;
-`;
-
-export const CardTitle = styled.p`
-  height: 19px;
-
-  font-style: normal;
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 19px;
-  margin-top: 8px;
-  margin-bottom: 3px;
-
-  color: #000000;
 `;
 
 // 청약일 박스

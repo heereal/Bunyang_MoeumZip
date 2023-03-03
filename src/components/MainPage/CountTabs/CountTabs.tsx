@@ -13,10 +13,10 @@ import { useQuery } from 'react-query';
 import { useRecoilState } from 'recoil';
 import CategoryBar from '../CategoryBar/CategoryBar';
 import * as S from './style';
-import all from '../../../../public/assets/all.png';
-import today from '../../../../public/assets/today.png';
-import coming from '../../../../public/assets/coming.png';
-import random from '../../../../public/assets/random.png';
+import allIcon from 'public/assets/all.png';
+import todayIcon from 'public/assets/today.png';
+import comingIcon from 'public/assets/coming.png';
+import randomIcon from 'public/assets/random.png';
 
 const CountTabs = ({ list }: CountTabPropsListJ) => {
   const [currentTab, SetCurrentTab] = useState<number>(0);
@@ -239,15 +239,15 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
               <S.CountTabName>
                 <Image
                   width={28}
-                  height={21}
+                  height={22}
                   src={
                     index === 0
-                      ? all
+                      ? allIcon
                       : index === 1
-                      ? today
+                      ? todayIcon
                       : index === 2
-                      ? coming
-                      : random
+                      ? comingIcon
+                      : randomIcon
                   }
                   alt="allIcon"
                   quality={100}
