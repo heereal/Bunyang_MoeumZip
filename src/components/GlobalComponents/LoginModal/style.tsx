@@ -22,6 +22,10 @@ export const ModalContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  @media screen and (max-width: 450px) {
+    width: 85%;
+  }
 `;
 
 export const CloseBtnContainer = styled.div`
@@ -46,12 +50,14 @@ export const BunyangMoaTitle = styled.h1`
 export const SocialLoginBtnContainer = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
   margin-bottom: 15px;
+  width: 100%;
 `;
 
 export const SocialLoginBtn = styled.div<{ bg: string; text: string }>`
   height: 38px;
-  width: 275px;
+  width: 80%;
   position: relative;
   font-weight: 600;
   font-size: 12px;

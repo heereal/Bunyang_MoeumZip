@@ -48,7 +48,7 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
   const { onClickBookmarkBtnHandler } = useBookmark(
     status,
     email!,
-    `${session.user.provider}_${session.user.email}`,
+    `${session?.user?.provider}_${session?.user?.email}`,
     bookmarksList,
     postId,
   );
