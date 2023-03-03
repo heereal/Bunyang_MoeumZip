@@ -8,9 +8,29 @@ import kakao from '../../../../public/assets/kakao.png';
 import google from '../../../../public/assets/google.png';
 import facebook from '../../../../public/assets/facebook.png';
 import transparentImage from '../../../../public/assets/transparentProfile.png';
+import { signOut } from 'next-auth/react';
+import { confirmAlert } from 'react-confirm-alert';
 
 const EditProfile = ({ currentUser }: any) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // [로그아웃] 버튼 클릭 시 작동
+  const LogOutHandler = () => {
+    confirmAlert({
+      message: '로그아웃하시겠습니까?',
+      buttons: [
+        {
+          label: '확인',
+          onClick: () => signOut({ callbackUrl: '/' }),
+        },
+
+        {
+          label: '취소',
+          onClick: () => onclose,
+        },
+      ],
+    });
+  };
 
   return (
     <S.Wrapper>
@@ -23,8 +43,8 @@ const EditProfile = ({ currentUser }: any) => {
             currentUser.userImage ? currentUser.userImage : transparentProfile
           }
           alt="profile"
-          width={150}
-          height={150}
+          width={140}
+          height={140}
           quality={75}
           style={{ borderRadius: '50%', objectFit: 'cover' }}
           priority={true}
@@ -44,14 +64,21 @@ const EditProfile = ({ currentUser }: any) => {
                 : transparentImage
             }
             alt="providerLogo"
-            height={20}
+            height={16}
             quality={100}
             priority={true}
           />
           <S.Email>{currentUser.userEmail}</S.Email>
         </S.EmailContainer>
-        <S.ProfileBtn onClick={() => setIsModalOpen(true)}>
-          회원정보 수정
+        <S.ProfileBtn
+          bg={'#356EFF'}
+          text={'white'}
+          onClick={() => setIsModalOpen(true)}
+        >
+          프로필 수정
+        </S.ProfileBtn>
+        <S.ProfileBtn bg={'#E5EDFF'} text={'#356EFF'} onClick={LogOutHandler}>
+          로그아웃
         </S.ProfileBtn>
         {/* <S.Line /> */}
       </S.EditProfileContainer>
