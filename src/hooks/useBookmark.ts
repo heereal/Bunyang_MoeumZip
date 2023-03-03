@@ -20,12 +20,11 @@ const useBookmark = (
     // 로그인하지 않았을 때
     if (status === 'unauthenticated') {
       customAlert('로그인 후 북마크 기능을 이용할 수 있습니다.');
-
       return;
     }
 
     const addBookmark: any = {
-      usersList: arrayUnion(email),
+      usersList: arrayUnion(usersRef),
     };
     const addUserBookmarkList = {
       bookmarkList: arrayUnion(PBLANC_NO),
@@ -34,9 +33,9 @@ const useBookmark = (
     const bookmarksRef = doc(db, 'Bookmarks', PBLANC_NO);
 
     // 북마크를 취소할 때
-    if (bookmarksList?.usersList.includes(email)) {
+    if (bookmarksList?.usersList.includes(usersRef)) {
       const deleteBookmark: any = {
-        usersList: arrayRemove(email),
+        usersList: arrayRemove(usersRef),
       };
       const deleteUserBookmarkList = {
         bookmarkList: arrayRemove(PBLANC_NO),
