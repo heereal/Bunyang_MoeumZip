@@ -10,9 +10,16 @@ export const TopBtnSection = styled.div`
 export const TopBtn = styled.button`
   font-weight: bold;
   font-size: 20px;
-  padding: 15px 10px;
+
+  width: 38px;
+  height: 38px;
+  margin: 283px 20px 0 155px;
+  padding: 8px 9px 10px;
+  opacity: 0.87;
+
   background-color: lightgray;
   color: #fff;
+
   border: 1px solid lavender;
   border-radius: 50%;
   outline: none;

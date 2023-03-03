@@ -29,6 +29,7 @@ const TopBtn = () => {
     return () => {
       topBtnScroll?.removeEventListener('scroll', handleShowButton);
     };
+    // eslint-disable-next-line
   }, [scrollY]);
 
   return (
