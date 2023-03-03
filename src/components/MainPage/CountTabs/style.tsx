@@ -30,7 +30,7 @@ export const CountTabList = styled.ul`
   gap: 12px;
 
   /* CountTab */
-  .baseTab {
+  /* .baseTab {
     // 기본 Tab
     width: 17%;
     height: 72px;
@@ -50,15 +50,39 @@ export const CountTabList = styled.ul`
 
     :hover {
       transition: 0.6s;
-      border: 1.5px solid #5685ff;
+      border: 1.5px solid ${(props) => props.bd};
       box-shadow: 2px 4px 4px #91b0ff;
     }
+  } */
+`;
+
+// Count Tab(전체, 청약 가능~)
+export const BaseCountTab = styled.li<{ bd: string; bs: string }>`
+  width: 17%;
+  height: 72px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 11px;
+  gap: 10px;
+
+  background: #ffffff;
+  border: 1.5px solid #dddee0;
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  :hover {
+    transition: 0.6s;
+    border: 1.5px solid ${(props) => props.bd};
+    box-shadow: 2px 4px 6px ${(props) => props.bs};
   }
 
-  .focused {
-    //선택된 Tab
-    border: 1.5px solid #5685ff;
-    box-shadow: 2px 4px 4px #91b0ff;
+  :active {
+    border: 1.5px solid ${(props) => props.bd};
+    box-shadow: 2px 4px 4px ${(props) => props.bs};
   }
 `;
 

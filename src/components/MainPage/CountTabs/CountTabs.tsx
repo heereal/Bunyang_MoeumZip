@@ -50,7 +50,9 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
 
   // 현재 유저의 데이터 불러오기
   const currentUser = users?.find(
-    (item: ItemJ) => item.userEmail === session?.user?.email  && item.provider === session?.user?.provider,
+    (item: ItemJ) =>
+      item.userEmail === session?.user?.email &&
+      item.provider === session?.user?.provider,
   );
 
   // 현재 유저의 관심 지역 및 분양 형태 통합 리스트
@@ -192,21 +194,23 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
       <S.CountSectionBack>
         <S.CountTabList>
           {tabList.map((el, index) => (
-            <li
+            <S.BaseCountTab
               key={el.name}
-              className={index === currentTab ? 'baseTab focused' : 'baseTab'}
+              className={index === currentTab ? 'focused' : ''}
               onClick={() => clickTabHandler(index)}
+              bd={index === 0 ? '#356EFF' : '#3EDE87'}
+              bs={index === 0 ? '#91b0ff' : '#3EDE87'}
             >
               <S.CountTabName>
                 <Image
                   width={28}
                   height={21}
                   src={
-                    el.name === '전체'
+                    index === 0
                       ? all
-                      : el.name === '청약 가능'
+                      : index === 1
                       ? today
-                      : el.name === '청약 예정'
+                      : index === 2
                       ? coming
                       : random
                   }
@@ -217,7 +221,7 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
                 <p style={{ paddingTop: '3px' }}>{el.name}</p>
               </S.CountTabName>
               <S.CountTabNum>{el.count}</S.CountTabNum>
-            </li>
+            </S.BaseCountTab>
           ))}
         </S.CountTabList>
       </S.CountSectionBack>
