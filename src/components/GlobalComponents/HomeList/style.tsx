@@ -76,7 +76,7 @@ export const CardCategoryBox = styled.div`
   justify-content: flex-start;
   align-items: center;
   padding-left: 13px;
-  margin: 3px 0 10px 0;
+  margin: 3px 0 17px 0;
 `;
 
 export const CardCategory = styled.div`

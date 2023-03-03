@@ -130,7 +130,7 @@ export const CategoryBtn = styled.button<{
   box-sizing: border-box;
 
   font-style: normal;
-  font-weight: 600;
+  font-weight: 700;
   font-size: 14px;
   line-height: 17px;
   text-align: center;
@@ -172,7 +172,7 @@ export const CategoryCommonBtn = styled.button<{ color: string }>`
   gap: 6px;
 
   font-weight: 600;
-  font-size: 11px;
+  font-size: 13px;
   line-height: 12px;
   text-decoration-line: underline;
 
