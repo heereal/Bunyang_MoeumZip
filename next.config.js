@@ -33,8 +33,8 @@ module.exports = {
   async rewrites() {
     return [
       {
-        source: '/api/APTRealPrice',
-        destination: `http://openapi.molit.go.kr/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptTradeDev`,
+        source: '/api/APTRealPrice/:id',
+        destination: `http://openapi.molit.go.kr/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptTradeDev?numOfRows=1000&LAWD_CD=:id&DEAL_YMD=202302&serviceKey=${SERVICE_KEY}`,
       },
     ];
   },

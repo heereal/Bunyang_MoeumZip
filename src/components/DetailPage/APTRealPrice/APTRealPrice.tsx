@@ -29,7 +29,6 @@ const APTRealPrice = ({ dongList }: any) => {
               <S.TableHead>계약일</S.TableHead>
               <S.TableHead>아파트명</S.TableHead>
               <S.TableHead>주소</S.TableHead>
-              {/* <S.TableHead>층</S.TableHead> */}
               <S.TableHead>전용면적</S.TableHead>
               <S.TableHead>거래금액</S.TableHead>
             </S.TableRow>
@@ -48,7 +47,6 @@ const APTRealPrice = ({ dongList }: any) => {
                 <S.TableData>
                   {item.법정동} {item.도로명}
                 </S.TableData>
-                {/* <S.TableData>{item.층}</S.TableData> */}
                 <S.TableData>{item.전용면적}㎡</S.TableData>
                 <S.TableData>{item.거래금액}만원</S.TableData>
               </S.TableRow>
