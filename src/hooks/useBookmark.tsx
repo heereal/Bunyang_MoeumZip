@@ -12,6 +12,7 @@ import {
 const useBookmark = (
   status: string,
   email: string,
+  usersRef: string,
   bookmarksList: any,
   PBLANC_NO: any,
 ) => {
@@ -41,26 +42,26 @@ const useBookmark = (
         bookmarkList: arrayRemove(PBLANC_NO),
       };
       await updateDoc(bookmarksRef, deleteBookmark).then(() => {
-        updateDoc(doc(db, 'Users', email), deleteUserBookmarkList);
+        updateDoc(doc(db, 'Users', usersRef), deleteUserBookmarkList);
       });
       customAlert('북마크가 삭제되었습니다.');
 
       // 해당 디테일 페이지에 최초로 북마크 했을 때 (북마크 추가)
     } else if (!bookmarksList?.usersList) {
       setDoc(bookmarksRef, addBookmark);
-      updateDoc(doc(db, 'Users', email), addUserBookmarkList);
+      updateDoc(doc(db, 'Users', usersRef), addUserBookmarkList);
       customAlert('북마크가 추가되었습니다.');
 
       // 북마크를 추가할 때
     } else {
       await updateDoc(bookmarksRef, addBookmark)
         .then(() => {
-          updateDoc(doc(db, 'Users', email), addUserBookmarkList);
+          updateDoc(doc(db, 'Users', usersRef), addUserBookmarkList);
           customAlert('북마크가 추가되었습니다.');
         })
         .catch(() => {
           setDoc(bookmarksRef, addBookmark);
-          updateDoc(doc(db, 'Users', email), addUserBookmarkList);
+          updateDoc(doc(db, 'Users', usersRef), addUserBookmarkList);
           customAlert('북마크가 추가되었습니다.');
         });
     }

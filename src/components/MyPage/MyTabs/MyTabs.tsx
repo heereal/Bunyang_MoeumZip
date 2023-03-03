@@ -31,7 +31,7 @@ const MyTabs = () => {
       [category]: array,
     };
 
-    await updateDoc(doc(db, 'Users', currentUser.userEmail), updateUser);
+    await updateDoc(doc(db, 'Users', `${currentUser.provider}_${currentUser.userEmail}`), updateUser);
     setCurrentUser({
       ...currentUser,
       [category]: array,

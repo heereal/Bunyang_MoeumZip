@@ -3,6 +3,11 @@ import { useState } from 'react';
 import EditProfileModal from '../EditProfileModal/EditProfileModal';
 import transparentProfile from '../../../../public/assets/transparentProfile.png';
 import * as S from './style';
+import naver from '../../../../public/assets/naver.png';
+import kakao from '../../../../public/assets/kakao.png';
+import google from '../../../../public/assets/google.png';
+import facebook from '../../../../public/assets/facebook.png';
+import transparentImage from '../../../../public/assets/transparentProfile.png';
 
 const EditProfile = ({ currentUser }: any) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -25,7 +30,26 @@ const EditProfile = ({ currentUser }: any) => {
           priority={true}
         />
         <S.Nickname>{currentUser.userName}</S.Nickname>
-        <S.Email>{currentUser.userEmail}</S.Email>
+        <S.EmailContainer>
+          <Image
+            src={
+              currentUser.provider === 'naver'
+                ? naver
+                : currentUser.provider === 'kakao'
+                ? kakao
+                : currentUser.provider === 'google'
+                ? google
+                : currentUser.provider === 'facebook'
+                ? facebook
+                : transparentImage
+            }
+            alt="providerLogo"
+            height={20}
+            quality={100}
+            priority={true}
+          />
+          <S.Email>{currentUser.userEmail}</S.Email>
+        </S.EmailContainer>
         <S.ProfileBtn onClick={() => setIsModalOpen(true)}>
           회원정보 수정
         </S.ProfileBtn>
