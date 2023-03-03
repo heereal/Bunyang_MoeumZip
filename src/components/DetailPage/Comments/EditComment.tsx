@@ -23,6 +23,7 @@ const EditComment = ({
   const [editInput, setEditInput] = useState<string | undefined>('');
   const date = comment?.date;
   const id = comment?.commentId;
+  const provider = comment?.provider;
 
   const deleteCommentHandler = async (index: number | undefined) => {
     if (
@@ -73,6 +74,7 @@ const EditComment = ({
           userEmail: user?.userEmail,
           userImage: user?.userImage,
           edit: true,
+          provider: provider,
         }),
       };
       editMutation.mutate({ postId, comment, newComment });
@@ -106,8 +108,8 @@ const EditComment = ({
         <S.ImageBox>
           {comment?.userImage && (
             <Image
-              width={45}
-              height={45}
+              width={40}
+              height={40}
               alt="profile"
               src={comment?.userImage}
               quality={75}
@@ -127,30 +129,38 @@ const EditComment = ({
             >
               <div>{comment?.nickName}</div>
               <div style={{ fontSize: 13, color: '#B9B9B9' }}>
-                {getDate(comment?.date)}
+                {comment?.date && getDate(comment?.date)}
               </div>
-              {comment?.edit && <div>수정됨</div>}
+              {comment?.edit && (
+                <div
+                  style={{ color: '#7B7B7B', fontSize: 13, fontWeight: 500 }}
+                >
+                  수정됨
+                </div>
+              )}
             </div>
             <div style={{ display: 'flex', gap: 4 }}>
-              {!isOpen && user?.userEmail === comment?.userEmail && (
-                <>
-                  <S.Btn
-                    onClick={() => {
-                      setIsOpen(true), setEditInput(comment?.contents);
-                    }}
-                  >
-                    수정
-                  </S.Btn>
-                  <S.Btn onClick={() => deleteCommentHandler(index)}>
-                    삭제
-                  </S.Btn>
-                </>
-              )}
+              {!isOpen &&
+                user?.userEmail === comment?.userEmail &&
+                user?.provider === comment?.provider && (
+                  <div style={{ display: 'flex', gap: 10 }}>
+                    <S.Btn
+                      onClick={() => {
+                        setIsOpen(true), setEditInput(comment?.contents);
+                      }}
+                    >
+                      수정
+                    </S.Btn>
+                    <S.Btn onClick={() => deleteCommentHandler(index)}>
+                      삭제
+                    </S.Btn>
+                  </div>
+                )}
               {isOpen && user?.userEmail === comment?.userEmail && (
-                <>
+                <div style={{ display: 'flex', gap: 10 }}>
                   <S.Btn onClick={() => setIsOpen(false)}>취소</S.Btn>
                   <S.Btn onClick={() => editCommentHandler(index)}>완료</S.Btn>
-                </>
+                </div>
               )}
             </div>
           </S.UserNameBox>
@@ -180,7 +190,7 @@ const EditComment = ({
         />
         {replies
           ?.filter((reply: ItemJ) => reply.commentId === comment?.commentId)
-          .map((list: {}[], index: number) => {
+          .map((list: any, index: number) => {
             return (
               <Replies
                 replies={replies}

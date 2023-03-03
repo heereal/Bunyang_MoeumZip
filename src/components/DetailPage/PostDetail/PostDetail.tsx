@@ -69,7 +69,7 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
 
   // '시군구' 정보 기준으로 현재 디테일 페이지에 해당하는 지역 코드 찾기
   const LAWD_CD: any = LAWD_CD_Code.find(
-    (item: string) => item.split(':')[1] === detail.HSSPLY_ADRES.split(' ')[1],
+    (item: string) => item.split(':')[1] === detail?.HSSPLY_ADRES.split(' ')[1],
   );
 
   // 아파트 매매 실거래가 API 가져오기

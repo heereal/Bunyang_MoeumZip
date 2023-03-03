@@ -48,23 +48,17 @@ const Header = () => {
             priority={true}
           />
 
-          <div
-            onClick={() => router.push('/')}
-            style={{
-              marginLeft: 10,
-              fontSize: '16px',
-              fontWeight: 900,
-            }}
-          >
-            분양모음집
-          </div>
+          <S.LogoText onClick={() => router.push('/')}>분양모음집</S.LogoText>
         </S.LogoBox>
         {/* 검색창 */}
         <S.SearchBox>
           <SearchInput />
         </S.SearchBox>
         <S.NavBar>
-          <S.NavContent onClick={() => router.push('/calendar')}>
+          <S.NavContent
+            onClick={() => router.push('/calendar')}
+            color={router.asPath === '/calendar' ? '#356EFF' : 'black'}
+          >
             청약캘린더
           </S.NavContent>
 
@@ -74,13 +68,18 @@ const Header = () => {
                 onClick={() => {
                   router.push('/my');
                 }}
+                color={router.asPath === '/my' ? '#356EFF' : 'black'}
               >
                 마이페이지
               </S.NavContent>
-              <S.NavContent onClick={LogOutHandler}>로그아웃</S.NavContent>
+              <S.NavContent onClick={LogOutHandler} color={'black'}>
+                로그아웃
+              </S.NavContent>
             </>
           ) : (
-            <S.NavContent onClick={() => setIsOpen(true)}>로그인</S.NavContent>
+            <S.NavContent onClick={() => setIsOpen(true)} color={'black'}>
+              로그인
+            </S.NavContent>
           )}
         </S.NavBar>
       </S.Header>

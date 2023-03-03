@@ -39,12 +39,14 @@ const CommentsList = ({ postId }: DetailPagePropsP) => {
   useEffect(() => {
     setComments(
       data?.list?.sort(
-        (a: { date: number }, b: { date: number }) => b.date - a.date,
+        (a: { date: string }, b: { date: string }) =>
+          Number(b.date) - Number(a.date),
       ),
     );
     setReplies(
       data?.replies?.sort(
-        (a: { date: number }, b: { date: number }) => b.date - a.date,
+        (a: { date: string }, b: { date: string }) =>
+          Number(b.date) - Number(a.date),
       ),
     );
     refetchProfile();
@@ -63,7 +65,7 @@ const CommentsList = ({ postId }: DetailPagePropsP) => {
         queryClient={queryClient}
         refetch={refetch}
       />
-      <div style={{ borderBottom: '2px solid #b9b9b9' }}>
+      <div>
         {comments?.map((comment: CommentP, index: number) => {
           return (
             <EditComment

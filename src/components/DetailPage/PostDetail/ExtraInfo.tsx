@@ -10,13 +10,13 @@ export const ExtraInfo = ({ home }: PropsP) => {
       <S.ArticleHead>기타사항</S.ArticleHead>
       <S.ArticleBox>
         <S.SPLtable>
-          <S.SPLhead color="#f4f4f4" style={{ width: '33.3%' }}>
+          <S.SPLhead color="#f0f4ff" style={{ width: '33.3%' }}>
             시행사
           </S.SPLhead>
-          <S.SPLhead color="#f4f4f4" style={{ width: '33.3%' }}>
+          <S.SPLhead color="#f0f4ff" style={{ width: '33.3%' }}>
             시공사
           </S.SPLhead>
-          <S.SPLhead color="#f4f4f4" style={{ width: '33.3%' }}>
+          <S.SPLhead color="#f0f4ff" style={{ width: '33.3%' }}>
             사업주체 전화번호
           </S.SPLhead>
         </S.SPLtable>

@@ -13,31 +13,39 @@ declare interface AddCommentP {
 
 //댓글 Props
 interface CommentPropsP {
+  date?: string;
   postId: string | string[] | undefined;
   user:
-    | { userName?: string; userEmail?: string; userImage?: string }
+    | {
+        userName?: string;
+        userEmail?: string;
+        userImage?: string;
+        provider?: string;
+      }
     | undefined;
   queryClient?: QueryClient;
   comment?: {
-    date: number;
-    userEmail: string;
-    contents: string;
-    nickName: string;
+    date?: string;
+    userEmail?: string;
+    contents?: string;
+    nickName?: string;
     userImage?: string;
     commentId?: string;
     edit?: boolean;
+    provider?: string;
   };
   index?: number;
   comments?: [];
   refetch?: refetch;
   replies?: any;
   list?: {
-    date: string;
+    date?: string;
     userImage?: string;
     nickName?: string;
     edit?: boolean;
     userEmail?: string;
     contents?: string;
+    provider?: string;
   };
 }
 
@@ -72,7 +80,7 @@ interface HomeP {
 //댓글 read type
 interface CommentP {
   contents: string;
-  date: number;
+  date: string;
   nickName: string;
   userEmail: string;
   index?: number;
@@ -132,4 +140,7 @@ type keywordJ = string | string[] | undefined;
 interface keywordPropsJ {
   keyword?: keywordJ;
   text: string;
+  text2?: string;
+  text3?: string;
+  wrong?: string;
 }

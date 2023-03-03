@@ -2,6 +2,16 @@ import { selectedRegionList, selectedTypeList } from "@/store/selectors";
 import { useSession } from "next-auth/react";
 import { useRecoilState } from "recoil";
 
+// TODO: 사용법 input - output 추가
+/**
+ * 
+ * @param regionTypeList 
+ * @param regionList 
+ * @param TypeList 
+ * @param userList 
+ * @param basicList 
+ * @returns 
+ */
 const useTabList = (regionTypeList: ItemJ[], regionList: ItemJ[], TypeList: ItemJ[], userList: ItemJ[], basicList: ItemJ[]) => {
     // 로그인 여부 확인
     const { data: session } = useSession();

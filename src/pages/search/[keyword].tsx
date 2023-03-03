@@ -1,13 +1,12 @@
 import { db } from '@/common/firebase';
-import NoResult from '@/components/GlobalComponents/NoResult/NoResult';
 import HeadTitle from '@/components/GlobalComponents/HeadTitle/HeadTitle';
-import TopBtn from '@/components/GlobalComponents/TopBtn/TopBtn';
-import SearchResults from '@/components/SearchPage/SearchResults';
+import NoResult from '@/components/GlobalComponents/NoResult/NoResult';
 import { doc, getDoc } from 'firebase/firestore';
 import { GetServerSideProps } from 'next';
-import { useRouter } from 'next/router';
-import * as S from '../../styles/search.style';
 import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
+import HomeList from '../../components/GlobalComponents/HomeList/HomeList';
+import * as S from '../../styles/search.style';
 
 const SearchResult = ({ homeList }: HomeListDBPropsJ) => {
   const router = useRouter();
@@ -42,16 +41,18 @@ const SearchResult = ({ homeList }: HomeListDBPropsJ) => {
         <>
           <S.TitleBox>
             <S.ResultTitle>
-              <span>{keyword}</span>의 검색 결과는 총
-              <span>{resultsList.length}</span>건입니다.
+              <span>&apos;{keyword}&apos;</span>의 검색 결과는 총
+              <span>{resultsList.length}건</span>입니다.
             </S.ResultTitle>
           </S.TitleBox>
           <S.ResultListArticle id="topBtnScroll">
-            {resultsList.map((item: ItemJ) => (
-              // 검색 결과 리스트
-              <SearchResults key={item.PBLANC_NO} list={item} />
-            ))}
-            <TopBtn />
+            <S.ResultListBox>
+              {resultsList.map((item: ItemJ) => (
+                // 검색 결과 리스트
+                <HomeList key={item.PBLANC_NO} list={item} />
+              ))}
+              <TopBtn />
+            </S.ResultListBox>
           </S.ResultListArticle>
         </>
       )}
