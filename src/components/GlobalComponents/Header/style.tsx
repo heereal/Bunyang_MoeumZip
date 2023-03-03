@@ -18,16 +18,22 @@ export const Header = styled.header`
 
 // Logo box
 export const LogoBox = styled.div`
+  width: 108px;
+  height: 28px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 4px;
+  margin: 1px 1px 0 0;
+
   box-sizing: border-box;
   cursor: pointer;
-  display: flex;
-  align-items: center;
 `;
 
 // Logo Text
 export const LogoText = styled.div`
   font-family: 'PyeongChang';
-  /* TODO: font 추가 */
   font-style: normal;
   font-weight: 700;
   font-size: 16px;
@@ -46,25 +52,29 @@ export const SearchBox = styled.div`
 
 // Nav bar
 export const NavBar = styled.div`
-  width: 30%;
   height: 25px;
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
+  justify-content: flex-start;
   align-items: center;
-  padding: 4px 0px;
-  gap: 25px;
+  margin: 0 0 0 43px;
+  padding: 4px 0;
+  gap: 35px;
   box-sizing: border-box;
 `;
 
 // 청약 캘린더, 청약 정보
 export const NavContent = styled.nav<{ color: string }>`
-  padding: 0 5px;
   height: 17px;
+  padding: 0 10px 0 2px;
 
   font-weight: 600;
   font-size: 14px;
-  line-height: 17px;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: right;
 
   color: ${(props) => props.color};
 

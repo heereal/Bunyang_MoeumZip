@@ -182,7 +182,7 @@ const CategoryBar = () => {
                     onClick={() => setMyRegionArray([...myRegionArray, region])}
                     key={index}
                     bg={'transparent'}
-                    bd={'#F4F4F4'}
+                    bd={'#d8d8d8'}
                     color={'#505050'}
                   >
                     {region}
@@ -237,7 +237,7 @@ const CategoryBar = () => {
                     onClick={() => setMyTypeArray([...myTypeArray, region])}
                     key={index}
                     bg={'transparent'}
-                    bd={'#F4F4F4'}
+                    bd={'#d8d8d8'}
                     color={'#505050'}
                   >
                     {region}

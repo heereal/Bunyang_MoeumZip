@@ -71,22 +71,23 @@ export const TabName = styled.p<{ color: string }>`
 
 // 지역 및 분양형태 카테고리 선택
 export const RegionCategoryContainer = styled.div`
-  width: 229px;
-  height: 250px;
+  width: 228px;
+  height: 260px;
+
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 
   position: absolute;
   top: 82%;
   left: 24px;
-  padding: 5px;
+
   box-sizing: border-box;
 
   background: #ffffff;
   border: 1px solid #e8eaef;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
   border-radius: 20px;
 `;
 
@@ -97,18 +98,18 @@ export const TypeCategoryContainer = styled(RegionCategoryContainer)`
 `;
 
 export const CategoryBox = styled.div`
+  width: 100%;
+  height: 90%;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-start;
-  align-items: center;
-  padding: 3px 0;
-  box-sizing: border-box;
-  gap: 13px;
+  align-items: flex-start;
+  margin-left: 25px;
+  padding-bottom: 20px;
 
-  position: absolute;
-  top: 5%;
-  left: 6%;
+  box-sizing: border-box;
+  gap: 8px;
 `;
 
 // 각 카테고리버튼
@@ -117,17 +118,17 @@ export const CategoryBtn = styled.button<{
   bd: string;
   color: string;
 }>`
-  height: 26px;
-  background-color: ${(props) => props.bg};
-  border-color: ${(props) => props.bd};
-  border-radius: 5px;
-
+  height: 30px;
   display: flex;
-  flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 3px 5px;
-  gap: 8px;
+  gap: 10px;
+  padding: 8px 9px;
+  border-radius: 7px;
+
+  background-color: ${(props) => props.bg};
+  border: 1px solid ${(props) => props.bd};
+
   box-sizing: border-box;
 
   font-style: normal;
@@ -148,13 +149,14 @@ export const CategoryBtn = styled.button<{
 // 초기화 및 전체 선택 버튼
 export const CommonBtnBox = styled.div`
   width: 100%;
+  height: 15%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 
-  padding: 0 8px;
-  padding-bottom: 15px;
+  padding: 0 5px;
+  padding-bottom: 8px;
   position: absolute;
   top: 88%;
 `;
@@ -172,7 +174,7 @@ export const CategoryCommonBtn = styled.button<{ color: string }>`
   gap: 6px;
 
   font-weight: 600;
-  font-size: 13px;
+  font-size: 11px;
   line-height: 12px;
   text-decoration-line: underline;
 

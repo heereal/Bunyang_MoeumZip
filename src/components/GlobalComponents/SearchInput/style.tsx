@@ -9,21 +9,23 @@ export const SearchBox = styled.div`
 `;
 
 export const SearchInput = styled.input`
-  /* /* width: 30%; */
+  width: 30.5%;
   height: 36px;
+
   display: flex;
   flex-direction: row;
+  justify-content: flex-start;
   align-items: center;
   gap: 8px;
+  margin: 0 0 20px;
+  padding: 10px 40px 10px 15px;
 
-  width: 363px;
-  /* width: 60%; */
-
-  border: 1px solid #bcc0cb;
   border-radius: 20px;
-  padding-left: 20px;
-  padding-right: 40px;
+  border: solid 1px #bcc0cb;
+  background-color: #fff;
+
   box-sizing: border-box;
+
   font-size: 12px;
   text-align: left;
 
@@ -33,20 +35,23 @@ export const SearchInput = styled.input`
   top: 20%;
   bottom: 20%;
 
-  background-color: #ffffff;
-
   :focus-visible {
     outline: none;
   }
 `;
 
 export const SearchBtn = styled.button`
-  width: 20px;
+  height: 13px;
+  object-fit: contain;
+  margin: 0.5px 0 0.5px 8px;
+
   background-color: transparent;
   border: none;
   outline: none;
+
   position: absolute;
-  left: 57%;
+  left: 50.75%;
+  right: 24.83%;
   top: 30%;
 
   cursor: pointer;
