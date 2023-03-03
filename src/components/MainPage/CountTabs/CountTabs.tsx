@@ -192,14 +192,49 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
   return (
     <>
       <S.CountSectionBack>
-        <S.CountTabList>
+        <S.CountTabList
+          bd={
+            currentTab === 0
+              ? '#356EFF'
+              : currentTab === 1
+              ? '#3EDE87'
+              : currentTab === 2
+              ? '#FF4141'
+              : '#CB5EFF'
+          }
+          bs={
+            currentTab === 0
+              ? '#91b0ff'
+              : currentTab === 1
+              ? '#3EDE87'
+              : currentTab === 2
+              ? '#FFA6A6'
+              : '#E8B8FF'
+          }
+        >
           {tabList.map((el, index) => (
             <S.BaseCountTab
               key={el.name}
-              className={index === currentTab ? 'focused' : ''}
+              className={index === currentTab ? 'baseTab focused' : 'baseTab'}
               onClick={() => clickTabHandler(index)}
-              bd={index === 0 ? '#356EFF' : '#3EDE87'}
-              bs={index === 0 ? '#91b0ff' : '#3EDE87'}
+              bd={
+                index === 0
+                  ? '#356EFF'
+                  : index === 1
+                  ? '#3EDE87'
+                  : index === 2
+                  ? '#FF4141'
+                  : '#CB5EFF'
+              }
+              bs={
+                index === 0
+                  ? '#91b0ff'
+                  : index === 1
+                  ? '#3EDE87'
+                  : index === 2
+                  ? '#FFA6A6'
+                  : '#E8B8FF'
+              }
             >
               <S.CountTabName>
                 <Image
