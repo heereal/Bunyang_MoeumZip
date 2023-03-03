@@ -14,7 +14,7 @@ const SelectMyTypes = ({ width }: SelectCategoryProps) => {
   const currentUser = useRecoilValue(currentUserState);
 
   useEffect(() => {
-    setMyTypeArray(currentUser.types)
+    setMyTypeArray(currentUser.types);
   }, []);
 
   return (
@@ -26,9 +26,9 @@ const SelectMyTypes = ({ width }: SelectCategoryProps) => {
               setMyTypeArray(myTypeArray.filter((item: any) => item !== type))
             }
             key={index}
-            bg={'#F1F6FF'}
-            text={'#3D7FFF'}
-            border={'#3D7FFF'}
+            bg={'#F0F4FF'}
+            text={'#356EFF'}
+            border={'#356EFF'}
           >
             {type}
           </S.CategoryBtn>
@@ -37,8 +37,8 @@ const SelectMyTypes = ({ width }: SelectCategoryProps) => {
             onClick={() => setMyTypeArray([...myTypeArray, type])}
             key={index}
             bg={'white'}
-            text={'#7b7b7b'}
-            border={'#F4F4F4'}
+            text={'#505050'}
+            border={'#D8D8D8'}
           >
             {type}
           </S.CategoryBtn>

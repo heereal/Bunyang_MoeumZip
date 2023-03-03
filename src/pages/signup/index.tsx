@@ -39,7 +39,6 @@ const SignUp = () => {
   const [isValidNickname, setIsValidNickname] = useState(false);
 
   const [nickname, setNickname] = useState<any>('');
-  console.log('users:', users);
 
   // [닉네임 중복 확인] 버튼 클릭 시 작동
   const checkNicknameHandler = () => {
@@ -128,11 +127,10 @@ const SignUp = () => {
   return (
     <S.Wrapper>
       <HeadTitle title="회원가입 |" />
-
       <S.SignUpContainer>
         <S.SignUpDesc>
           <h1>회원가입</h1>
-          <p>분양정보 추천을 위한 추가정보를 선택해주세요.</p>
+          <p>분양정보 추천을 위한 추가정보를 입력해주세요.</p>
         </S.SignUpDesc>
 
         {/* 닉네임 제출 */}
@@ -152,11 +150,11 @@ const SignUp = () => {
         </S.SubmitNicknameContainer>
 
         {/* 관심 지역 카테고리 선택 */}
-        <S.CategoryTitle>관심 지역 선택</S.CategoryTitle>
+        <S.CategoryTitle>관심 지역</S.CategoryTitle>
         <SelectMyRegion width={'100%'} />
 
         {/* 관심 분양 형태 카테고리 선택 */}
-        <S.CategoryTitle>관심 분양 형태 선택</S.CategoryTitle>
+        <S.CategoryTitle>관심 분양형태</S.CategoryTitle>
         <SelectMyTypes width={'100%'} />
 
         <S.SignUpBtnContainer>
