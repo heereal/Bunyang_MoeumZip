@@ -115,7 +115,6 @@ export const ListBox = styled.div`
   max-width: 750px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  border: 1px solid red;
 
   @media screen and (max-width: 1280px) {
     grid-template-columns: repeat(2, 1fr);

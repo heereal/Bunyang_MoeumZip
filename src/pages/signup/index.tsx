@@ -25,7 +25,7 @@ const SignUp = () => {
   const router = useRouter();
 
   // 유저의 세션 정보 받아오기
-  const { data: session, status } = useSession();
+  const { data: session, status }: any = useSession();
 
   const [currentUser, setCurrentUser] = useRecoilState(currentUserState);
   const [users, setUsers] = useRecoilState(usersListState);
@@ -39,14 +39,14 @@ const SignUp = () => {
   const [isValidNickname, setIsValidNickname] = useState(false);
 
   const [nickname, setNickname] = useState<any>('');
-  // const [email, setEmail] = useState<any>('');
-  console.log('nickname:', nickname);
+  console.log('users:', users);
 
   // [닉네임 중복 확인] 버튼 클릭 시 작동
   const checkNicknameHandler = () => {
     const checkNickname = users.find(
-      (user: userProps) => user.userName === nickname && !currentUser.userName,
+      (user: userProps) => user.userName === nickname,
     );
+
     //닉네임을 입력하지 않았을 때
     if (!nickname) {
       customAlert('닉네임을 입력해주세요.');
@@ -56,9 +56,13 @@ const SignUp = () => {
     if (!checkNickname) {
       customAlert('사용 가능한 닉네임입니다.');
       setIsValidNickname(true);
-    } else {
+      return;
+    }
+
+    if (checkNickname) {
       customAlert('이미 존재하는 닉네임입니다. 다시 입력해주세요.');
       setIsValidNickname(false);
+      return;
     }
   };
 
@@ -75,7 +79,10 @@ const SignUp = () => {
       types: myTypeArray,
     };
 
-    await updateDoc(doc(db, 'Users', currentUser.userEmail), updateUser);
+    await updateDoc(
+      doc(db, 'Users', `${currentUser.provider}_${currentUser.userEmail}`),
+      updateUser,
+    );
     customAlert('회원가입이 완료되었습니다.');
     router.push('/');
   };
@@ -85,10 +92,18 @@ const SignUp = () => {
     enabled: !!session, // session이 true인 경우에만 useQuery를 실행함
     // users를 불러오는 데 성공하면 현재 로그인한 유저의 정보를 찾아서 setCurrentUser에 담음
     onSuccess: (usersData) => {
-      setUsers(usersData);
+      setUsers(
+        usersData.filter(
+          (user: userProps) =>
+            user.userEmail !== session?.user?.email &&
+            user.provider !== session?.user?.provider,
+        ),
+      );
       setCurrentUser(
         usersData.find(
-          (user: userProps) => user.userEmail === session?.user?.email,
+          (user: userProps) =>
+            user.userEmail === session?.user?.email &&
+            user.provider === session?.user?.provider,
         ),
       );
     },

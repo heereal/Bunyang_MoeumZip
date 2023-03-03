@@ -86,6 +86,7 @@ interface userProps {
   userEmail: string;
   userName: string;
   userImage: string;
+  provider: string;
 }
 
 // Firebase에서 가져온 data type

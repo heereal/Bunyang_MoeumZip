@@ -19,7 +19,7 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
   const queryClient = useQueryClient();
 
   // 유저의 세션 정보 받아오기
-  const { data: session, status } = useSession();
+  const { data: session, status }: any = useSession();
 
   // 디테일 페이지에서 사용할 특정한 분양 정보
   const [home, setHome] = useState<HomeP>();
@@ -48,6 +48,7 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
   const { onClickBookmarkBtnHandler } = useBookmark(
     status,
     email!,
+    `${session.user.provider}_${session.user.email}`,
     bookmarksList,
     postId,
   );
