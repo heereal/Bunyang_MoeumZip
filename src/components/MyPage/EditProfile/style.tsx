@@ -10,16 +10,14 @@ export const Wrapper = styled.div`
 `;
 
 export const EditProfileContainer = styled.div`
-  width: 100%;
+  width: 270px;
   height: 100%;
-  /* min-height: 500px; */
   padding: 40px 20px;
   border-radius: 20px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   background-color: white;
   display: flex;
   flex-direction: column;
-
   position: relative;
   align-items: center;
   box-sizing: border-box;

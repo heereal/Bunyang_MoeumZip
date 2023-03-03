@@ -43,22 +43,19 @@ const MyTabs = () => {
     <S.Wrapper>
       <S.TabContainer>
         <S.TabBtn
-          font={currentTab === 1 ? '#3D7FFF' : 'black'}
-          line={currentTab === 1 ? '#3D7FFF' : '#f4f4f4'}
+          color={currentTab === 1 ? '#356EFF' : '#BCC0CB'}
           onClick={() => setCurrentTab(1)}
         >
-          북마크 목록
+          북마크
         </S.TabBtn>
         <S.TabBtn
-          font={currentTab === 2 ? '#3D7FFF' : 'black'}
-          line={currentTab === 2 ? '#3D7FFF' : '#f4f4f4'}
+          color={currentTab === 2 ? '#356EFF' : '#BCC0CB'}
           onClick={() => setCurrentTab(2)}
         >
           관심 지역
         </S.TabBtn>
         <S.TabBtn
-          font={currentTab === 3 ? '#3D7FFF' : 'black'}
-          line={currentTab === 3 ? '#3D7FFF' : '#f4f4f4'}
+          color={currentTab === 3 ? '#356EFF' : '#BCC0CB'}
           onClick={() => setCurrentTab(3)}
         >
           관심 분양형태
