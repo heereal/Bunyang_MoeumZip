@@ -101,7 +101,8 @@ export const SignUpBtnContainer = styled.div`
   padding-bottom: 60px;
 `;
 
-export const SignUpBtn = styled.div`
+export const SignUpBtn = styled.button`
+  all: unset;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -114,4 +115,10 @@ export const SignUpBtn = styled.div`
   font-size: 14px;
   line-height: 17px;
   cursor: pointer;
+
+  :disabled {
+    cursor: default;
+    background: #e8eaef;
+    color: #7b7b7b;
+  }
 `;

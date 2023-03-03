@@ -38,6 +38,7 @@ const SignUp = () => {
 
   // 닉네임 중복 검사 시 사용
   const [isValidNickname, setIsValidNickname] = useState(false);
+  console.log('isValidNickname:', isValidNickname);
 
   const [nickname, setNickname] = useState<any>('');
 
@@ -112,6 +113,7 @@ const SignUp = () => {
   useEffect(() => {
     // 비로그인 유저일 경우 접근 제한
     if (status === 'unauthenticated') router.push('/');
+    if (!router.query) router.push('/');
     // eslint-disable-next-line
   }, [session]);
 
@@ -159,7 +161,12 @@ const SignUp = () => {
         <SelectMyTypes width={'100%'} />
 
         <S.SignUpBtnContainer>
-          <S.SignUpBtn onClick={signupHandler}>가입완료</S.SignUpBtn>
+          <S.SignUpBtn
+            onClick={signupHandler}
+            disabled={isValidNickname ? false : true}
+          >
+            가입완료
+          </S.SignUpBtn>
         </S.SignUpBtnContainer>
       </S.SignUpContainer>
     </S.Wrapper>

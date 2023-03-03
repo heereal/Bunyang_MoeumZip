@@ -10,10 +10,6 @@ import {
 } from 'firebase/firestore';
 import { db } from './firebase';
 
-const BASE_URL = 'https://api.odcloud.kr/api/ApplyhomeInfoDetailSvc/v1';
-const METHOD = 'getAPTLttotPblancDetail';
-const SERVICE_KEY = process.env.NEXT_PUBLIC_HOME_API_KEY;
-
 // allHomeData get 하는 함수
 export const getHomeList = async () => {
   const docRef = doc(db, 'HomeList', 'homeData');
