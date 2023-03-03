@@ -47,7 +47,6 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
   // 커스텀 훅 실행
   const { onClickBookmarkBtnHandler } = useBookmark(
     status,
-    email!,
     `${session?.user?.provider}_${session?.user?.email}`,
     bookmarksList,
     postId,

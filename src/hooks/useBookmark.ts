@@ -11,7 +11,6 @@ import {
 // [북마크] 버튼 클릭 시 작동
 const useBookmark = (
   status: string,
-  email: string,
   usersRef: string,
   bookmarksList: any,
   PBLANC_NO: any,
