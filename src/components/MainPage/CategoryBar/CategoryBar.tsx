@@ -82,17 +82,25 @@ const CategoryBar = () => {
               {/* index===0 은 지역 Tab, 1은 분양형태 Tab */}
               {index === 0 ? (
                 <S.RegionTab
-                  bd={isRegionToggleOpen ? '#356EFF' : '#D8D8D8'}
+                  bd={
+                    isRegionToggleOpen || item.name !== '지역'
+                      ? '#356EFF'
+                      : '#D8D8D8'
+                  }
                   bg={isRegionToggleOpen ? '#fFFFFF' : '#ffffff'}
                   onClick={openToggleHandler}
                 >
                   <S.TabNameBox>
                     <S.TabName
-                      color={isRegionToggleOpen ? '#356EFF' : '#505050'}
+                      color={
+                        isRegionToggleOpen || item.name !== '지역'
+                          ? '#356EFF'
+                          : '#505050'
+                      }
                     >
                       {item.name}
                     </S.TabName>
-                    {isRegionToggleOpen ? (
+                    {isRegionToggleOpen || item.name !== '지역' ? (
                       <RiArrowUpSLine
                         style={{
                           fontSize: 25,
@@ -111,15 +119,25 @@ const CategoryBar = () => {
                 </S.RegionTab>
               ) : (
                 <S.TypeTab
-                  bd={isTypeToggleOpen ? '#356EFF' : '#D8D8D8'}
+                  bd={
+                    isTypeToggleOpen || item.name !== '분양형태'
+                      ? '#356EFF'
+                      : '#D8D8D8'
+                  }
                   bg={isTypeToggleOpen ? '#fFFFFF' : '#ffffff'}
                   onClick={openTypeToggleHandler}
                 >
                   <S.TabNameBox>
-                    <S.TabName color={isTypeToggleOpen ? '#356EFF' : '#505050'}>
+                    <S.TabName
+                      color={
+                        isTypeToggleOpen || item.name !== '분양형태'
+                          ? '#356EFF'
+                          : '#505050'
+                      }
+                    >
                       {item.name}
                     </S.TabName>
-                    {isTypeToggleOpen ? (
+                    {isTypeToggleOpen || item.name !== '분양형태' ? (
                       <RiArrowUpSLine
                         style={{
                           fontSize: 25,

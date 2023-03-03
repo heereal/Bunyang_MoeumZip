@@ -49,6 +49,7 @@ export const CountTabList = styled.ul<{ bd: string; bs: string }>`
     cursor: pointer;
   }
 
+  /* 선택한 Tab */
   .focused {
     border: 1.5px solid ${(props) => props.bd};
     box-shadow: 2px 4px 4px ${(props) => props.bs};
@@ -65,7 +66,7 @@ export const BaseCountTab = styled.li<{ bd: string; bs: string }>`
 `;
 
 // CountTab 이름(전체, 청약 가능...)
-export const CountTabName = styled.p`
+export const CountTabName = styled.div`
   width: 100%;
   font-style: normal;
   font-weight: 600;
