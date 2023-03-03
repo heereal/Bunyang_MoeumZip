@@ -4,7 +4,6 @@ export const ListArticle = styled.article`
   max-width: 208px;
   height: 230px;
 
-  border-radius: 20px;
   background: #ffffff;
 
   display: flex;
@@ -12,7 +11,10 @@ export const ListArticle = styled.article`
   align-items: center;
   justify-content: center;
   margin: 10px;
-  padding: 0 12px;
+  padding-top: 11px;
+  border-radius: 20px;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+
   text-align: center;
 
   cursor: pointer;
@@ -22,26 +24,27 @@ export const ListArticle = styled.article`
 `;
 
 // 청약 정보 분류(청약 예정~)
-export const Ribbon = styled.div`
-  width: 75px;
+export const TabInfo = styled.div`
+  width: 100%;
   height: 22px;
 
   display: flex;
   flex-direction: row;
+  justify-content: flex-start;
   align-items: flex-end;
-  padding: 0px;
+  padding: 0px 13px;
   gap: 5px;
 `;
 
-export const RibbonText = styled.p`
-  width: 42px;
+export const TabInfoText = styled.p`
+  width: 100%;
   height: 14px;
 
   font-style: normal;
   font-weight: 600;
   font-size: 12px;
   line-height: 14px;
-  text-align: center;
+  text-align: left;
   color: #8e8e8e;
 `;
 
@@ -50,13 +53,13 @@ export const CardTitleBox = styled.div`
   width: 100%;
   display: flex;
   justify-content: flex-start;
+  padding: 0px 13px;
 `;
 
 export const CardTitle = styled.p`
   height: 19px;
 
-  font-style: normal;
-  font-weight: 700;
+  font-weight: bold;
   font-size: 16px;
   line-height: 19px;
   margin-top: 8px;
@@ -66,61 +69,57 @@ export const CardTitle = styled.p`
 `;
 
 // 카테고리(분양형태, 주택형태, 지역)
-export const CardCategoryContainer = styled.div`
+export const CardCategoryBox = styled.div`
   width: 100%;
+  height: 13px;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
+  padding-left: 13px;
+  margin: 3px 0;
 `;
 
-export const CardCategoryBox = styled.div`
-  width: 80%;
-  height: 22px;
+export const CardCategory = styled.div`
+  max-width: 100%;
+  height: 13px;
 
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  gap: 3px;
-  margin-bottom: 5px;
-`;
+  padding-right: 3px;
 
-export const CardCategory = styled.div`
-  width: 100%;
-  height: 22px;
+  font-weight: 500;
+  font-size: 11px;
 
-  background: #f1f6ff;
-  border-radius: 5px;
-
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-
-  font-style: normal;
-  font-weight: 600;
-  font-size: 10px;
-  line-height: 12px;
-  text-align: center;
-  color: #3d7fff;
+  text-align: left;
+  color: #7b7b7b;
 `;
 
 // 청약일 박스
-export const CardDateBox = styled.div`
-  width: 190px;
-  height: 47px;
+export const CardDateCategory = styled.div`
+  width: 100%;
+  height: 71px;
+  margin-top: 18px;
+  margin-bottom: -15px;
+  background-color: #356eff;
 
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 8px 0;
+`;
+
+export const CardDateBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
   gap: 3px;
 
-  background: #f9fafb;
   border-radius: 10px;
 
-  margin: 3px 0;
+  /* margin: 3px 0; */
 `;
 
 export const CardDateTitle = styled.p`
@@ -138,9 +137,8 @@ export const CardDate = styled.p`
   height: 14px;
 
   font-style: normal;
-  font-weight: 700;
+  font-weight: 600;
   font-size: 12px;
-  line-height: 14px;
   text-align: center;
 
   color: #fc5a5a;
@@ -153,10 +151,12 @@ export const NoDate = styled(CardDateTitle)`
 
 // 면적
 export const CardAreaContainer = styled.div`
-  width: 80%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  padding: 0 13px;
 `;
 
 export const CardAreaBox = styled.div`

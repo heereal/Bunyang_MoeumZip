@@ -15,8 +15,8 @@ const ListList = ({ list }: PropsListJ) => {
 
   return (
     <S.ListArticle onClick={() => router.push(`/detail/${list.PBLANC_NO}`)}>
-      {/* 분류 띠 */}
-      <S.Ribbon>
+      {/* 리스트 분류 */}
+      <S.TabInfo>
         <Image
           width={28}
           height={22}
@@ -33,46 +33,44 @@ const ListList = ({ list }: PropsListJ) => {
           quality={100}
           priority={true}
         />
-        <S.RibbonText>
+        <S.TabInfoText>
           {list.HOUSE_SECD === '04'
             ? '무순위'
             : list.RCEPT_BGNDE > today
             ? '청약예정'
             : '청약가능'}
-        </S.RibbonText>
-      </S.Ribbon>
+        </S.TabInfoText>
+      </S.TabInfo>
 
       {/* 주택 이름 */}
       <S.CardTitleBox>
         <S.CardTitle>
-          {list.HOUSE_NM.length < 13
+          {list.HOUSE_NM.length < 11
             ? list.HOUSE_NM
-            : list.HOUSE_NM.slice(0, 13) + '...'}
+            : list.HOUSE_NM.slice(0, 10) + '...'}
         </S.CardTitle>
       </S.CardTitleBox>
 
-      <S.CardCategoryContainer>
-        {/* 분양형태 / 주택 형태 */}
-        <S.CardCategoryBox>
-          {list.HOUSE_DTL_SECD_NM === list.HOUSE_SECD_NM ? (
-            <S.CardCategory>{list.HOUSE_DTL_SECD_NM}</S.CardCategory>
-          ) : list.HOUSE_DTL_SECD_NM && list.HOUSE_SECD_NM ? (
-            <>
-              <S.CardCategory>{list.HOUSE_DTL_SECD_NM}</S.CardCategory>
-              <S.CardCategory>{list.HOUSE_SECD_NM}</S.CardCategory>
-            </>
-          ) : !list.HOUSE_DTL_SECD_NM ? (
-            <S.CardCategory>{list.HOUSE_SECD_NM}</S.CardCategory>
-          ) : !list.HOUSE_SECD_NM ? (
-            <S.CardCategory>{list.HOUSE_DTL_SECD_NM}</S.CardCategory>
-          ) : (
-            ''
-          )}
+      {/* 분양형태 / 주택 형태 / 지역 이름*/}
 
-          {/* 지역 이름 */}
-          <S.CardCategory>{list.SUBSCRPT_AREA_CODE_NM}</S.CardCategory>
-        </S.CardCategoryBox>
-      </S.CardCategoryContainer>
+      <S.CardCategoryBox>
+        {list.HOUSE_DTL_SECD_NM === list.HOUSE_SECD_NM ? (
+          <S.CardCategory>{list.HOUSE_DTL_SECD_NM} | </S.CardCategory>
+        ) : list.HOUSE_DTL_SECD_NM && list.HOUSE_SECD_NM ? (
+          <>
+            <S.CardCategory>{list.HOUSE_DTL_SECD_NM} | </S.CardCategory>
+            <S.CardCategory>{list.HOUSE_SECD_NM} | </S.CardCategory>
+          </>
+        ) : !list.HOUSE_DTL_SECD_NM ? (
+          <S.CardCategory>{list.HOUSE_SECD_NM} | </S.CardCategory>
+        ) : !list.HOUSE_SECD_NM ? (
+          <S.CardCategory>{list.HOUSE_DTL_SECD_NM} |</S.CardCategory>
+        ) : (
+          ''
+        )}
+
+        <S.CardCategory>{list.SUBSCRPT_AREA_CODE_NM}</S.CardCategory>
+      </S.CardCategoryBox>
 
       <S.CardAreaContainer>
         <S.CardAreaBox>
@@ -99,7 +97,7 @@ const ListList = ({ list }: PropsListJ) => {
         </S.CardAreaBox>
       </S.CardAreaContainer>
 
-      <div>
+      <S.CardDateCategory>
         <S.CardDateBox>
           {list.SPSPLY_RCEPT_BGNDE ? (
             <>
@@ -154,7 +152,7 @@ const ListList = ({ list }: PropsListJ) => {
             {list.RCEPT_ENDDE.slice(8, 10).replace(/(^0)/, '')}일
           </S.CardDate>
         </S.CardDateBox>
-      </div>
+      </S.CardDateCategory>
     </S.ListArticle>
   );
 };
