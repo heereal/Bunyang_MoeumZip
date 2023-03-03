@@ -5,8 +5,6 @@ interface PropsP {
 }
 
 const SpecialSupply = ({ home }: PropsP) => {
-  console.log(home?.HOUSE_SECD);
-
   return (
     <>
       {home?.HOUSE_SECD === '06' ||
@@ -38,14 +36,14 @@ const SpecialSupply = ({ home }: PropsP) => {
                     padding: 5,
                   }}
                 >
-                  <div style={{ width: '12.5%', fontSize: 14 }}>다자녀</div>
-                  <div style={{ width: '12.5%', fontSize: 14 }}>신혼부부</div>
-                  <div style={{ width: '12.5%', fontSize: 14 }}>생애최초</div>
-                  <div style={{ width: '12.5%', fontSize: 14 }}>노부모</div>
-                  <div style={{ width: '12.5%', fontSize: 14 }}>기관추천</div>
-                  <div style={{ width: '12.5%', fontSize: 14 }}>기타</div>
-                  <div style={{ width: '12.5%', fontSize: 14 }}>이전기관</div>
-                  <div style={{ width: '12.5%', fontSize: 14 }}>총계</div>
+                  <div style={{ width: '12.5%', fontSize: 13 }}>다자녀</div>
+                  <div style={{ width: '12.5%', fontSize: 13 }}>신혼부부</div>
+                  <div style={{ width: '12.5%', fontSize: 13 }}>생애최초</div>
+                  <div style={{ width: '12.5%', fontSize: 13 }}>노부모</div>
+                  <div style={{ width: '12.5%', fontSize: 13 }}>기관추천</div>
+                  <div style={{ width: '12.5%', fontSize: 13 }}>기타</div>
+                  <div style={{ width: '12.5%', fontSize: 13 }}>이전기관</div>
+                  <div style={{ width: '12.5%', fontSize: 13 }}>총계</div>
                 </div>
               </S.SpecialHead>
             </S.SPLtable>
@@ -56,7 +54,6 @@ const SpecialSupply = ({ home }: PropsP) => {
                     style={{ width: '20%', backgroundColor: '#f4f4f4' }}
                   >
                     {item.HOUSE_TY}
-                    <a style={{ fontSize: 18 }}>㎡</a>
                   </S.SPLNUM>
 
                   <S.SPLhead style={{ width: '80%' }}>

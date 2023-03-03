@@ -127,7 +127,7 @@ const EditComment = ({
             >
               <div>{comment?.nickName}</div>
               <div style={{ fontSize: 13, color: '#B9B9B9' }}>
-                {getDate(comment?.date)}
+                {comment?.date && getDate(comment?.date)}
               </div>
               {comment?.edit && <div>수정됨</div>}
             </div>
@@ -180,7 +180,7 @@ const EditComment = ({
         />
         {replies
           ?.filter((reply: ItemJ) => reply.commentId === comment?.commentId)
-          .map((list: {}[], index: number) => {
+          .map((list: any, index: number) => {
             return (
               <Replies
                 replies={replies}

@@ -7,8 +7,7 @@ export const DetailBody = styled.div`
   flex-direction: column;
   overflow-y: scroll;
   @media screen and (max-width: 768px) {
-    width: 100%;
+    width: 100vw;
     height: 60%;
-    overflow: visible;
   }
 `;

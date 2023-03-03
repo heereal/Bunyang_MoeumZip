@@ -11,6 +11,7 @@ const AddReply = ({
   postId,
   user,
   comment,
+  date,
 }: CommentPropsP) => {
   const [replyOpen, setReplyOpen] = useState(false);
   const [replyInput, SetReplyInput] = useState('');
@@ -61,8 +62,11 @@ const AddReply = ({
 
   return (
     <S.ReplyHeader>
-      <S.ReplyInputBox>
-        <div onClick={() => setReplyOpen(true)} style={{ cursor: 'pointer' }}>
+      <S.ReplyInputBox blur={!user ? '4px' : '0'}>
+        <div
+          onClick={user ? () => setReplyOpen(true) : undefined}
+          style={{ cursor: 'pointer' }}
+        >
           답글 달기
         </div>
         {replyOpen && (

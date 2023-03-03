@@ -9,7 +9,7 @@ const SupplyInfo = ({ home }: PropsP) => {
       <S.ArticleBox>
         <S.SPLtable>
           <S.SPLNUM style={{ width: '10%', backgroundColor: '#f4f4f4' }}>
-            주택번호
+            번호
           </S.SPLNUM>
           <S.SPLhead color="#f4f4f4">주거전용면적</S.SPLhead>
           <S.SPLhead color="#f4f4f4">공급면적</S.SPLhead>
@@ -29,7 +29,10 @@ const SupplyInfo = ({ home }: PropsP) => {
               <div style={{ width: '33%' }}>총계</div>
             </div>
           </S.SPLhead>
-          <S.SPLhead color="#f4f4f4">공급금액(최고가 기준)</S.SPLhead>
+          <S.SPLhead color="#f4f4f4" style={{ flexDirection: 'column' }}>
+            <p>공급금액</p>
+            <p>(최고가 기준)</p>
+          </S.SPLhead>
         </S.SPLtable>
         {home?.DETAIL.map((item: ItemJ) => {
           return (
@@ -39,22 +42,18 @@ const SupplyInfo = ({ home }: PropsP) => {
               </S.SPLNUM>
               {item.HOUSE_TY ? (
                 <S.SPLhead style={{ width: '90%' }}>
-                  <S.SPLTY>
-                    {item.HOUSE_TY}
-                    <a style={{ fontSize: 18, padding: 3 }}>㎡</a>
-                  </S.SPLTY>
-                  <S.SPLTY>
-                    {item.SUPLY_AR !== null ? item.SUPLY_AR : '-'}
+                  <S.SPLTY>{item.HOUSE_TY}</S.SPLTY>
+                  <S.SPLTY style={{ flexDirection: 'column' }}>
+                    {item.SUPLY_AR !== null ? `${item.SUPLY_AR}㎡` : '-'}
                     {item.SUPLY_AR !== null ? (
                       <>
-                        <a style={{ fontSize: 18, padding: 3 }}>㎡</a>
-                        <a>
+                        <p>
                           (
-                          {typeof item.SUPLY_AR === 'number'
-                            ? Math.round(item.SUPLY_AR / 3.3)
+                          {typeof item.SUPLY_AR === 'string'
+                            ? Math.round(Number(item.SUPLY_AR) / 3.3)
                             : null}
                           평)
-                        </a>
+                        </p>
                       </>
                     ) : null}
                   </S.SPLTY>
@@ -78,12 +77,15 @@ const SupplyInfo = ({ home }: PropsP) => {
                     <a style={{ fontSize: 18, padding: 3 }}>㎡</a>
                   </S.SPLTY>
                   <S.SPLTY>
-                    {item.EXCLUSE_AR}
-                    <a style={{ fontSize: 18, padding: 3 }}>㎡</a>(
-                    {typeof item.EXCLUSE_AR === 'number'
-                      ? Math.round(item.EXCLUSE_AR / 3.3)
-                      : null}
-                    평)
+                    <p>{item.EXCLUSE_AR}</p>
+                    <p style={{ fontSize: 20, padding: 3 }}>㎡</p>
+                    <p>
+                      (
+                      {typeof item.EXCLUSE_AR === 'number'
+                        ? Math.round(item.EXCLUSE_AR / 3.3)
+                        : null}
+                      평)
+                    </p>
                   </S.SPLTY>
                   <S.SPLTY style={{ border: 'none' }}>
                     <S.TYDetail style={{ width: '33%' }}>

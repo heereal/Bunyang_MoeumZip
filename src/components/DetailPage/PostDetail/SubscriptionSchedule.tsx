@@ -25,10 +25,42 @@ const SubscriptionSchedule = ({ home }: PropsP) => {
               <S.BoxContent style={{ paddingLeft: 0 }}>
                 <S.Table>
                   <S.THead>
-                    <S.Tbody>구분</S.Tbody>
-                    <S.Tbody>해당지역</S.Tbody>
-                    <S.Tbody>기타경기 </S.Tbody>
-                    <S.Tbody>기타지역</S.Tbody>
+                    <S.Tbody
+                      style={{
+                        backgroundColor: '#E5EDFF',
+                        color: '#356EFF',
+                        fontWeight: 600,
+                      }}
+                    >
+                      구분
+                    </S.Tbody>
+                    <S.Tbody
+                      style={{
+                        backgroundColor: '#E5EDFF',
+                        color: '#356EFF',
+                        fontWeight: 600,
+                      }}
+                    >
+                      해당지역
+                    </S.Tbody>
+                    <S.Tbody
+                      style={{
+                        backgroundColor: '#E5EDFF',
+                        color: '#356EFF',
+                        fontWeight: 600,
+                      }}
+                    >
+                      기타경기{' '}
+                    </S.Tbody>
+                    <S.Tbody
+                      style={{
+                        backgroundColor: '#E5EDFF',
+                        color: '#356EFF',
+                        fontWeight: 600,
+                      }}
+                    >
+                      기타지역
+                    </S.Tbody>
                   </S.THead>
                   {home?.SPSPLY_RCEPT_BGNDE && (
                     <S.THead>

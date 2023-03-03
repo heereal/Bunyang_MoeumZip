@@ -26,7 +26,7 @@ const DetailHeader = ({
                 : '#ffffff',
           }}
         >
-          ★
+          <div>★ 북마크 추가하기</div>
         </S.BmrBtn>
       </S.BmrkBox>
       <S.HeaderBox>
@@ -50,7 +50,8 @@ const DetailHeader = ({
         <S.HeaderTitle>{home?.HOUSE_NM}</S.HeaderTitle>
         <S.HeaderAdres>{home?.FOR_COORDINATES_ADRES}</S.HeaderAdres>
         <S.HeaderBmrk>
-          ★{bookmarksList?.usersList ? bookmarksList?.usersList?.length : '0'}
+          <p style={{ color: '#FFEF5A ' }}>★</p>
+          {bookmarksList?.usersList ? bookmarksList?.usersList?.length : '0'}
           명이 관심을 갖고 있어요
         </S.HeaderBmrk>
       </S.HeaderBox>

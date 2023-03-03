@@ -57,26 +57,15 @@ const AddComment = ({ user, postId, queryClient, refetch }: CommentPropsP) => {
   return (
     <S.AddCommentBox>
       <S.ImageBox>
-        {typeof user?.userImage === 'string' ? (
-          <Image
-            width={45}
-            height={45}
-            alt="profile"
-            src={user?.userImage}
-            quality={75}
-            loading="lazy"
-            style={{ borderRadius: 25, objectFit: 'cover' }}
-          />
-        ) : (
-          <Image
-            height={33}
-            alt="profile"
-            src={logo}
-            quality={75}
-            loading="lazy"
-            style={{ borderRadius: 25, objectFit: 'cover' }}
-          />
-        )}
+        <Image
+          width={45}
+          height={45}
+          alt="profile"
+          src={typeof user?.userImage === 'string' ? user?.userImage : logo}
+          quality={75}
+          loading="lazy"
+          style={{ borderRadius: 25, objectFit: 'cover' }}
+        />
       </S.ImageBox>
 
       <S.InputBox>
@@ -91,13 +80,12 @@ const AddComment = ({ user, postId, queryClient, refetch }: CommentPropsP) => {
           onKeyPress={(e) => OnKeyPressHandler(e, 'add')}
           disabled={user || clicked === false ? false : true}
         />
-        <S.BtnBox>
-          <RiPencilFill
-            onClick={user ? addCommentHandler : undefined}
-            style={{ width: 25, height: 25, color: '#7B7B7B' }}
-          />
-        </S.BtnBox>
       </S.InputBox>
+      <S.BtnBox>
+        <S.SubmitBtn onClick={user ? addCommentHandler : undefined}>
+          댓글 게시
+        </S.SubmitBtn>
+      </S.BtnBox>
     </S.AddCommentBox>
   );
 };

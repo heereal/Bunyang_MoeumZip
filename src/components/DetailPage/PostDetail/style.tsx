@@ -33,9 +33,10 @@ export const PageHeader = styled.div`
   align-items: center;
   width: 100%;
   background: linear-gradient(
-    0deg,
-    rgba(61, 127, 255, 0.1),
-    rgba(61, 127, 255, 0.1)
+    180deg,
+    #bed2ff 0%,
+    rgba(221, 231, 255, 0.634375) 51.04%,
+    rgba(218, 229, 255, 0.74) 100%
   );
   padding-bottom: 30px;
 `;
@@ -86,9 +87,9 @@ export const BmrBtn = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 25px;
-  width: 36px;
-  height: 36px;
-  font-size: 20px;
+  width: 105px;
+  height: 28px;
+  font-size: 12px;
   background-color: #3d7fff;
   padding-left: 1px;
   padding-top: 2px;
@@ -127,6 +128,7 @@ export const ArticleBox = styled.div`
   border: 1px solid #f4f4f4;
   margin-bottom: 15px;
   font-size: 15px;
+  border-top: 1.3px solid #8e8e8e;
 `;
 
 export const ArticleHead = styled.div`
@@ -138,15 +140,16 @@ export const ArticleHead = styled.div`
 `;
 
 export const ArticleTitle = styled.div`
-  background-color: #f4f4f4;
+  background-color: #356eff;
   text-align: center;
   height: 51px;
   font-size: 16px;
-  font-weight: 700;
+  font-weight: 600;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
+  color: white;
 `;
 
 export const Article = styled.div`
