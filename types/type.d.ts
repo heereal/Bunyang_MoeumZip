@@ -140,4 +140,7 @@ type keywordJ = string | string[] | undefined;
 interface keywordPropsJ {
   keyword?: keywordJ;
   text: string;
+  text2?: string;
+  text3?: string;
+  wrong?: string;
 }
