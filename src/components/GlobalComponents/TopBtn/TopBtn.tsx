@@ -39,7 +39,7 @@ const TopBtn = () => {
         <S.TopBtnSection>
           <S.TopBtn onClick={topBtn} type="button">
             <VscTriangleUp color="white" fontSize={15} />
-            Top
+            TOP
           </S.TopBtn>
         </S.TopBtnSection>
       )}
