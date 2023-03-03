@@ -9,23 +9,22 @@ export const Wrapper = styled.div`
 export const SignUpContainer = styled.div`
   box-sizing: content-box;
   padding: 0 30px;
-  width: 550px;
+  width: 460px;
   display: flex;
   flex-direction: column;
-  margin-top: 35px;
+  margin-top: 25px;
 `;
 
 export const SignUpDesc = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 45px;
+  margin-bottom: 22px;
 
   h1 {
     font-weight: 700;
     font-size: 20px;
     line-height: 42px;
-    margin-bottom: 3px;
   }
   p {
     color: #8e8e8e;
@@ -99,6 +98,8 @@ export const CategoryTitle = styled.h2`
 export const SignUpBtnContainer = styled.div`
   padding-top: 10px;
   padding-bottom: 60px;
+  display: flex;
+  justify-content: center;
 `;
 
 export const SignUpBtn = styled.button`
@@ -106,8 +107,8 @@ export const SignUpBtn = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  height: 47px;
+  width: 91.5%;
+  height: 42px;
   background-color: #356eff;
   border-radius: 7px;
   color: white;

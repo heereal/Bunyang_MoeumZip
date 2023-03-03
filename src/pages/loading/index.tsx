@@ -62,10 +62,9 @@ const Loading = () => {
         {
           pathname: '/signup',
           query: {
-            loading: 'loading',
+            loading: true,
           },
         },
-        // `/movies/${id}`
       );
     }
   };
