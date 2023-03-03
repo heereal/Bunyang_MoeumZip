@@ -48,12 +48,18 @@ const SelectMyRegion = ({ width }: SelectCategoryProps) => {
         ),
       )}
       <S.SelectAllOrNoneContainer>
-        <S.SelectBtn onClick={() => setMyRegionArray(regionArray)}>
-          <BsFillCheckCircleFill size="15" />
+        <S.SelectBtn
+          color={myRegionArray?.length === 17 ? '#356EFF' : '#505050'}
+          onClick={() => setMyRegionArray(regionArray)}
+        >
+          <BsFillCheckCircleFill size="11" />
           <span>전체 선택</span>
         </S.SelectBtn>
-        <S.SelectBtn onClick={() => setMyRegionArray([])}>
-          <FaUndo size="13" />
+        <S.SelectBtn
+          color={myRegionArray?.length === 0 ? '#356EFF' : '#505050'}
+          onClick={() => setMyRegionArray([])}
+        >
+          <FaUndo size="9.5" />
           <span>전체 초기화</span>
         </S.SelectBtn>
       </S.SelectAllOrNoneContainer>

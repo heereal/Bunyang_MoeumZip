@@ -140,7 +140,7 @@ const SignUp = () => {
           </S.NicknameTitle>
           <S.InputBtnContainer>
             <S.NicknameInput
-              value={nickname}
+              value={nickname || ''}
               onChange={(e) => setNickname(e.target.value)}
             />
             <S.CheckNicknameBtn onClick={checkNicknameHandler}>

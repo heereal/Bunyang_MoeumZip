@@ -45,12 +45,18 @@ const SelectMyTypes = ({ width }: SelectCategoryProps) => {
         ),
       )}
       <S.SelectAllOrNoneContainer>
-        <S.SelectBtn onClick={() => setMyTypeArray(typesArray)}>
-          <BsFillCheckCircleFill size="15" />
+        <S.SelectBtn
+          color={myTypeArray?.length === 11 ? '#356EFF' : '#505050'}
+          onClick={() => setMyTypeArray(typesArray)}
+        >
+          <BsFillCheckCircleFill size="11" />
           <span>전체 선택</span>
         </S.SelectBtn>
-        <S.SelectBtn onClick={() => setMyTypeArray([])}>
-          <FaUndo size="13" />
+        <S.SelectBtn
+          color={myTypeArray?.length === 0 ? '#356EFF' : '#505050'}
+          onClick={() => setMyTypeArray([])}
+        >
+          <FaUndo size="9.5" />
           <span>전체 초기화</span>
         </S.SelectBtn>
       </S.SelectAllOrNoneContainer>
