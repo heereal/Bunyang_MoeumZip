@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import * as S from './style';
+import { VscTriangleUp } from 'react-icons/vsc';
 
 const TopBtn = () => {
   const [showButton, setShowButton] = useState(false);
@@ -37,6 +38,7 @@ const TopBtn = () => {
       {showButton && (
         <S.TopBtnSection>
           <S.TopBtn onClick={topBtn} type="button">
+            <VscTriangleUp color="white" fontSize={15} />
             Top
           </S.TopBtn>
         </S.TopBtnSection>

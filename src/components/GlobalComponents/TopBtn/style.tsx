@@ -8,9 +8,6 @@ export const TopBtnSection = styled.div`
   z-index: 1;
 `;
 export const TopBtn = styled.button`
-  font-weight: bold;
-  font-size: 20px;
-
   width: 38px;
   height: 38px;
   margin: 283px 20px 0 155px;
@@ -23,6 +20,10 @@ export const TopBtn = styled.button`
   border: 1px solid lavender;
   border-radius: 50%;
   outline: none;
+
+  font-weight: bold;
+  font-size: 20px;
+
   cursor: pointer;
 
   :hover {
