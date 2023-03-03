@@ -108,20 +108,20 @@ const EditProfileModal = ({ setIsModalOpen }: any) => {
       <S.ModalContainer>
         <S.CloseBtnContainer>
           <MdClose
-            size="30"
+            size="27"
             onClick={() => setIsModalOpen(false)}
             style={{ cursor: 'pointer' }}
           />
         </S.CloseBtnContainer>
 
         <S.EditProfileContainer>
-          <S.Title>회원정보 수정</S.Title>
+          <S.Title>프로필 수정</S.Title>
           <S.EditProfileImgLabel>
             <Image
               src={editProfileImg ? editProfileImg : transparentProfile}
               alt="profile"
-              width={170}
-              height={170}
+              width={130}
+              height={130}
               quality={75}
               style={{
                 borderRadius: '50%',
@@ -139,7 +139,7 @@ const EditProfileModal = ({ setIsModalOpen }: any) => {
             <S.CameraIcon>
               <BsCameraFill
                 color="gray"
-                size="23"
+                size="17"
                 style={{ marginBottom: 2 }}
               />
             </S.CameraIcon>
