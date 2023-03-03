@@ -58,7 +58,7 @@ export const CardTitleBox = styled.div`
 export const CardTitle = styled.p`
   height: 19px;
 
-  font-weight: 900;
+  font-weight: 500;
   font-size: 16px;
   line-height: 19px;
   margin-top: 8px;

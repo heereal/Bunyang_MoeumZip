@@ -35,14 +35,18 @@ export const MarkerIconContainer = styled.div`
 
 export const MapBox = styled.div<any>`
   width: 100%;
+  min-width: 300px;
+  min-height: ${(props) => props.minHeight};
   height: 100%;
+  display: ${(props) => props.display1200};
+  @media screen and (max-width: 768px) {
+    display: ${(props) => props.display768};
+  }
 `;
 
 export const MapContainer = styled.div`
   width: 40%;
-  height: 100%;
   @media screen and (max-width: 768px) {
-    width: 100%;
-    height: 50%;
+    width: 100vw;
   }
 `;

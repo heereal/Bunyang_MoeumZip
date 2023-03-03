@@ -3,14 +3,12 @@ interface PropsP {
   home: HomeP | undefined;
 }
 const LHDetail = ({ home }: PropsP) => {
-  console.log(home);
-
   return (
     <>
       <S.ArticleHead>공급일정</S.ArticleHead>
       <S.ArticleBox>
         <S.Article>
-          <S.BoxTitle color="#f4f4f4">모집공고일</S.BoxTitle>
+          <S.BoxTitle color="#f0f4ff">모집공고일</S.BoxTitle>
           <S.BoxContent>
             {home?.RCRIT_PBLANC_DE.slice(0, 4)}-
             {home?.RCRIT_PBLANC_DE.slice(4, 6)}-
@@ -18,13 +16,13 @@ const LHDetail = ({ home }: PropsP) => {
           </S.BoxContent>
         </S.Article>
         <S.Article>
-          <S.BoxTitle color="#f4f4f4">서류 접수 기간</S.BoxTitle>
+          <S.BoxTitle color="#f0f4ff">서류 접수 기간</S.BoxTitle>
           <S.BoxContent>
             {home?.RCEPT_BGNDE}~{home?.RCEPT_ENDDE}
           </S.BoxContent>
         </S.Article>
         <S.Article>
-          <S.BoxTitle color="#f4f4f4">당첨자 발표일</S.BoxTitle>
+          <S.BoxTitle color="#f0f4ff">당첨자 발표일</S.BoxTitle>
           <S.BoxContent>{home?.PRZWNER_PRESNATN_DE}</S.BoxContent>
         </S.Article>
       </S.ArticleBox>
@@ -33,7 +31,7 @@ const LHDetail = ({ home }: PropsP) => {
       )}
       <S.ArticleBox>
         {home?.DETAIL[0]?.REGISTER[0].SIL_OFC_GUD_FCTS && (
-          <S.Article style={{ backgroundColor: '#f4f4f4' }}>
+          <S.Article style={{ backgroundColor: '#f0f4ff' }}>
             <S.BoxTitle>유의사항</S.BoxTitle>
             <S.BoxContent
               style={{
