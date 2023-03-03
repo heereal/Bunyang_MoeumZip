@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const ListArticle = styled.article`
-  max-width: 208px;
+  max-width: 212px;
   height: 230px;
 
   background: #ffffff;
@@ -11,7 +11,6 @@ export const ListArticle = styled.article`
   align-items: center;
   justify-content: center;
   margin: 10px;
-  padding-top: 11px;
   border-radius: 20px;
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
 
@@ -32,7 +31,7 @@ export const TabInfo = styled.div`
   flex-direction: row;
   justify-content: flex-start;
   align-items: flex-end;
-  padding: 0px 13px;
+  padding: 5px 13px;
   gap: 5px;
 `;
 
@@ -42,7 +41,7 @@ export const TabInfoText = styled.p`
 
   font-style: normal;
   font-weight: 600;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 14px;
   text-align: left;
   color: #8e8e8e;
@@ -59,7 +58,7 @@ export const CardTitleBox = styled.div`
 export const CardTitle = styled.p`
   height: 19px;
 
-  font-weight: bold;
+  font-weight: 900;
   font-size: 16px;
   line-height: 19px;
   margin-top: 8px;
@@ -77,7 +76,7 @@ export const CardCategoryBox = styled.div`
   justify-content: flex-start;
   align-items: center;
   padding-left: 13px;
-  margin: 3px 0;
+  margin: 3px 0 10px 0;
 `;
 
 export const CardCategory = styled.div`
@@ -90,8 +89,8 @@ export const CardCategory = styled.div`
   align-items: center;
   padding-right: 3px;
 
-  font-weight: 500;
-  font-size: 11px;
+  font-weight: 600;
+  font-size: 13px;
 
   text-align: left;
   color: #7b7b7b;
@@ -100,53 +99,46 @@ export const CardCategory = styled.div`
 // 청약일 박스
 export const CardDateCategory = styled.div`
   width: 100%;
-  height: 71px;
-  margin-top: 18px;
-  margin-bottom: -15px;
+  height: 74px;
+  margin-top: 15px;
+  margin-bottom: -19px;
   background-color: #356eff;
 
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
+  gap: 12px;
 `;
 
 export const CardDateBox = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   gap: 3px;
-
+  padding: 0px 13px;
   border-radius: 10px;
-
-  /* margin: 3px 0; */
 `;
 
 export const CardDateTitle = styled.p`
   height: 14px;
 
-  font-style: normal;
-  font-weight: 600;
-  font-size: 12px;
+  font-weight: 300;
+  font-size: 13px;
   line-height: 14px;
   text-align: center;
 
-  color: #7b7b7b;
+  color: #ffffff;
 `;
-export const CardDate = styled.p`
-  height: 14px;
-
-  font-style: normal;
+export const CardDate = styled(CardDateTitle)`
   font-weight: 600;
-  font-size: 12px;
-  text-align: center;
-
-  color: #fc5a5a;
 `;
 
 // 청약일이 없을 때
 export const NoDate = styled(CardDateTitle)`
-  margin-top: 10px;
+  margin: 0 auto;
 `;
 
 // 면적
@@ -168,10 +160,14 @@ export const CardAreaBox = styled.div`
   margin-top: 8px;
 `;
 
-export const CardAreaTitle = styled(CardDateTitle)``;
+export const CardAreaTitle = styled(CardDateTitle)`
+  color: #7b7b7b;
+  font-weight: 600;
+`;
 
 export const CardArea = styled(CardDate)`
   text-align: right;
+  font-weight: 800;
 
   color: #000000;
 `;

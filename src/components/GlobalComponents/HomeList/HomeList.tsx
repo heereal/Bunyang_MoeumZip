@@ -45,9 +45,9 @@ const ListList = ({ list }: PropsListJ) => {
       {/* 주택 이름 */}
       <S.CardTitleBox>
         <S.CardTitle>
-          {list.HOUSE_NM.length < 11
+          {list.HOUSE_NM.length < 13
             ? list.HOUSE_NM
-            : list.HOUSE_NM.slice(0, 10) + '...'}
+            : list.HOUSE_NM.slice(0, 12) + '...'}
         </S.CardTitle>
       </S.CardTitleBox>
 
@@ -109,11 +109,11 @@ const ListList = ({ list }: PropsListJ) => {
                     list.SPSPLY_RCEPT_BGNDE.slice(8, 10).replace(/(^0)/, '') +
                     '일'
                   : list.SPSPLY_RCEPT_BGNDE.slice(5, 7).replace(/(^0)/, '') +
-                    '월' +
+                    '월 ' +
                     list.SPSPLY_RCEPT_BGNDE.slice(8, 10).replace(/(^0)/, '') +
                     '일 ~ ' +
                     list.SPSPLY_RCEPT_ENDDE.slice(5, 7).replace(/(^0)/, '') +
-                    '월' +
+                    '월 ' +
                     list.SPSPLY_RCEPT_ENDDE.slice(8, 10).replace(/(^0)/, '') +
                     '일'}
               </S.CardDate>
@@ -128,11 +128,11 @@ const ListList = ({ list }: PropsListJ) => {
                     list.PPR_ACP_ST_DT.slice(8, 10).replace(/(^0)/, '') +
                     '일'
                   : list.PPR_ACP_ST_DT.slice(5, 7).replace(/(^0)/, '') +
-                    '월' +
+                    '월 ' +
                     list.PPR_ACP_ST_DT.slice(8, 10).replace(/(^0)/, '') +
                     '일 ~ ' +
                     list.PPR_ACP_CLSG_DT.slice(5, 7).replace(/(^0)/, '') +
-                    '월' +
+                    '월 ' +
                     list.PPR_ACP_CLSG_DT.slice(8, 10).replace(/(^0)/, '') +
                     '일'}
               </S.CardDate>
@@ -146,10 +146,16 @@ const ListList = ({ list }: PropsListJ) => {
         <S.CardDateBox>
           <S.CardDateTitle>청약 접수일</S.CardDateTitle>
           <S.CardDate>
-            {list.RCEPT_BGNDE.slice(5, 7).replace(/(^0)/, '')}월
-            {list.RCEPT_BGNDE.slice(8, 10).replace(/(^0)/, '')}일 ~
-            {list.RCEPT_ENDDE.slice(5, 7).replace(/(^0)/, '')}월
-            {list.RCEPT_ENDDE.slice(8, 10).replace(/(^0)/, '')}일
+            {list.RCEPT_BGNDE &&
+              list.RCEPT_BGNDE.slice(5, 7).replace(/(^0)/, '') +
+                '월 ' +
+                list.RCEPT_BGNDE.slice(8, 10).replace(/(^0)/, '') +
+                '일' +
+                ' ~ ' +
+                list.RCEPT_ENDDE.slice(5, 7).replace(/(^0)/, '') +
+                '월 ' +
+                list.RCEPT_ENDDE.slice(8, 10).replace(/(^0)/, '') +
+                '일'}
           </S.CardDate>
         </S.CardDateBox>
       </S.CardDateCategory>

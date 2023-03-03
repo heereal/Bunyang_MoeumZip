@@ -14,7 +14,6 @@ export const CategorySection = styled.section`
 
 // 카테고리 Tabs
 export const CategoryTabList = styled.ul`
-  width: 30%;
   height: 30px;
   display: flex;
   flex-direction: row;
@@ -22,7 +21,6 @@ export const CategoryTabList = styled.ul`
   gap: 10px;
   padding: 6px 0;
 
-  position: fixed;
   margin-left: 24px;
 `;
 
