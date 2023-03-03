@@ -12,13 +12,13 @@ const CommentsList = ({ postId }: DetailPagePropsP) => {
   const queryClient = useQueryClient();
   const [user, setUser] = useState<any>();
   // 유저의 세션 정보 받아오기
-  const { data: session } = useSession();
+  const { data: session }: any = useSession();
 
   const { data: profile, refetch: refetchProfile } = useQuery(
     'profile',
     () => {
       if (typeof session?.user?.email === 'string') {
-        return getProfile(session?.user?.email);
+        return getProfile(`${session.user.provider}_${session.user.email}`);
       }
     },
     {
