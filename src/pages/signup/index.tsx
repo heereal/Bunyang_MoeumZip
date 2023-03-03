@@ -23,7 +23,6 @@ import HeadTitle from '@/components/GlobalComponents/HeadTitle/HeadTitle';
 // TODO: isSignedUp이라는 속성을 하나 추가할까? 회원가입 완료해야 true가 됨 (닉네임 중복 검사해야되기 때문에)
 const SignUp = () => {
   const router = useRouter();
-  console.log('router:', router);
 
   // 유저의 세션 정보 받아오기
   const { data: session, status }: any = useSession();
@@ -38,7 +37,6 @@ const SignUp = () => {
 
   // 닉네임 중복 검사 시 사용
   const [isValidNickname, setIsValidNickname] = useState(false);
-  console.log('isValidNickname:', isValidNickname);
 
   const [nickname, setNickname] = useState<any>('');
 
@@ -112,8 +110,9 @@ const SignUp = () => {
 
   useEffect(() => {
     // 비로그인 유저일 경우 접근 제한
-    if (status === 'unauthenticated') router.push('/');
-    if (!router.query) router.push('/');
+    if (status === 'unauthenticated' || router.query.loading === undefined)
+      router.push('/', undefined, { shallow: true });
+    // if (router.query.loading === undefined) router.push('/');
     // eslint-disable-next-line
   }, [session]);
 
