@@ -94,7 +94,7 @@ export const CountTabNum = styled(CountTabName)`
 export const ListSection = styled.section`
   width: 100%;
   height: 90%;
-  background: #f7f7f7;
+  background-color: #f8faff;
   overflow-y: scroll;
 
   display: flex;
