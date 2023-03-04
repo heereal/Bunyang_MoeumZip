@@ -1,17 +1,20 @@
 import { DocumentData } from 'firebase/firestore';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import * as ReactDOMServer from 'react-dom/server';
 import ClusterLarge from './Cluster/ClusterLarge';
 import ClusterMid from './Cluster/ClusterMid';
 import ClusterSmall from './Cluster/ClusterSmall';
-import MarkerIcon from './MarkerIcon';
 import Overlay from './Overlay';
 
 interface MarkersProps {
   map: any;
   home: DocumentData | undefined;
 }
+const MarkerIcon = dynamic(() => import('./MarkerIcon'), {
+  ssr: false,
+});
 
 const Markers = ({ map, home }: MarkersProps) => {
   const router = useRouter();
