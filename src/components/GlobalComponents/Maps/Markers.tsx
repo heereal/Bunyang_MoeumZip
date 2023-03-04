@@ -72,7 +72,7 @@ const Markers = ({ map, home }: MarkersProps) => {
             // anchorSize: new naver.maps.Size(20, 20),
             // anchorSkew: true,
             // anchorColor: '#eee',
-            pixelOffset: new naver.maps.Point(0, 25),
+            pixelOffset: new naver.maps.Point(32, 25),
             borderWidth: 1,
             borderColor: '#bcc0cb',
           });
@@ -91,7 +91,7 @@ const Markers = ({ map, home }: MarkersProps) => {
 
         const markerClustering = new MarkerClustering({
           minClusterSize: 1,
-          maxZoom: 11,
+          maxZoom: 10,
           map: map,
           markers: markers,
           disableClickZoom: false,

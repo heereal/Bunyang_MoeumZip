@@ -116,7 +116,9 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
     <S.Section>
       <NextSeo
         title={`${home?.HOUSE_NM ? home?.HOUSE_NM : '상세페이지'} -`}
-        description={`${home?.HOUSE_NM}의 분양상세정보, 주변아파트 실거래가를 제공합니다.`}
+        description={`${
+          home?.HOUSE_NM ? home?.HOUSE_NM : '모집공고'
+        }의 분양상세정보, 주변아파트 실거래가를 제공합니다.`}
       />
       <DetailHeader
         bookmarksList={bookmarksList}
