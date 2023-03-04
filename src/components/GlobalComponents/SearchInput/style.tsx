@@ -2,38 +2,46 @@ import styled from 'styled-components';
 
 // 검색창
 export const SearchBox = styled.div`
-  width: 50%;
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
 `;
 
-export const SearchInput = styled.input`
-  width: 30.5%;
-  height: 36px;
-
+export const SearchInputContainer = styled.div`
+  width: 90%;
   display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
-  gap: 8px;
-  margin: 0 0 20px;
-  padding: 10px 40px 10px 15px;
+`;
 
+export const SearchInputBox = styled.div`
+  display: flex;
+  width: 100%;
+  height: 36px;
+  min-width: 250px;
+  max-width: 500px;
   border-radius: 20px;
   border: solid 1px #bcc0cb;
   background-color: #fff;
 
   box-sizing: border-box;
+`;
+
+export const SearchInput = styled.input`
+  border: none;
+  outline: none;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 40px 10px 15px;
+  border-radius: 20px;
 
   font-size: 12px;
   text-align: left;
-
-  position: absolute;
-  left: 34.75%;
-  right: 34.83%;
-  top: 20%;
-  bottom: 20%;
 
   :focus-visible {
     outline: none;
@@ -41,18 +49,11 @@ export const SearchInput = styled.input`
 `;
 
 export const SearchBtn = styled.button`
-  height: 13px;
-  object-fit: contain;
-  margin: 0.5px 0 0.5px 8px;
-
   background-color: transparent;
   border: none;
   outline: none;
-
-  position: absolute;
-  left: 50.75%;
-  right: 24.83%;
-  top: 30%;
+  padding-right: 10px;
+  padding-top: 5px;
 
   cursor: pointer;
 `;

@@ -29,7 +29,7 @@ const DetailHeader = ({
               `${session?.user?.provider}_${session?.user?.email}`,
             )
               ? 'rgba(255, 255, 255, 0.2)'
-              : '',
+              : 'transparent',
           }}
         >
           <div
