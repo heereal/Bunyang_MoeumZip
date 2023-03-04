@@ -4,20 +4,16 @@ import styled from 'styled-components';
 export const NoResultTitle = styled.p`
   font-style: normal;
   font-weight: 600;
-  font-size: 23px;
+  font-size: 18px;
   line-height: 27px;
   text-align: center;
-
-  color: #000000;
-
-  margin-top: 31px;
+  margin-top: 18px;
 `;
 
 export const NoResultText = styled(NoResultTitle)`
   font-weight: 500;
-  font-size: 18px;
+  font-size: 15px;
   line-height: 21px;
-
   color: #8e8e8e;
-  margin-top: 12px;
+  margin-top: 8px;
 `;

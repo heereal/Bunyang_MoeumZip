@@ -11,6 +11,7 @@ import { NextSeo } from 'next-seo';
 
 const SearchResult = ({ homeList }: HomeListDBPropsJ) => {
   const router = useRouter();
+
   const allHomeList = homeList.allHomeData;
 
   // Search 컴포넌트에 있는 검색창에서 router로 받아 온 검색어

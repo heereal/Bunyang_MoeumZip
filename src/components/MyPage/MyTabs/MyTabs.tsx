@@ -85,7 +85,7 @@ const MyTabs = () => {
         {/* 관심 지역 */}
         {currentTab === 2 && (
           <>
-            <SelectMyRegion width={'80%'} />
+            <SelectMyRegion width={'80%'} path={'/my'} />
             <S.SubmitBtn
               disabled={myRegionArray === currentUser.regions}
               onClick={() => updateCategoryHandler('regions', myRegionArray)}
@@ -98,7 +98,7 @@ const MyTabs = () => {
         {/* 관심 분양 형태 */}
         {currentTab === 3 && (
           <>
-            <SelectMyTypes width={'80%'} />
+            <SelectMyTypes width={'80%'} path={'/my'} />
             <S.SubmitBtn
               disabled={myTypeArray === currentUser.types}
               onClick={() => updateCategoryHandler('types', myTypeArray)}

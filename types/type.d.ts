@@ -131,6 +131,7 @@ interface CategoryBtnStyledProps {
 
 interface SelectCategoryProps {
   width: string;
+  path: string;
 }
 
 // 검색어 타입

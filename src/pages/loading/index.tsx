@@ -58,7 +58,6 @@ const Loading = () => {
         doc(db, 'Users', `${session.user.provider}_${session.user.email}`),
         newUser,
       );
-      // router.push('/signup');
       router.push(
         {
           pathname: '/signup',

@@ -51,7 +51,7 @@ export default App;
 
 const Container = styled.div`
   width: 100vw;
-  height: 91vh;
+  height: 93vh;
   display: flex;
   flex-direction: row;
 
