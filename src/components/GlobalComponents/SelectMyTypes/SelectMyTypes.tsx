@@ -18,6 +18,7 @@ const SelectMyTypes = ({ width }: SelectCategoryProps) => {
 
   useEffect(() => {
     setMyTypeArray(currentUser.types);
+  // eslint-disable-next-line
   }, []);
 
   return (

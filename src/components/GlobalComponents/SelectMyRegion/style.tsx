@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 
-// TODO: nav 등 semantic tag로 변경하기
 export const CategoryContainer = styled.div<{ width: string; path: string }>`
   box-shadow: ${(props) =>
     props.path === '/signup' ? 'none' : '0px 4px 4px rgba(0, 0, 0, 0.25)'};

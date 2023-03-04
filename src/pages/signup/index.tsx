@@ -112,7 +112,6 @@ const SignUp = () => {
     // 비로그인 유저일 경우 접근 제한
     if (status === 'unauthenticated' || router.query.loading === undefined)
       router.push('/', undefined, { shallow: true });
-    // if (router.query.loading === undefined) router.push('/');
     // eslint-disable-next-line
   }, [session]);
 
