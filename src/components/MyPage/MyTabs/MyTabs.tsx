@@ -29,6 +29,7 @@ const MyTabs = () => {
     (item: ItemJ) =>
       item.PBLANC_NO && currentUser?.bookmarkList?.includes(item.PBLANC_NO),
   );
+  console.log('myBookmarkList:', myBookmarkList);
 
   // [변경사항 저장] 버튼 클릭 시 작동
   const updateCategoryHandler = async (category: string, array: any) => {
@@ -68,13 +69,14 @@ const MyTabs = () => {
         >
           관심 분양형태
         </S.TabBtn>
+        <S.Line />
       </S.TabContainer>
 
       <S.TabContentContainer>
         {/* 북마크 목록 */}
         {currentTab === 1 && (
           <S.BookmarkListContainer>
-            {myBookmarkList?.length === 0 ? (
+            {myBookmarkList !== undefined && myBookmarkList?.length === 0 ? (
               <S.NoResultContainer>
                 <NoResult
                   title="아직 찜한 정보가 없어요."

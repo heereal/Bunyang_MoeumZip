@@ -11,6 +11,7 @@ export const Wrapper = styled.div`
 
 export const TabContainer = styled.div`
   display: flex;
+  position: relative;
 `;
 
 export const TabBtn = styled.div<{ color: string }>`
@@ -21,12 +22,16 @@ export const TabBtn = styled.div<{ color: string }>`
   border-bottom: 2px solid ${(props) => props.color};
   color: ${(props) => props.color};
   cursor: pointer;
+  z-index: 1;
 `;
 
 export const Line = styled.div`
-  background-color: #f4f4f4;
-  height: 5px;
-  top: -5px;
+  background-color: #BCC0CB;
+  position: absolute;
+  height: 1.5px;
+  bottom: 0;
+  width: 80%;
+  z-index: 0;
 `;
 
 export const TabContentContainer = styled.div`
