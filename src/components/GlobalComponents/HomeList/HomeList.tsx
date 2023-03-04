@@ -7,14 +7,17 @@ import todayIcon from 'public/assets/today.png';
 import comingIcon from 'public/assets/coming.png';
 import randomIcon from 'public/assets/random.png';
 
-const ListList = ({ list }: PropsListJ) => {
+const ListList = ({ list, marginRight}: PropsListJ) => {
   const router = useRouter();
 
   // 오늘 날짜
   const today = getToday();
 
   return (
-    <S.ListArticle onClick={() => router.push(`/detail/${list.PBLANC_NO}`)}>
+    <S.ListArticle
+    style={{marginRight}}
+      onClick={() => router.push(`/detail/${list.PBLANC_NO}`)}
+    >
       {/* 리스트 분류 */}
       <S.TabInfo>
         <Image

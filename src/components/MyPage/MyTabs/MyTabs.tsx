@@ -84,7 +84,9 @@ const MyTabs = () => {
               </S.NoResultContainer>
             ) : (
               myBookmarkList?.map((item: ItemJ) => {
-                return <HomeList list={item} key={item.PBLANC_NO} />;
+                return (
+                  <HomeList list={item} key={item.PBLANC_NO} marginRight={25} />
+                );
               })
             )}
           </S.BookmarkListContainer>

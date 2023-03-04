@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 60%;
+  max-width: 750px;
   height: 100%;
   margin-left: 70px;
   /* overflow-y: scroll; */
@@ -30,7 +30,7 @@ export const TabBtn = styled.div<{ color: string }>`
   z-index: 1;
 
   @media screen and (max-width: 870px) {
-    padding: 11px 20px;
+    padding: 11px 26px;
   }
 `;
 
@@ -39,7 +39,7 @@ export const Line = styled.div`
   position: absolute;
   height: 1.5px;
   bottom: 0;
-  width: 80%;
+  width: 95%;
   z-index: 0;
 
   @media screen and (max-width: 870px) {
@@ -58,16 +58,6 @@ export const BookmarkListContainer = styled.div`
   flex-wrap: wrap;
   display: flex;
   /* overflow-y: scroll; */
-`;
-
-export const BookmarkInfoContainer = styled.div`
-  width: 250px;
-  height: 300px;
-  background: #ffffff;
-  border: 1px solid lightgray;
-  border-radius: 20px;
-  padding: 20px;
-  margin-right: 10px;
 `;
 
 export const NoResultContainer = styled.div`

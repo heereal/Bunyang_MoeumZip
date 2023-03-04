@@ -117,6 +117,7 @@ interface ItemJ {
 // props로 넘기는 list type - props의 이름이 list
 interface PropsListJ {
   list: ItemJ;
+  marginRight: number;
 }
 
 interface CountTabPropsListJ {
