@@ -1,5 +1,5 @@
 import { db, storage } from '@/common/firebase';
-import { customAlert } from '@/common/utils';
+import { customUIAlert } from '@/common/utils';
 import { currentUserState, usersListState } from '@/store/selectors';
 import { uuidv4 } from '@firebase/util';
 import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
@@ -37,18 +37,18 @@ const EditProfileModal = ({ setIsModalOpen }: any) => {
 
     // 중복되는 닉네임이 있는 경우
     if (checkNickname) {
-      alert('이미 존재하는 닉네임입니다. 다시 입력해주세요.');
+      customUIAlert('이미 존재하는 닉네임입니다. 다시 입력해주세요.');
       return;
     }
 
     // 닉네임을 입력하지 않았을 경우
     if (!editNickname) {
-      alert('닉네임을 입력해주세요.');
+      customUIAlert('닉네임을 입력해주세요.');
       return;
     }
 
     if (editNickname.length >= 9) {
-      alert('닉네임은 8자 이하로 입력해주세요.');
+      customUIAlert('닉네임은 8자 이하로 입력해주세요.');
       return;
     }
 
@@ -74,7 +74,7 @@ const EditProfileModal = ({ setIsModalOpen }: any) => {
       userName: editNickname,
       userImage: imageUpload ? downloadUrl : currentUser.userImage,
     });
-    customAlert('회원정보가 수정되었습니다.');
+    customUIAlert('회원정보가 수정되었습니다.');
   };
 
   // 이미지 업로드 시 이미지 미리보기 바로 반영됨
@@ -98,7 +98,7 @@ const EditProfileModal = ({ setIsModalOpen }: any) => {
       await deleteDoc(
         doc(db, 'Users', `${currentUser.provider}_${currentUser.userEmail}`),
       );
-      alert('회원탈퇴가 완료되었습니다.');
+      customUIAlert('회원탈퇴가 완료되었습니다.');
       signOut({ callbackUrl: '/' });
     }
   };

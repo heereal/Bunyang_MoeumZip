@@ -1,5 +1,6 @@
 import { deleteComment, editComment } from '@/common/api';
-import { customAlert, getDate, postTime } from '@/common/utils';
+import { customUIAlert, getDate, postTime } from '@/common/utils';
+import AlertUI from '@/components/GlobalComponents/AlertUI/AlertUI';
 import { arrayRemove, arrayUnion } from 'firebase/firestore';
 import Image from 'next/image';
 import { KeyboardEvent, useState } from 'react';
@@ -32,29 +33,28 @@ const EditComment = ({
       typeof index === 'number'
     )
       confirmAlert({
-        message: '삭제하시겠습니까?',
-        buttons: [
-          {
-            label: '확인',
-            onClick: () => {
-              const comment = {
-                list: arrayRemove(comments[index]),
-              };
-              deleteMutation.mutate({ postId, comment });
-            },
-          },
-
-          {
-            label: '취소',
-            onClick: () => onclose,
-          },
-        ],
+        customUI: ({ onClose }) => {
+          return (
+            <AlertUI
+              alertText="삭제하시겠습니까?"
+              onClose={onClose}
+              onClick={() => {
+                const comment = {
+                  list: arrayRemove(comments[index]),
+                };
+                deleteMutation.mutate({ postId, comment });
+                onClose();
+              }}
+              eventText="확인"
+            />
+          );
+        },
       });
   };
 
   const editCommentHandler = async (index: number | undefined) => {
     if (editInput === '') {
-      customAlert('1글자 이상 입력해주세요.');
+      customUIAlert('1글자 이상 입력해주세요.');
       return;
     }
     if (

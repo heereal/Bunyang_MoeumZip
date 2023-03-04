@@ -8,7 +8,7 @@ import { selectedRegionList, selectedTypeList } from '@/store/selectors';
 import { useSession } from 'next-auth/react';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useQuery } from 'react-query';
 import { useRecoilState } from 'recoil';
 import CategoryBar from '../CategoryBar/CategoryBar';
@@ -35,6 +35,17 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
       ssr: false,
     },
   );
+
+  // const useHomeList = dynamic(
+  //   () => import('@/hooks/useHomeList'),
+  //   {
+  //     ssr: false,
+  //   },
+  // );
+
+  useEffect(() => {
+    useHomeList;
+  }, []);
 
   // CategoryBar에서 선택된 지역, 분양 형태 리스트 가져오기
   const [selectedRegionArray] = useRecoilState(selectedRegionList);

@@ -1,5 +1,6 @@
-import { confirmAlert } from 'react-confirm-alert';
 import AlertUI from '@/components/GlobalComponents/AlertUI/AlertUI';
+import { confirmAlert } from 'react-confirm-alert';
+// import AlertUI from '@/components/GlobalComponents/AlertUI/AlertUI';
 
 // 댓글 작성 시 사용
 // const dateString  = postTime();
@@ -45,15 +46,11 @@ export const getToday = () => {
   return today;
 };
 
-// Alert(react confirm Library)실행함수
-export const customAlert = (text: string) => {
+// Custom Alert(react confirm Library)실행함수
+export const customUIAlert = (alertText: string) => {
   confirmAlert({
-    message: text,
-    buttons: [
-      {
-        label: '확인',
-        onClick: () => onclose,
-      },
-    ],
+    customUI: ({ onClose }) => {
+      return <AlertUI alertText={alertText} onClose={onClose} />;
+    },
   });
 };

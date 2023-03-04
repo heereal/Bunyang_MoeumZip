@@ -1,5 +1,5 @@
 import { db } from '@/common/firebase';
-import { customAlert } from '@/common/utils';
+import { customUIAlert } from '@/common/utils';
 import {
   arrayRemove,
   arrayUnion,
@@ -18,7 +18,7 @@ const useBookmark = (
   const onClickBookmarkBtnHandler = async () => {
     // 로그인하지 않았을 때
     if (status === 'unauthenticated') {
-      customAlert('로그인 후 북마크 기능을 이용할 수 있습니다.');
+      customUIAlert('로그인 후 북마크 기능을 이용할 수 있습니다.');
       return;
     }
 
@@ -42,25 +42,25 @@ const useBookmark = (
       await updateDoc(bookmarksRef, deleteBookmark).then(() => {
         updateDoc(doc(db, 'Users', usersRef), deleteUserBookmarkList);
       });
-      customAlert('북마크가 삭제되었습니다.');
+      customUIAlert('북마크가 삭제되었습니다.');
 
       // 해당 디테일 페이지에 최초로 북마크 했을 때 (북마크 추가)
     } else if (!bookmarksList?.usersList) {
       setDoc(bookmarksRef, addBookmark);
       updateDoc(doc(db, 'Users', usersRef), addUserBookmarkList);
-      customAlert('북마크가 추가되었습니다.');
+      customUIAlert('북마크가 추가되었습니다.');
 
       // 북마크를 추가할 때
     } else {
       await updateDoc(bookmarksRef, addBookmark)
         .then(() => {
           updateDoc(doc(db, 'Users', usersRef), addUserBookmarkList);
-          customAlert('북마크가 추가되었습니다.');
+          customUIAlert('북마크가 추가되었습니다.');
         })
         .catch(() => {
           setDoc(bookmarksRef, addBookmark);
           updateDoc(doc(db, 'Users', usersRef), addUserBookmarkList);
-          customAlert('북마크가 추가되었습니다.');
+          customUIAlert('북마크가 추가되었습니다.');
         });
     }
   };

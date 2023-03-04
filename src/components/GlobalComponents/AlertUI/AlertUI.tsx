@@ -5,10 +5,10 @@ import * as S from './style';
 
 // 공통 alert UI
 const AlertUI: React.FC<{
-  alertTitle?: string;
+  alertDetail?: string;
   alertText: string;
   onClose: MouseEventHandler<HTMLElement>;
-  onClick?: MouseEventHandler;
+  onClick?: any;
   eventText?: string;
 }> = (props) => {
   return (
@@ -16,17 +16,23 @@ const AlertUI: React.FC<{
       <S.AlertSection>
         <S.AlertBox>
           <S.TextBox>
-            <title>{props.alertTitle}</title>
             <S.AlertText>{props.alertText}</S.AlertText>
-          </S.TextBox>
-          <S.BtnBox>
-            <S.ConfirmBtn onClick={props.onClose}>
-              {props.alertTitle ? '취소' : '확인'}
-            </S.ConfirmBtn>
-            {props.alertTitle ? (
-              <button onClick={props.onClick}>{props.eventText}</button>
+            {props.alertDetail ? (
+              <S.AlertDetailText>{props.alertDetail}</S.AlertDetailText>
             ) : (
               ''
+            )}
+          </S.TextBox>
+          <S.BtnBox>
+            {props.onClick ? (
+              <>
+                <S.CancelBtn onClick={props.onClose}>취소</S.CancelBtn>
+                <S.ConfirmBtn onClick={props.onClick}>
+                  {props.eventText}
+                </S.ConfirmBtn>
+              </>
+            ) : (
+              <S.AlertBtn onClick={props.onClose}>확인</S.AlertBtn>
             )}
           </S.BtnBox>
         </S.AlertBox>
