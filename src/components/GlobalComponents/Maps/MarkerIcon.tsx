@@ -7,7 +7,7 @@ const MarkerIcon = ({ result }: any) => {
   const today = getToday();
   return (
     <S.MarkerIconContainer>
-      <Image src={Variant7} alt={'청약예정'} width={62} height={56} />
+      <Image src={Variant7} alt={'청약예정'} height={70} />
       <S.MarkerTest>
         {result?.RCEPT_BGNDE <= today && result?.RCEPT_ENDDE >= today
           ? '청약가능'

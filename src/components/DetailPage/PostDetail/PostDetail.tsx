@@ -14,6 +14,7 @@ import SupplyInfo from './SupplyInfo';
 import { getAPTRealPriceList } from '@/common/api';
 import { LAWD_CD_Code } from '@/common/LAWD_CD';
 import LHDetail from './LHDetail';
+import { NextSeo } from 'next-seo';
 
 const PostDetail = ({ postId }: DetailPagePropsP) => {
   const queryClient = useQueryClient();
@@ -114,6 +115,10 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
 
   return (
     <S.Section>
+      <NextSeo
+        title={`${home?.HOUSE_NM ? home?.HOUSE_NM : '상세페이지'} -`}
+        description={`${home?.HOUSE_NM}의 분양상세정보, 주변아파트 실거래가를 제공합니다.`}
+      />
       <DetailHeader
         bookmarksList={bookmarksList}
         home={home}

@@ -26,15 +26,11 @@ export const MarkerIconContainer = styled.div<any>`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 1px solid lightgray;
-  width: 62.58px;
-  height: 56.14px;
-  border-radius: 5px;
 `;
 
 export const MarkerTest = styled.div`
   position: absolute;
-  font-size: 9px;
+  font-size: 13px;
 `;
 
 export const MapBox = styled.div<any>`

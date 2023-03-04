@@ -7,6 +7,7 @@ import { doc, getDoc } from 'firebase/firestore';
 import { GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 import * as S from '../../styles/claendar.style';
+import { NextSeo } from 'next-seo';
 
 const Calender = ({ homeList }: any) => {
   const router = useRouter();
@@ -23,7 +24,10 @@ const Calender = ({ homeList }: any) => {
 
   return (
     <S.CalendarContainer>
-      <HeadTitle title="청약캘린더 |" />
+      <NextSeo
+        title="청약캘린더 -"
+        description="청약일정을 캘린더에서 한 눈에 확인 가능합니다."
+      />
 
       <FullCalendar
         plugins={[dayGridPlugin, interactionPlugin]}

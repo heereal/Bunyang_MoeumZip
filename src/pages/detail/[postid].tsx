@@ -9,6 +9,7 @@ import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { dehydrate, QueryClient } from 'react-query';
 import * as S from '../../styles/detail.style';
+import { NextSeo } from 'next-seo';
 
 const DetailPage = ({ dehydratedState }: any) => {
   const router = useRouter();
@@ -22,7 +23,6 @@ const DetailPage = ({ dehydratedState }: any) => {
 
   return (
     <S.DetailBody id="topBtnScroll">
-      <HeadTitle title="상세페이지" />
       <MarkerIcon />
       <PostDetail postId={router?.query.postid} />
       <CommentsList postId={router?.query.postid} />

@@ -12,6 +12,7 @@ import coordinatesBtn from '../../../public/assets/apiCallButton_blue.png';
 import lastDbButton from '../../../public/assets/apiCallButton_green.png';
 import firsDbtButton from '../../../public/assets/apiCallButton_red.png';
 import * as S from '../../styles/admin.style';
+import { NextSeo } from 'next-seo';
 
 const MustHaveToDo = ({
   aptCombineList,
@@ -663,7 +664,10 @@ const MustHaveToDo = ({
 
   return (
     <>
-      <HeadTitle title={'관리자페이지 |'} />
+      <NextSeo
+        title="관리자페이지 -"
+        description="희령, 윤숙, 성환의 관리자 페이지 입니당😛"
+      />
       <S.AdminSection>
         <S.TitleBox>
           <S.DbTimeTitle>{btnTime}</S.DbTimeTitle>
