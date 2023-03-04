@@ -4,8 +4,8 @@ const ClusterLarge = () => {
   return (
     <div
       style={{
-        width: 120,
-        height: 120,
+        width: 100,
+        height: 100,
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',

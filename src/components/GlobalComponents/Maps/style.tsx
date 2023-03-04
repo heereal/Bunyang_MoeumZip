@@ -10,7 +10,8 @@ export const Section = styled.div`
 `;
 
 export const OverlayContainer = styled.div`
-  width: 309px;
+  min-width: 150px;
+  max-width: 289px;
   height: 65px;
   display: flex;
   flex-direction: column;
@@ -31,6 +32,7 @@ export const MarkerIconContainer = styled.div<any>`
 export const MarkerTest = styled.div`
   position: absolute;
   font-size: 13px;
+  font-weight: 600;
 `;
 
 export const MapBox = styled.div<any>`
