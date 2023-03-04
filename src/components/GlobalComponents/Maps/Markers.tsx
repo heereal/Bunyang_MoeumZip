@@ -68,12 +68,13 @@ const Markers = ({ map, home }: MarkersProps) => {
 
           const infowindow = new naver.maps.InfoWindow({
             content: contentString,
-            maxWidth: 300,
-            backgroundColor: '#eee',
+            backgroundColor: '#fff',
             // anchorSize: new naver.maps.Size(20, 20),
             // anchorSkew: true,
             // anchorColor: '#eee',
             pixelOffset: new naver.maps.Point(0, 25),
+            borderWidth: 1,
+            borderColor: '#bcc0cb',
           });
 
           naver.maps.Event.addListener(marker, 'mouseover', function (e) {
