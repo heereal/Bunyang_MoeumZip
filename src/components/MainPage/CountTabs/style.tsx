@@ -4,15 +4,22 @@ import styled from 'styled-components';
 export const CountSectionBack = styled.div`
   width: 100%;
   height: 127px;
-  background-color: #ffffff;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  padding-left: 14px;
+  max-width: 750px;
 
-  position: sticky;
-  top: 0;
+  background-color: #ffffff;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @media screen and (max-width: 1280px) {
+    max-width: 500px;
+  }
+  @media screen and (max-width: 768px) {
+    max-width: 750px;
+  }
+
+  /* position: sticky;
+  top: 0; */
 `;
 
 export const CountTabList = styled.ul<{ bd: string; bs: string }>`
@@ -26,8 +33,8 @@ export const CountTabList = styled.ul<{ bd: string; bs: string }>`
 
   display: flex;
   align-items: center;
-  padding: 8px 5px;
   gap: 12px;
+  padding-left: 22px;
 
   /* CountTab */
   .baseTab {
@@ -39,7 +46,7 @@ export const CountTabList = styled.ul<{ bd: string; bs: string }>`
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    padding: 11px;
+    padding: 10px;
     gap: 14px;
 
     background: #ffffff;
@@ -68,17 +75,18 @@ export const BaseCountTab = styled.li<{ bd: string; bs: string }>`
 // CountTab 이름(전체, 청약 가능...)
 export const CountTabName = styled.div`
   width: 100%;
-  font-style: normal;
-  font-weight: 700;
+  font-weight: 600;
   font-size: 13px;
   line-height: 140%;
-  text-align: center;
   color: #8e8e8e;
 
   display: flex;
   justify-content: flex-start;
   align-items: center;
   gap: 5px;
+  @media screen and (max-width: 800px) {
+    font-size: 12px;
+  }
 `;
 
 // Tab별 Count Number
@@ -111,6 +119,7 @@ export const ListBox = styled.div`
   max-width: 750px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  place-items: center;
 
   @media screen and (max-width: 1280px) {
     grid-template-columns: repeat(2, 1fr);
@@ -119,5 +128,12 @@ export const ListBox = styled.div`
   @media screen and (max-width: 768px) {
     grid-template-columns: repeat(3, 1fr);
     max-width: 750px;
+  }
+  @media screen and (max-width: 690px) {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 750px;
+  }
+  @media screen and (max-width: 600px) {
+    grid-template-columns: repeat(1, 1fr);
   }
 `;

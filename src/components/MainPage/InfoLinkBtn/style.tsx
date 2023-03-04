@@ -1,17 +1,17 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  width: 215px;
   height: 30px;
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
+  padding-right: 40px;
   gap: 10px;
 
-  padding-right: 20px;
-
-  gap: 10px;
+  @media screen and (max-width: 600px) {
+    display: none;
+  }
 `;
 
 export const BtnBox = styled.div`

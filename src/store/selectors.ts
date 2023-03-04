@@ -1,7 +1,6 @@
 import { useCallback } from 'react';
 import { atom, selector } from 'recoil';
 
-
 // 유저가 선택한 관심 지역 리스트
 export const myRegionArrayState = atom({
   key: 'myRegion',
@@ -21,7 +20,7 @@ export const zoomState = atom({
 
 export const centerState = atom({
   key: 'center',
-  default: { y: 36.2262411, x: 127.65289439 },
+  default: { y: 36.5262411, x: 127.65289439 },
 });
 
 export const hideState = atom({

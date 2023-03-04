@@ -29,7 +29,6 @@ const MyTabs = () => {
     (item: ItemJ) =>
       item.PBLANC_NO && currentUser?.bookmarkList?.includes(item.PBLANC_NO),
   );
-  console.log('myBookmarkList:', myBookmarkList);
 
   // [변경사항 저장] 버튼 클릭 시 작동
   const updateCategoryHandler = async (category: string, array: any) => {
@@ -72,11 +71,11 @@ const MyTabs = () => {
         <S.Line />
       </S.TabContainer>
 
-      <S.TabContentContainer>
+      <S.TabContentContainer scroll={true}>
         {/* 북마크 목록 */}
         {currentTab === 1 && (
           <S.BookmarkListContainer>
-            {myBookmarkList !== undefined && myBookmarkList?.length === 0 ? (
+            {!myBookmarkList ? null : myBookmarkList?.length === 0 ? (
               <S.NoResultContainer>
                 <NoResult
                   title="아직 찜한 정보가 없어요."
@@ -92,7 +91,7 @@ const MyTabs = () => {
         )}
         {/* 관심 지역 */}
         {currentTab === 2 && (
-          <>
+          <S.SelectCategoryContainer>
             <SelectMyRegion width={'80%'} path={'/my'} />
             <S.SubmitBtn
               disabled={myRegionArray === currentUser.regions}
@@ -100,12 +99,12 @@ const MyTabs = () => {
             >
               변경사항 저장
             </S.SubmitBtn>
-          </>
+          </S.SelectCategoryContainer>
         )}
 
         {/* 관심 분양 형태 */}
         {currentTab === 3 && (
-          <>
+          <S.SelectCategoryContainer>
             <SelectMyTypes width={'80%'} path={'/my'} />
             <S.SubmitBtn
               disabled={myTypeArray === currentUser.types}
@@ -113,7 +112,7 @@ const MyTabs = () => {
             >
               변경사항 저장
             </S.SubmitBtn>
-          </>
+          </S.SelectCategoryContainer>
         )}
       </S.TabContentContainer>
     </S.Wrapper>

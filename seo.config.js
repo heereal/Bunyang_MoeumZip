@@ -7,14 +7,14 @@ export default {
     images: [
       {
         //TODO: 배포하면 주소 바꿔야함
-        url: 'https://images-ext-1.discordapp.net/external/aku__QYAWPTO7ti2o8JYY6zvRav4i0RKOQ-NaQrTrPg/https/user-images.githubusercontent.com/112805225/222881626-27473a9e-8bd6-4384-b82e-c5cee877844e.png',
+        url: 'https://by-dev.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Ffavicon.e7de0244.ico&w=48&q=75',
       },
     ],
   },
   additionalLinkTags: [
     {
-      rel: 'shortcut icon',
-      href: 'https://images-ext-1.discordapp.net/external/aku__QYAWPTO7ti2o8JYY6zvRav4i0RKOQ-NaQrTrPg/https/user-images.githubusercontent.com/112805225/222881626-27473a9e-8bd6-4384-b82e-c5cee877844e.png',
+      rel: 'favicon',
+      href: 'https://by-dev.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Ffavicon.e7de0244.ico&w=48&q=75',
     },
   ],
 };

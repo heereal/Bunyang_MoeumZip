@@ -1,13 +1,18 @@
 import { db } from '@/common/firebase';
-import HeadTitle from '@/components/GlobalComponents/HeadTitle/HeadTitle';
 import NoResult from '@/components/GlobalComponents/NoResult/NoResult';
 import { doc, getDoc } from 'firebase/firestore';
 import { GetServerSideProps } from 'next';
+import { NextSeo } from 'next-seo';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
-import HomeList from '../../components/GlobalComponents/HomeList/HomeList';
 import * as S from '../../styles/search.style';
-import { NextSeo } from 'next-seo';
+
+const HomeList = dynamic(
+  () => import('../../components/GlobalComponents/HomeList/HomeList'),
+  {
+    ssr: false,
+  },
+);
 
 const SearchResult = ({ homeList }: HomeListDBPropsJ) => {
   const router = useRouter();

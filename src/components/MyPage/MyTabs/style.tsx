@@ -6,12 +6,17 @@ export const Wrapper = styled.div`
   width: 60%;
   height: 100%;
   margin-left: 70px;
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
+
+  @media screen and (max-width: 870px) {
+    margin-left: 20px;
+  }
 `;
 
 export const TabContainer = styled.div`
   display: flex;
   position: relative;
+  margin-bottom: 10px;
 `;
 
 export const TabBtn = styled.div<{ color: string }>`
@@ -23,6 +28,10 @@ export const TabBtn = styled.div<{ color: string }>`
   color: ${(props) => props.color};
   cursor: pointer;
   z-index: 1;
+
+  @media screen and (max-width: 870px) {
+    padding: 11px 20px;
+  }
 `;
 
 export const Line = styled.div`
@@ -32,11 +41,17 @@ export const Line = styled.div`
   bottom: 0;
   width: 80%;
   z-index: 0;
+
+  @media screen and (max-width: 870px) {
+    width: 95%;
+  }
 `;
 
-export const TabContentContainer = styled.div`
-  padding: 28px 0;
+export const TabContentContainer = styled.div<{ scroll: boolean }>`
+  padding: 15px 0;
   position: relative;
+  overflow-y: auto;
+  min-height: 320px;
 `;
 
 export const BookmarkListContainer = styled.div`
@@ -57,6 +72,15 @@ export const BookmarkInfoContainer = styled.div`
 
 export const NoResultContainer = styled.div`
   padding: 40px 0 0 50px;
+
+  @media screen and (max-width: 870px) {
+    padding: 40px 0 0 20px;
+  }
+`;
+
+export const SelectCategoryContainer = styled.div`
+  position: relative;
+  display: flex;
 `;
 
 export const SubmitBtn = styled.button`
@@ -74,7 +98,7 @@ export const SubmitBtn = styled.button`
   color: white;
   cursor: pointer;
   position: absolute;
-  bottom: 0;
+  bottom: -40px;
 
   :disabled {
     cursor: default;
