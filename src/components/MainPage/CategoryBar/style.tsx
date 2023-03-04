@@ -36,6 +36,9 @@ export const RegionTab = styled.button<{ bd: string; bg: string }>`
   border: 1px solid;
   border-color: ${(props) => props.bd};
   border-radius: 10px;
+  padding: 12px 9px;
+  display: flex;
+  align-items: center;
 
   cursor: pointer;
 
