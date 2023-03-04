@@ -14,6 +14,7 @@ import {
   myTypeArrayState,
 } from '@/store/selectors';
 import { customAlert } from '@/common/utils';
+import NoResult from '@/components/GlobalComponents/NoResult/NoResult';
 
 const MyTabs = () => {
   const [currentTab, setCurrentTab] = useState(1);
@@ -74,7 +75,12 @@ const MyTabs = () => {
         {currentTab === 1 && (
           <S.BookmarkListContainer>
             {myBookmarkList?.length === 0 ? (
-              <div>북마크 없음</div>
+              <S.NoResultContainer>
+                <NoResult
+                  title="아직 찜한 정보가 없어요."
+                  text="분양 정보를 검색하고 마음에 드는 매물을 찜해보세요."
+                />
+              </S.NoResultContainer>
             ) : (
               myBookmarkList?.map((item: ItemJ) => {
                 return <HomeList list={item} key={item.PBLANC_NO} />;

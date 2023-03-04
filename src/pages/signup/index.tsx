@@ -16,7 +16,6 @@ import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { useRecoilState } from 'recoil';
 import * as S from '../../styles/signup.style';
-import HeadTitle from '@/components/GlobalComponents/HeadTitle/HeadTitle';
 import { NextSeo } from 'next-seo';
 
 //TODO: 회원가입 페이지 새로고침 할 때 "작성한 정보가 모두 사라집니다" alert 주기
@@ -157,11 +156,11 @@ const SignUp = () => {
 
         {/* 관심 지역 카테고리 선택 */}
         <S.CategoryTitle>관심 지역</S.CategoryTitle>
-        <SelectMyRegion width={'100%'} path={'/signup'}/>
+        <SelectMyRegion width={'100%'} path={'/signup'} />
 
         {/* 관심 분양 형태 카테고리 선택 */}
         <S.CategoryTitle>관심 분양형태</S.CategoryTitle>
-        <SelectMyTypes width={'100%'} path={'/signup'}/>
+        <SelectMyTypes width={'100%'} path={'/signup'} />
 
         <S.SignUpBtnContainer>
           <S.SignUpBtn

@@ -3,9 +3,8 @@ import styled from 'styled-components';
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 75%;
+  width: 60%;
   height: 100%;
-  /* border: 1px solid lightgray; */
   margin-left: 70px;
   overflow-y: scroll;
 `;
@@ -49,6 +48,10 @@ export const BookmarkInfoContainer = styled.div`
   border-radius: 20px;
   padding: 20px;
   margin-right: 10px;
+`;
+
+export const NoResultContainer = styled.div`
+  padding: 40px 0 0 50px;
 `;
 
 export const SubmitBtn = styled.button`

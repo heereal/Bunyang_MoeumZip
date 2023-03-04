@@ -2,9 +2,10 @@ import styled from 'styled-components';
 
 export const Wrapper = styled.div`
   width: 100%;
-  height: 91vh;
+  height: 93vh;
   display: flex;
-  padding: 30px 50px;
+  padding: 50px 20px 0 20px;
   background: #f9fafb;
   min-height: 600px;
+  justify-content: center;
 `;

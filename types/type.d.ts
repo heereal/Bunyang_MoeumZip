@@ -140,8 +140,8 @@ type keywordJ = string | string[] | undefined;
 // 검색어 props 타입
 interface keywordPropsJ {
   keyword?: keywordJ;
+  title?: string;
   text: string;
   text2?: string;
   text3?: string;
-  wrong?: string;
 }

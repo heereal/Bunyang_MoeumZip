@@ -7,7 +7,6 @@ import { FaUndo } from 'react-icons/fa';
 import { useEffect } from 'react';
 
 const SelectMyTypes = ({ width, path }: SelectCategoryProps) => {
-
   // 유저가 선택한 카테고리 필터링 리스트
   const [myTypeArray, setMyTypeArray] = useRecoilState<any>(myTypeArrayState);
 
@@ -16,7 +15,7 @@ const SelectMyTypes = ({ width, path }: SelectCategoryProps) => {
 
   useEffect(() => {
     setMyTypeArray(currentUser.types);
-  // eslint-disable-next-line
+    // eslint-disable-next-line
   }, []);
 
   return (

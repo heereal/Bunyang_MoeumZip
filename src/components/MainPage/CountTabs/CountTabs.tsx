@@ -275,7 +275,10 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
             backgroundColor: '#f7f7f7',
           }}
         >
-          <NoResult text="다른 지역 및 분양 형태를 찾아보세요." />
+          <NoResult
+            title="현재 설정하신 필터에 해당되는 분양 정보가 없습니다."
+            text="다른 지역 및 분양 형태를 찾아보세요."
+          />
         </div>
       ) : (
         <S.ListSection id="topBtnScroll">

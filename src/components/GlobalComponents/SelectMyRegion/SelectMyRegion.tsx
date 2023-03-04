@@ -7,7 +7,6 @@ import { FaUndo } from 'react-icons/fa';
 import { useEffect } from 'react';
 
 const SelectMyRegion = ({ width, path }: SelectCategoryProps) => {
-
   // 유저가 선택한 카테고리 필터링 리스트
   const [myRegionArray, setMyRegionArray] =
     useRecoilState<any>(myRegionArrayState);
@@ -17,6 +16,7 @@ const SelectMyRegion = ({ width, path }: SelectCategoryProps) => {
 
   useEffect(() => {
     setMyRegionArray(currentUser.regions);
+  // eslint-disable-next-line
   }, []);
 
   return (
