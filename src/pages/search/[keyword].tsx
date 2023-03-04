@@ -5,8 +5,14 @@ import { GetServerSideProps } from 'next';
 import { NextSeo } from 'next-seo';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
-import HomeList from '../../components/GlobalComponents/HomeList/HomeList';
 import * as S from '../../styles/search.style';
+
+const HomeList = dynamic(
+  () => import('../../components/GlobalComponents/HomeList/HomeList'),
+  {
+    ssr: false,
+  },
+);
 
 const SearchResult = ({ homeList }: HomeListDBPropsJ) => {
   const router = useRouter();

@@ -33,16 +33,20 @@ const SearchInput = () => {
 
   return (
     <S.SearchBox>
-      <S.SearchInput
-        type="text"
-        value={keyword}
-        onChange={inputChangeHandler}
-        placeholder="분양 정보를 검색해보세요."
-        onKeyPress={OnKeyPressHandler}
-      />
-      <S.SearchBtn onClick={searchHandler} aria-label="검색 하기">
-        <AiOutlineSearch style={{ fontSize: 18 }} />
-      </S.SearchBtn>
+      <S.SearchInputContainer>
+        <S.SearchInputBox>
+          <S.SearchInput
+            type="text"
+            value={keyword}
+            onChange={inputChangeHandler}
+            placeholder="분양 정보를 검색해보세요."
+            onKeyPress={OnKeyPressHandler}
+          />
+          <S.SearchBtn onClick={searchHandler} aria-label="검색 하기">
+            <AiOutlineSearch style={{ fontSize: 18 }} />
+          </S.SearchBtn>
+        </S.SearchInputBox>
+      </S.SearchInputContainer>
     </S.SearchBox>
   );
 };

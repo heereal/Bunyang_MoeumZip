@@ -2,26 +2,29 @@ import styled from 'styled-components';
 
 export const CategorySection = styled.section`
   width: 100%;
+  max-width: 750px;
   height: 62px;
   background-color: #ffffff;
   display: flex;
   flex-direction: row;
+  align-items: center;
   justify-content: space-between;
   z-index: 10;
-
   position: relative;
+  padding-left: 30px;
+  @media screen and (max-width: 1280px) {
+    max-width: 500px;
+  }
+  @media screen and (max-width: 768px) {
+    max-width: 750px;
+  }
 `;
 
 // 카테고리 Tabs
 export const CategoryTabList = styled.ul`
-  height: 30px;
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
   gap: 10px;
-  padding: 6px 0;
-
-  margin-left: 24px;
 `;
 
 export const CategoryTabs = styled.li`
