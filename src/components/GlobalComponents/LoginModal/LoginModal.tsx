@@ -23,7 +23,7 @@ const LoginModal = ({ setIsOpen }: loginModalProps) => {
       <S.ModalContainer>
         <S.CloseBtnContainer>
           <MdClose
-            size="30"
+            size="27"
             onClick={() => setIsOpen(false)}
             style={{ cursor: 'pointer' }}
           />
@@ -32,53 +32,53 @@ const LoginModal = ({ setIsOpen }: loginModalProps) => {
           <Image
             src={logo}
             alt="logoImg"
-            height={100}
+            height={85}
             quality={100}
             priority={true}
           />
         </S.LogoContainer>
         <S.BunyangMoaTitle>분양모음집</S.BunyangMoaTitle>
         <S.SocialLoginBtnContainer>
-          <S.SocilaLoginBtn
+          <S.SocialLoginBtn
             bg={'#fee500'}
             text={'black'}
             onClick={() => loginHandler('kakao')}
           >
             <S.SocialLoginIcon>
-              <RiKakaoTalkFill size="23" style={{ marginTop: 3 }} />
+              <RiKakaoTalkFill size="20" style={{ marginTop: 5.5 }} />
             </S.SocialLoginIcon>
             카카오톡 로그인
-          </S.SocilaLoginBtn>
-          <S.SocilaLoginBtn
+          </S.SocialLoginBtn>
+          <S.SocialLoginBtn
             bg={'#03C75A'}
             text={'white'}
             onClick={() => loginHandler('naver')}
           >
             <S.SocialLoginIcon>
-              <SiNaver size="19" style={{ marginTop: 4, marginLeft: 2 }} />
+              <SiNaver size="16" style={{ marginTop: 6.5, marginLeft: 1 }} />
             </S.SocialLoginIcon>
             네이버 로그인
-          </S.SocilaLoginBtn>
-          <S.SocilaLoginBtn
+          </S.SocialLoginBtn>
+          <S.SocialLoginBtn
             bg={'#1877F2'}
             text={'white'}
             onClick={() => loginHandler('facebook')}
           >
             <S.SocialLoginIcon>
-              <BsFacebook size="20" style={{ marginTop: 2, marginLeft: 2 }} />
+              <BsFacebook size="17" style={{ marginTop: 5, marginLeft: 2 }} />
             </S.SocialLoginIcon>
             페이스북 로그인
-          </S.SocilaLoginBtn>
-          <S.SocilaLoginBtn
+          </S.SocialLoginBtn>
+          <S.GoogleLoginBtn
             bg={'white'}
             text={'black'}
             onClick={() => loginHandler('google')}
           >
             <S.SocialLoginIcon>
-              <FcGoogle size="23" style={{ marginTop: 3 }} />
+              <FcGoogle size="20" style={{ marginTop: 5 }} />
             </S.SocialLoginIcon>
             구글 로그인
-          </S.SocilaLoginBtn>
+          </S.GoogleLoginBtn>
         </S.SocialLoginBtnContainer>
       </S.ModalContainer>
     </S.ModalBackground>

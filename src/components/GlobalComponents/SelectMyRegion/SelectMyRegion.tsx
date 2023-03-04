@@ -5,8 +5,11 @@ import { currentUserState, myRegionArrayState } from '@/store/selectors';
 import { BsFillCheckCircleFill } from 'react-icons/bs';
 import { FaUndo } from 'react-icons/fa';
 import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 
 const SelectMyRegion = ({ width }: SelectCategoryProps) => {
+  const router = useRouter();
+
   // 유저가 선택한 카테고리 필터링 리스트
   const [myRegionArray, setMyRegionArray] =
     useRecoilState<any>(myRegionArrayState);
@@ -19,7 +22,7 @@ const SelectMyRegion = ({ width }: SelectCategoryProps) => {
   }, []);
 
   return (
-    <S.CategoryContainer width={width}>
+    <S.CategoryContainer width={width} path={router.pathname}>
       {regionArray.map((region, index) =>
         region && myRegionArray?.includes(region) ? (
           <S.CategoryBtn
@@ -29,9 +32,9 @@ const SelectMyRegion = ({ width }: SelectCategoryProps) => {
               )
             }
             key={index}
-            bg={'#F1F6FF'}
-            text={'#3D7FFF'}
-            border={'#3D7FFF'}
+            bg={'#F0F4FF'}
+            text={'#356EFF'}
+            border={'#356EFF'}
           >
             {region}
           </S.CategoryBtn>
@@ -40,20 +43,26 @@ const SelectMyRegion = ({ width }: SelectCategoryProps) => {
             onClick={() => setMyRegionArray([...myRegionArray, region])}
             key={index}
             bg={'white'}
-            text={'#7b7b7b'}
-            border={'#F4F4F4'}
+            text={'#505050'}
+            border={'#D8D8D8'}
           >
             {region}
           </S.CategoryBtn>
         ),
       )}
       <S.SelectAllOrNoneContainer>
-        <S.SelectBtn onClick={() => setMyRegionArray(regionArray)}>
-          <BsFillCheckCircleFill size="15" />
+        <S.SelectBtn
+          color={myRegionArray?.length === 17 ? '#356EFF' : '#505050'}
+          onClick={() => setMyRegionArray(regionArray)}
+        >
+          <BsFillCheckCircleFill size="11" />
           <span>전체 선택</span>
         </S.SelectBtn>
-        <S.SelectBtn onClick={() => setMyRegionArray([])}>
-          <FaUndo size="13" />
+        <S.SelectBtn
+          color={myRegionArray?.length === 0 ? '#356EFF' : '#505050'}
+          onClick={() => setMyRegionArray([])}
+        >
+          <FaUndo size="9.5" />
           <span>전체 초기화</span>
         </S.SelectBtn>
       </S.SelectAllOrNoneContainer>

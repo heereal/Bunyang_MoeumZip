@@ -26,7 +26,7 @@ const DetailHeader = ({
             alignItems: 'center',
             gap: 2,
             backgroundColor: bookmarksList?.usersList.includes(
-              `${session.user.provider}_${session.user.email}`,
+              `${session?.user?.provider}_${session?.user?.email}`,
             )
               ? 'rgba(255, 255, 255, 0.2)'
               : '',

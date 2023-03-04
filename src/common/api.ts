@@ -10,10 +10,6 @@ import {
 } from 'firebase/firestore';
 import { db } from './firebase';
 
-const BASE_URL = 'https://api.odcloud.kr/api/ApplyhomeInfoDetailSvc/v1';
-const METHOD = 'getAPTLttotPblancDetail';
-const SERVICE_KEY = process.env.NEXT_PUBLIC_HOME_API_KEY;
-
 // allHomeData get 하는 함수
 export const getHomeList = async () => {
   const docRef = doc(db, 'HomeList', 'homeData');
@@ -94,11 +90,7 @@ export const getProfile = async (email: string | null | undefined) => {
 // '시군구' 정보를 기준으로 아파트 매매 실거래가 정보를 가져옴
 export const getAPTRealPriceList = async (LAWD_CD: string) => {
   const data = await axios
-    .get(
-      `/api/APTRealPrice?numOfRows=1000&LAWD_CD=${
-        LAWD_CD?.split(':')[0]
-      }&DEAL_YMD=202302&serviceKey=${SERVICE_KEY}`,
-    )
+    .get(`/api/APTRealPrice/${LAWD_CD?.split(':')[0]}`)
     .then((res) => res.data.response.body.items.item);
   return data;
 };

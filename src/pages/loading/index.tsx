@@ -25,7 +25,6 @@ const Loading = () => {
   // 현재 로그인한 유저의 정보가 firestore 'Users' collection에 존재하는지 비교함
   const redirectUser = async () => {
     const array: any[] = [];
-    let email: any = '';
 
     const q = query(
       collection(db, 'Users'),
@@ -59,7 +58,15 @@ const Loading = () => {
         doc(db, 'Users', `${session.user.provider}_${session.user.email}`),
         newUser,
       );
-      router.push('/signup');
+      // router.push('/signup');
+      router.push(
+        {
+          pathname: '/signup',
+          query: {
+            loading: true,
+          },
+        },
+      );
     }
   };
 

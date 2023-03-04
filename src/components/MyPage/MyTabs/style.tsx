@@ -14,19 +14,19 @@ export const TabContainer = styled.div`
   display: flex;
 `;
 
-export const TabBtn = styled.div<{ font: string; line: string }>`
+export const TabBtn = styled.div<{ color: string }>`
   font-weight: 700;
   font-size: 15px;
-  padding: 15px 35px;
-  border-bottom: 5px solid ${(props) => props.line};
-  color: ${(props) => props.font};
+  line-height: 19px;
+  padding: 11px 48px;
+  border-bottom: 2px solid ${(props) => props.color};
+  color: ${(props) => props.color};
   cursor: pointer;
 `;
 
 export const Line = styled.div`
   background-color: #f4f4f4;
   height: 5px;
-  /* position: absolute; */
   top: -5px;
 `;
 
@@ -69,6 +69,6 @@ export const SubmitBtn = styled.button`
 
   :disabled {
     cursor: default;
-    background: #8E8E8E;
+    background: #8e8e8e;
   }
 `;

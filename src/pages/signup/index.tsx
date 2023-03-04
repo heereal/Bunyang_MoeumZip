@@ -1,5 +1,4 @@
 import { getUsersList } from '@/common/api';
-import { regionArray, typesArray } from '@/common/categoryList';
 import { db } from '@/common/firebase';
 import { customAlert } from '@/common/utils';
 import SelectMyRegion from '@/components/GlobalComponents/SelectMyRegion/SelectMyRegion';
@@ -15,7 +14,7 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import * as S from '../../styles/signup.style';
 import HeadTitle from '@/components/GlobalComponents/HeadTitle/HeadTitle';
 import { NextSeo } from 'next-seo';
@@ -24,6 +23,7 @@ import { NextSeo } from 'next-seo';
 // TODO: isSignedUp이라는 속성을 하나 추가할까? 회원가입 완료해야 true가 됨 (닉네임 중복 검사해야되기 때문에)
 const SignUp = () => {
   const router = useRouter();
+  console.log('router:', router);
 
   // 유저의 세션 정보 받아오기
   const { data: session, status }: any = useSession();
@@ -40,7 +40,6 @@ const SignUp = () => {
   const [isValidNickname, setIsValidNickname] = useState(false);
 
   const [nickname, setNickname] = useState<any>('');
-  console.log('users:', users);
 
   // [닉네임 중복 확인] 버튼 클릭 시 작동
   const checkNicknameHandler = () => {
@@ -112,7 +111,8 @@ const SignUp = () => {
 
   useEffect(() => {
     // 비로그인 유저일 경우 접근 제한
-    if (status === 'unauthenticated') router.push('/');
+    if (status === 'unauthenticated' || router.query.loading === undefined)
+      router.push('/', undefined, { shallow: true });
     // eslint-disable-next-line
   }, [session]);
 
@@ -136,7 +136,7 @@ const SignUp = () => {
       <S.SignUpContainer>
         <S.SignUpDesc>
           <h1>회원가입</h1>
-          <p>분양정보 추천을 위한 추가정보를 선택해주세요.</p>
+          <p>분양정보 추천을 위한 추가정보를 입력해주세요.</p>
         </S.SignUpDesc>
 
         {/* 닉네임 제출 */}
@@ -146,7 +146,7 @@ const SignUp = () => {
           </S.NicknameTitle>
           <S.InputBtnContainer>
             <S.NicknameInput
-              value={nickname}
+              value={nickname || ''}
               onChange={(e) => setNickname(e.target.value)}
             />
             <S.CheckNicknameBtn onClick={checkNicknameHandler}>
@@ -156,15 +156,20 @@ const SignUp = () => {
         </S.SubmitNicknameContainer>
 
         {/* 관심 지역 카테고리 선택 */}
-        <S.CategoryTitle>관심 지역 선택</S.CategoryTitle>
+        <S.CategoryTitle>관심 지역</S.CategoryTitle>
         <SelectMyRegion width={'100%'} />
 
         {/* 관심 분양 형태 카테고리 선택 */}
-        <S.CategoryTitle>관심 분양 형태 선택</S.CategoryTitle>
+        <S.CategoryTitle>관심 분양형태</S.CategoryTitle>
         <SelectMyTypes width={'100%'} />
 
         <S.SignUpBtnContainer>
-          <S.SignUpBtn onClick={signupHandler}>가입완료</S.SignUpBtn>
+          <S.SignUpBtn
+            onClick={signupHandler}
+            disabled={isValidNickname ? false : true}
+          >
+            가입완료
+          </S.SignUpBtn>
         </S.SignUpBtnContainer>
       </S.SignUpContainer>
     </S.Wrapper>

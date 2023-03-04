@@ -7,8 +7,7 @@ const LoadingSpinner = () => {
       <Image
         src={spinner}
         alt="spinner"
-        width={120}
-        height={120}
+        height={60}
         quality={75}
         priority={true}
       />

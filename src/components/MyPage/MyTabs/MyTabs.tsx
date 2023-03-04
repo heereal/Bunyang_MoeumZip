@@ -8,7 +8,11 @@ import HomeList from '@/components/GlobalComponents/HomeList/HomeList';
 import { db } from '@/common/firebase';
 import { doc, updateDoc } from 'firebase/firestore';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { currentUserState, myRegionArrayState, myTypeArrayState } from '@/store/selectors';
+import {
+  currentUserState,
+  myRegionArrayState,
+  myTypeArrayState,
+} from '@/store/selectors';
 import { customAlert } from '@/common/utils';
 
 const MyTabs = () => {
@@ -31,7 +35,10 @@ const MyTabs = () => {
       [category]: array,
     };
 
-    await updateDoc(doc(db, 'Users', `${currentUser.provider}_${currentUser.userEmail}`), updateUser);
+    await updateDoc(
+      doc(db, 'Users', `${currentUser.provider}_${currentUser.userEmail}`),
+      updateUser,
+    );
     setCurrentUser({
       ...currentUser,
       [category]: array,
@@ -43,22 +50,19 @@ const MyTabs = () => {
     <S.Wrapper>
       <S.TabContainer>
         <S.TabBtn
-          font={currentTab === 1 ? '#3D7FFF' : 'black'}
-          line={currentTab === 1 ? '#3D7FFF' : '#f4f4f4'}
+          color={currentTab === 1 ? '#356EFF' : '#BCC0CB'}
           onClick={() => setCurrentTab(1)}
         >
-          북마크 목록
+          북마크
         </S.TabBtn>
         <S.TabBtn
-          font={currentTab === 2 ? '#3D7FFF' : 'black'}
-          line={currentTab === 2 ? '#3D7FFF' : '#f4f4f4'}
+          color={currentTab === 2 ? '#356EFF' : '#BCC0CB'}
           onClick={() => setCurrentTab(2)}
         >
           관심 지역
         </S.TabBtn>
         <S.TabBtn
-          font={currentTab === 3 ? '#3D7FFF' : 'black'}
-          line={currentTab === 3 ? '#3D7FFF' : '#f4f4f4'}
+          color={currentTab === 3 ? '#356EFF' : '#BCC0CB'}
           onClick={() => setCurrentTab(3)}
         >
           관심 분양형태
@@ -69,9 +73,13 @@ const MyTabs = () => {
         {/* 북마크 목록 */}
         {currentTab === 1 && (
           <S.BookmarkListContainer>
-            {myBookmarkList?.map((item: ItemJ) => {
-              return <HomeList list={item} key={item.PBLANC_NO} />;
-            })}
+            {myBookmarkList?.length === 0 ? (
+              <div>북마크 없음</div>
+            ) : (
+              myBookmarkList?.map((item: ItemJ) => {
+                return <HomeList list={item} key={item.PBLANC_NO} />;
+              })
+            )}
           </S.BookmarkListContainer>
         )}
         {/* 관심 지역 */}

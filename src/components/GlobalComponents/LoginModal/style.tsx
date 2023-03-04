@@ -14,14 +14,18 @@ export const ModalBackground = styled.div`
 `;
 
 export const ModalContainer = styled.div`
-  height: 510px;
-  width: 460px;
+  height: 420px;
+  width: 360px;
   background-color: white;
-  padding: 20px;
+  padding: 15px;
   border-radius: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  @media screen and (max-width: 450px) {
+    width: 85%;
+  }
 `;
 
 export const CloseBtnContainer = styled.div`
@@ -33,29 +37,30 @@ export const CloseBtnContainer = styled.div`
 export const LogoContainer = styled.div`
   height: 120px;
   width: 120px;
-  margin-top: 7px;
-  margin-left: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
 `;
 
 export const BunyangMoaTitle = styled.h1`
-  font-size: 21px;
-  padding: 13px 0 32px 0;
+  font-size: 20px;
+  padding: 0 0 25px 0;
 `;
 
 export const SocialLoginBtnContainer = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
+  margin-bottom: 15px;
+  width: 100%;
 `;
 
-export const SocilaLoginBtn = styled.div<{ bg: string; text: string }>`
-  height: 47px;
-  width: 360px;
+export const SocialLoginBtn = styled.div<{ bg: string; text: string }>`
+  height: 38px;
+  width: 80%;
   position: relative;
-  font-weight: 700;
-  font-size: 14px;
+  font-weight: 600;
+  font-size: 12px;
   line-height: 22px;
   background-color: ${(props) => props.bg};
   color: ${(props) => props.text};
@@ -64,8 +69,11 @@ export const SocilaLoginBtn = styled.div<{ bg: string; text: string }>`
   align-items: center;
   border-radius: 6px;
   cursor: pointer;
-  margin-bottom: 9px;
+  margin-bottom: 7px;
   padding: 20px;
+`;
+
+export const GoogleLoginBtn = styled(SocialLoginBtn)`
   box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.08), 0px 1px 2px rgba(0, 0, 0, 0.25);
 `;
 

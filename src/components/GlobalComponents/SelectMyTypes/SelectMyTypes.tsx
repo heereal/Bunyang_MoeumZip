@@ -5,8 +5,11 @@ import { currentUserState, myTypeArrayState } from '@/store/selectors';
 import { BsFillCheckCircleFill } from 'react-icons/bs';
 import { FaUndo } from 'react-icons/fa';
 import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 
 const SelectMyTypes = ({ width }: SelectCategoryProps) => {
+  const router = useRouter();
+
   // 유저가 선택한 카테고리 필터링 리스트
   const [myTypeArray, setMyTypeArray] = useRecoilState<any>(myTypeArrayState);
 
@@ -14,11 +17,12 @@ const SelectMyTypes = ({ width }: SelectCategoryProps) => {
   const currentUser = useRecoilValue(currentUserState);
 
   useEffect(() => {
-    setMyTypeArray(currentUser.types)
+    setMyTypeArray(currentUser.types);
+  // eslint-disable-next-line
   }, []);
 
   return (
-    <S.CategoryContainer width={width}>
+    <S.CategoryContainer width={width} path={router.pathname}>
       {typesArray.map((type, index) =>
         type && myTypeArray?.includes(type) ? (
           <S.CategoryBtn
@@ -26,9 +30,9 @@ const SelectMyTypes = ({ width }: SelectCategoryProps) => {
               setMyTypeArray(myTypeArray.filter((item: any) => item !== type))
             }
             key={index}
-            bg={'#F1F6FF'}
-            text={'#3D7FFF'}
-            border={'#3D7FFF'}
+            bg={'#F0F4FF'}
+            text={'#356EFF'}
+            border={'#356EFF'}
           >
             {type}
           </S.CategoryBtn>
@@ -37,20 +41,26 @@ const SelectMyTypes = ({ width }: SelectCategoryProps) => {
             onClick={() => setMyTypeArray([...myTypeArray, type])}
             key={index}
             bg={'white'}
-            text={'#7b7b7b'}
-            border={'#F4F4F4'}
+            text={'#505050'}
+            border={'#D8D8D8'}
           >
             {type}
           </S.CategoryBtn>
         ),
       )}
       <S.SelectAllOrNoneContainer>
-        <S.SelectBtn onClick={() => setMyTypeArray(typesArray)}>
-          <BsFillCheckCircleFill size="15" />
+        <S.SelectBtn
+          color={myTypeArray?.length === 11 ? '#356EFF' : '#505050'}
+          onClick={() => setMyTypeArray(typesArray)}
+        >
+          <BsFillCheckCircleFill size="11" />
           <span>전체 선택</span>
         </S.SelectBtn>
-        <S.SelectBtn onClick={() => setMyTypeArray([])}>
-          <FaUndo size="13" />
+        <S.SelectBtn
+          color={myTypeArray?.length === 0 ? '#356EFF' : '#505050'}
+          onClick={() => setMyTypeArray([])}
+        >
+          <FaUndo size="9.5" />
           <span>전체 초기화</span>
         </S.SelectBtn>
       </S.SelectAllOrNoneContainer>

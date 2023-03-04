@@ -5,69 +5,71 @@ export const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   width: 25%;
-  height: 100%;
+  min-width: 270px;
+  height: 376px;
 `;
 
 export const EditProfileContainer = styled.div`
-  width: 100%;
+  width: 270px;
   height: 100%;
-  min-height: 500px;
-  padding: 50px 20px;
+  padding: 40px 20px;
   border-radius: 20px;
-  border: 1px solid lightgray;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   background-color: white;
   display: flex;
   flex-direction: column;
-
   position: relative;
   align-items: center;
   box-sizing: border-box;
 `;
 
 export const Nickname = styled.div`
-  font-weight: 600;
+  font-weight: 700;
   font-size: 16px;
-  line-height: 31px;
+  line-height: 19px;
   text-align: center;
   padding: 20px 0 5px 0;
 `;
 
 export const EmailContainer = styled.div`
   display: flex;
-  margin-bottom: 30px;
+  align-items: center;
+  margin-bottom: 20px;
 `;
 
-export const ProviderIcon = styled.div<{bg: string}>`
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background-color: ${(props) => props.bg};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
+// export const ProviderIcon = styled.div<{ bg: string }>`
+//   width: 20px;
+//   height: 20px;
+//   border-radius: 50%;
+//   background-color: ${(props) => props.bg};
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+// `;
 
 export const Email = styled.div`
   font-weight: 500;
-  font-size: 14px;
+  font-size: 11px;
   color: #7b7b7b;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-left: 5px;
+  margin-left: 7px;
+  padding-top: 2px;
 `;
 
-export const ProfileBtn = styled.div`
+export const ProfileBtn = styled.div<{bg: string, text: string}>`
   width: 90%;
+  max-width: 230px;
   font-weight: 600;
-  font-size: 13px;
-  background: #f9fafb;
-  border-radius: 20px;
-  border: 1px solid lightgray;
+  font-size: 14px;
+  line-height: 17px;
+  background: ${(props) => props.bg};
+  border-radius: 7px;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #7b7b7b;
+  color: ${(props) => props.text};
   margin-bottom: 10px;
   cursor: pointer;
   min-height: 40px;
