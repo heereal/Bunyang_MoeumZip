@@ -41,7 +41,7 @@ const DetailHeader = ({
             }}
           >
             {bookmarksList?.usersList.includes(
-              `${session.user.provider}_${session.user.email}`,
+              `${session?.user.provider}_${session?.user.email}`,
             ) ? (
               <>
                 <div>
@@ -108,7 +108,7 @@ const DetailHeader = ({
         <S.HeaderTitle>{home?.HOUSE_NM}</S.HeaderTitle>
         <S.HeaderAdres>{home?.FOR_COORDINATES_ADRES}</S.HeaderAdres>
         {bookmarksList?.usersList.includes(
-          `${session.user.provider}_${session.user.email}`,
+          `${session?.user.provider}_${session?.user.email}`,
         ) ? (
           <S.HeaderBmrk>
             <Image
