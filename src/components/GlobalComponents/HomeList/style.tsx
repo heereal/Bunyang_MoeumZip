@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 export const ListArticle = styled.article`
-  max-width: 212px;
-  height: 230px;
+  max-width: 218px;
+  height: 246px;
 
   background: #ffffff;
 
@@ -10,7 +10,8 @@ export const ListArticle = styled.article`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 10px;
+  margin-top: 26px;
+  margin-bottom: 15px;
   border-radius: 20px;
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
 
@@ -41,8 +42,7 @@ export const TabInfoText = styled.p`
 
   font-style: normal;
   font-weight: 600;
-  font-size: 14px;
-  line-height: 14px;
+  font-size: 12px;
   text-align: left;
   color: #8e8e8e;
 `;
@@ -58,9 +58,8 @@ export const CardTitleBox = styled.div`
 export const CardTitle = styled.p`
   height: 19px;
 
-  font-weight: 900;
+  font-weight: 700;
   font-size: 16px;
-  line-height: 19px;
   margin-top: 8px;
   margin-bottom: 3px;
 
@@ -89,8 +88,8 @@ export const CardCategory = styled.div`
   align-items: center;
   padding-right: 3px;
 
-  font-weight: 600;
-  font-size: 13px;
+  font-weight: 500;
+  font-size: 12px;
 
   text-align: left;
   color: #7b7b7b;
@@ -125,9 +124,7 @@ export const CardDateBox = styled.div`
 export const CardDateTitle = styled.p`
   height: 14px;
 
-  font-weight: 300;
-  font-size: 13px;
-  line-height: 14px;
+  font-size: 12px;
   text-align: center;
 
   color: #ffffff;
@@ -138,6 +135,7 @@ export const CardDate = styled(CardDateTitle)`
 
 // 청약일이 없을 때
 export const NoDate = styled(CardDateTitle)`
+  font-weight: 600;
   margin: 0 auto;
 `;
 
@@ -157,17 +155,18 @@ export const CardAreaBox = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin-top: 8px;
+  margin-top: 12px;
 `;
 
 export const CardAreaTitle = styled(CardDateTitle)`
   color: #7b7b7b;
-  font-weight: 600;
+  font-size: 13px;
 `;
 
 export const CardArea = styled(CardDate)`
   text-align: right;
-  font-weight: 800;
+  font-weight: 700;
+  font-size: 13px;
 
   color: #000000;
 `;

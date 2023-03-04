@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Header = styled.header`
   width: 100vw;
-  height: 60px;
+  height: 7vh;
   background-color: #ffffff;
   display: flex;
   flex-direction: row;
@@ -46,7 +46,7 @@ export const LogoText = styled.div`
 `;
 
 // Search Section
-export const SearchBox = styled.div`
+export const SearchContainer = styled.div`
   width: 50%;
 `;
 

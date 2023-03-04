@@ -51,9 +51,9 @@ const Header = () => {
           <S.LogoText onClick={() => router.push('/')}>분양모음집</S.LogoText>
         </S.LogoBox>
         {/* 검색창 */}
-        <S.SearchBox>
+        <S.SearchContainer>
           <SearchInput />
-        </S.SearchBox>
+        </S.SearchContainer>
         <S.NavBar>
           <S.NavContent
             onClick={() => router.push('/calendar')}
