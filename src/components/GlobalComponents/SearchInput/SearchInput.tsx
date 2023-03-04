@@ -38,7 +38,7 @@ const SearchInput = () => {
         placeholder="분양 정보를 검색해보세요."
         onKeyPress={OnKeyPressHandler}
       />
-      <S.SearchBtn onClick={searchHandler}>
+      <S.SearchBtn onClick={searchHandler} aria-label="검색 하기">
         <AiOutlineSearch style={{ fontSize: 18 }} />
       </S.SearchBtn>
     </S.SearchBox>
