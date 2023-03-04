@@ -628,12 +628,12 @@ const MustHaveToDo = ({
               COORDINATES: { x: '이거채워야함', y: '이거채워야함' },
             });
             console.log(
-              `근무자님, ${oldDataArray.length + i - 1}번째에 있는 ${
+              `근무자님, ${oldDataArray.length + i}번째에 있는 ${
                 newHomeData[i].FOR_COORDINATES_ADRES
               } 채워주세요~`,
             );
             alert(
-              `근무자님, ${oldDataArray.length + i - 1}번째에 있는 ${
+              `근무자님, ${oldDataArray.length + i}번째에 있는 ${
                 newHomeData[i].FOR_COORDINATES_ADRES
               } 채워주세요~`,
             );
@@ -769,7 +769,7 @@ export const getStaticProps: GetStaticProps = async () => {
     .then((res: any) => res.data[1].dsList);
 
   // LH 기본 - 공고중 리스트에서 토지, 상가, 주거복지 제외한 리스트
-  const lhNoticeList = lhNoticeALLList.filter(
+  const lhNoticeList = lhNoticeALLList?.filter(
     (item: ItemJ) =>
       item.UPP_AIS_TP_CD !== '01' &&
       item.UPP_AIS_TP_CD !== '22' &&
@@ -794,7 +794,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
   // LH 기본 - 공고중 + 접수중 리스트(토지, 상가, 주거복지 제외)
   const lhDefaultList: {}[] = [];
-  lhNoticeList.map((item: ItemJ) => lhDefaultList.push(item));
+  lhNoticeList?.map((item: ItemJ) => lhDefaultList.push(item));
   lhRegisterList.map((item: ItemJ) => lhDefaultList.push(item));
 
   // 공고문 상세정보 리스트 가져오기
