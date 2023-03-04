@@ -6,6 +6,7 @@ import { doc, getDoc } from 'firebase/firestore';
 import { GetStaticProps } from 'next';
 import dynamic from 'next/dynamic';
 import * as S from '../styles/main.style';
+import { NextSeo } from 'next-seo';
 
 const MainPage = ({ homeList }: HomeListDBPropsJ) => {
   const allHomeList = homeList.allHomeData;
@@ -19,7 +20,10 @@ const MainPage = ({ homeList }: HomeListDBPropsJ) => {
 
   return (
     <S.MainSection>
-      <HeadTitle title="" />
+      <NextSeo
+        title=" "
+        description="전국 분양정보를 한눈에 확인할 수 있는 플랫폼입니다."
+      />
 
       {/* 지역 및 분양형태 필터 및 청약경쟁률 확인 버튼 */}
       {/* CountTabs(+HomeList 컴포넌트) */}

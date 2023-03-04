@@ -12,6 +12,7 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import LoadingSpinner from '@/components/GlobalComponents/LoadingSpinner/LoadingSpinner';
 import { regionArray, typesArray } from '@/common/categoryList';
+import { NextSeo } from 'next-seo';
 
 // 로그인 후 회원가입 페이지로 이동 전에 보여지는 로딩 페이지
 // 최초 로그인이라면 회원가입 페이지로 이동, 아니면 메인 페이지로 이동
@@ -77,7 +78,15 @@ const Loading = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [session]);
 
-  return <LoadingSpinner />;
+  return (
+    <>
+      <NextSeo
+        title="로딩중 -"
+        description="전국 분양정보를 한눈에 확인할 수 있는 플랫폼입니다."
+      />
+      <LoadingSpinner />
+    </>
+  );
 };
 
 export default Loading;

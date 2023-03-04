@@ -6,14 +6,14 @@ interface DetailHeaderProps {
   bookmarksList: any;
   editBookmark: any;
   home: HomeP | undefined;
-  email: string | null | undefined;
+  session: any;
 }
 
 const DetailHeader = ({
   bookmarksList,
   editBookmark,
   home,
-  email,
+  session,
 }: DetailHeaderProps) => {
   return (
     <S.PageHeader>
@@ -25,11 +25,11 @@ const DetailHeader = ({
             justifyContent: 'center',
             alignItems: 'center',
             gap: 2,
-            backgroundColor:
-              typeof email === 'string' &&
-              bookmarksList?.usersList.includes(email)
-                ? 'rgba(255, 255, 255, 0.2)'
-                : '',
+            backgroundColor: bookmarksList?.usersList.includes(
+              `${session?.user?.provider}_${session?.user?.email}`,
+            )
+              ? 'rgba(255, 255, 255, 0.2)'
+              : '',
           }}
         >
           <div
@@ -40,8 +40,9 @@ const DetailHeader = ({
               gap: 4,
             }}
           >
-            {typeof email === 'string' &&
-            bookmarksList?.usersList.includes(email) ? (
+            {bookmarksList?.usersList.includes(
+              `${session.user.provider}_${session.user.email}`,
+            ) ? (
               <>
                 <div>
                   <Image
@@ -106,8 +107,9 @@ const DetailHeader = ({
         </S.HeaderTagBox>
         <S.HeaderTitle>{home?.HOUSE_NM}</S.HeaderTitle>
         <S.HeaderAdres>{home?.FOR_COORDINATES_ADRES}</S.HeaderAdres>
-        {typeof email === 'string' &&
-        bookmarksList?.usersList.includes(email) ? (
+        {bookmarksList?.usersList.includes(
+          `${session.user.provider}_${session.user.email}`,
+        ) ? (
           <S.HeaderBmrk>
             <Image
               src={fillStar}

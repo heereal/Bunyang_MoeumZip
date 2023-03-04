@@ -9,6 +9,7 @@ import { useEffect } from 'react';
 import { useQuery } from 'react-query';
 import { useRecoilState } from 'recoil';
 import * as S from '../../styles/my.style';
+import { NextSeo } from 'next-seo';
 
 const MyPage = () => {
   const router = useRouter();
@@ -51,7 +52,10 @@ const MyPage = () => {
 
   return (
     <S.Wrapper>
-      <HeadTitle title="마이페이지 |" />
+      <NextSeo
+        title="마이페이지 -"
+        description="전국 분양정보를 한눈에 확인할 수 있는 플랫폼입니다."
+      />
 
       <EditProfile currentUser={currentUser} />
       <MyTabs />

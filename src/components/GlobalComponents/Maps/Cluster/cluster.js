@@ -734,7 +734,7 @@ Cluster.prototype = {
    * @private
    */
   _isMember: function (marker) {
-    return this._clusterMember.indexOf(marker) !== -1;
+    return this._clusterMember?.indexOf(marker) !== -1;
   },
 
   /**

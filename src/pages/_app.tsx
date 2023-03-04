@@ -8,6 +8,8 @@ import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 import { RecoilRoot } from 'recoil';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import styled from 'styled-components';
+import { DefaultSeo } from 'next-seo';
+import SEO from '../../seo.config';
 
 const App = ({ Component, pageProps }: AppProps) => {
   const router = useRouter();
@@ -25,6 +27,7 @@ const App = ({ Component, pageProps }: AppProps) => {
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
           <RecoilRoot>
+            <DefaultSeo {...SEO} />
             <Layout>
               <Container>
                 <Component {...pageProps} />

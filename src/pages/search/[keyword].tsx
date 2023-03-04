@@ -7,6 +7,7 @@ import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import HomeList from '../../components/GlobalComponents/HomeList/HomeList';
 import * as S from '../../styles/search.style';
+import { NextSeo } from 'next-seo';
 
 const SearchResult = ({ homeList }: HomeListDBPropsJ) => {
   const router = useRouter();
@@ -34,7 +35,10 @@ const SearchResult = ({ homeList }: HomeListDBPropsJ) => {
 
   return (
     <S.ResultSection>
-      <HeadTitle title="검색결과 |" />
+      <NextSeo
+        title={`${keyword} 검색결과 -`}
+        description={`${keyword} 의 분양모음집 검색결과 입니다.`}
+      />
       {resultsList.length === 0 ? (
         <NoResult keyword={keyword} text="다른 키워드로 검색해주세요." />
       ) : (

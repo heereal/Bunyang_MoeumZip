@@ -1,12 +1,17 @@
 import NoResult from '@/components/GlobalComponents/NoResult/NoResult';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
+import { NextSeo } from 'next-seo';
 
 export default function NotFound() {
   const router = useRouter();
 
   return (
     <Wrapper>
+      <NextSeo
+        title="404 -"
+        description="전국 분양정보를 한눈에 확인할 수 있는 플랫폼입니다."
+      />
       <NoResult
         wrong="페이지"
         text="찾으시려는 페이지의 주소가 잘못 입력되었거나,"
