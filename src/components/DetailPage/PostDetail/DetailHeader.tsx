@@ -4,14 +4,14 @@ interface DetailHeaderProps {
   bookmarksList: any;
   editBookmark: any;
   home: HomeP | undefined;
-  email: string | null | undefined;
+  session: any;
 }
 
 const DetailHeader = ({
   bookmarksList,
   editBookmark,
   home,
-  email,
+  session,
 }: DetailHeaderProps) => {
   return (
     <S.PageHeader>
@@ -19,11 +19,11 @@ const DetailHeader = ({
         <S.BmrBtn
           onClick={() => editBookmark.mutate()}
           style={{
-            color:
-              typeof email === 'string' &&
-              bookmarksList?.usersList.includes(email)
-                ? ' #FFEF5A     '
-                : '#ffffff',
+            color: bookmarksList?.usersList.includes(
+              `${session.user.provider}_${session.user.email}`,
+            )
+              ? ' #FFEF5A'
+              : '#ffffff',
           }}
         >
           ★
