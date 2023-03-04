@@ -1,7 +1,6 @@
 import { getUsersList } from '@/common/api';
 import LoadingSpinner from '@/components/GlobalComponents/LoadingSpinner/LoadingSpinner';
 import NoResult from '@/components/GlobalComponents/NoResult/NoResult';
-import TopBtn from '@/components/GlobalComponents/TopBtn/TopBtn';
 import useHomeList from '@/hooks/useHomeList';
 import useTabList from '@/hooks/useTabList';
 import { selectedRegionList, selectedTypeList } from '@/store/selectors';
@@ -35,13 +34,6 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
       ssr: false,
     },
   );
-
-  // const useHomeList = dynamic(
-  //   () => import('@/hooks/useHomeList'),
-  //   {
-  //     ssr: false,
-  //   },
-  // );
 
   useEffect(() => {
     useHomeList;
