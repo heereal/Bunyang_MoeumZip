@@ -44,7 +44,7 @@ const EditProfile = ({ currentUser }: any) => {
                 : transparentImage
             }
             alt="providerLogo"
-            height={20}
+            height={19}
             quality={100}
             priority={true}
           />

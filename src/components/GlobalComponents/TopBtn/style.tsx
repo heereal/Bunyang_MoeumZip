@@ -8,18 +8,31 @@ export const TopBtnSection = styled.div`
   z-index: 1;
 `;
 export const TopBtn = styled.button`
-  font-weight: bold;
-  font-size: 20px;
-  padding: 15px 10px;
-  background-color: lightgray;
-  color: #fff;
-  border: 1px solid lavender;
-  border-radius: 50%;
-  outline: none;
+  all: unset;
+
+  width: 38px;
+  height: 38px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100px;
+  padding: 2px;
+
+  color: #ffffff;
+  background-color: #356eff;
+  opacity: 0.87;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+  font-weight: 500;
+  font-size: 10px;
+
   cursor: pointer;
 
   :hover {
-    background-color: lavender;
-    color: #fff;
+    transition: 0.5s;
+    width: 40px;
+    height: 40px;
   }
 `;

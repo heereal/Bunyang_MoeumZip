@@ -48,8 +48,7 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
   // 커스텀 훅 실행
   const { onClickBookmarkBtnHandler } = useBookmark(
     status,
-    email!,
-    `${session?.user.provider}_${session?.user.email}`,
+    `${session?.user?.provider}_${session?.user?.email}`,
     bookmarksList,
     postId,
   );
@@ -123,7 +122,7 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
         bookmarksList={bookmarksList}
         home={home}
         editBookmark={editBookmark}
-        email={email}
+        session={session}
       />
 
       {/* 탭 선택 */}
