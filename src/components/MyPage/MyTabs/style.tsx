@@ -26,7 +26,7 @@ export const TabBtn = styled.div<{ color: string }>`
 `;
 
 export const Line = styled.div`
-  background-color: #BCC0CB;
+  background-color: #bcc0cb;
   position: absolute;
   height: 1.5px;
   bottom: 0;
@@ -63,20 +63,22 @@ export const SubmitBtn = styled.button`
   all: unset;
   width: 220px;
   height: 43px;
-  font-weight: 700;
-  font-size: 15px;
-  background: #3d7fff;
-  border-radius: 10px;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 17px;
+  background-color: #3d7fff;
+  border-radius: 7px;
   display: flex;
   justify-content: center;
   align-items: center;
   color: white;
   cursor: pointer;
   position: absolute;
-  bottom: 10px;
+  bottom: 0;
 
   :disabled {
     cursor: default;
-    background: #8e8e8e;
+    background-color: #e8eaef;
+    color: #7b7b7b;
   }
 `;
