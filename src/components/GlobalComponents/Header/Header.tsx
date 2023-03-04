@@ -42,7 +42,7 @@ const Header = () => {
             onClick={() => router.push('/')}
             src={logo}
             alt="logoImg"
-            height={23}
+            height={30}
             quality={100}
             //quelity 의 기본값은 75 입니다.
             priority={true}
@@ -71,9 +71,6 @@ const Header = () => {
                 color={router.asPath === '/my' ? '#356EFF' : 'black'}
               >
                 마이페이지
-              </S.NavContent>
-              <S.NavContent onClick={LogOutHandler} color={'black'}>
-                로그아웃
               </S.NavContent>
             </>
           ) : (

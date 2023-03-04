@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const ListArticle = styled.article`
   max-width: 218px;
   height: 246px;
+  min-width: 218px;
 
   background: #ffffff;
 
@@ -100,7 +101,7 @@ export const CardDateCategory = styled.div`
   width: 100%;
   height: 74px;
   margin-top: 15px;
-  margin-bottom: -19px;
+  margin-bottom: -20px;
   background-color: #356eff;
 
   display: flex;
