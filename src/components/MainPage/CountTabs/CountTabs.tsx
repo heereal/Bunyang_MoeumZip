@@ -7,11 +7,16 @@ import useTabList from '@/hooks/useTabList';
 import { selectedRegionList, selectedTypeList } from '@/store/selectors';
 import { useSession } from 'next-auth/react';
 import dynamic from 'next/dynamic';
+import Image from 'next/image';
 import { useState } from 'react';
 import { useQuery } from 'react-query';
 import { useRecoilState } from 'recoil';
 import CategoryBar from '../CategoryBar/CategoryBar';
 import * as S from './style';
+import allIcon from 'public/assets/all.png';
+import todayIcon from 'public/assets/today.png';
+import comingIcon from 'public/assets/coming.png';
+import randomIcon from 'public/assets/random.png';
 
 const CountTabs = ({ list }: CountTabPropsListJ) => {
   const [currentTab, SetCurrentTab] = useState<number>(0);
@@ -45,7 +50,9 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
 
   // 현재 유저의 데이터 불러오기
   const currentUser = users?.find(
-    (item: ItemJ) => item.userEmail === session?.user?.email  && item.provider === session?.user?.provider,
+    (item: ItemJ) =>
+      item.userEmail === session?.user?.email &&
+      item.provider === session?.user?.provider,
   );
 
   // 현재 유저의 관심 지역 및 분양 형태 통합 리스트
@@ -185,16 +192,71 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
   return (
     <>
       <S.CountSectionBack>
-        <S.CountTabList>
+        <S.CountTabList
+          bd={
+            currentTab === 0
+              ? '#356EFF'
+              : currentTab === 1
+              ? '#3EDE87'
+              : currentTab === 2
+              ? '#FF4141'
+              : '#CB5EFF'
+          }
+          bs={
+            currentTab === 0
+              ? '#91b0ff'
+              : currentTab === 1
+              ? '#3EDE87'
+              : currentTab === 2
+              ? '#FFA6A6'
+              : '#E8B8FF'
+          }
+        >
           {tabList.map((el, index) => (
-            <li
+            <S.BaseCountTab
               key={el.name}
               className={index === currentTab ? 'baseTab focused' : 'baseTab'}
               onClick={() => clickTabHandler(index)}
+              bd={
+                index === 0
+                  ? '#356EFF'
+                  : index === 1
+                  ? '#3EDE87'
+                  : index === 2
+                  ? '#FF4141'
+                  : '#CB5EFF'
+              }
+              bs={
+                index === 0
+                  ? '#91b0ff'
+                  : index === 1
+                  ? '#3EDE87'
+                  : index === 2
+                  ? '#FFA6A6'
+                  : '#E8B8FF'
+              }
             >
-              <S.CountTabName>{el.name}</S.CountTabName>
+              <S.CountTabName>
+                <Image
+                  width={28}
+                  height={22}
+                  src={
+                    index === 0
+                      ? allIcon
+                      : index === 1
+                      ? todayIcon
+                      : index === 2
+                      ? comingIcon
+                      : randomIcon
+                  }
+                  alt="allIcon"
+                  quality={100}
+                  priority={true}
+                />
+                <p style={{ paddingTop: '3px' }}>{el.name}</p>
+              </S.CountTabName>
               <S.CountTabNum>{el.count}</S.CountTabNum>
-            </li>
+            </S.BaseCountTab>
           ))}
         </S.CountTabList>
       </S.CountSectionBack>

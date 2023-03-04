@@ -82,28 +82,36 @@ const CategoryBar = () => {
               {/* index===0 은 지역 Tab, 1은 분양형태 Tab */}
               {index === 0 ? (
                 <S.RegionTab
-                  bd={isRegionToggleOpen ? '#3d7fff' : '#bcc0cb'}
-                  bg={isRegionToggleOpen ? '#f1f6ff' : '#ffffff'}
+                  bd={
+                    isRegionToggleOpen || item.name !== '지역'
+                      ? '#356EFF'
+                      : '#D8D8D8'
+                  }
+                  bg={isRegionToggleOpen ? '#fFFFFF' : '#ffffff'}
                   onClick={openToggleHandler}
                 >
                   <S.TabNameBox>
                     <S.TabName
-                      color={isRegionToggleOpen ? '#3d7fff' : '#7B7B7B'}
+                      color={
+                        isRegionToggleOpen || item.name !== '지역'
+                          ? '#356EFF'
+                          : '#505050'
+                      }
                     >
                       {item.name}
                     </S.TabName>
-                    {isRegionToggleOpen ? (
+                    {isRegionToggleOpen || item.name !== '지역' ? (
                       <RiArrowUpSLine
                         style={{
                           fontSize: 25,
-                          color: '#3d7fff',
+                          color: '#356EFF',
                         }}
                       />
                     ) : (
                       <RiArrowDownSLine
                         style={{
                           fontSize: 25,
-                          color: '#7B7B7B',
+                          color: '#505050',
                         }}
                       />
                     )}
@@ -111,26 +119,36 @@ const CategoryBar = () => {
                 </S.RegionTab>
               ) : (
                 <S.TypeTab
-                  bd={isTypeToggleOpen ? '#3d7fff' : '#bcc0cb'}
-                  bg={isTypeToggleOpen ? '#f1f6ff' : '#ffffff'}
+                  bd={
+                    isTypeToggleOpen || item.name !== '분양형태'
+                      ? '#356EFF'
+                      : '#D8D8D8'
+                  }
+                  bg={isTypeToggleOpen ? '#fFFFFF' : '#ffffff'}
                   onClick={openTypeToggleHandler}
                 >
                   <S.TabNameBox>
-                    <S.TabName color={isTypeToggleOpen ? '#3d7fff' : '#7B7B7B'}>
+                    <S.TabName
+                      color={
+                        isTypeToggleOpen || item.name !== '분양형태'
+                          ? '#356EFF'
+                          : '#505050'
+                      }
+                    >
                       {item.name}
                     </S.TabName>
-                    {isTypeToggleOpen ? (
+                    {isTypeToggleOpen || item.name !== '분양형태' ? (
                       <RiArrowUpSLine
                         style={{
                           fontSize: 25,
-                          color: '#3d7fff',
+                          color: '#356EFF',
                         }}
                       />
                     ) : (
                       <RiArrowDownSLine
                         style={{
                           fontSize: 25,
-                          color: '#7B7B7B',
+                          color: '#505050',
                         }}
                       />
                     )}
@@ -142,7 +160,7 @@ const CategoryBar = () => {
         </S.CategoryTabList>
         {/*  지역 카테고리 선택 */}
         {isRegionToggleOpen && (
-          <S.CategoryContainer>
+          <S.RegionCategoryContainer>
             <S.CategoryBox>
               {regionArray.map((region, index) =>
                 region && myRegionArray.includes(region) ? (
@@ -153,9 +171,9 @@ const CategoryBar = () => {
                       )
                     }
                     key={index}
-                    bg={'#F1F6FF'}
-                    bd={'#3d7fff'}
-                    color={'#3d7fff'}
+                    bg={'#F0F4FF'}
+                    bd={'#356EFF'}
+                    color={'#356EFF'}
                   >
                     {region}
                   </S.CategoryBtn>
@@ -164,8 +182,8 @@ const CategoryBar = () => {
                     onClick={() => setMyRegionArray([...myRegionArray, region])}
                     key={index}
                     bg={'transparent'}
-                    bd={'#F4F4F4'}
-                    color={'#7b7b7b'}
+                    bd={'#d8d8d8'}
+                    color={'#505050'}
                   >
                     {region}
                   </S.CategoryBtn>
@@ -174,31 +192,30 @@ const CategoryBar = () => {
             </S.CategoryBox>
             <S.CommonBtnBox>
               <S.CategoryCommonBtn
-                bg={'transparent'}
+                color={myRegionArray.length === 17 ? '#356EFF' : '#505050'}
                 onClick={() => setMyRegionArray(regionArray)}
               >
                 <BsCheckCircleFill
                   style={{
                     fontSize: 12,
-                    color: myRegionArray.length === 17 ? '#3d7fff' : '#BCC0CB',
                   }}
                 />
                 <p>전체 선택</p>
               </S.CategoryCommonBtn>
               <S.CategoryCommonBtn
-                bg={'transparent'}
+                color={'#505050'}
                 onClick={() => setMyRegionArray([])}
               >
-                <IoReload style={{ fontSize: 12, color: '#BCC0CB' }} />
+                <IoReload style={{ fontSize: 12 }} />
                 <p>초기화</p>
               </S.CategoryCommonBtn>
             </S.CommonBtnBox>
-          </S.CategoryContainer>
+          </S.RegionCategoryContainer>
         )}
 
         {/* 분양 형태 카테고리 선택 */}
         {isTypeToggleOpen && (
-          <S.CategoryContainer>
+          <S.TypeCategoryContainer>
             <S.CategoryBox>
               {typesArray.map((region, index) =>
                 region && myTypeArray.includes(region) ? (
@@ -209,9 +226,9 @@ const CategoryBar = () => {
                       )
                     }
                     key={index}
-                    bg={'#F1F6FF'}
-                    bd={'#3d7fff'}
-                    color={'#3d7fff'}
+                    bg={'#F0F4FF'}
+                    bd={'#356EFF'}
+                    color={'#356EFF'}
                   >
                     {region}
                   </S.CategoryBtn>
@@ -220,8 +237,8 @@ const CategoryBar = () => {
                     onClick={() => setMyTypeArray([...myTypeArray, region])}
                     key={index}
                     bg={'transparent'}
-                    bd={'#F4F4F4'}
-                    color={'#7b7b7b'}
+                    bd={'#d8d8d8'}
+                    color={'#505050'}
                   >
                     {region}
                   </S.CategoryBtn>
@@ -230,26 +247,25 @@ const CategoryBar = () => {
             </S.CategoryBox>
             <S.CommonBtnBox>
               <S.CategoryCommonBtn
-                bg={'transparent'}
+                color={myTypeArray.length === 11 ? '#356EFF' : '#505050'}
                 onClick={() => setMyTypeArray(typesArray)}
               >
                 <BsCheckCircleFill
                   style={{
                     fontSize: 12,
-                    color: myTypeArray.length === 17 ? '#3d7fff' : '#BCC0CB',
                   }}
                 />
                 <p>전체 선택</p>
               </S.CategoryCommonBtn>
               <S.CategoryCommonBtn
-                bg={'transparent'}
+                color={'#505050'}
                 onClick={() => setMyTypeArray([])}
               >
-                <IoReload style={{ fontSize: 12, color: '#BCC0CB' }} />
+                <IoReload style={{ fontSize: 12 }} />
                 <p>초기화</p>
               </S.CategoryCommonBtn>
             </S.CommonBtnBox>
-          </S.CategoryContainer>
+          </S.TypeCategoryContainer>
         )}
       </div>
       <InfoLinkBtn />

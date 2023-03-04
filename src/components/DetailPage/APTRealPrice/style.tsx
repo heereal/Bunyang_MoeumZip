@@ -21,7 +21,7 @@ export const TableHead = styled.th`
   font-weight: 700;
   font-size: 15px;
   padding: 15px 25px;
-  background-color: lightgray;
+  background-color: #f0f4ff;
 `;
 
 export const TableData = styled.td`

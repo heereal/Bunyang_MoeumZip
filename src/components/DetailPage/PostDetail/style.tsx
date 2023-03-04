@@ -21,7 +21,7 @@ export const TabBtn = styled.div<{ font: string; line: string }>`
   font-weight: 700;
   font-size: 15px;
   padding: 15px 35px;
-  border-bottom: 5px solid ${(props) => props.line};
+  border-bottom: 3px solid ${(props) => props.line};
   color: ${(props) => props.font};
   cursor: pointer;
 `;
@@ -32,12 +32,15 @@ export const PageHeader = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  background: linear-gradient(
-    0deg,
-    rgba(61, 127, 255, 0.1),
-    rgba(61, 127, 255, 0.1)
-  );
   padding-bottom: 30px;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: linear-gradient(
+      rgba(53, 110, 255, 0.8),
+      rgba(53, 110, 255, 0.8)
+    ),
+    url('/assets/detailHeaderBackground.png');
 `;
 export const HeaderTagBox = styled.div`
   display: flex;
@@ -45,23 +48,20 @@ export const HeaderTagBox = styled.div`
   justify-content: center;
   align-items: center;
   padding-bottom: 10px;
-  gap: 8px;
   font-weight: 700;
   font-size: 13px;
+  gap: 3px;
 `;
 export const HeaderTag = styled.p`
   display: flex;
   justify-content: center;
   align-items: center;
   height: 28px;
-
-  background: #f1f6ff;
-  border-radius: 10px;
-  color: #3d7fff;
-  padding: 10px;
+  color: white;
 `;
 
 export const HeaderTitle = styled.div`
+  color: white;
   font-size: 27px;
   font-weight: 700;
   padding-bottom: 10px;
@@ -69,7 +69,7 @@ export const HeaderTitle = styled.div`
 
 export const HeaderAdres = styled.div`
   font-size: 16px;
-  color: #8e8e8e;
+  color: white;
   padding-bottom: 5px;
 `;
 
@@ -86,13 +86,13 @@ export const BmrBtn = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 25px;
-  width: 36px;
-  height: 36px;
-  font-size: 20px;
-  background-color: #3d7fff;
+  width: 120px;
+  height: 28px;
+  font-size: 12px;
   padding-left: 1px;
   padding-top: 2px;
   cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.2);
 `;
 
 export const HeaderBmrk = styled.div`
@@ -103,9 +103,12 @@ export const HeaderBmrk = styled.div`
   align-items: center;
   justify-content: center;
   font-weight: 500;
-  font-size: 15px;
+  font-size: 12px;
   color: #ffffff;
-  background: #3d7fff;
+  /* background: rgba(255, 255, 255, 0.3); */
+
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 15px;
 `;
 export const HeaderBox = styled.div`
@@ -127,6 +130,7 @@ export const ArticleBox = styled.div`
   border: 1px solid #f4f4f4;
   margin-bottom: 15px;
   font-size: 15px;
+  border-top: 1.3px solid #8e8e8e;
 `;
 
 export const ArticleHead = styled.div`
@@ -138,15 +142,16 @@ export const ArticleHead = styled.div`
 `;
 
 export const ArticleTitle = styled.div`
-  background-color: #f4f4f4;
+  background-color: #f0f4ff;
   text-align: center;
   height: 51px;
   font-size: 16px;
-  font-weight: 700;
+  font-weight: 600;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
+  color: #356eff;
 `;
 
 export const Article = styled.div`
@@ -166,6 +171,7 @@ export const BoxTitle = styled.div`
   align-items: center;
   background-color: ${(props) => props.color};
   padding: 15px 0px 15px 0px;
+  background-color: #f0f4ff;
 `;
 export const BoxContent = styled.div`
   text-align: left;

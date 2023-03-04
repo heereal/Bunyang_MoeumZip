@@ -72,9 +72,9 @@ const Map = ({ mapId = 'map', onLoad }: Props) => {
       />
       <MapBox
         id={mapId}
-        style={{
-          display: router.asPath === '/admin/nemo042116' ? 'none' : 'block',
-        }}
+        minHeight={router.asPath === '/' ? '400px' : '200px'}
+        display1200={router.asPath === '/admin/nemo042116' ? 'none' : 'block'}
+        display768={router.asPath.includes('search') ? 'none' : 'block'}
       />
     </>
   );

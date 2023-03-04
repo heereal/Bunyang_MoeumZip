@@ -32,7 +32,7 @@ export const getServerSideProps = async () => {
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
-        cacheTime: 1000 * 60 * 60 * 3,
+        cacheTime: 540000,
       },
     },
   });
