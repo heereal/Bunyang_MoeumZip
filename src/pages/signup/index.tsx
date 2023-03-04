@@ -1,5 +1,4 @@
 import { getUsersList } from '@/common/api';
-import { regionArray, typesArray } from '@/common/categoryList';
 import { db } from '@/common/firebase';
 import { customAlert } from '@/common/utils';
 import SelectMyRegion from '@/components/GlobalComponents/SelectMyRegion/SelectMyRegion';
@@ -15,7 +14,7 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import * as S from '../../styles/signup.style';
 import HeadTitle from '@/components/GlobalComponents/HeadTitle/HeadTitle';
 
@@ -23,6 +22,7 @@ import HeadTitle from '@/components/GlobalComponents/HeadTitle/HeadTitle';
 // TODO: isSignedUp이라는 속성을 하나 추가할까? 회원가입 완료해야 true가 됨 (닉네임 중복 검사해야되기 때문에)
 const SignUp = () => {
   const router = useRouter();
+  console.log('router:', router);
 
   // 유저의 세션 정보 받아오기
   const { data: session, status }: any = useSession();

@@ -5,8 +5,11 @@ import { currentUserState, myTypeArrayState } from '@/store/selectors';
 import { BsFillCheckCircleFill } from 'react-icons/bs';
 import { FaUndo } from 'react-icons/fa';
 import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 
 const SelectMyTypes = ({ width }: SelectCategoryProps) => {
+  const router = useRouter();
+
   // 유저가 선택한 카테고리 필터링 리스트
   const [myTypeArray, setMyTypeArray] = useRecoilState<any>(myTypeArrayState);
 
@@ -18,7 +21,7 @@ const SelectMyTypes = ({ width }: SelectCategoryProps) => {
   }, []);
 
   return (
-    <S.CategoryContainer width={width}>
+    <S.CategoryContainer width={width} path={router.pathname}>
       {typesArray.map((type, index) =>
         type && myTypeArray?.includes(type) ? (
           <S.CategoryBtn

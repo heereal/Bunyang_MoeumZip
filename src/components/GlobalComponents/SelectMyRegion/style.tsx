@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 
 // TODO: nav 등 semantic tag로 변경하기
-export const CategoryContainer = styled.div<{ width: string }>`
-  border: 1px solid rgb(232, 234, 239);
+export const CategoryContainer = styled.div<{ width: string; path: string }>`
+  box-shadow: ${(props) =>
+    props.path === '/signup' ? 'none' : '0px 4px 4px rgba(0, 0, 0, 0.25)'};
+  padding: ${(props) => (props.path === '/signup' ? 0 : '19px')};
   border-radius: 20px;
-  padding: 19px 19px 22px 19px;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   margin-bottom: 35px;
   background-color: white;
   width: ${(props) => props.width};
@@ -29,9 +29,10 @@ export const SelectAllOrNoneContainer = styled.div`
   display: flex;
   justify-content: space-between;
   padding-top: 10px;
+  padding-right: 10px;
 `;
 
-export const SelectBtn = styled.div<{color: string}>`
+export const SelectBtn = styled.div<{ color: string }>`
   font-weight: 600;
   font-size: 10px;
   line-height: 12px;
