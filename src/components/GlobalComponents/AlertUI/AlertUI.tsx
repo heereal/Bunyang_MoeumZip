@@ -1,14 +1,13 @@
 import { MouseEventHandler } from 'react';
 import * as S from './style';
 
-// TODO: type 지정하기
-
 // 공통 alert UI
 const AlertUI: React.FC<{
-  alertDetail?: string;
   alertText: string;
+  alertDetailA?: string;
+  alertDetailB?: string;
   onClose: MouseEventHandler<HTMLElement>;
-  onClick?: any;
+  onClick?: MouseEventHandler<HTMLElement>;
   eventText?: string;
 }> = (props) => {
   return (
@@ -17,10 +16,11 @@ const AlertUI: React.FC<{
         <S.AlertBox>
           <S.TextBox>
             <S.AlertText>{props.alertText}</S.AlertText>
-            {props.alertDetail ? (
-              <S.AlertDetailText>{props.alertDetail}</S.AlertDetailText>
-            ) : (
-              ''
+            {props.alertDetailA && (
+              <S.AlertDetailText>{props.alertDetailA}</S.AlertDetailText>
+            )}
+            {props.alertDetailB && (
+              <S.AlertDetailText>{props.alertDetailB}</S.AlertDetailText>
             )}
           </S.TextBox>
           <S.BtnBox>

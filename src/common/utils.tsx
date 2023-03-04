@@ -1,6 +1,6 @@
 import AlertUI from '@/components/GlobalComponents/AlertUI/AlertUI';
 import { confirmAlert } from 'react-confirm-alert';
-// import AlertUI from '@/components/GlobalComponents/AlertUI/AlertUI';
+import { MouseEventHandler } from 'react';
 
 // 댓글 작성 시 사용
 // const dateString  = postTime();
@@ -47,10 +47,25 @@ export const getToday = () => {
 };
 
 // Custom Alert(react confirm Library)실행함수
-export const customUIAlert = (alertText: string) => {
+export const customUIAlert = (
+  alertText: string,
+  alertDetailA?: string,
+  alertDetailB?: string,
+  eventText?: string,
+  onClick?: MouseEventHandler<HTMLElement>,
+) => {
   confirmAlert({
     customUI: ({ onClose }) => {
-      return <AlertUI alertText={alertText} onClose={onClose} />;
+      return (
+        <AlertUI
+          alertText={alertText}
+          onClose={onClose}
+          alertDetailA={alertDetailA}
+          alertDetailB={alertDetailB}
+          eventText={eventText}
+          onClick={onClick}
+        />
+      );
     },
   });
 };

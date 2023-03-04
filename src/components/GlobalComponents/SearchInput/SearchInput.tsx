@@ -1,10 +1,7 @@
 import { customUIAlert } from '@/common/utils';
 import { useRouter } from 'next/router';
 import { ChangeEvent, KeyboardEvent, useState } from 'react';
-import { confirmAlert } from 'react-confirm-alert';
-// import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import { AiOutlineSearch } from 'react-icons/ai';
-import AlertUI from '../AlertUI/AlertUI';
 import * as S from './style';
 
 const SearchInput = () => {

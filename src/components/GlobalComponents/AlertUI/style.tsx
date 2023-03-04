@@ -24,25 +24,25 @@ export const AlertSection = styled.section`
 `;
 
 export const AlertBox = styled.div`
-  width: 386px;
-  height: 170px;
+  width: 100%;
+  min-width: 386px;
+  height: 200px;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 24px 30px;
-  /* gap: 20px; */
 
   background-color: #ffffff;
-  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.15);
+  box-shadow: 0px 4px 8px rgba(255, 255, 255, 0.5);
   border-radius: 16px;
 `;
 
 export const TextBox = styled.div`
   display: flex;
   flex-direction: column;
-  /* justify-content:cn */
+  gap: 7px;
 `;
 
 export const AlertText = styled.p`
@@ -50,11 +50,14 @@ export const AlertText = styled.p`
   font-size: 18px;
   text-align: center;
   color: #000000;
-
-  align-self: stretch;
 `;
 
-export const AlertDetailText = styled(AlertText)``;
+export const AlertDetailText = styled(AlertText)`
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 15px;
+  color: #7b7b7b;
+`;
 
 export const BtnBox = styled.div`
   margin-top: 30px;

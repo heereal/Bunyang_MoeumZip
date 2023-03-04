@@ -40,33 +40,11 @@ const Replies = ({
               }
               onClose();
             }}
-            eventText="확인"
+            eventText="삭제"
           />
         );
       },
     });
-
-    // confirmAlert({
-    //   message: '삭제하시겠습니까?',
-    //   buttons: [
-    //     {
-    //       label: '확인',
-    //       onClick: () => {
-    //         const comment = {
-    //           replies: arrayRemove(replies[index]),
-    //         };
-    //         if (typeof postId === 'string') {
-    //           deleteMutation.mutate({ postId, comment });
-    //         }
-    //       },
-    //     },
-
-    //     {
-    //       label: '취소',
-    //       onClick: () => onclose,
-    //     },
-    //   ],
-    // });
   };
 
   const editReplyHandler = async (index: number | undefined) => {

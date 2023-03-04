@@ -13,7 +13,7 @@ import {
   myRegionArrayState,
   myTypeArrayState,
 } from '@/store/selectors';
-import { customAlert } from '@/common/utils';
+import { customUIAlert } from '@/common/utils';
 
 const MyTabs = () => {
   const [currentTab, setCurrentTab] = useState(1);
@@ -43,7 +43,7 @@ const MyTabs = () => {
       ...currentUser,
       [category]: array,
     });
-    customAlert('관심 카테고리 설정이 업데이트되었습니다.');
+    customUIAlert('관심 카테고리 설정이 업데이트되었습니다.');
   };
 
   return (

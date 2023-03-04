@@ -1,5 +1,6 @@
 import { db, storage } from '@/common/firebase';
 import { customUIAlert } from '@/common/utils';
+import AlertUI from '@/components/GlobalComponents/AlertUI/AlertUI';
 import { currentUserState, usersListState } from '@/store/selectors';
 import { uuidv4 } from '@firebase/util';
 import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
@@ -7,6 +8,7 @@ import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { signOut } from 'next-auth/react';
 import Image from 'next/image';
 import { useState } from 'react';
+import { confirmAlert } from 'react-confirm-alert';
 import { BsCameraFill } from 'react-icons/bs';
 import { MdClose } from 'react-icons/md';
 import { useRecoilState, useRecoilValue } from 'recoil';
@@ -94,13 +96,44 @@ const EditProfileModal = ({ setIsModalOpen }: any) => {
 
   // [회원탈퇴] 버튼 클릭 시 작동
   const withdrawMembershipHandler = async () => {
-    if (confirm('정말 탈퇴하실건가요?🥹🥹🥹🥹')) {
-      await deleteDoc(
-        doc(db, 'Users', `${currentUser.provider}_${currentUser.userEmail}`),
-      );
-      customUIAlert('회원탈퇴가 완료되었습니다.');
-      signOut({ callbackUrl: '/' });
-    }
+    setIsModalOpen(false);
+    confirmAlert({
+      customUI: ({ onClose }) => {
+        return (
+          <AlertUI
+            alertText="정말 탈퇴하시겠어요?"
+            alertDetailA="회원탈퇴 시 회원님의 모든 정보가 삭제됩니다."
+            alertDetailB="삭제된 정보는 복구될 수 없으니 신중하게 결정해주세요."
+            onClose={onClose}
+            eventText="탈퇴"
+            onClick={() => {
+              deleteDoc(
+                doc(
+                  db,
+                  'Users',
+                  `${currentUser.provider}_${currentUser.userEmail}`,
+                ),
+              );
+              onClose();
+              customUIAlert(
+                '회원탈퇴가 완료되었습니다.',
+                '그동안 분양모음집을 이용해주셔서 감사합니다.',
+                '보다 나은 분양모음집으로 다시 만나뵐 수 있기를 바랍니다.',
+              );
+              signOut({ callbackUrl: '/' });
+            }}
+          />
+        );
+      },
+    });
+
+    // {
+    //   await deleteDoc(
+    //     doc(db, 'Users', `${currentUser.provider}_${currentUser.userEmail}`),
+    //   );
+    //   signOut({ callbackUrl: '/' });
+
+    // }
   };
 
   return (

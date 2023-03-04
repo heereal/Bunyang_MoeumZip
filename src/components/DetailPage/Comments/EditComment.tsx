@@ -45,7 +45,7 @@ const EditComment = ({
                 deleteMutation.mutate({ postId, comment });
                 onClose();
               }}
-              eventText="확인"
+              eventText="삭제"
             />
           );
         },
