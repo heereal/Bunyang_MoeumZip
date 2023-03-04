@@ -133,7 +133,7 @@ export const ListBox = styled.div`
     grid-template-columns: repeat(2, 1fr);
     max-width: 750px;
   }
-  @media screen and (max-width: 380px) {
+  @media screen and (max-width: 600px) {
     grid-template-columns: repeat(1, 1fr);
   }
 `;
