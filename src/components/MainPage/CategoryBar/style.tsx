@@ -87,8 +87,8 @@ export const TabName = styled.p<{ color: string }>`
 
 // 지역 및 분양형태 카테고리 선택
 export const RegionCategoryContainer = styled.div`
-  width: 280px;
-  height: 240px;
+  width: 290px;
+  height: 235px;
 
   display: flex;
   flex-direction: column;
@@ -108,24 +108,24 @@ export const RegionCategoryContainer = styled.div`
 `;
 
 export const TypeCategoryContainer = styled(RegionCategoryContainer)`
-  width: 267px;
-  height: 240px;
+  width: 314px;
+  height: 245px;
   left: 98px;
 `;
 
 export const CategoryBox = styled.div`
   width: 100%;
-  height: 85%;
+  height: 80%;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-start;
   align-items: flex-start;
-  margin-left: 24px;
+  margin-left: 34px;
   padding-bottom: 20px;
 
   box-sizing: border-box;
-  gap: 8px;
+  gap: 2px 8px;
 `;
 
 // 각 카테고리버튼
@@ -134,12 +134,13 @@ export const CategoryBtn = styled.button<{
   bd: string;
   color: string;
 }>`
+  min-width: 39px;
   height: 30px;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 10px;
-  padding: 8px 9px;
+  padding: 10px 8px;
   border-radius: 7px;
 
   background-color: ${(props) => props.bg};
@@ -165,14 +166,14 @@ export const CategoryBtn = styled.button<{
 // 초기화 및 전체 선택 버튼
 export const CommonBtnBox = styled.div`
   width: 100%;
-  height: 15%;
+  height: 20%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 
-  padding: 5px;
-  padding-bottom: 25px;
+  padding: 0 12px;
+  padding-bottom: 40px;
   position: absolute;
   top: 88%;
 `;
