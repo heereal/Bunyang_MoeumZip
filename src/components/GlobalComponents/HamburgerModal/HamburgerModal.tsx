@@ -27,8 +27,8 @@ const HamburgerModal = ({ setHamburgerOpen }: any) => {
     <S.HamModalBack>
       <div>
         <S.HamModalSection ref={HamModalRef}>
-          <button onClick={() => setHamburgerOpen(false)}>X</button>
-          <div>
+          <S.CloseBtn onClick={() => setHamburgerOpen(false)}>X</S.CloseBtn>
+          <S.HamModalBox>
             <div>사진</div>
             <div>분양모음집</div>
             <div>마이페이지</div>
@@ -36,7 +36,7 @@ const HamburgerModal = ({ setHamburgerOpen }: any) => {
             <div>
               <InfoLinkBtn />
             </div>
-          </div>
+          </S.HamModalBox>
         </S.HamModalSection>
       </div>
     </S.HamModalBack>

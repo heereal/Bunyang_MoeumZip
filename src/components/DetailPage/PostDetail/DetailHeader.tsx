@@ -89,21 +89,22 @@ const DetailHeader = ({
       </S.BmrkBox>
       <S.HeaderBox>
         <S.HeaderTagBox>
-          {home?.HOUSE_DTL_SECD_NM ? (
+          {home?.HOUSE_DTL_SECD_NM === home?.HOUSE_SECD_NM ? (
+            <S.HeaderTag>{home?.HOUSE_DTL_SECD_NM} | </S.HeaderTag>
+          ) : home?.HOUSE_DTL_SECD_NM && home?.HOUSE_SECD_NM ? (
+            <>
+              <S.HeaderTag>{home?.HOUSE_DTL_SECD_NM} | </S.HeaderTag>
+              <S.HeaderTag>{home?.HOUSE_SECD_NM} | </S.HeaderTag>
+            </>
+          ) : !home?.HOUSE_DTL_SECD_NM ? (
+            <S.HeaderTag>{home?.HOUSE_SECD_NM} | </S.HeaderTag>
+          ) : !home?.HOUSE_SECD_NM ? (
             <S.HeaderTag>{home?.HOUSE_DTL_SECD_NM} |</S.HeaderTag>
           ) : (
             ''
           )}
-          {home?.HOUSE_SECD_NM ? (
-            <S.HeaderTag>{home?.HOUSE_SECD_NM} |</S.HeaderTag>
-          ) : (
-            ''
-          )}
-          {home?.SUBSCRPT_AREA_CODE_NM ? (
-            <S.HeaderTag>{home?.SUBSCRPT_AREA_CODE_NM}</S.HeaderTag>
-          ) : (
-            ''
-          )}
+
+          <S.HeaderTag>{home?.SUBSCRPT_AREA_CODE_NM}</S.HeaderTag>
         </S.HeaderTagBox>
         <S.HeaderTitle>{home?.HOUSE_NM}</S.HeaderTitle>
         <S.HeaderAdres>{home?.FOR_COORDINATES_ADRES}</S.HeaderAdres>
