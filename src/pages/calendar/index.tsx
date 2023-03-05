@@ -9,6 +9,8 @@ import * as S from '../../styles/claendar.style';
 import { NextSeo } from 'next-seo';
 import Image from 'next/image';
 import Calendar from '../../../public/assets/calendar.png';
+import { RxDotFilled } from 'react-icons/rx';
+import { calendarColorList } from '@/common/categoryList';
 
 const Calender = ({ homeList }: any) => {
   const router = useRouter();
@@ -66,51 +68,62 @@ const Calender = ({ homeList }: any) => {
   );
 
   return (
-    <S.CalendarWrapper>
-      <NextSeo
-        title="청약캘린더 -"
-        description="청약일정을 캘린더에서 한 눈에 확인 가능합니다."
-      />
-      <S.CalendarContainer>
-        <S.CalendarHeader>
-          <S.CalendarDescContainer>
-            청약 일정을 확인해 보세요.
-          </S.CalendarDescContainer>
-          <S.CalendarIcon>
-            <Image
-              src={Calendar}
-              alt="spinner"
-              height={50}
-              quality={100}
-              priority={true}
+    <>
+      <S.CalendarWrapper>
+        <NextSeo
+          title="청약캘린더 -"
+          description="청약일정을 캘린더에서 한 눈에 확인 가능합니다."
+        />
+        <S.CalendarContainer>
+          <S.CalendarHeader>
+            <S.CalendarDescContainer>
+              <S.Title>청약 일정을 확인해 보세요.</S.Title>
+              <S.CategoryContainer>
+                {calendarColorList.map((item, index) => (
+                  <S.Category key={index} color={item.color}>
+                    <RxDotFilled size="20" style={{ marginRight: 2 }} />
+                    {item.cate}
+                  </S.Category>
+                ))}
+              </S.CategoryContainer>
+            </S.CalendarDescContainer>
+            <S.CalendarIcon>
+              <Image
+                src={Calendar}
+                alt="calendarIcon"
+                height={80}
+                quality={100}
+                priority={true}
+              />
+            </S.CalendarIcon>
+          </S.CalendarHeader>
+          <S.FullCalendarContainer>
+            <FullCalendar
+              plugins={[dayGridPlugin, interactionPlugin]}
+              headerToolbar={{
+                left: 'prev',
+                center: 'title',
+                right: 'next',
+              }}
+              initialView="dayGridMonth"
+              nowIndicator={true}
+              selectable={true}
+              fixedWeekCount={false} // 매달에 따라 4-6주를 보여줌 (6주로 고정x)
+              weekends={false} // 토요일 일요일 제거
+              locale={'ko'} // 한글 표기
+              // aspectRatio={1} // 종횡비-너비가 높이의 두 배
+              // height={"800"}
+              events={array}
+              // eventDisplay={'list-item'}
+              // eventColor="#6096B4"
+              // eventMouseEnter={(e)=>e.target.style={}}
+              eventClick={(e) => router.push(`/detail/${e.event.id}`)}
             />
-          </S.CalendarIcon>
-        </S.CalendarHeader>
-        <S.FullCalendarContainer>
-          <FullCalendar
-            plugins={[dayGridPlugin, interactionPlugin]}
-            headerToolbar={{
-              left: 'prev',
-              center: 'title',
-              right: 'next',
-            }}
-            initialView="dayGridMonth"
-            nowIndicator={true}
-            selectable={true}
-            fixedWeekCount={false} // 매달에 따라 4-6주를 보여줌 (6주로 고정x)
-            weekends={false} // 토요일 일요일 제거
-            locale={'ko'} // 한글 표기
-            // aspectRatio={1} // 종횡비-너비가 높이의 두 배
-            // height={"800"}
-            events={array}
-            // eventDisplay={'list-item'}
-            // eventColor="#6096B4"
-            // eventMouseEnter={(e)=>e.target.style={}}
-            eventClick={(e) => router.push(`/detail/${e.event.id}`)}
-          />
-        </S.FullCalendarContainer>
-      </S.CalendarContainer>
-    </S.CalendarWrapper>
+          </S.FullCalendarContainer>
+        </S.CalendarContainer>
+      </S.CalendarWrapper>
+      <S.HeaderBackground />
+    </>
   );
 };
 

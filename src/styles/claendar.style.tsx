@@ -8,18 +8,48 @@ export const CalendarWrapper = styled.div`
   align-items: center;
   padding: 40px 0;
   box-sizing: content-box;
+  z-index: 2;
 `;
 
 export const CalendarContainer = styled.div`
-  width: 80%;
+  width: 90%;
   max-width: 1100px;
 `;
 
 export const CalendarHeader = styled.div`
   width: 100%;
-  padding: 0 40px;
   display: flex;
   justify-content: space-between;
+  padding-bottom: 30px;
+`;
+
+export const HeaderBackground = styled.div`
+  width: 100%;
+  height: 186px;
+  position: absolute;
+  background: linear-gradient(180deg, #D9E5FF 0%, rgba(216, 228, 255, 0) 105.38%);
+  z-index: 1;
+`;
+
+export const Title = styled.div`
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 140%;
+  padding-bottom: 15px;
+`;
+
+export const CategoryContainer = styled.div`
+  display: flex;
+`;
+
+export const Category = styled.div<{ color: string }>`
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 17px;
+  margin-right: 7px;
+  color: ${(props) => props.color};
 `;
 
 export const CalendarDescContainer = styled.div`
