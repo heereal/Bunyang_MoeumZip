@@ -7,7 +7,7 @@ import todayIcon from 'public/assets/today.png';
 import comingIcon from 'public/assets/coming.png';
 import randomIcon from 'public/assets/random.png';
 
-const HomeList = ({ list, marginRight}: PropsListJ) => {
+const HomeList = ({ list, marginRight }: PropsListJ) => {
   const router = useRouter();
 
   // 오늘 날짜
@@ -15,7 +15,7 @@ const HomeList = ({ list, marginRight}: PropsListJ) => {
 
   return (
     <S.ListArticle
-    style={{marginRight}}
+      style={{ marginRight }}
       onClick={() => router.push(`/detail/${list.PBLANC_NO}`)}
     >
       {/* 리스트 분류 */}
@@ -55,7 +55,6 @@ const HomeList = ({ list, marginRight}: PropsListJ) => {
       </S.CardTitleBox>
 
       {/* 분양형태 / 주택 형태 / 지역 이름*/}
-
       <S.CardCategoryBox>
         {list.HOUSE_DTL_SECD_NM === list.HOUSE_SECD_NM ? (
           <S.CardCategory>{list.HOUSE_DTL_SECD_NM} | </S.CardCategory>

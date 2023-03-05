@@ -19,12 +19,12 @@ export const TitleBox = styled.div`
 
 // 검색 결과가 있을 때 타이틀
 export const ResultTitle = styled.p`
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 500;
   padding-bottom: 12px;
   color: #1d2631;
   line-height: 1.4;
-  padding: 21px 0;
+  padding-top: 41px;
 
   span {
     font-weight: 700;
