@@ -33,11 +33,28 @@ export const CloseBtn = styled.button`
   width: 22px;
   height: 22px;
   all: unset;
-  margin: 14px 80% 0 11px;
+  margin: 20px 75% 0 11px;
 
   cursor: pointer;
 `;
 
 export const HamModalBox = styled.div`
-  margin-top: 68px;
+  margin-top: 48px;
+`;
+
+export const LogoText = styled.p`
+  font-family: 'PyeongChang-Bold';
+  font-weight: 700;
+  font-size: 14px;
+  margin-top: 10px;
+`;
+
+export const HamNavBox = styled.div`
+  width: 208px;
+  height: 192px;
+  gap: 8px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 `;

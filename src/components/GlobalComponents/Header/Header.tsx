@@ -9,7 +9,6 @@ import * as S from './style';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import HamburgerModal from '../HamburgerModal/HamburgerModal';
-import dynamic from 'next/dynamic';
 
 const Header = () => {
   const router = useRouter();
@@ -18,13 +17,6 @@ const Header = () => {
 
   // user 로그인 여부에 따라 header Nav 변경
   const { data: session } = useSession();
-
-  // const HamburgerModal = dynamic(
-  //   () => import('../HamburgerModal/HamburgerModal'),
-  //   {
-  //     ssr: false,
-  //   },
-  // );
 
   return (
     <>

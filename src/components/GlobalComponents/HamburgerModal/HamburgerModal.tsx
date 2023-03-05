@@ -1,6 +1,9 @@
 import InfoLinkBtn from '@/components/MainPage/InfoLinkBtn/InfoLinkBtn';
+import Image from 'next/image';
 import { useRef, useEffect } from 'react';
 import * as S from './style';
+import logo from 'public/assets/logo.png';
+import Link from 'next/link';
 
 const HamburgerModal = ({ setHamburgerOpen }: any) => {
   const HamModalRef = useRef<HTMLDivElement>(null);
@@ -29,13 +32,23 @@ const HamburgerModal = ({ setHamburgerOpen }: any) => {
         <S.HamModalSection ref={HamModalRef}>
           <S.CloseBtn onClick={() => setHamburgerOpen(false)}>X</S.CloseBtn>
           <S.HamModalBox>
-            <div>사진</div>
-            <div>분양모음집</div>
-            <div>마이페이지</div>
-            <div>청약캘린더</div>
-            <div>
+            <Image
+              src={logo}
+              alt="logoImg"
+              width={56}
+              height={70}
+              quality={100}
+              priority={true}
+              style={{ marginLeft: '10%' }}
+            />
+            <S.LogoText>분양모음집</S.LogoText>
+            <S.HamNavBox>
+              <div>
+                <Link href={'/my'}>마이페이지</Link>
+              </div>
+              <div>청약캘린더</div>
               <InfoLinkBtn />
-            </div>
+            </S.HamNavBox>
           </S.HamModalBox>
         </S.HamModalSection>
       </div>
