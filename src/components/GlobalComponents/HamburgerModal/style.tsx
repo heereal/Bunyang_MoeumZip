@@ -21,13 +21,23 @@ export const HamModalSection = styled.div`
   background: #ffffff;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 
-  position: relative;
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
 
-  button {
-    position: absolute;
-    left: 5%;
-    top: 10px;
-  }
+  position: relative;
+`;
+
+export const CloseBtn = styled.button`
+  width: 22px;
+  height: 22px;
+  all: unset;
+  margin: 14px 80% 0 11px;
+
+  cursor: pointer;
+`;
+
+export const HamModalBox = styled.div`
+  margin-top: 68px;
 `;
