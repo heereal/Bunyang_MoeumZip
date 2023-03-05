@@ -9,12 +9,12 @@ export const Wrapper = styled.div`
 `;
 
 export const Table = styled.table`
-  border: 1px solid gray;
+  border: 1px solid #e8eaef;
   margin-top: 40px;
 `;
 
 export const TableRow = styled.tr`
-  border: 1px solid #aaa;
+  border: 1px solid #e8eaef;
 `;
 
 export const TableHead = styled.th`
@@ -22,10 +22,11 @@ export const TableHead = styled.th`
   font-size: 15px;
   padding: 15px 25px;
   background-color: #f0f4ff;
+  border: 1px solid #e8eaef;
 `;
 
 export const TableData = styled.td`
-  border: 1px solid #aaa;
+  border: 1px solid #e8eaef;
   padding: 15px 25px;
   text-align: center;
   font-size: 15px;

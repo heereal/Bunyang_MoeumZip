@@ -19,6 +19,10 @@ export const CountSectionBack = styled.div`
     max-width: 750px;
     height: 100px;
   }
+  @media screen and (max-width: 450px) {
+    max-width: 420px;
+    height: 75px;
+  }
 
   /* position: sticky;
   top: 0; */

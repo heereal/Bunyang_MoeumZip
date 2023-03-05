@@ -96,7 +96,7 @@ export const EditSubmit = styled.button`
   width: 45px;
   height: 25px;
   text-align: center;
-  background-color: #4f70e4;
+  background-color: #356eff;
   border-radius: 7px;
   color: white;
   font-size: 12px;
