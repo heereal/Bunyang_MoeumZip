@@ -17,6 +17,10 @@ const AddComment = ({ user, postId, queryClient, refetch }: CommentPropsP) => {
 
   const postDate = postTime();
 
+  const openBoxHandler = () => {
+    setBorderProps('2px solid black'), setBoxOpen(true);
+  };
+
   const addCommentHandler = async () => {
     setClicked(true);
     if (input === '') {
@@ -80,8 +84,11 @@ const AddComment = ({ user, postId, queryClient, refetch }: CommentPropsP) => {
         <S.InputBox
           border={borderProps}
           onClick={() => {
-            setBorderProps('2px solid black');
-            setBoxOpen(true);
+            {
+              user
+                ? (setBorderProps('2px solid black'), setBoxOpen(true))
+                : undefined;
+            }
           }}
         >
           <S.Input

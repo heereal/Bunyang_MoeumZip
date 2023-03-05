@@ -16,13 +16,11 @@ export const ListArticle = styled.article`
   margin-bottom: 40px;
   border-radius: 20px;
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
-
   text-align: center;
-
   cursor: pointer;
-
   position: relative;
   overflow: hidden;
+
   @media screen and (max-width: 600px) {
     width: 400px;
     max-width: 318px;
@@ -49,7 +47,7 @@ export const TabInfoText = styled.p`
   height: 14px;
 
   font-style: normal;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 12px;
   text-align: left;
   color: #8e8e8e;
@@ -174,7 +172,6 @@ export const CardAreaTitle = styled(CardDateTitle)`
 
 export const CardArea = styled(CardDate)`
   text-align: right;
-  font-weight: 600;
   font-size: 13px;
 
   color: #000000;

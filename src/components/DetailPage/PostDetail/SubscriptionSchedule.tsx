@@ -64,8 +64,20 @@ const SubscriptionSchedule = ({ home }: PropsP) => {
                   </S.THead>
                   {home?.SPSPLY_RCEPT_BGNDE && (
                     <S.THead>
-                      <S.Tbody>특별공급</S.Tbody>
-                      <div style={{ textAlign: 'center', width: '70%' }}>
+                      <S.Tbody style={{ borderRight: '2px solid #e8eaef' }}>
+                        특별공급
+                      </S.Tbody>
+
+                      <div
+                        style={{
+                          textAlign: 'center',
+                          width: '70%',
+                          height: '100%',
+                          display: 'flex',
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                        }}
+                      >
                         {home?.SPSPLY_RCEPT_BGNDE} ~ {home?.SPSPLY_RCEPT_ENDDE}
                       </div>
                     </S.THead>

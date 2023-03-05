@@ -15,7 +15,6 @@
     "@fullcalendar/interaction": "^6.1.4",
     "@fullcalendar/react": "^6.1.4",
     "@fullcalendar/timegrid": "^6.1.4",
-    "@next/font": "13.1.6",
     "@types/lodash": "^4.14.191",
     "@types/navermaps": "^3.6.3",
     "@types/node": "18.13.0",

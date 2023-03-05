@@ -13,6 +13,7 @@ import SEO from '../../seo.config';
 
 const App = ({ Component, pageProps }: AppProps) => {
   const router = useRouter();
+
   // 화면에 포커스 갈 때마다 refetch되지 않도록 설정
   const queryClient = new QueryClient({
     defaultOptions: {

@@ -509,7 +509,11 @@ const MustHaveToDo = ({
           ? '오피스텔'
           : item.HOUSE_SECD_NM.replace(/[주택]/g, '').split('/')[0],
         HOUSE_DTL_SECD: item.HOUSE_DTL_SECD ? item.HOUSE_DTL_SECD : '',
-        HOUSE_DTL_SECD_NM: item.HOUSE_DTL_SECD_NM ? item.HOUSE_DTL_SECD_NM : '',
+        HOUSE_DTL_SECD_NM: item.HOUSE_DTL_SECD_NM
+          ? item.HOUSE_DTL_SECD_NM
+          : item.HOUSE_SECD === '06'
+          ? '계약취소'
+          : '',
         HSSPLY_ADRES: item.HSSPLY_ADRES,
         SUBSCRPT_AREA_CODE: item.UBSCRPT_AREA_CODE
           ? item.UBSCRPT_AREA_CODE

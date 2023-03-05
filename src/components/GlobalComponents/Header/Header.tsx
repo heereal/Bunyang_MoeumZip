@@ -8,17 +8,28 @@ import SearchInput from '../SearchInput/SearchInput';
 import * as S from './style';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { GiHamburgerMenu } from 'react-icons/gi';
+import HamburgerModal from '../HamburgerModal/HamburgerModal';
+import dynamic from 'next/dynamic';
 
 const Header = () => {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [hamburgerOpen, setHamburgerOpen] = useState<boolean>(false);
 
   // user 로그인 여부에 따라 header Nav 변경
   const { data: session } = useSession();
 
+  // const HamburgerModal = dynamic(
+  //   () => import('../HamburgerModal/HamburgerModal'),
+  //   {
+  //     ssr: false,
+  //   },
+  // );
+
   return (
     <>
       {isOpen && <LoginModal setIsOpen={setIsOpen} />}
+      {hamburgerOpen && <HamburgerModal setHamburgerOpen={setHamburgerOpen} />}
       <S.Header>
         <S.LogoBox onClick={() => router.push('/')}>
           <Image
@@ -66,7 +77,7 @@ const Header = () => {
           <S.NavContent color={'black'}>
             <AiOutlineSearch style={{ fontSize: 20 }} />
           </S.NavContent>
-          <S.NavContent color={'black'}>
+          <S.NavContent color={'black'} onClick={() => setHamburgerOpen(true)}>
             <GiHamburgerMenu style={{ fontSize: 20 }} />
           </S.NavContent>
         </S.NavBarMobile>
