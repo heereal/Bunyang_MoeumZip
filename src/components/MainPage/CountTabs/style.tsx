@@ -11,11 +11,13 @@ export const CountSectionBack = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
   @media screen and (max-width: 1280px) {
     max-width: 500px;
   }
   @media screen and (max-width: 768px) {
     max-width: 750px;
+    height: 100px;
   }
 
   /* position: sticky;
@@ -24,17 +26,19 @@ export const CountSectionBack = styled.div`
 
 export const CountTabList = styled.ul<{ bd: string; bs: string }>`
   width: 100%;
-  height: 88px;
+  height: 70px;
   list-style: none;
-
   background: #ffffff;
-
   text-align: center;
-
   display: flex;
   align-items: center;
   gap: 12px;
   padding-left: 22px;
+
+  @media screen and (max-width: 420px) {
+    gap: 6px;
+    padding-left: 5px;
+  }
 
   /* CountTab */
   .baseTab {
@@ -54,6 +58,15 @@ export const CountTabList = styled.ul<{ bd: string; bs: string }>`
     border-radius: 10px;
 
     cursor: pointer;
+    @media screen and (max-width: 520px) {
+      width: 105px;
+      height: 60px;
+    }
+    @media screen and (max-width: 420px) {
+      width: 85px;
+      height: 50px;
+      gap: 6px;
+    }
   }
 
   /* 선택한 Tab */
@@ -84,8 +97,28 @@ export const CountTabName = styled.div`
   justify-content: flex-start;
   align-items: center;
   gap: 5px;
+
   @media screen and (max-width: 800px) {
     font-size: 12px;
+  }
+  @media screen and (max-width: 550px) {
+    font-size: 11px;
+  }
+  @media screen and (max-width: 450px) {
+    font-size: 9px;
+  }
+`;
+
+export const CountTapImgBox = styled.div`
+  display: block;
+  @media screen and (max-width: 450px) {
+    display: none;
+  }
+`;
+export const CountTapImgBoxMobile = styled.div`
+  display: none;
+  @media screen and (max-width: 450px) {
+    display: block;
   }
 `;
 
@@ -96,6 +129,10 @@ export const CountTabNum = styled(CountTabName)`
   font-size: 22px;
   line-height: 80%;
   color: #000;
+  @media screen and (max-width: 550px) {
+    font-size: 15px;
+    margin-top: -5px;
+  }
 `;
 
 // 리스트
@@ -112,6 +149,7 @@ export const ListSection = styled.section`
   align-content: flex-start;
   justify-content: center;
   margin: auto;
+  border-top: 1px solid rgba(0, 0, 0, 0.25);
 `;
 
 export const ListBox = styled.div`
@@ -133,7 +171,7 @@ export const ListBox = styled.div`
     grid-template-columns: repeat(2, 1fr);
     max-width: 750px;
   }
-  @media screen and (max-width: 380px) {
+  @media screen and (max-width: 600px) {
     grid-template-columns: repeat(1, 1fr);
   }
 `;

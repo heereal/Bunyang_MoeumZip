@@ -7,6 +7,21 @@ export const SearchBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  @media screen and (max-width: 600px) {
+    display: none;
+  }
+`;
+
+export const SearchBoxMobile = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  display: none;
+  @media screen and (max-width: 600px) {
+    display: block;
+  }
 `;
 
 export const SearchInputContainer = styled.div`

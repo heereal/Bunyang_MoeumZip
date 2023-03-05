@@ -8,6 +8,10 @@ export const Container = styled.div`
   align-items: center;
   padding-right: 40px;
   gap: 10px;
+
+  @media screen and (max-width: 600px) {
+    display: none;
+  }
 `;
 
 export const BtnBox = styled.div`

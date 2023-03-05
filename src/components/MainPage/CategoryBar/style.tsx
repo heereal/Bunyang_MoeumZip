@@ -12,6 +12,7 @@ export const CategorySection = styled.section`
   z-index: 10;
   position: relative;
   padding-left: 30px;
+
   @media screen and (max-width: 1280px) {
     max-width: 500px;
   }
@@ -38,7 +39,7 @@ export const RegionTab = styled.button<{ bd: string; bg: string }>`
   background-color: ${(props) => props.bg};
   border: 1px solid;
   border-color: ${(props) => props.bd};
-  border-radius: 10px;
+  border-radius: 7px;
   padding: 12px 9px;
   display: flex;
   align-items: center;
@@ -63,7 +64,7 @@ export const TabNameBox = styled.div`
 
 export const TabName = styled.p<{ color: string }>`
   font-style: normal;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 13px;
   line-height: 17px;
   color: ${(props) => props.color};
@@ -136,7 +137,7 @@ export const CategoryBtn = styled.button<{
   box-sizing: border-box;
 
   font-style: normal;
-  font-weight: 700;
+  font-weight: 500;
   font-size: 14px;
   line-height: 17px;
   text-align: center;
