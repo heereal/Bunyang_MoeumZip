@@ -7,7 +7,7 @@ import todayIcon from 'public/assets/today.png';
 import comingIcon from 'public/assets/coming.png';
 import randomIcon from 'public/assets/random.png';
 
-const HomeList = ({ list, marginRight}: PropsListJ) => {
+const HomeList = ({ list, marginRight }: PropsListJ) => {
   const router = useRouter();
 
   // 오늘 날짜
@@ -15,7 +15,7 @@ const HomeList = ({ list, marginRight}: PropsListJ) => {
 
   return (
     <S.ListArticle
-    style={{marginRight}}
+      style={{ marginRight }}
       onClick={() => router.push(`/detail/${list.PBLANC_NO}`)}
     >
       {/* 리스트 분류 */}

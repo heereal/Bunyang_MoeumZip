@@ -36,7 +36,14 @@ const SpecialSupply = ({ home }: PropsP) => {
                     padding: 5,
                   }}
                 >
-                  <div style={{ width: '12.5%', fontSize: 13 }}>다자녀</div>
+                  <div
+                    style={{
+                      width: '12.5%',
+                      fontSize: 13,
+                    }}
+                  >
+                    다자녀
+                  </div>
                   <div style={{ width: '12.5%', fontSize: 13 }}>신혼부부</div>
                   <div style={{ width: '12.5%', fontSize: 13 }}>생애최초</div>
                   <div style={{ width: '12.5%', fontSize: 13 }}>노부모</div>

@@ -19,6 +19,11 @@ export const CategorySection = styled.section`
   @media screen and (max-width: 768px) {
     max-width: 750px;
   }
+  @media screen and (max-width: 450px) {
+    padding-left: 10px;
+    height: 33px;
+    padding-bottom: 10px;
+  }
 `;
 
 // 카테고리 Tabs
@@ -49,6 +54,9 @@ export const RegionTab = styled.button<{ bd: string; bg: string }>`
   :hover {
     border-color: #3d7fff;
   }
+  @media screen and (max-width: 450px) {
+    height: 25px;
+  }
 `;
 
 // 분양형태 Tab
@@ -71,6 +79,9 @@ export const TabName = styled.p<{ color: string }>`
 
   :hover {
     color: #3d7fff;
+  }
+  @media screen and (max-width: 450px) {
+    font-size: 12px;
   }
 `;
 

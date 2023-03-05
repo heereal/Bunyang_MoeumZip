@@ -137,7 +137,7 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
           분양 상세 정보
         </S.TabBtn>
         <S.TabBtn
-          font={isRealPriceTab ? '#3D7FFF' : 'black'}
+          font={isRealPriceTab ? '#3D7FFF' : '#7B7B7B'}
           line={isRealPriceTab ? '#3D7FFF' : '#f4f4f4'}
           onClick={() => setIsRealPriceTab(true)}
         >

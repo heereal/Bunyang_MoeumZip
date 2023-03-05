@@ -22,7 +22,6 @@ export const TopBtn = styled.button`
 
   color: #ffffff;
   background-color: #356eff;
-  opacity: 0.87;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 
   font-weight: 500;

@@ -15,7 +15,7 @@ export const myTypeArrayState = atom({
 
 export const zoomState = atom({
   key: 'zoom',
-  default: 8,
+  default: 7,
 });
 
 export const centerState = atom({
