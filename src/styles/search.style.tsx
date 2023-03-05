@@ -13,10 +13,8 @@ export const ResultSection = styled.section`
 
 export const TitleBox = styled.div`
   width: 80%;
-  height: 50px;
+  height: 93px;
   text-align: center;
-  padding: 10px 0;
-  margin: 10px 0;
 `;
 
 // 검색 결과가 있을 때 타이틀
@@ -26,6 +24,7 @@ export const ResultTitle = styled.p`
   padding-bottom: 12px;
   color: #1d2631;
   line-height: 1.4;
+  padding: 21px 0;
 
   span {
     font-weight: 700;
@@ -34,6 +33,8 @@ export const ResultTitle = styled.p`
   }
 `;
 
-export const ResultListArticle = styled(S.ListSection)``;
+export const ResultListArticle = styled(S.ListSection)`
+  border-top: none;
+`;
 
 export const ResultListBox = styled(S.ListBox)``;

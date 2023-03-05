@@ -32,4 +32,5 @@ export const typesArray: string[] = [
   '신혼희망타운',
   '영구임대',
   '도시형생활주택',
+  '분양주택'
 ];
