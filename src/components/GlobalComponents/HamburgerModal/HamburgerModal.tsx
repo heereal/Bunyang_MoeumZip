@@ -9,6 +9,7 @@ const HamburgerModal = ({ setHamburgerOpen }: any) => {
     // 이벤트 핸들러 함수
     const handler = () => {
       // mousedown 이벤트가 발생한 영역이 모달창이 아닐 때, 모달창 제거 처리
+      //@ts-ignore
       if (HamModalRef.current && !HamModalRef.current.contains(event?.target)) {
         setHamburgerOpen(false);
       }
