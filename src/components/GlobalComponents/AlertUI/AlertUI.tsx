@@ -16,12 +16,14 @@ const AlertUI: React.FC<{
         <S.AlertBox>
           <S.TextBox>
             <S.AlertText>{props.alertText}</S.AlertText>
-            {props.alertDetailA && (
-              <S.AlertDetailText>{props.alertDetailA}</S.AlertDetailText>
-            )}
-            {props.alertDetailB && (
-              <S.AlertDetailText>{props.alertDetailB}</S.AlertDetailText>
-            )}
+            <div style={{ gap: 10 }}>
+              {props.alertDetailA && (
+                <S.AlertDetailText>{props.alertDetailA}</S.AlertDetailText>
+              )}
+              {props.alertDetailB && (
+                <S.AlertDetailText>{props.alertDetailB}</S.AlertDetailText>
+              )}
+            </div>
           </S.TextBox>
           <S.BtnBox>
             {props.onClick ? (

@@ -4,6 +4,7 @@ export const AlertBack = styled.div`
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.3);
+  /* background-color: rgba(255, 255, 255, 0.3); */
   position: fixed;
   z-index: 1000;
   top: 0%;
@@ -36,26 +37,27 @@ export const AlertBox = styled.div`
 
   background-color: #ffffff;
   box-shadow: 0px 4px 8px rgba(255, 255, 255, 0.5);
+  /* box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.15); */
   border-radius: 16px;
 `;
 
 export const TextBox = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 7px;
+  gap: 15px;
 `;
 
 export const AlertText = styled.p`
   font-weight: 700;
-  font-size: 18px;
+  font-size: 22px;
   text-align: center;
   color: #000000;
 `;
 
 export const AlertDetailText = styled(AlertText)`
   font-weight: 500;
-  font-size: 15px;
-  line-height: 15px;
+  font-size: 14px;
+  line-height: 20px;
   color: #7b7b7b;
 `;
 
