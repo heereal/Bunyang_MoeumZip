@@ -3,14 +3,14 @@ import styled from 'styled-components';
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 750px;
+  width: 744px;
   height: 100%;
   margin-left: 70px;
   /* overflow-y: scroll; */
 
   @media screen and (max-width: 870px) {
     width: 100%;
-    margin: 0;
+    margin-left: 20px;
   }
 `;
 
@@ -79,6 +79,7 @@ export const TabContentContainer = styled.div<{ scroll: boolean }>`
 export const BookmarkListContainer = styled.div`
   flex-wrap: wrap;
   display: flex;
+  gap: 0 25px;
   /* overflow-y: scroll; */
 `;
 
@@ -95,6 +96,11 @@ export const NoResultContainer = styled.div`
     justify-content: center;
     padding-top: 50px;
   }
+`;
+
+export const HomeListContainer = styled.div`
+  display: flex;
+  gap: 25px;
 `;
 
 export const SelectCategoryContainer = styled.div`
