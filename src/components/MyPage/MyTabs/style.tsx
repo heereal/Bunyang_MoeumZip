@@ -3,13 +3,14 @@ import styled from 'styled-components';
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  max-width: 750px;
+  width: 750px;
   height: 100%;
   margin-left: 70px;
   /* overflow-y: scroll; */
 
   @media screen and (max-width: 870px) {
-    margin-left: 20px;
+    width: 100%;
+    margin: 0;
   }
 `;
 
@@ -17,6 +18,12 @@ export const TabContainer = styled.div`
   display: flex;
   position: relative;
   margin-bottom: 10px;
+  width: 100%;
+
+  @media screen and (max-width: 650px) {
+    background-color: white;
+    padding: 0 20px;
+  }
 `;
 
 export const TabBtn = styled.div<{ color: string }>`
@@ -30,7 +37,14 @@ export const TabBtn = styled.div<{ color: string }>`
   z-index: 1;
 
   @media screen and (max-width: 870px) {
-    padding: 11px 26px;
+    padding: 11px 23px;
+  }
+
+  @media screen and (max-width: 650px) {
+    width: 33.3%;
+    display: flex;
+    justify-content: center;
+    padding: 11px 0;
   }
 `;
 
@@ -45,6 +59,10 @@ export const Line = styled.div`
   @media screen and (max-width: 870px) {
     width: 95%;
   }
+
+  @media screen and (max-width: 650px) {
+    width: 90%;
+  }
 `;
 
 export const TabContentContainer = styled.div<{ scroll: boolean }>`
@@ -52,6 +70,10 @@ export const TabContentContainer = styled.div<{ scroll: boolean }>`
   position: relative;
   overflow-y: auto;
   min-height: 320px;
+
+  @media screen and (max-width: 650px) {
+    padding: 0 20px;
+  }
 `;
 
 export const BookmarkListContainer = styled.div`
@@ -65,6 +87,13 @@ export const NoResultContainer = styled.div`
 
   @media screen and (max-width: 870px) {
     padding: 40px 0 0 20px;
+  }
+
+  @media screen and (max-width: 650px) {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-top: 50px;
   }
 `;
 
@@ -94,5 +123,9 @@ export const SubmitBtn = styled.button`
     cursor: default;
     background-color: #e8eaef;
     color: #7b7b7b;
+  }
+
+  @media screen and (max-width: 650px) {
+    width: 100%;
   }
 `;
