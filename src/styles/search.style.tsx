@@ -9,6 +9,10 @@ export const ResultSection = styled.section`
   align-items: center;
 
   background-color: #f8faff;
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 export const TitleBox = styled.div`
