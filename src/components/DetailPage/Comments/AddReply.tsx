@@ -1,11 +1,11 @@
 import { addComment } from '@/common/api';
-import { customAlert, postTime } from '@/common/utils';
+import { customUIAlert, postTime } from '@/common/utils';
 import { arrayUnion } from 'firebase/firestore';
 import Image from 'next/image';
+import favicon from 'public/favicon.ico';
 import { KeyboardEvent, useState } from 'react';
 import { useMutation } from 'react-query';
 import * as S from './style';
-import favicon from 'public/favicon.ico';
 
 const AddReply = ({
   queryClient,
@@ -23,7 +23,7 @@ const AddReply = ({
 
   const addReplyHandler = () => {
     if (replyInput === '') {
-      return customAlert('1글자 이상 입력해주세요.');
+      return customUIAlert('1글자 이상 입력해주세요.');
     }
     const newComment = {
       replies: arrayUnion({

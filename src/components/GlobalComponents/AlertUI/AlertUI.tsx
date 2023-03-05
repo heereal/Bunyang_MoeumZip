@@ -1,14 +1,13 @@
 import { MouseEventHandler } from 'react';
 import * as S from './style';
 
-// TODO: type 지정하기
-
 // 공통 alert UI
 const AlertUI: React.FC<{
-  alertTitle?: string;
   alertText: string;
+  alertDetailA?: string;
+  alertDetailB?: string;
   onClose: MouseEventHandler<HTMLElement>;
-  onClick?: MouseEventHandler;
+  onClick?: MouseEventHandler<HTMLElement>;
   eventText?: string;
 }> = (props) => {
   return (
@@ -16,17 +15,26 @@ const AlertUI: React.FC<{
       <S.AlertSection>
         <S.AlertBox>
           <S.TextBox>
-            <title>{props.alertTitle}</title>
             <S.AlertText>{props.alertText}</S.AlertText>
+            <div style={{ gap: 10 }}>
+              {props.alertDetailA && (
+                <S.AlertDetailText>{props.alertDetailA}</S.AlertDetailText>
+              )}
+              {props.alertDetailB && (
+                <S.AlertDetailText>{props.alertDetailB}</S.AlertDetailText>
+              )}
+            </div>
           </S.TextBox>
           <S.BtnBox>
-            <S.ConfirmBtn onClick={props.onClose}>
-              {props.alertTitle ? '취소' : '확인'}
-            </S.ConfirmBtn>
-            {props.alertTitle ? (
-              <button onClick={props.onClick}>{props.eventText}</button>
+            {props.onClick ? (
+              <>
+                <S.CancelBtn onClick={props.onClose}>취소</S.CancelBtn>
+                <S.ConfirmBtn onClick={props.onClick}>
+                  {props.eventText}
+                </S.ConfirmBtn>
+              </>
             ) : (
-              ''
+              <S.AlertBtn onClick={props.onClose}>확인</S.AlertBtn>
             )}
           </S.BtnBox>
         </S.AlertBox>

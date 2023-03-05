@@ -1,5 +1,5 @@
 import { addComment } from '@/common/api';
-import { customAlert, postTime } from '@/common/utils';
+import { customUIAlert, postTime } from '@/common/utils';
 import { arrayUnion } from 'firebase/firestore';
 import Image from 'next/image';
 import favicon from 'public/favicon.ico';
@@ -20,7 +20,7 @@ const AddComment = ({ user, postId, queryClient, refetch }: CommentPropsP) => {
   const addCommentHandler = async () => {
     setClicked(true);
     if (input === '') {
-      customAlert('1글자 이상 입력해주세요.');
+      customUIAlert('1글자 이상 입력해주세요.');
 
       return setClicked(false);
     }
