@@ -298,7 +298,10 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
             backgroundColor: '#f7f7f7',
           }}
         >
-          <NoResult text="다른 지역 및 분양 형태를 찾아보세요." />
+          <NoResult
+            title="현재 설정하신 필터에 해당되는 분양 정보가 없습니다."
+            text="다른 지역 및 분양 형태를 찾아보세요."
+          />
         </div>
       ) : (
         <S.ListSection id="topBtnScroll">
@@ -306,7 +309,9 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
           {/* 현재 선택된 tab의 list를 map돌려서 HomeList 컴포넌트에 전달 */}
           <S.ListBox>
             {tabList[currentTab].content?.map((item: ItemJ) => {
-              return <HomeList key={item.PBLANC_NO} list={item} />;
+              return (
+                <HomeList key={item.PBLANC_NO} list={item} marginRight={0} />
+              );
             })}
           </S.ListBox>
 

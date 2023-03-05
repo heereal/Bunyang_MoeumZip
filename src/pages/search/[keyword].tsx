@@ -16,6 +16,7 @@ const HomeList = dynamic(
 
 const SearchResult = ({ homeList }: HomeListDBPropsJ) => {
   const router = useRouter();
+
   const allHomeList = homeList.allHomeData;
 
   // Search 컴포넌트에 있는 검색창에서 router로 받아 온 검색어
@@ -58,7 +59,7 @@ const SearchResult = ({ homeList }: HomeListDBPropsJ) => {
             <S.ResultListBox>
               {resultsList.map((item: ItemJ) => (
                 // 검색 결과 리스트
-                <HomeList key={item.PBLANC_NO} list={item} />
+                <HomeList marginRight={0} key={item.PBLANC_NO} list={item} />
               ))}
               <TopBtn />
             </S.ResultListBox>

@@ -2,9 +2,9 @@ import Image from 'next/image';
 import NoResultImage from '../../../../public/assets/NoResult.png';
 import * as S from './style';
 
-const NoResult = ({ keyword, text, text2, text3, wrong }: keywordPropsJ) => {
+const NoResult = ({ keyword, title, text, text2, text3 }: keywordPropsJ) => {
   return (
-    <>
+    <S.Container>
       <Image
         src={NoResultImage}
         alt="NoResultImage"
@@ -19,16 +19,14 @@ const NoResult = ({ keyword, text, text2, text3, wrong }: keywordPropsJ) => {
             <span style={{ color: '#3d7eee' }}>{keyword}</span> 검색 결과를 찾을
             수 없습니다.
           </>
-        ) : wrong ? (
-          `${wrong}를 찾을 수 없습니다.`
         ) : (
-          '현재 설정하신 필터에 해당되는 분양정보가 없습니다.'
+          title
         )}
       </S.NoResultTitle>
       <S.NoResultText>{text}</S.NoResultText>
       <S.NoResultText>{text2}</S.NoResultText>
       <S.NoResultText>{text3}</S.NoResultText>
-    </>
+    </S.Container>
   );
 };
 

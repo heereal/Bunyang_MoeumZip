@@ -69,17 +69,18 @@ const EditProfile = ({ currentUser }: any) => {
           />
           <S.Email>{currentUser.userEmail}</S.Email>
         </S.EmailContainer>
-        <S.ProfileBtn
-          bg={'#356EFF'}
-          text={'white'}
-          onClick={() => setIsModalOpen(true)}
-        >
-          프로필 수정
-        </S.ProfileBtn>
-        <S.ProfileBtn bg={'#E5EDFF'} text={'#356EFF'} onClick={LogOutHandler}>
-          로그아웃
-        </S.ProfileBtn>
-        {/* <S.Line /> */}
+        <S.ProfileBtnContainer>
+          <S.ProfileBtn
+            bg={'#356EFF'}
+            text={'white'}
+            onClick={() => setIsModalOpen(true)}
+          >
+            프로필 수정
+          </S.ProfileBtn>
+          <S.ProfileBtn bg={'#E5EDFF'} text={'#356EFF'} onClick={LogOutHandler}>
+            로그아웃
+          </S.ProfileBtn>
+        </S.ProfileBtnContainer>
       </S.EditProfileContainer>
     </S.Wrapper>
   );

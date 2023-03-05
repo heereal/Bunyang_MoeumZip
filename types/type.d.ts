@@ -117,6 +117,7 @@ interface ItemJ {
 // props로 넘기는 list type - props의 이름이 list
 interface PropsListJ {
   list: ItemJ;
+  marginRight: number;
 }
 
 interface CountTabPropsListJ {
@@ -131,6 +132,7 @@ interface CategoryBtnStyledProps {
 
 interface SelectCategoryProps {
   width: string;
+  path: string;
 }
 
 // 검색어 타입
@@ -139,8 +141,8 @@ type keywordJ = string | string[] | undefined;
 // 검색어 props 타입
 interface keywordPropsJ {
   keyword?: keywordJ;
+  title?: string;
   text: string;
   text2?: string;
   text3?: string;
-  wrong?: string;
 }

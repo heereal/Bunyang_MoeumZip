@@ -4,15 +4,18 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 25%;
   min-width: 270px;
   height: 376px;
+
+  @media screen and (max-width: 650px) {
+    height: 320px;
+  }
 `;
 
 export const EditProfileContainer = styled.div`
   width: 270px;
   height: 100%;
-  padding: 40px 20px;
+  padding: 40px 20px 0 20px;
   border-radius: 20px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   background-color: white;
@@ -21,6 +24,12 @@ export const EditProfileContainer = styled.div`
   position: relative;
   align-items: center;
   box-sizing: border-box;
+
+  @media screen and (max-width: 650px) {
+    box-shadow: none;
+    width: 100%;
+    padding: 20px;
+  }
 `;
 
 export const Nickname = styled.div`
@@ -37,16 +46,6 @@ export const EmailContainer = styled.div`
   margin-bottom: 20px;
 `;
 
-// export const ProviderIcon = styled.div<{ bg: string }>`
-//   width: 20px;
-//   height: 20px;
-//   border-radius: 50%;
-//   background-color: ${(props) => props.bg};
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-// `;
-
 export const Email = styled.div`
   font-weight: 500;
   font-size: 11px;
@@ -58,7 +57,20 @@ export const Email = styled.div`
   padding-top: 2px;
 `;
 
-export const ProfileBtn = styled.div<{bg: string, text: string}>`
+export const ProfileBtnContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+
+  @media screen and (max-width: 650px) {
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+  }
+`;
+
+export const ProfileBtn = styled.div<{ bg: string; text: string }>`
   width: 90%;
   max-width: 230px;
   font-weight: 600;
@@ -73,6 +85,15 @@ export const ProfileBtn = styled.div<{bg: string, text: string}>`
   margin-bottom: 10px;
   cursor: pointer;
   min-height: 40px;
+
+  @media screen and (max-width: 650px) {
+    width: 77px;
+    height: 28px;
+    padding: 0 8px;
+    font-size: 14px;
+    line-height: 14px;
+    box-sizing: content-box;
+  }
 `;
 
 export const Line = styled.div`

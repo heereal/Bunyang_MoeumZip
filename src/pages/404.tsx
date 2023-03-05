@@ -13,7 +13,7 @@ export default function NotFound() {
         description="전국 분양정보를 한눈에 확인할 수 있는 플랫폼입니다."
       />
       <NoResult
-        wrong="페이지"
+        title="페이지를 찾을 수 없습니다."
         text="찾으시려는 페이지의 주소가 잘못 입력되었거나,"
         text2="주소의 변경 혹은 삭제로 인해 사용하실 수 없습니다."
         text3="입력하신 페이지의 주소가 정확한지 다시 한 번 확인해주세요."

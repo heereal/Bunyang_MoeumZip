@@ -13,6 +13,7 @@ import {
   myRegionArrayState,
   myTypeArrayState,
 } from '@/store/selectors';
+import NoResult from '@/components/GlobalComponents/NoResult/NoResult';
 import { customUIAlert } from '@/common/utils';
 
 const MyTabs = () => {
@@ -67,45 +68,53 @@ const MyTabs = () => {
         >
           관심 분양형태
         </S.TabBtn>
+        <S.Line />
       </S.TabContainer>
 
-      <S.TabContentContainer>
+      <S.TabContentContainer scroll={true}>
         {/* 북마크 목록 */}
         {currentTab === 1 && (
           <S.BookmarkListContainer>
-            {myBookmarkList?.length === 0 ? (
-              <div>북마크 없음</div>
+            {!myBookmarkList ? null : myBookmarkList?.length === 0 ? (
+              <S.NoResultContainer>
+                <NoResult
+                  title="아직 찜한 정보가 없어요."
+                  text="분양 정보를 검색하고 마음에 드는 매물을 찜해보세요."
+                />
+              </S.NoResultContainer>
             ) : (
               myBookmarkList?.map((item: ItemJ) => {
-                return <HomeList list={item} key={item.PBLANC_NO} />;
+                return (
+                  <HomeList list={item} key={item.PBLANC_NO} marginRight={25} />
+                );
               })
             )}
           </S.BookmarkListContainer>
         )}
         {/* 관심 지역 */}
         {currentTab === 2 && (
-          <>
-            <SelectMyRegion width={'80%'} />
+          <S.SelectCategoryContainer>
+            <SelectMyRegion width={'100%'} path={'/my'} />
             <S.SubmitBtn
               disabled={myRegionArray === currentUser.regions}
               onClick={() => updateCategoryHandler('regions', myRegionArray)}
             >
               변경사항 저장
             </S.SubmitBtn>
-          </>
+          </S.SelectCategoryContainer>
         )}
 
         {/* 관심 분양 형태 */}
         {currentTab === 3 && (
-          <>
-            <SelectMyTypes width={'80%'} />
+          <S.SelectCategoryContainer>
+            <SelectMyTypes width={'100%'} path={'/my'} />
             <S.SubmitBtn
               disabled={myTypeArray === currentUser.types}
               onClick={() => updateCategoryHandler('types', myTypeArray)}
             >
               변경사항 저장
             </S.SubmitBtn>
-          </>
+          </S.SelectCategoryContainer>
         )}
       </S.TabContentContainer>
     </S.Wrapper>

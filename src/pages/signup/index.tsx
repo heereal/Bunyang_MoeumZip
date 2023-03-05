@@ -156,11 +156,11 @@ const SignUp = () => {
 
         {/* 관심 지역 카테고리 선택 */}
         <S.CategoryTitle>관심 지역</S.CategoryTitle>
-        <SelectMyRegion width={'100%'} />
+        <SelectMyRegion width={'100%'} path={'/signup'} />
 
         {/* 관심 분양 형태 카테고리 선택 */}
         <S.CategoryTitle>관심 분양형태</S.CategoryTitle>
-        <SelectMyTypes width={'100%'} />
+        <SelectMyTypes width={'100%'} path={'/signup'} />
 
         <S.SignUpBtnContainer>
           <S.SignUpBtn

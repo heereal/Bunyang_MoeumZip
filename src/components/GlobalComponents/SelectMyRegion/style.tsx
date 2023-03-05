@@ -8,6 +8,9 @@ export const CategoryContainer = styled.div<{ width: string; path: string }>`
   margin-bottom: 35px;
   background-color: white;
   width: ${(props) => props.width};
+  gap: 8px;
+  display: flex;
+  flex-wrap: wrap;
 `;
 
 export const CategoryBtn = styled.button<CategoryBtnStyledProps>`
@@ -20,8 +23,7 @@ export const CategoryBtn = styled.button<CategoryBtnStyledProps>`
   font-size: 12px;
   line-height: 14px;
   color: ${(props) => props.text};
-  margin-bottom: 8px;
-  margin-right: 8px;
+  margin-bottom: 5px;
 `;
 
 export const SelectAllOrNoneContainer = styled.div`
@@ -29,6 +31,7 @@ export const SelectAllOrNoneContainer = styled.div`
   justify-content: space-between;
   padding-top: 10px;
   padding-right: 10px;
+  width: 100%;
 `;
 
 export const SelectBtn = styled.div<{ color: string }>`
