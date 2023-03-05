@@ -36,21 +36,14 @@ const SpecialSupply = ({ home }: PropsP) => {
                     padding: 5,
                   }}
                 >
-                  <div
-                    style={{
-                      width: '12.5%',
-                      fontSize: 13,
-                    }}
-                  >
-                    다자녀
-                  </div>
-                  <div style={{ width: '12.5%', fontSize: 13 }}>신혼부부</div>
-                  <div style={{ width: '12.5%', fontSize: 13 }}>생애최초</div>
-                  <div style={{ width: '12.5%', fontSize: 13 }}>노부모</div>
-                  <div style={{ width: '12.5%', fontSize: 13 }}>기관추천</div>
-                  <div style={{ width: '12.5%', fontSize: 13 }}>기타</div>
-                  <div style={{ width: '12.5%', fontSize: 13 }}>이전기관</div>
-                  <div style={{ width: '12.5%', fontSize: 13 }}>총계</div>
+                  <S.SPLtitleBox>다자녀</S.SPLtitleBox>
+                  <S.SPLtitleBox>신혼부부</S.SPLtitleBox>
+                  <S.SPLtitleBox>생애최초</S.SPLtitleBox>
+                  <S.SPLtitleBox>노부모</S.SPLtitleBox>
+                  <S.SPLtitleBox>기관추천</S.SPLtitleBox>
+                  <S.SPLtitleBox>기타</S.SPLtitleBox>
+                  <S.SPLtitleBox>이전기관</S.SPLtitleBox>
+                  <S.SPLtitleBox>총계</S.SPLtitleBox>
                 </div>
               </S.SpecialHead>
             </S.SPLtable>
@@ -99,17 +92,16 @@ const SpecialSupply = ({ home }: PropsP) => {
             style={{
               color: '#8E8E8E',
               fontSize: 14,
-              paddingLeft: 10,
               width: '95%',
             }}
           >
-            <a>
+            <S.info>
               *공급세대수는 사업주체의 최초 입주자모집 공고문 기준입니다.
               특별공급 신청 미달 시 잔여물량은 일반공급으로 전환됨에 따라
               일반공급 세대 수가 변경될 수 있으므로 최종 일반공급 세대수는
               일반공급 신청일에 `청약접수 경쟁률`에서 확인 또는 사업주체에
               문의하시기 바랍니다.
-            </a>
+            </S.info>
           </div>
         </>
       )}

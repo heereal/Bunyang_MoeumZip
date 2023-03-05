@@ -73,12 +73,10 @@ const SupplyInfo = ({ home }: PropsP) => {
               ) : (
                 <S.SPLhead style={{ width: '90%' }}>
                   <S.SPLTY>
-                    {item.EXCLUSE_AR}
-                    <a style={{ fontSize: 18, padding: 3 }}>㎡</a>
+                    <span>{item.EXCLUSE_AR}㎡</span>
                   </S.SPLTY>
                   <S.SPLTY>
-                    <p>{item.EXCLUSE_AR}</p>
-                    <p style={{ fontSize: 20, padding: 3 }}>㎡</p>
+                    <p>{item.EXCLUSE_AR}㎡</p>
                     <p>
                       (
                       {typeof item.EXCLUSE_AR === 'number'
@@ -87,7 +85,7 @@ const SupplyInfo = ({ home }: PropsP) => {
                       평)
                     </p>
                   </S.SPLTY>
-                  <S.SPLTY style={{ border: 'none' }}>
+                  <S.SPLTY style={{ border: 'none', flexDirection: 'row' }}>
                     <S.TYDetail style={{ width: '33%' }}>
                       {item.SUPLY_HSHLDCO}
                     </S.TYDetail>

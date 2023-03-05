@@ -155,6 +155,10 @@ export const ListSection = styled.section`
   margin: auto;
   border-top: 1px solid rgba(0, 0, 0, 0.25);
   padding-top: 24px;
+
+  @media screen and (max-width: 450px) {
+    overflow: auto;
+  }
 `;
 
 export const ListBox = styled.div`

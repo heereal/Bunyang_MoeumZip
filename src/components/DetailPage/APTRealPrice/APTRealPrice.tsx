@@ -48,7 +48,7 @@ const APTRealPrice = ({ dongList }: any) => {
                   {item.일.toString().length === 1 ? `0${item.일}` : item.일}
                 </S.TableData>
                 <S.TableData>
-                  {item.아파트} <span>({item.층}층)</span>
+                  <p>{item.아파트}</p> <span>({item.층}층)</span>
                 </S.TableData>
                 <S.TableData>
                   {item.법정동} {item.도로명}
