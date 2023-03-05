@@ -150,6 +150,7 @@ export const ListSection = styled.section`
   justify-content: center;
   margin: auto;
   border-top: 1px solid rgba(0, 0, 0, 0.25);
+  padding-top: 24px;
 `;
 
 export const ListBox = styled.div`

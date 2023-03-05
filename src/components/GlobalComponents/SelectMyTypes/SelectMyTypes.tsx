@@ -27,7 +27,7 @@ const SelectMyTypes = ({ width, path }: SelectCategoryProps) => {
               setMyTypeArray(myTypeArray.filter((item: any) => item !== type))
             }
             key={index}
-            bg={'#F0F4FF'}
+            bg={'#F8FAFF'}
             text={'#356EFF'}
             border={'#356EFF'}
           >
@@ -50,14 +50,14 @@ const SelectMyTypes = ({ width, path }: SelectCategoryProps) => {
           color={myTypeArray?.length === 11 ? '#356EFF' : '#505050'}
           onClick={() => setMyTypeArray(typesArray)}
         >
-          <BsFillCheckCircleFill size="11" />
+          <BsFillCheckCircleFill size="13" />
           <span>전체 선택</span>
         </S.SelectBtn>
         <S.SelectBtn
           color={myTypeArray?.length === 0 ? '#356EFF' : '#505050'}
           onClick={() => setMyTypeArray([])}
         >
-          <FaUndo size="9.5" />
+          <FaUndo size="11" />
           <span>전체 초기화</span>
         </S.SelectBtn>
       </S.SelectAllOrNoneContainer>
