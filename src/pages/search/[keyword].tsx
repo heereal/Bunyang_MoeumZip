@@ -59,7 +59,7 @@ const SearchResult = ({ homeList }: HomeListDBPropsJ) => {
             <S.ResultListBox>
               {resultsList.map((item: ItemJ) => (
                 // 검색 결과 리스트
-                <HomeList key={item.PBLANC_NO} list={item} />
+                <HomeList marginRight={0} key={item.PBLANC_NO} list={item} />
               ))}
               <TopBtn />
             </S.ResultListBox>
