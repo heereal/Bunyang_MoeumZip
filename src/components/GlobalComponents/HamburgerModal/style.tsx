@@ -29,6 +29,7 @@ export const HamModalSection = styled.div`
   position: relative;
 `;
 
+// 닫기 버튼
 export const CloseBtn = styled.button`
   width: 22px;
   height: 22px;
@@ -38,23 +39,42 @@ export const CloseBtn = styled.button`
   cursor: pointer;
 `;
 
+// Logo, Nav를 모두 감싸는 box
 export const HamModalBox = styled.div`
   margin-top: 48px;
+`;
+
+// LogoBox
+export const LogoBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const LogoText = styled.p`
   font-family: 'PyeongChang-Bold';
   font-weight: 700;
   font-size: 14px;
-  margin-top: 10px;
+  margin-top: 13px;
 `;
 
+// NavBox
 export const HamNavBox = styled.div`
   width: 208px;
   height: 192px;
-  gap: 8px;
+  padding: 10px 30px;
+  margin-top: 47px;
+  gap: 12px;
 
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+`;
+
+export const HamNav = styled.nav`
+  display: flex;
+  gap: 12px;
+
+  cursor: pointer;
 `;

@@ -12,7 +12,7 @@ import HamburgerModal from '../HamburgerModal/HamburgerModal';
 
 const Header = () => {
   const router = useRouter();
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState<boolean>(false);
   const [hamburgerOpen, setHamburgerOpen] = useState<boolean>(false);
 
   // user 로그인 여부에 따라 header Nav 변경
@@ -20,8 +20,15 @@ const Header = () => {
 
   return (
     <>
-      {isOpen && <LoginModal setIsOpen={setIsOpen} />}
-      {hamburgerOpen && <HamburgerModal setHamburgerOpen={setHamburgerOpen} />}
+      {isLoginModalOpen && (
+        <LoginModal setIsLoginModalOpen={setIsLoginModalOpen} />
+      )}
+      {hamburgerOpen && (
+        <HamburgerModal
+          setHamburgerOpen={setHamburgerOpen}
+          setIsLoginModalOpen={setIsLoginModalOpen}
+        />
+      )}
       <S.Header>
         <S.LogoBox onClick={() => router.push('/')}>
           <Image
@@ -60,7 +67,10 @@ const Header = () => {
               </S.NavContent>
             </>
           ) : (
-            <S.NavContent onClick={() => setIsOpen(true)} color={'black'}>
+            <S.NavContent
+              onClick={() => setIsLoginModalOpen(true)}
+              color={'black'}
+            >
               로그인
             </S.NavContent>
           )}
