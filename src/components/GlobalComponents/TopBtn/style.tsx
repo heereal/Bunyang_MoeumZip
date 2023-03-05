@@ -7,6 +7,11 @@ export const TopBtnSection = styled.div`
   bottom: 5%;
   z-index: 1;
 `;
+
+export const ResponsiveTopBtnSection = styled(TopBtnSection)`
+  left: 88%;
+`;
+
 export const TopBtn = styled.button`
   all: unset;
 

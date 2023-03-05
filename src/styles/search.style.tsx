@@ -9,23 +9,26 @@ export const ResultSection = styled.section`
   align-items: center;
 
   background-color: #f8faff;
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 export const TitleBox = styled.div`
   width: 80%;
-  height: 50px;
+  height: 93px;
   text-align: center;
-  padding: 10px 0;
-  margin: 10px 0;
 `;
 
 // 검색 결과가 있을 때 타이틀
 export const ResultTitle = styled.p`
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 500;
   padding-bottom: 12px;
   color: #1d2631;
   line-height: 1.4;
+  padding-top: 41px;
 
   span {
     font-weight: 700;
@@ -34,6 +37,8 @@ export const ResultTitle = styled.p`
   }
 `;
 
-export const ResultListArticle = styled(S.ListSection)``;
+export const ResultListArticle = styled(S.ListSection)`
+  border-top: none;
+`;
 
 export const ResultListBox = styled(S.ListBox)``;

@@ -52,7 +52,6 @@ const HomeList = ({ list }: PropsListJ) => {
       </S.CardTitleBox>
 
       {/* 분양형태 / 주택 형태 / 지역 이름*/}
-
       <S.CardCategoryBox>
         {list.HOUSE_DTL_SECD_NM === list.HOUSE_SECD_NM ? (
           <S.CardCategory>{list.HOUSE_DTL_SECD_NM} | </S.CardCategory>
