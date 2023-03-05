@@ -7,7 +7,7 @@ import todayIcon from 'public/assets/today.png';
 import comingIcon from 'public/assets/coming.png';
 import randomIcon from 'public/assets/random.png';
 
-const ListList = ({ list, marginRight}: PropsListJ) => {
+const HomeList = ({ list, marginRight}: PropsListJ) => {
   const router = useRouter();
 
   // 오늘 날짜
@@ -166,4 +166,4 @@ const ListList = ({ list, marginRight}: PropsListJ) => {
   );
 };
 
-export default ListList;
+export default HomeList;

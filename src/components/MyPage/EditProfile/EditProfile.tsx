@@ -10,6 +10,7 @@ import facebook from '../../../../public/assets/facebook.png';
 import transparentImage from '../../../../public/assets/transparentProfile.png';
 import { signOut } from 'next-auth/react';
 import { confirmAlert } from 'react-confirm-alert';
+import AlertUI from '@/components/GlobalComponents/AlertUI/AlertUI';
 
 const EditProfile = ({ currentUser }: any) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -17,18 +18,16 @@ const EditProfile = ({ currentUser }: any) => {
   // [로그아웃] 버튼 클릭 시 작동
   const LogOutHandler = () => {
     confirmAlert({
-      message: '로그아웃하시겠습니까?',
-      buttons: [
-        {
-          label: '확인',
-          onClick: () => signOut({ callbackUrl: '/' }),
-        },
-
-        {
-          label: '취소',
-          onClick: () => onclose,
-        },
-      ],
+      customUI: ({ onClose }) => {
+        return (
+          <AlertUI
+            alertText="로그아웃하시겠습니까?"
+            onClose={onClose}
+            onClick={() => signOut({ callbackUrl: '/' })}
+            eventText="확인"
+          />
+        );
+      },
     });
   };
 

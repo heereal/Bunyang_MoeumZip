@@ -1,14 +1,13 @@
 import { getUsersList } from '@/common/api';
 import LoadingSpinner from '@/components/GlobalComponents/LoadingSpinner/LoadingSpinner';
 import NoResult from '@/components/GlobalComponents/NoResult/NoResult';
-import TopBtn from '@/components/GlobalComponents/TopBtn/TopBtn';
 import useHomeList from '@/hooks/useHomeList';
 import useTabList from '@/hooks/useTabList';
 import { selectedRegionList, selectedTypeList } from '@/store/selectors';
 import { useSession } from 'next-auth/react';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useQuery } from 'react-query';
 import { useRecoilState } from 'recoil';
 import CategoryBar from '../CategoryBar/CategoryBar';
@@ -35,6 +34,10 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
       ssr: false,
     },
   );
+
+  useEffect(() => {
+    useHomeList;
+  }, []);
 
   // CategoryBar에서 선택된 지역, 분양 형태 리스트 가져오기
   const [selectedRegionArray] = useRecoilState(selectedRegionList);
@@ -237,22 +240,42 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
               }
             >
               <S.CountTabName>
-                <Image
-                  width={28}
-                  height={22}
-                  src={
-                    index === 0
-                      ? allIcon
-                      : index === 1
-                      ? todayIcon
-                      : index === 2
-                      ? comingIcon
-                      : randomIcon
-                  }
-                  alt="allIcon"
-                  quality={100}
-                  priority={true}
-                />
+                <S.CountTapImgBox>
+                  <Image
+                    width={28}
+                    height={22}
+                    src={
+                      index === 0
+                        ? allIcon
+                        : index === 1
+                        ? todayIcon
+                        : index === 2
+                        ? comingIcon
+                        : randomIcon
+                    }
+                    alt="allIcon"
+                    quality={100}
+                    priority={true}
+                  />
+                </S.CountTapImgBox>
+                <S.CountTapImgBoxMobile>
+                  <Image
+                    width={17}
+                    height={13}
+                    src={
+                      index === 0
+                        ? allIcon
+                        : index === 1
+                        ? todayIcon
+                        : index === 2
+                        ? comingIcon
+                        : randomIcon
+                    }
+                    alt="allIcon"
+                    quality={100}
+                    priority={true}
+                  />
+                </S.CountTapImgBoxMobile>
                 <p style={{ paddingTop: '3px' }}>{el.name}</p>
               </S.CountTabName>
               <S.CountTabNum>{el.count}</S.CountTabNum>

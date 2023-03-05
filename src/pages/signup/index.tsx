@@ -1,6 +1,6 @@
 import { getUsersList } from '@/common/api';
 import { db } from '@/common/firebase';
-import { customAlert } from '@/common/utils';
+import { customUIAlert } from '@/common/utils';
 import SelectMyRegion from '@/components/GlobalComponents/SelectMyRegion/SelectMyRegion';
 import SelectMyTypes from '@/components/GlobalComponents/SelectMyTypes/SelectMyTypes';
 import {
@@ -11,12 +11,12 @@ import {
 } from '@/store/selectors';
 import { doc, updateDoc } from 'firebase/firestore';
 import { useSession } from 'next-auth/react';
+import { NextSeo } from 'next-seo';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { useRecoilState } from 'recoil';
 import * as S from '../../styles/signup.style';
-import { NextSeo } from 'next-seo';
 
 //TODO: 회원가입 페이지 새로고침 할 때 "작성한 정보가 모두 사라집니다" alert 주기
 // TODO: isSignedUp이라는 속성을 하나 추가할까? 회원가입 완료해야 true가 됨 (닉네임 중복 검사해야되기 때문에)
@@ -48,18 +48,18 @@ const SignUp = () => {
 
     //닉네임을 입력하지 않았을 때
     if (!nickname) {
-      customAlert('닉네임을 입력해주세요.');
+      customUIAlert('닉네임을 입력해주세요.');
       setIsValidNickname(false);
       return;
     }
     if (!checkNickname) {
-      customAlert('사용 가능한 닉네임입니다.');
+      customUIAlert('사용 가능한 닉네임입니다.');
       setIsValidNickname(true);
       return;
     }
 
     if (checkNickname) {
-      customAlert('이미 존재하는 닉네임입니다. 다시 입력해주세요.');
+      customUIAlert('이미 존재하는 닉네임입니다. 다시 입력해주세요.');
       setIsValidNickname(false);
       return;
     }
@@ -68,7 +68,7 @@ const SignUp = () => {
   // [회원가입 완료] 버튼 클릭 시 작동
   const signupHandler = async () => {
     if (!isValidNickname) {
-      customAlert('닉네임 중복 검사를 완료해주세요.');
+      customUIAlert('닉네임 중복 검사를 완료해주세요.');
       return;
     }
     // 관심 카테고리 선택하지 않으면 전체 리스트를 선택한 것으로 간주함
@@ -82,7 +82,7 @@ const SignUp = () => {
       doc(db, 'Users', `${currentUser.provider}_${currentUser.userEmail}`),
       updateUser,
     );
-    customAlert('회원가입이 완료되었습니다.');
+    customUIAlert('회원가입이 완료되었습니다.');
     router.push('/');
   };
 
