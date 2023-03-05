@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const CategoryContainer = styled.div<{ width: string; path: string }>`
   box-shadow: ${(props) =>
     props.path === '/signup' ? 'none' : '0px 4px 4px rgba(0, 0, 0, 0.25)'};
-  padding: ${(props) => (props.path === '/signup' ? 0 : '19px')};
+  padding: ${(props) => (props.path === '/signup' ? 0 : '30px 30px 25px 30px')};
   border-radius: 20px;
   margin-bottom: 35px;
   background-color: white;
@@ -14,16 +14,16 @@ export const CategoryContainer = styled.div<{ width: string; path: string }>`
 `;
 
 export const CategoryBtn = styled.button<CategoryBtnStyledProps>`
-  padding: 6px 9px;
+  padding: 8px 9px;
   background-color: ${(props) => props.bg};
   border: 2px solid ${(props) => props.border};
   border-radius: 7px;
   cursor: pointer;
   font-weight: 600;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 14px;
   color: ${(props) => props.text};
-  margin-bottom: 5px;
+  margin-bottom: 8px;
 `;
 
 export const SelectAllOrNoneContainer = styled.div`
@@ -36,8 +36,8 @@ export const SelectAllOrNoneContainer = styled.div`
 
 export const SelectBtn = styled.div<{ color: string }>`
   font-weight: 600;
-  font-size: 10px;
-  line-height: 12px;
+  font-size: 14px;
+  line-height: 17px;
   text-decoration-line: underline;
   text-underline-position: under;
   color: ${(props) => props.color};

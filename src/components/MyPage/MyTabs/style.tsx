@@ -3,14 +3,18 @@ import styled from 'styled-components';
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 750px;
+  width: 744px;
   height: 100%;
   margin-left: 70px;
   /* overflow-y: scroll; */
 
   @media screen and (max-width: 870px) {
     width: 100%;
-    margin: 0;
+    margin-left: 20px;
+  }
+
+  @media screen and (max-width: 650px) {
+    margin-left: 0;
   }
 `;
 
@@ -22,6 +26,7 @@ export const TabContainer = styled.div`
 
   @media screen and (max-width: 650px) {
     background-color: white;
+    margin-bottom: 20px;
     padding: 0 20px;
   }
 `;
@@ -72,14 +77,20 @@ export const TabContentContainer = styled.div<{ scroll: boolean }>`
   min-height: 320px;
 
   @media screen and (max-width: 650px) {
-    padding: 0 20px;
+    padding: 0 20px 30px 20px;
   }
 `;
 
 export const BookmarkListContainer = styled.div`
   flex-wrap: wrap;
   display: flex;
+  gap: 0 25px;
   /* overflow-y: scroll; */
+
+  @media screen and (max-width: 650px) {
+    justify-content: center;
+    
+  }
 `;
 
 export const NoResultContainer = styled.div`
@@ -97,9 +108,19 @@ export const NoResultContainer = styled.div`
   }
 `;
 
+export const HomeListContainer = styled.div`
+  display: flex;
+  gap: 25px;
+`;
+
 export const SelectCategoryContainer = styled.div`
   position: relative;
   display: flex;
+  flex-direction: column;
+
+  @media screen and (max-width: 650px) {
+    align-items: center;
+  }
 `;
 
 export const SubmitBtn = styled.button`
@@ -116,8 +137,8 @@ export const SubmitBtn = styled.button`
   align-items: center;
   color: white;
   cursor: pointer;
-  position: absolute;
-  bottom: -40px;
+  /* position: absolute;
+  bottom: -40px; */
 
   :disabled {
     cursor: default;
@@ -126,6 +147,7 @@ export const SubmitBtn = styled.button`
   }
 
   @media screen and (max-width: 650px) {
-    width: 100%;
+    width: 95%;
   }
+
 `;

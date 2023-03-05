@@ -11,8 +11,9 @@ export const ListArticle = styled.article`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 26px;
-  margin-bottom: 15px;
+  /* margin-top: 26px; */
+  /* margin-bottom: 15px; */
+  margin-bottom: 40px;
   border-radius: 20px;
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
 

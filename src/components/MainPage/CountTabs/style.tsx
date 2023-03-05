@@ -149,7 +149,8 @@ export const ListSection = styled.section`
   align-content: flex-start;
   justify-content: center;
   margin: auto;
-  border-top: 2.5px solid rgba(0, 0, 0, 0.15);
+  border-top: 1px solid rgba(0, 0, 0, 0.25);
+  padding-top: 24px;
 `;
 
 export const ListBox = styled.div`
