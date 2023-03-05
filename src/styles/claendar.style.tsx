@@ -10,6 +10,11 @@ export const CalendarWrapper = styled.div`
   box-sizing: content-box;
 `;
 
+export const CalendarContainer = styled.div`
+  width: 80%;
+  max-width: 1100px;
+`;
+
 export const CalendarHeader = styled.div`
   width: 100%;
   padding: 0 40px;
@@ -24,8 +29,8 @@ export const CalendarDescContainer = styled.div`
 
 export const CalendarIcon = styled.div``;
 
-export const CalendarContainer = styled.div`
-  width: 80%;
+export const FullCalendarContainer = styled.div`
+  width: 100%;
   /* width: 940px; */
   height: 100%;
   /* height: 800px; */
