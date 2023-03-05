@@ -40,6 +40,6 @@ export const calendarColorList = [
   { cate: '임대주택', color: '#356EFF' },
   { cate: '분양주택', color: '#FF4141' },
   { cate: '신혼희망타운', color: '#AF1DF3' },
-  { cate: '계약취소', color: '#24CE71' },
+  { cate: '계약취소 / 무순위', color: '#24CE71' },
   { cate: '도시형생활주택', color: '#D5BF00' },
 ];

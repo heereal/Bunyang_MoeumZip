@@ -41,7 +41,8 @@ const Calender = ({ homeList }: any) => {
           ? '#F9EDFF'
           : item.HOUSE_DTL_SECD_NM === '도시형생활주택'
           ? '#FFFCE0'
-          : item.HOUSE_DTL_SECD_NM === '계약취소'
+          : item.HOUSE_DTL_SECD_NM === '계약취소' ||
+            item.HOUSE_SECD_NM === '무순위'
           ? '#E8FFF2'
           : '#b1b7bdac',
 
@@ -61,7 +62,8 @@ const Calender = ({ homeList }: any) => {
           ? '#AF1DF3'
           : item.HOUSE_DTL_SECD_NM === '도시형생활주택'
           ? '#D4BF00'
-          : item.HOUSE_DTL_SECD_NM === '계약취소'
+          : item.HOUSE_DTL_SECD_NM === '계약취소' ||
+            item.HOUSE_SECD_NM === '무순위'
           ? '#24CE71'
           : 'white',
     }),
@@ -111,6 +113,11 @@ const Calender = ({ homeList }: any) => {
               fixedWeekCount={false} // 매달에 따라 4-6주를 보여줌 (6주로 고정x)
               weekends={false} // 토요일 일요일 제거
               locale={'ko'} // 한글 표기
+              buttonIcons={{
+                prev: 'chevron-left',
+                next: 'chevron-right',
+           
+              }}
               // aspectRatio={1} // 종횡비-너비가 높이의 두 배
               // height={"800"}
               events={array}

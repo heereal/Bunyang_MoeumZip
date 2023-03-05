@@ -27,7 +27,11 @@ export const HeaderBackground = styled.div`
   width: 100%;
   height: 186px;
   position: absolute;
-  background: linear-gradient(180deg, #D9E5FF 0%, rgba(216, 228, 255, 0) 105.38%);
+  background: linear-gradient(
+    180deg,
+    #d9e5ff 0%,
+    rgba(216, 228, 255, 0) 105.38%
+  );
   z-index: 1;
 `;
 
@@ -61,17 +65,41 @@ export const CalendarIcon = styled.div``;
 
 export const FullCalendarContainer = styled.div`
   width: 100%;
-  /* width: 940px; */
   height: 100%;
-  /* height: 800px; */
   display: flex;
   justify-content: center;
-  /* padding: 40px 0; */
-  /* box-sizing: content-box; */
 
   // 캘린더 전체 사이즈 조정
   .fc {
     width: 100%;
+  }
+
+  // toolbar container
+  .fc .fc-toolbar.fc-header-toolbar {
+    margin: 0;
+    padding: 0 40px;
+    background-color: #356eff;
+    height: 63px;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 29px;
+    color: white;
+    border-radius: 20px 20px 0px 0px;
+  }
+
+  // toolbar 버튼
+  .fc .fc-button-primary {
+    background-color: transparent;
+    border: none;
+
+    span {
+      font-weight: 500;
+      font-size: 28px;
+    }
+
+    :hover {
+      background-color: transparent;
+    }
   }
 
   // 각 이벤트 요소
