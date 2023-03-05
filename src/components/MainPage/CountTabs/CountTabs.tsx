@@ -237,22 +237,42 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
               }
             >
               <S.CountTabName>
-                <Image
-                  width={28}
-                  height={22}
-                  src={
-                    index === 0
-                      ? allIcon
-                      : index === 1
-                      ? todayIcon
-                      : index === 2
-                      ? comingIcon
-                      : randomIcon
-                  }
-                  alt="allIcon"
-                  quality={100}
-                  priority={true}
-                />
+                <S.CountTapImgBox>
+                  <Image
+                    width={28}
+                    height={22}
+                    src={
+                      index === 0
+                        ? allIcon
+                        : index === 1
+                        ? todayIcon
+                        : index === 2
+                        ? comingIcon
+                        : randomIcon
+                    }
+                    alt="allIcon"
+                    quality={100}
+                    priority={true}
+                  />
+                </S.CountTapImgBox>
+                <S.CountTapImgBoxMobile>
+                  <Image
+                    width={17}
+                    height={13}
+                    src={
+                      index === 0
+                        ? allIcon
+                        : index === 1
+                        ? todayIcon
+                        : index === 2
+                        ? comingIcon
+                        : randomIcon
+                    }
+                    alt="allIcon"
+                    quality={100}
+                    priority={true}
+                  />
+                </S.CountTapImgBoxMobile>
                 <p style={{ paddingTop: '3px' }}>{el.name}</p>
               </S.CountTabName>
               <S.CountTabNum>{el.count}</S.CountTabNum>

@@ -7,6 +7,8 @@ import logo from '../../../../public/assets/logo.png';
 import LoginModal from '../LoginModal/LoginModal';
 import SearchInput from '../SearchInput/SearchInput';
 import * as S from './style';
+import { AiOutlineSearch } from 'react-icons/ai';
+import { GiHamburgerMenu } from 'react-icons/gi';
 
 const Header = () => {
   const router = useRouter();
@@ -37,12 +39,12 @@ const Header = () => {
     <>
       {isOpen && <LoginModal setIsOpen={setIsOpen} />}
       <S.Header>
-        <S.LogoBox>
+        <S.LogoBox onClick={() => router.push('/')}>
           <Image
             onClick={() => router.push('/')}
             src={logo}
             alt="logoImg"
-            height={30}
+            height={28}
             quality={100}
             //quelity 의 기본값은 75 입니다.
             priority={true}
@@ -79,6 +81,14 @@ const Header = () => {
             </S.NavContent>
           )}
         </S.NavBar>
+        <S.NavBarMobile>
+          <S.NavContent color={'black'}>
+            <AiOutlineSearch style={{ fontSize: 20 }} />
+          </S.NavContent>
+          <S.NavContent color={'black'}>
+            <GiHamburgerMenu style={{ fontSize: 20 }} />
+          </S.NavContent>
+        </S.NavBarMobile>
       </S.Header>
     </>
   );
