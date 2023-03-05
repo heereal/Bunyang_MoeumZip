@@ -113,16 +113,9 @@ const Calender = ({ homeList }: any) => {
               fixedWeekCount={false} // 매달에 따라 4-6주를 보여줌 (6주로 고정x)
               weekends={false} // 토요일 일요일 제거
               locale={'ko'} // 한글 표기
-              buttonIcons={{
-                prev: 'chevron-left',
-                next: 'chevron-right',
-           
-              }}
               // aspectRatio={1} // 종횡비-너비가 높이의 두 배
               // height={"800"}
               events={array}
-              // eventDisplay={'list-item'}
-              // eventColor="#6096B4"
               // eventMouseEnter={(e)=>e.target.style={}}
               eventClick={(e) => router.push(`/detail/${e.event.id}`)}
             />

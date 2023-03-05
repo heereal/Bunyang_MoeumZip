@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const CalendarWrapper = styled.div`
   width: 100%;
-  height: 900px;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -102,16 +102,42 @@ export const FullCalendarContainer = styled.div`
     }
   }
 
-  // 각 이벤트 요소
-  .fc-event {
-    cursor: pointer;
-    padding: 4px 6px 6px 6px;
-    margin-bottom: 2px;
+  // 요일 부분
+  .fc-theme-standard th {
+    height: 32px;
+    padding-top: 3.5px;
+    background: #e5edff;
+    border: 1px solid #dddee0;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    color: #7b7b7b;
+  }
+
+  // 오늘 날짜 배경색
+  .fc .fc-daygrid-day.fc-day-today {
+    background-color: #fff8bd;
+    color: #356eff;
+  }
+
+  // 날짜별 그리드
+  .fc .fc-daygrid-day-frame {
+    padding: 10px;
   }
 
   // 날짜  ex) 2일
   .fc .fc-daygrid-day-top {
     flex-direction: row;
     margin-bottom: 3px;
+  }
+
+  // 각 이벤트 요소
+  .fc-event {
+    cursor: pointer;
+    padding: 5px 8px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    font-weight: 500;
+    font-size: 14px;
   }
 `;
