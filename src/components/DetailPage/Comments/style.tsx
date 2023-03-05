@@ -20,7 +20,7 @@ export const CommentCount = styled.div`
 `;
 
 export const AddCommentBox = styled.div`
-  padding: 20px;
+  padding: 20px 20px 20px 0px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -51,17 +51,19 @@ export const UserNameBox = styled.div`
   display: flex;
   justify-content: space-between;
   font-size: 15px;
+  height: 25px;
   font-weight: 600;
 `;
 
 export const CommentListBox = styled.div<{ blur: string }>`
-  padding: 20px;
+  padding: 20px 20px 20px 0;
   display: flex;
   justify-content: center;
   width: 100%;
   filter: blur(${(props) => props.blur});
   gap: 10px;
   height: 100%;
+  margin-bottom: 3px;
 `;
 
 export const CommentBox = styled.div`
@@ -83,7 +85,7 @@ export const ContentsBox = styled.div`
 export const EditInput = styled.input`
   all: unset;
   padding-left: 5px;
-  width: 90%;
+  width: 100%;
   height: 100%;
   font-weight: 400;
   border-bottom: 2px solid black;
@@ -128,8 +130,6 @@ export const Btn = styled.div`
 export const BtnBox = styled.div`
   display: flex;
   flex-direction: row-reverse;
-  padding-right: 20px;
-  margin-top: -10px;
   cursor: pointer;
   gap: 5px;
 `;
@@ -156,14 +156,15 @@ export const ReplyInputBox = styled.div<any>`
   width: 85%;
   filter: blur(${(props) => props.blur});
   margin-top: -14px;
-  margin-left: -10px;
+  margin-left: -7px;
   color: #8e8e8e;
   font-size: 14px;
+  padding-bottom: 10px;
 `;
 export const ReplyContainer = styled.div`
   display: flex;
   flex-direction: column;
-  padding-left: 90px;
+  padding-left: 60px;
 `;
 export const ReplyHeader = styled.div`
   display: flex;

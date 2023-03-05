@@ -8,6 +8,6 @@ export const DetailBody = styled.div`
   overflow-y: scroll;
   @media screen and (max-width: 768px) {
     width: 100vw;
-    height: 60%;
+    height: 100%;
   }
 `;
