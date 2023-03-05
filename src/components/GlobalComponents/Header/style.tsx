@@ -2,12 +2,13 @@ import styled from 'styled-components';
 
 export const Header = styled.header`
   width: 100%;
-  height: 7vh;
+  height: 6vh;
   min-height: 60px;
   background-color: #ffffff;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  padding: 0 10px;
+  border-bottom: 1px solid lightgray;
+
   @media screen and (max-width: 600px) {
     height: 6vh;
     padding: 0;
@@ -61,7 +62,7 @@ export const NavBar = styled.div`
   justify-content: flex-end;
   padding-right: 10px;
   align-items: center;
-  gap: 15px;
+  gap: 35px;
   box-sizing: border-box;
 
   @media screen and (max-width: 600px) {

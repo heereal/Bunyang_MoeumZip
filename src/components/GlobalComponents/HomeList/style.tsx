@@ -22,6 +22,12 @@ export const ListArticle = styled.article`
 
   position: relative;
   overflow: hidden;
+  @media screen and (max-width: 600px) {
+    width: 400px;
+    max-width: 318px;
+    height: 246px;
+    min-width: 318px;
+  }
 `;
 
 // 청약 정보 분류(청약 예정~)
@@ -59,7 +65,7 @@ export const CardTitleBox = styled.div`
 export const CardTitle = styled.p`
   height: 19px;
 
-  font-weight: 700;
+  font-weight: 600;
   font-size: 16px;
   margin-top: 8px;
   margin-bottom: 3px;
@@ -129,6 +135,7 @@ export const CardDateTitle = styled.p`
   text-align: center;
 
   color: #ffffff;
+  font-weight: 400;
 `;
 export const CardDate = styled(CardDateTitle)`
   font-weight: 600;
@@ -136,7 +143,7 @@ export const CardDate = styled(CardDateTitle)`
 
 // 청약일이 없을 때
 export const NoDate = styled(CardDateTitle)`
-  font-weight: 600;
+  font-weight: 500;
   margin: 0 auto;
 `;
 
@@ -166,7 +173,7 @@ export const CardAreaTitle = styled(CardDateTitle)`
 
 export const CardArea = styled(CardDate)`
   text-align: right;
-  font-weight: 700;
+  font-weight: 600;
   font-size: 13px;
 
   color: #000000;
