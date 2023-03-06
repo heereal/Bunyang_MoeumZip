@@ -14,6 +14,15 @@ const Header = () => {
   const router = useRouter();
   const [isLoginModalOpen, setIsLoginModalOpen] = useState<boolean>(false);
   const [hamburgerOpen, setHamburgerOpen] = useState<boolean>(false);
+  const [expanded, seExpanded] = useState<boolean>(false);
+
+  // 햄버거 모달 애니메이션 적용, 오픈 상태 변경
+  const HamburgerOpenHandler = () => {
+    seExpanded(!expanded);
+    setTimeout(() => {
+      setHamburgerOpen(!hamburgerOpen);
+    }, 200);
+  };
 
   // user 로그인 여부에 따라 header Nav 변경
   const { data: session } = useSession();
@@ -27,6 +36,9 @@ const Header = () => {
         <HamburgerModal
           setHamburgerOpen={setHamburgerOpen}
           setIsLoginModalOpen={setIsLoginModalOpen}
+          expanded={expanded}
+          seExpanded={seExpanded}
+          HamburgerOpenHandler={HamburgerOpenHandler}
         />
       )}
       <S.Header>
@@ -79,7 +91,7 @@ const Header = () => {
           <S.NavContent color={'black'}>
             <AiOutlineSearch style={{ fontSize: 20 }} />
           </S.NavContent>
-          <S.NavContent color={'black'} onClick={() => setHamburgerOpen(true)}>
+          <S.NavContent color={'black'} onClick={HamburgerOpenHandler}>
             <GiHamburgerMenu style={{ fontSize: 20 }} />
           </S.NavContent>
         </S.NavBarMobile>

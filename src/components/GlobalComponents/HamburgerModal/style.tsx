@@ -1,5 +1,27 @@
-import styled from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 
+// 햄버거 모달 애니메이션
+export const slideOpen = keyframes`
+  
+from{
+  transform: translateX(50%);
+}
+to{
+  transform: translateX(0);
+}
+`;
+
+export const slideClose = keyframes`
+  
+from{
+  transform: translateX(0);
+}
+to{
+  transform: translateX(100%);
+}
+`;
+
+// 햄버거 모달 배경
 export const HamModalBack = styled.div`
   width: 100%;
   height: 100vh;
@@ -15,7 +37,7 @@ export const HamModalBack = styled.div`
   transform: translate(-50%, -50%);
 `;
 
-export const HamModalSection = styled.div`
+export const HamModalSection = styled.div<{ active: boolean }>`
   width: 207px;
   height: 100vh;
   background: #ffffff;
@@ -27,6 +49,22 @@ export const HamModalSection = styled.div`
   align-items: center;
 
   position: relative;
+
+  /* active true, false에 따라 모달 애니메이션 적용 */
+  ${(props) =>
+    props.active
+      ? css`
+          animation-duration: 0.4s;
+          animation-timing-function: ease-out;
+          animation-name: ${slideOpen};
+          animation-fill-mode: forwards;
+        `
+      : css`
+          animation-duration: 0.4s;
+          animation-timing-function: ease-out;
+          animation-name: ${slideClose};
+          animation-fill-mode: forwards;
+        `}
 `;
 
 // 닫기 버튼
@@ -41,7 +79,8 @@ export const CloseBtn = styled.button`
 
 // Logo, Nav를 모두 감싸는 box
 export const HamModalBox = styled.div`
-  margin-top: 48px;
+  margin-top: 38px;
+  width: 207px;
 `;
 
 // LogoBox
@@ -61,9 +100,9 @@ export const LogoText = styled.p`
 
 // NavBox
 export const HamNavBox = styled.div`
-  width: 208px;
+  width: 100%;
   height: 192px;
-  padding: 10px 30px;
+
   margin-top: 47px;
   gap: 12px;
 
@@ -73,8 +112,17 @@ export const HamNavBox = styled.div`
 `;
 
 export const HamNav = styled.nav`
+  width: 100%;
   display: flex;
   gap: 12px;
+  padding: 10px 30px;
+
+  font-weight: 500;
+  font-size: 14px;
 
   cursor: pointer;
+
+  p {
+    margin-top: 4px;
+  }
 `;
