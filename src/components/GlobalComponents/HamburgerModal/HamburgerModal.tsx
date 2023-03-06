@@ -76,6 +76,7 @@ const HamburgerModal = ({
               {session ? (
                 <Link href={'/my'} legacyBehavior>
                   <S.HamNav
+                    onClick={HamburgerOpenHandler}
                     style={{
                       backgroundColor:
                         router.pathname === '/my' ? '#E5EDFF' : '#ffffff',
@@ -101,6 +102,7 @@ const HamburgerModal = ({
 
               <Link href={'/calendar'} legacyBehavior>
                 <S.HamNav
+                  onClick={HamburgerOpenHandler}
                   style={{
                     backgroundColor:
                       router.pathname === '/calendar' ? '#E5EDFF' : '#ffffff',
