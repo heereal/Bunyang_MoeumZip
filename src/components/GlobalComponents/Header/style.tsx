@@ -9,7 +9,7 @@ export const Header = styled.header`
   grid-template-columns: repeat(3, 1fr);
   border-bottom: 1px solid lightgray;
   position: fixed;
-  z-index: 500;
+  z-index: 300;
 `;
 
 // Logo box
