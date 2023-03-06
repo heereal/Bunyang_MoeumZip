@@ -11,7 +11,6 @@ export const CalendarWrapper = styled.div`
   z-index: 2;
   position: relative;
   background-color: #f8faff;
-  z-index: 2;
 
   @media screen and (max-width: 730px) {
     padding: 30px 0;
@@ -61,6 +60,7 @@ export const Title = styled.div`
   @media screen and (max-width: 730px) {
     font-size: 18px;
     padding-bottom: 10px;
+    padding-left: 3px;
   }
 `;
 
@@ -117,7 +117,7 @@ export const FullCalendarContainer = styled.div`
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
   } */
 
-  // toolbar container
+  // toolbar
   .fc .fc-toolbar.fc-header-toolbar {
     margin: 0;
     padding: 0 40px;
@@ -128,13 +128,33 @@ export const FullCalendarContainer = styled.div`
     line-height: 29px;
     color: white;
     border-radius: 20px 20px 0px 0px;
+    z-index: 2;
+
+    h2 {
+      @media screen and (max-width: 730px) {
+        font-size: 14px;
+      }
+    }
+
+    span {
+      @media screen and (max-width: 730px) {
+        font-size: 20px;
+      }
+    }
+
+    @media screen and (max-width: 730px) {
+      padding: 0 10px;
+      /* font-size: 9px; */
+      height: 47px;
+    }
   }
 
-  // toolbar 버튼
+  // toolbar next prev 버튼
   .fc .fc-button-primary {
     background-color: transparent;
     border: none;
 
+    // next prev 버튼
     span {
       font-weight: 500;
       font-size: 28px;
@@ -163,15 +183,18 @@ export const FullCalendarContainer = styled.div`
     border: 1px solid #dddee0;
     font-weight: 500;
     font-size: 16px;
-    line-height: 19px;
     color: #7b7b7b;
+
+    @media screen and (max-width: 730px) {
+      height: 29px;
+      font-size: 14px;
+    }
   }
 
   // 날짜별 그리드
   .fc .fc-daygrid-day-frame {
     padding: 10px;
     background-color: white;
-    /* z-index: 3; */
 
     @media screen and (max-width: 730px) {
       padding: 3px;
@@ -182,6 +205,7 @@ export const FullCalendarContainer = styled.div`
   .fc .fc-daygrid-day.fc-day-today {
     background-color: #fff8bd !important;
     color: #356eff;
+    font-weight: 500;
     /* z-index: 4; */
   }
 
@@ -191,7 +215,7 @@ export const FullCalendarContainer = styled.div`
     margin-bottom: 8px;
 
     @media screen and (max-width: 730px) {
-      font-size: 13px;
+      font-size: 12px;
     }
   }
 
