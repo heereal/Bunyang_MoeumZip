@@ -4,7 +4,7 @@ import EditProfileModal from '../EditProfileModal/EditProfileModal';
 import transparentProfile from '../../../../public/assets/transparentProfile.png';
 import * as S from './style';
 import naver from '../../../../public/assets/naver.png';
-import kakao from '../../../../public/assets/kakao.png';
+import kakao from '../../../../public/assets/kakao2.png';
 import google from '../../../../public/assets/google.png';
 import facebook from '../../../../public/assets/facebook.png';
 import transparentImage from '../../../../public/assets/transparentProfile.png';
@@ -47,6 +47,7 @@ const EditProfile = ({ currentUser }: any) => {
           quality={75}
           style={{ borderRadius: '50%', objectFit: 'cover' }}
           priority={true}
+          className="profileImage"
         />
         <S.Nickname>{currentUser.userName}</S.Nickname>
         <S.EmailContainer>
@@ -66,6 +67,7 @@ const EditProfile = ({ currentUser }: any) => {
             height={16}
             quality={100}
             priority={true}
+            className="providerLogo"
           />
           <S.Email>{currentUser.userEmail}</S.Email>
         </S.EmailContainer>

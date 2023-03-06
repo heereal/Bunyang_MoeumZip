@@ -47,7 +47,7 @@ const SelectMyTypes = ({ width, path }: SelectCategoryProps) => {
       )}
       <S.SelectAllOrNoneContainer>
         <S.SelectBtn
-          color={myTypeArray?.length === 11 ? '#356EFF' : '#505050'}
+          color={myTypeArray?.length === 12 ? '#356EFF' : '#505050'}
           onClick={() => setMyTypeArray(typesArray)}
         >
           <BsFillCheckCircleFill size="13" />

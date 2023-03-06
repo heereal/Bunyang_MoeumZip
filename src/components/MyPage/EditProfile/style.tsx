@@ -8,7 +8,7 @@ export const Wrapper = styled.div`
   height: 376px;
 
   @media screen and (max-width: 650px) {
-    height: 320px;
+    height: 265px;
   }
 `;
 
@@ -24,6 +24,13 @@ export const EditProfileContainer = styled.div`
   position: relative;
   align-items: center;
   box-sizing: border-box;
+
+  .profileImage {
+    @media screen and (max-width: 650px) {
+      width: 100px;
+      height: 100px;
+    }
+  }
 
   @media screen and (max-width: 650px) {
     box-shadow: none;
@@ -44,6 +51,13 @@ export const EmailContainer = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 20px;
+
+  .providerLogo {
+    @media screen and (max-width: 730px) {
+      width: 19px;
+      height: 19px;
+    }
+  }
 `;
 
 export const Email = styled.div`
@@ -55,6 +69,10 @@ export const Email = styled.div`
   align-items: center;
   margin-left: 7px;
   padding-top: 2px;
+
+  @media screen and (max-width: 730px) {
+    font-size: 13px;
+  }
 `;
 
 export const ProfileBtnContainer = styled.div`

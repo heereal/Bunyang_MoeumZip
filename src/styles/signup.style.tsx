@@ -117,12 +117,6 @@ export const SignUpBtn = styled.button`
   line-height: 17px;
   cursor: pointer;
 
-  :disabled {
-    cursor: default;
-    background: #e8eaef;
-    color: #7b7b7b;
-  }
-
   @media screen and (max-width: 730px) {
     width: 100%;
   }

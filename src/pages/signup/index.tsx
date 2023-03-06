@@ -110,8 +110,8 @@ const SignUp = () => {
 
   useEffect(() => {
     // 비로그인 유저일 경우 접근 제한
-    if (status === 'unauthenticated' || router.query.loading === undefined)
-      router.push('/', undefined, { shallow: true });
+    // if (status === 'unauthenticated' || router.query.loading === undefined)
+    //   router.push('/', undefined, { shallow: true });
     // eslint-disable-next-line
   }, [session]);
 
@@ -163,12 +163,7 @@ const SignUp = () => {
         <SelectMyTypes width={'100%'} path={'/signup'} />
 
         <S.SignUpBtnContainer>
-          <S.SignUpBtn
-            onClick={signupHandler}
-            disabled={isValidNickname ? false : true}
-          >
-            가입완료
-          </S.SignUpBtn>
+          <S.SignUpBtn onClick={signupHandler}>가입완료</S.SignUpBtn>
         </S.SignUpBtnContainer>
       </S.SignUpContainer>
     </S.Wrapper>
