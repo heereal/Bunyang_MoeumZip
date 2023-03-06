@@ -30,7 +30,7 @@ const App = ({ Component, pageProps }: AppProps) => {
           <RecoilRoot>
             <DefaultSeo {...SEO} />
             <Layout>
-              <Container>
+              <Container path={router.asPath}>
                 <Component {...pageProps} />
                 {router.asPath === '/' ||
                 router.asPath.includes('detail') ||
@@ -50,9 +50,9 @@ const App = ({ Component, pageProps }: AppProps) => {
 
 export default App;
 
-const Container = styled.div`
+const Container = styled.div<{ path: string }>`
   width: 100vw;
-  height: 93vh;
+  height: ${(props) => (props.path === '/calendar' ? '100%' : '93vh')};
   display: flex;
   flex-direction: row;
   margin-top: 60px;
