@@ -1,10 +1,10 @@
 import { addHomeList } from '@/common/api';
 import { db } from '@/common/firebase';
 import { getToday } from '@/common/utils';
-import HeadTitle from '@/components/GlobalComponents/HeadTitle/HeadTitle';
 import axios from 'axios';
 import { doc, getDoc } from 'firebase/firestore';
 import { GetStaticProps } from 'next';
+import { NextSeo } from 'next-seo';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
@@ -12,7 +12,6 @@ import coordinatesBtn from '../../../public/assets/apiCallButton_blue.png';
 import lastDbButton from '../../../public/assets/apiCallButton_green.png';
 import firsDbtButton from '../../../public/assets/apiCallButton_red.png';
 import * as S from '../../styles/admin.style';
-import { NextSeo } from 'next-seo';
 
 const MustHaveToDo = ({
   aptCombineList,

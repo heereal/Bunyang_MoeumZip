@@ -14,6 +14,13 @@ const HomeList = dynamic(
   },
 );
 
+const TopBtn = dynamic(
+  () => import('@/components/GlobalComponents/TopBtn/TopBtn'),
+  {
+    ssr: false,
+  },
+);
+
 const SearchResult = ({ homeList }: HomeListDBPropsJ) => {
   const router = useRouter();
 
@@ -30,13 +37,6 @@ const SearchResult = ({ homeList }: HomeListDBPropsJ) => {
         item.SUBSCRPT_AREA_CODE_NM.includes(keyword)) ||
       (typeof keyword === 'string' && item.HOUSE_NM.includes(keyword)) ||
       (typeof keyword === 'string' && item.HOUSE_DTL_SECD_NM.includes(keyword)),
-  );
-
-  const TopBtn = dynamic(
-    () => import('@/components/GlobalComponents/TopBtn/TopBtn'),
-    {
-      ssr: false,
-    },
   );
 
   return (
