@@ -29,9 +29,11 @@ const Header = () => {
 
   return (
     <>
+      {/* 로그인 모달 */}
       {isLoginModalOpen && (
         <LoginModal setIsLoginModalOpen={setIsLoginModalOpen} />
       )}
+      {/* 햄버거 nav 모달 */}
       {hamburgerOpen && (
         <HamburgerModal
           setIsLoginModalOpen={setIsLoginModalOpen}
