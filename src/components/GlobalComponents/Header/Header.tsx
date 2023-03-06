@@ -21,7 +21,7 @@ const Header = () => {
     seExpanded(!expanded);
     setTimeout(() => {
       setHamburgerOpen(!hamburgerOpen);
-    }, 200);
+    }, 500);
   };
 
   // user 로그인 여부에 따라 header Nav 변경
@@ -34,10 +34,8 @@ const Header = () => {
       )}
       {hamburgerOpen && (
         <HamburgerModal
-          setHamburgerOpen={setHamburgerOpen}
           setIsLoginModalOpen={setIsLoginModalOpen}
           expanded={expanded}
-          seExpanded={seExpanded}
           HamburgerOpenHandler={HamburgerOpenHandler}
         />
       )}

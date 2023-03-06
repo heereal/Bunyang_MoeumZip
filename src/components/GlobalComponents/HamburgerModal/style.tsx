@@ -23,18 +23,17 @@ to{
 
 // 햄버거 모달 배경
 export const HamModalBack = styled.div`
-  width: 100%;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.4);
-  z-index: 500;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.6);
+  /* z-index: 500; */
+  z-index: 1000;
   display: flex;
   justify-content: flex-end;
   align-items: center;
-
-  position: absolute;
-  top: 52%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 `;
 
 export const HamModalSection = styled.div<{ active: boolean }>`
@@ -47,6 +46,7 @@ export const HamModalSection = styled.div<{ active: boolean }>`
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  /* margin-top: 100px; */
 
   position: relative;
 
