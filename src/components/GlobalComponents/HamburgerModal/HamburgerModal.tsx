@@ -1,22 +1,18 @@
-import InfoLinkBtn from '@/components/MainPage/InfoLinkBtn/InfoLinkBtn';
-import Image from 'next/image';
-import { useRef, useEffect, useState } from 'react';
-import * as S from './style';
-import logo from 'public/assets/logo.png';
-import Link from 'next/link';
 import { useSession } from 'next-auth/react';
-import { CgProfile } from 'react-icons/cg';
-import { FaRegCalendarAlt, FaRegBuilding } from 'react-icons/fa';
-import { AiOutlineBarChart } from 'react-icons/ai';
+import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { unset } from 'lodash';
+import logo from 'public/assets/logo.png';
+import { useEffect, useRef } from 'react';
+import { AiOutlineBarChart } from 'react-icons/ai';
+import { CgProfile } from 'react-icons/cg';
+import { FaRegBuilding, FaRegCalendarAlt } from 'react-icons/fa';
 import { MdClose } from 'react-icons/md';
+import * as S from './style';
 
 const HamburgerModal = ({
-  setHamburgerOpen,
   setIsLoginModalOpen,
   expanded,
-  seExpanded,
   HamburgerOpenHandler,
 }: any) => {
   const router = useRouter();
@@ -120,32 +116,35 @@ const HamburgerModal = ({
                 </S.HamNav>
               </Link>
 
-              <Link
-                href={
-                  'https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancListView.do'
-                }
-                legacyBehavior
-              >
-                <S.HamNav>
-                  <AiOutlineBarChart size={22} color={'#356eff'} />
-                  <a style={{ textDecoration: 'none', color: '#000000' }}>
-                    <p>청약경쟁률 확인</p>
-                  </a>
-                </S.HamNav>
-              </Link>
-              <Link
-                href={
-                  'https://www.applyhome.co.kr/wa/waa/selectAptPrzwinDescList.do'
-                }
-                legacyBehavior
-              >
-                <S.HamNav>
-                  <FaRegBuilding size={22} color={'#356eff'} />
-                  <a style={{ textDecoration: 'none', color: '#000000' }}>
-                    <p>청약당첨자 확인</p>
-                  </a>
-                </S.HamNav>
-              </Link>
+              <S.HamNav>
+                <AiOutlineBarChart size={22} color={'#356eff'} />
+                {/* 새창에서 열 때는 Link 태그 없이 a태그만 사용 */}
+                <a
+                  target="_blank"
+                  // target 사용 시 'noreferrer'추가 해 보안 취약성 보완
+                  rel="noreferrer"
+                  href={
+                    'https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancListView.do'
+                  }
+                  style={{ textDecoration: 'none', color: '#000000' }}
+                >
+                  <p>청약경쟁률 확인</p>
+                </a>
+              </S.HamNav>
+
+              <S.HamNav>
+                <FaRegBuilding size={22} color={'#356eff'} />
+                <a
+                  target="_blank"
+                  rel="noreferrer"
+                  href={
+                    'https://www.applyhome.co.kr/wa/waa/selectAptPrzwinDescList.do'
+                  }
+                  style={{ textDecoration: 'none', color: '#000000' }}
+                >
+                  <p>청약당첨자 확인</p>
+                </a>
+              </S.HamNav>
             </S.HamNavBox>
           </S.HamModalBox>
         </S.HamModalSection>

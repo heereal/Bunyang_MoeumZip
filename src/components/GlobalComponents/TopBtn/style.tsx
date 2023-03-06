@@ -9,6 +9,7 @@ export const TopBtnSection = styled.div`
 
   @media screen and (max-width: 768px) {
     right: 5%;
+    bottom: 8%;
   }
 `;
 
