@@ -122,4 +122,8 @@ export const SignUpBtn = styled.button`
     background: #e8eaef;
     color: #7b7b7b;
   }
+
+  @media screen and (max-width: 730px) {
+    width: 100%;
+  }
 `;
