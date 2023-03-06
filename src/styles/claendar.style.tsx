@@ -9,6 +9,9 @@ export const CalendarWrapper = styled.div`
   padding: 40px 0;
   box-sizing: content-box;
   z-index: 2;
+  position: relative;
+  background-color: #F8FAFF;
+  z-index: 2;
 `;
 
 export const CalendarContainer = styled.div`
@@ -21,17 +24,22 @@ export const CalendarHeader = styled.div`
   display: flex;
   justify-content: space-between;
   padding-bottom: 30px;
+  z-index: 2;
+  position: relative;
 `;
 
 export const HeaderBackground = styled.div`
-  width: 100%;
+  width: 100vw;
   height: 186px;
   position: absolute;
+  top: 0;
+  left: 0;
   background: linear-gradient(
     180deg,
     #d9e5ff 0%,
     rgba(216, 228, 255, 0) 105.38%
   );
+  background-size: cover;
   z-index: 1;
 `;
 
@@ -74,6 +82,10 @@ export const FullCalendarContainer = styled.div`
     width: 100%;
   }
 
+  /* .fc-direction-ltr {
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  } */
+
   // toolbar container
   .fc .fc-toolbar.fc-header-toolbar {
     margin: 0;
@@ -97,8 +109,18 @@ export const FullCalendarContainer = styled.div`
       font-size: 28px;
     }
 
+    :not(:disabled):active {
+      background-color: transparent;
+      border: none;
+      box-shadow: none;
+    }
+
     :hover {
       background-color: transparent;
+    }
+
+    :focus {
+      box-shadow: none;
     }
   }
 
@@ -114,21 +136,25 @@ export const FullCalendarContainer = styled.div`
     color: #7b7b7b;
   }
 
-  // 오늘 날짜 배경색
-  .fc .fc-daygrid-day.fc-day-today {
-    background-color: #fff8bd;
-    color: #356eff;
-  }
-
+  
   // 날짜별 그리드
   .fc .fc-daygrid-day-frame {
     padding: 10px;
+    background-color: white;
+    /* z-index: 3; */
+  }
+
+  // 오늘 날짜 배경색
+  .fc .fc-daygrid-day.fc-day-today {
+    background-color: #fff8bd !important;
+    color: #356eff;
+    /* z-index: 4; */
   }
 
   // 날짜  ex) 2일
   .fc .fc-daygrid-day-top {
     flex-direction: row;
-    margin-bottom: 3px;
+    margin-bottom: 8px;
   }
 
   // 각 이벤트 요소

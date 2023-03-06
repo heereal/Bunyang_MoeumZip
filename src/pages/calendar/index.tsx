@@ -109,20 +109,22 @@ const Calender = ({ homeList }: any) => {
               }}
               initialView="dayGridMonth"
               nowIndicator={true}
-              selectable={true}
+              // selectable={true}
               fixedWeekCount={false} // 매달에 따라 4-6주를 보여줌 (6주로 고정x)
               weekends={false} // 토요일 일요일 제거
               locale={'ko'} // 한글 표기
+              contentHeight="auto" // 스크롤 생성되지 않고 높이 자동 조절
               // aspectRatio={1} // 종횡비-너비가 높이의 두 배
               // height={"800"}
+              
               events={array}
               // eventMouseEnter={(e)=>e.target.style={}}
               eventClick={(e) => router.push(`/detail/${e.event.id}`)}
             />
           </S.FullCalendarContainer>
         </S.CalendarContainer>
-      </S.CalendarWrapper>
       <S.HeaderBackground />
+      </S.CalendarWrapper>
     </>
   );
 };
