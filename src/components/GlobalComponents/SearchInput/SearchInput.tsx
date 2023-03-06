@@ -3,10 +3,13 @@ import { useRouter } from 'next/router';
 import { ChangeEvent, KeyboardEvent, useState } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 import * as S from './style';
+import useOnEnterKeyPress from '@/hooks/useOnEnterKeyPress';
 
 const SearchInput = () => {
   const router = useRouter();
   const [keyword, setKeyword] = useState<string>('');
+
+  const { OnKeyPressHandler } = useOnEnterKeyPress();
 
   const inputChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setKeyword(e.target.value);
@@ -21,13 +24,6 @@ const SearchInput = () => {
     }
   };
 
-  // enter 눌러도 검색 가능
-  const OnKeyPressHandler = (e: KeyboardEvent<HTMLDivElement>): void => {
-    if (e.key === 'Enter') {
-      searchHandler();
-    }
-  };
-
   return (
     <>
       <S.SearchBox>
@@ -38,7 +34,7 @@ const SearchInput = () => {
               value={keyword}
               onChange={inputChangeHandler}
               placeholder="분양 정보를 검색해보세요."
-              onKeyPress={OnKeyPressHandler}
+              onKeyPress={(e) => OnKeyPressHandler(e, searchHandler)}
             />
             <S.SearchBtn onClick={searchHandler} aria-label="검색 하기">
               <AiOutlineSearch style={{ fontSize: 18 }} />
