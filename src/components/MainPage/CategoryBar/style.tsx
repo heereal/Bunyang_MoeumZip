@@ -100,7 +100,7 @@ export const RegionCategoryContainer = styled.div`
   align-items: center;
 
   position: absolute;
-  top: 82%;
+  top: 95%;
   left: 24px;
 
   box-sizing: border-box;
@@ -109,11 +109,21 @@ export const RegionCategoryContainer = styled.div`
   border: 1px solid #e8eaef;
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
   border-radius: 20px;
+
+  @media screen and (max-width: 450px) {
+    width: 335px;
+    height: 170px;
+  }
 `;
 
 export const TypeCategoryContainer = styled(RegionCategoryContainer)`
   width: 306px;
   height: 235px;
+
+  @media screen and (max-width: 450px) {
+    width: 355px;
+    height: 170px;
+  }
 `;
 
 export const CategoryBox = styled.div`
@@ -130,6 +140,10 @@ export const CategoryBox = styled.div`
 
   box-sizing: border-box;
   gap: 2px 8px;
+
+  @media screen and (max-width: 450px) {
+    margin-left: 10px;
+  }
 `;
 
 // 각 카테고리버튼
@@ -164,6 +178,13 @@ export const CategoryBtn = styled.button<{
   :hover {
     color: #3d7fff;
     background-color: #f0f4ff;
+  }
+
+  @media screen and (max-width: 450px) {
+    min-width: 39px;
+    height: 25px;
+    font-size: 13px;
+    padding: 10px 5px;
   }
 `;
 
