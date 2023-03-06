@@ -60,7 +60,6 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
   const editBookmark = useMutation('Bookmarks', onClickBookmarkBtnHandler, {
     onSuccess: () => {
       queryClient.invalidateQueries('Bookmarks');
-      console.log('mutation 성공:');
     },
   });
 

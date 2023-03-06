@@ -93,18 +93,19 @@ export const getStaticProps: GetStaticProps = async () => {
         item.HOUSE_DTL_SECD_NM === '영구임대' ||
         item.HOUSE_DTL_SECD_NM === '민간임대' ||
         item.HOUSE_DTL_SECD_NM === '공공지원민간임대'
-          ? '#EFF4FF'
+          ? '#DAF8FF'
           : item.HOUSE_DTL_SECD_NM === '분양주택' ||
             item.HOUSE_DTL_SECD_NM === '민영' ||
             item.HOUSE_DTL_SECD_NM === '국민'
-          ? '#FFECEC'
+          ? '#FFECD7'
           : item.HOUSE_DTL_SECD_NM === '신혼희망타운'
-          ? '#F9EDFF'
+          ? '#FFE9FF'
           : item.HOUSE_DTL_SECD_NM === '도시형생활주택'
           ? '#FFFCE0'
-          : item.HOUSE_DTL_SECD_NM === '계약취소' ||
-            item.HOUSE_SECD_NM === '무순위'
-          ? '#E8FFF2'
+          : item.HOUSE_DTL_SECD_NM === '계약취소'
+          ? '#D4E3FF'
+          : item.HOUSE_SECD_NM === '무순위'
+          ? '#F4F2F2'
           : '#b1b7bdac',
 
       textColor:
@@ -114,18 +115,19 @@ export const getStaticProps: GetStaticProps = async () => {
         item.HOUSE_DTL_SECD_NM === '영구임대' ||
         item.HOUSE_DTL_SECD_NM === '민간임대' ||
         item.HOUSE_DTL_SECD_NM === '공공지원민간임대'
-          ? '#356EFF'
+          ? '#25AAC8'
           : item.HOUSE_DTL_SECD_NM === '분양주택' ||
             item.HOUSE_DTL_SECD_NM === '민영' ||
             item.HOUSE_DTL_SECD_NM === '국민'
-          ? '#FF4141'
+          ? '#FF971D'
           : item.HOUSE_DTL_SECD_NM === '신혼희망타운'
-          ? '#AF1DF3'
+          ? '#FB39FF'
           : item.HOUSE_DTL_SECD_NM === '도시형생활주택'
           ? '#D4BF00'
-          : item.HOUSE_DTL_SECD_NM === '계약취소' ||
-            item.HOUSE_SECD_NM === '무순위'
-          ? '#24CE71'
+          : item.HOUSE_DTL_SECD_NM === '계약취소'
+          ? '#2B54A3'
+          : item.HOUSE_SECD_NM === '무순위'
+          ? '#5C5C5C'
           : 'white',
     }),
   );
