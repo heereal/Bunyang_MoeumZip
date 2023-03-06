@@ -9,10 +9,10 @@ import * as S from './style';
 import Image from 'next/image';
 
 interface loginModalProps {
-  setIsOpen: any;
+  setIsLoginModalOpen: any;
 }
 
-const LoginModal = ({ setIsOpen }: loginModalProps) => {
+const LoginModal = ({ setIsLoginModalOpen }: loginModalProps) => {
   // 소셜 로그인-로그인 시 로딩 페이지로 이동함
   const loginHandler = async (provider: string) => {
     await signIn(provider, { callbackUrl: '/loading' });
@@ -24,7 +24,7 @@ const LoginModal = ({ setIsOpen }: loginModalProps) => {
         <S.CloseBtnContainer>
           <MdClose
             size="27"
-            onClick={() => setIsOpen(false)}
+            onClick={() => setIsLoginModalOpen(false)}
             style={{ cursor: 'pointer' }}
           />
         </S.CloseBtnContainer>
