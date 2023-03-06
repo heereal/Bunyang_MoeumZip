@@ -48,7 +48,7 @@ export const PageHeader = styled.div`
   width: 100%;
   padding-bottom: 40px;
   padding-top: 15px;
-  background-size: 100%;
+  background-size: 105%;
   background-repeat: no-repeat;
   background-position: center;
   background-image: linear-gradient(
@@ -59,6 +59,7 @@ export const PageHeader = styled.div`
   @media screen and (max-width: 450px) {
     padding-right: 30px;
     padding-top: 30px;
+    height: 200px;
   }
 `;
 export const HeaderTagBox = styled.div`
@@ -87,8 +88,13 @@ export const HeaderTitle = styled.div`
   font-size: 25px;
   font-weight: 500;
   padding-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  line-height: normal;
   @media screen and (max-width: 450px) {
-    font-size: 20px;
+    font-size: 16px;
   }
 `;
 
@@ -128,8 +134,8 @@ export const BmrkBoxMobile = styled.div`
 `;
 
 export const BmrkBackBtnMobile = styled.div`
-  position: absolute;
-  top: 2%;
+  position: fixed;
+  top: 10%;
   left: 4%;
 `;
 
@@ -155,8 +161,8 @@ export const BmrkBtnMobile = styled.div`
   font-size: 12px;
   cursor: pointer;
   border: 1px solid white;
-  position: absolute;
-  top: 2%;
+  position: fixed;
+  top: 10%;
   right: 5%;
 `;
 

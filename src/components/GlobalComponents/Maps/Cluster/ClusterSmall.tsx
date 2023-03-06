@@ -4,8 +4,8 @@ const ClusterSmall = () => {
   return (
     <div
       style={{
-        width: 62,
-        height: 62,
+        width: 35,
+        height: 35,
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
@@ -16,7 +16,7 @@ const ClusterSmall = () => {
         borderRadius: 35,
       }}
     >
-      <span style={{ color: ' #356EFF', fontSize: 20, fontWeight: 300 }}>
+      <span style={{ color: ' #356EFF', fontSize: 15, fontWeight: 300 }}>
         1
       </span>
     </div>
