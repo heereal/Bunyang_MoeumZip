@@ -57,7 +57,7 @@ const SupplyInfo = ({ home }: PropsP) => {
                       </>
                     ) : null}
                   </S.SPLTY>
-                  <S.SPLTY style={{ border: 'none' }}>
+                  <S.SPLTY style={{ border: 'none', flexDirection: 'row' }}>
                     <S.TYDetail style={{ width: '33%' }}>
                       {item.SUPLY_HSHLDCO}
                     </S.TYDetail>

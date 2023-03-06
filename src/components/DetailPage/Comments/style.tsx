@@ -3,18 +3,19 @@ import styled from 'styled-components';
 export const Container = styled.div`
   width: 100%;
   padding: 30px;
+  @media screen and (max-width: 450px) {
+    padding: 10px;
+  }
 `;
 
 export const CommentHeader = styled.div`
   font-size: 18px;
   font-weight: 700;
-  padding-bottom: 10px;
 `;
 
 export const CommentCount = styled.div`
   font-size: 18px;
   font-weight: 700;
-  padding-bottom: 10px;
   padding-left: 10px;
   color: #3d7fff;
 `;
@@ -25,7 +26,7 @@ export const AddCommentBox = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  gap: 10px;
+  gap: 7px;
 `;
 
 export const ImageBox = styled.div`
@@ -43,9 +44,11 @@ export const InputBox = styled.div<any>`
 
 export const Input = styled.input`
   all: unset;
-  padding-left: 5px;
   width: 80%;
   height: 100%;
+  @media screen and (max-width: 450px) {
+    font-size: 13px;
+  }
 `;
 export const UserNameBox = styled.div`
   display: flex;
@@ -53,6 +56,9 @@ export const UserNameBox = styled.div`
   font-size: 15px;
   height: 25px;
   font-weight: 600;
+  @media screen and (max-width: 450px) {
+    font-size: 14px;
+  }
 `;
 
 export const CommentListBox = styled.div<{ blur: string }>`
@@ -80,18 +86,23 @@ export const ContentsBox = styled.div`
   padding-top: 5px;
   padding-left: 2px;
   font-weight: 500;
-  font-size: 16px;
+  font-size: 15px;
+  @media screen and (max-width: 450px) {
+    font-size: 14px;
+  }
 `;
 export const EditInput = styled.input`
   all: unset;
-  padding-left: 5px;
   width: 100%;
   height: 100%;
   font-weight: 400;
   border-bottom: 2px solid black;
   height: 20px;
   background-color: white;
-  font-size: 16px;
+  font-size: 15px;
+  @media screen and (max-width: 450px) {
+    font-size: 14px;
+  }
 `;
 export const EditSubmit = styled.button`
   all: unset;
@@ -132,6 +143,7 @@ export const BtnBox = styled.div`
   flex-direction: row-reverse;
   cursor: pointer;
   gap: 5px;
+  padding-right: 15px;
 `;
 
 export const SubmitBtn = styled.div`
@@ -147,6 +159,11 @@ export const SubmitBtn = styled.div`
   color: white;
   font-weight: 500;
   font-size: 15px;
+  @media screen and (max-width: 450px) {
+    font-size: 13px;
+    width: 50px;
+    height: 30px;
+  }
 `;
 
 export const ReplyInputBox = styled.div<any>`

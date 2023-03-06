@@ -96,7 +96,7 @@ const DetailHeader = ({
             color="white"
             size={21}
             title="뒤로가기"
-            onClick={() => router.push('/')}
+            onClick={() => router.back()}
           />
         </S.BmrkBackBtnMobile>
         <S.BmrkBtnMobile

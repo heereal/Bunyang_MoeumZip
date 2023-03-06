@@ -129,7 +129,7 @@ export const BmrkBoxMobile = styled.div`
 
 export const BmrkBackBtnMobile = styled.div`
   position: absolute;
-  top: 10.5%;
+  top: 2%;
   left: 4%;
 `;
 
@@ -156,7 +156,7 @@ export const BmrkBtnMobile = styled.div`
   cursor: pointer;
   border: 1px solid white;
   position: absolute;
-  top: 10.5%;
+  top: 2%;
   right: 5%;
 `;
 
@@ -348,7 +348,7 @@ export const SPLhead = styled.div`
   background-color: ${(props) => props.color};
   height: 50px;
   border: 1px solid #e8eaef;
-  @media screen and (max-width: 450px) {
+  @media screen and (max-width: 460px) {
     font-size: 12px;
   }
 `;

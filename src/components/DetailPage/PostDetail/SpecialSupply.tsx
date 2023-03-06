@@ -57,7 +57,7 @@ const SpecialSupply = ({ home }: PropsP) => {
                   </S.SPLNUM>
 
                   <S.SPLhead style={{ width: '80%' }}>
-                    <S.SPLTY>
+                    <S.SPLTY style={{ flexDirection: 'row' }}>
                       <S.TYDetail style={{ width: '12.5%' }}>
                         {item.MNYCH_HSHLDCO}
                       </S.TYDetail>
