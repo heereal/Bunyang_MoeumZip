@@ -16,11 +16,19 @@ const TopBtn = () => {
       top: 0,
       behavior: 'smooth',
     });
+
+    window.scroll({
+      top: 0,
+      behavior: 'smooth',
+    });
   };
 
+  // 웹페이지(반응형 X)에서 해당 컴포넌트 안의 스크롤에 따라 top버튼 생성, 제거
   const handleShowButton = () => {
     setComponentScrollY(topBtnScroll?.scrollTop);
     if (componentScrollY! > 400) {
+      setShowButton(true);
+    } else if (window.screenY > 400) {
       setShowButton(true);
     } else {
       setShowButton(false);
@@ -34,6 +42,15 @@ const TopBtn = () => {
     };
     // eslint-disable-next-line
   }, [componentScrollY]);
+
+  useEffect(() => {
+    // 반응형일 때 window 스크롤에 따라 top버튼 생성, 제거
+    window.addEventListener('scroll', handleShowButton);
+    return () => {
+      window.removeEventListener('scroll', handleShowButton);
+    };
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <>

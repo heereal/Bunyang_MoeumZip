@@ -40,13 +40,6 @@ const SearchResult = ({ homeList }: HomeListDBPropsJ) => {
     },
   );
 
-  const ResponsiveTopBtn = dynamic(
-    () => import('@/components/GlobalComponents/TopBtn/ResponsiveTopBtn'),
-    {
-      ssr: false,
-    },
-  );
-
   return (
     <S.ResultSection>
       <NextSeo
@@ -70,7 +63,6 @@ const SearchResult = ({ homeList }: HomeListDBPropsJ) => {
                 <HomeList key={item.PBLANC_NO} list={item} />
               ))}
               <TopBtn />
-              <ResponsiveTopBtn />
             </S.ResultListBox>
           </S.ResultListArticle>
         </>
