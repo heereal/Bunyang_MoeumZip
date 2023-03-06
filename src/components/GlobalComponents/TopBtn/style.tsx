@@ -6,10 +6,10 @@ export const TopBtnSection = styled.div`
   right: 43%;
   bottom: 5%;
   z-index: 1;
-`;
 
-export const ResponsiveTopBtnSection = styled(TopBtnSection)`
-  left: 88%;
+  @media screen and (max-width: 768px) {
+    right: 5%;
+  }
 `;
 
 export const TopBtn = styled.button`

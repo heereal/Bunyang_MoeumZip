@@ -44,7 +44,7 @@ const MyTabs = () => {
       ...currentUser,
       [category]: array,
     });
-    customUIAlert('관심 카테고리 설정이 업데이트되었습니다.');
+    customUIAlert('관심 카테고리 설정이 수정되었습니다.');
   };
 
   return (

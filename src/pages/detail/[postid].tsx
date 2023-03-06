@@ -23,7 +23,6 @@ const DetailPage = ({ dehydratedState }: any) => {
       <PostDetail postId={router?.query.postid} />
       <CommentsList postId={router?.query.postid} />
       <TopBtn />
-      <ResponsiveTopBtn />
     </S.DetailBody>
   );
 };
