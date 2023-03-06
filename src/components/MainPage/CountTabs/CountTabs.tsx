@@ -20,7 +20,8 @@ import randomIcon from 'public/assets/random.png';
 const CountTabs = ({ list }: CountTabPropsListJ) => {
   const [currentTab, SetCurrentTab] = useState<number>(0);
 
-  // getToday()함수를 쓰는 컴포넌트는 클라이언트에서 실행되게 해야 ssr 418, 423오류가 안 생김
+  // getToday()함수를 쓰는 컴포넌트는 클라이언트에서 실행되게 해야
+  // (서버와 클라이언트 시간이 맞지 않을 때)ssr 418, 423오류가 안 생김
   const HomeList = dynamic(
     () => import('../../GlobalComponents/HomeList/HomeList'),
     {
@@ -77,7 +78,7 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
   const { todayList, comingList, randomList, AllList } = useHomeList(list);
 
   // 로그인 했을 때 보이는 유저의 관심 지역 및 분양형태가 반영 된 리스트
-  // 현재 유저 - 청약 가능, 청약 예정, 무순위, 전체 리스트
+  // 현재 유저 회원정보에 따른 관심지역 리스트의 청약 가능, 청약 예정, 무순위, 전체 리스트
   const {
     todayList: UserTodayList,
     comingList: userComingList,
@@ -92,7 +93,7 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
     selectedRegionArray?.includes(item.SUBSCRPT_AREA_CODE_NM),
   );
 
-  // 청약 가능, 예정, 무순위, 전체 리스트
+  // 지역 필터링 리스트의 청약 가능, 예정, 무순위, 전체 리스트
   const {
     todayList: regionCategoryTodayList,
     comingList: regionCategoryComingList,
@@ -106,7 +107,7 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
     selectedTypeArray?.includes(item.HOUSE_DTL_SECD_NM || item.HOUSE_SECD_NM),
   );
 
-  // 청약 가능, 예정, 무순위, 전체 리스트
+  //분양형태 필터링 리스트의 청약 가능, 예정, 무순위, 전체 리스트
   const {
     todayList: typeCategoryTodayList,
     comingList: typeCategoryComingList,
@@ -115,12 +116,12 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
   } = useHomeList(typeCategoryList);
 
   // 지역 선택 후 분양형태로 한 번 더 필터링한 리스트
-  const regionFilteredTypeList = regionCategoryList.filter((item) =>
+  const regionFilteredTypeList = regionCategoryList.filter((item: ItemJ) =>
     // @ts-ignore
     selectedTypeArray.includes(item.HOUSE_DTL_SECD_NM),
   );
 
-  // 청약 가능, 예정, 무순위, 전체 리스트
+  // 지역 및 분양형태 필터링 리스트의 청약 가능, 예정, 무순위, 전체 리스트
   const {
     todayList: regionFilteredTypeTodayList,
     comingList: regionFilteredTypeComingList,

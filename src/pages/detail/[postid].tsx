@@ -22,7 +22,7 @@ const DetailPage = ({ dehydratedState }: any) => {
     <S.DetailBody id="topBtnScroll">
       <PostDetail postId={router?.query.postid} />
       <CommentsList postId={router?.query.postid} />
-      <TopBtn />
+      {<ResponsiveTopBtn /> ? '' : <TopBtn />}
       <ResponsiveTopBtn />
     </S.DetailBody>
   );
