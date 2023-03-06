@@ -5,27 +5,27 @@ const InfoLinkBtn = () => {
   return (
     <S.Container>
       <S.BtnBox>
-        <Link
+        <a
+          target="_blank"
+          rel="noreferrer"
           href={
             'https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancListView.do'
           }
-          legacyBehavior
+          style={{ textDecoration: 'none', color: '#356eff' }}
         >
-          <a style={{ textDecoration: 'none', color: '#356eff' }}>
-            청약경쟁률 확인
-          </a>
-        </Link>
+          청약경쟁률 확인
+        </a>
       </S.BtnBox>
 
       <S.BtnBox>
-        <Link
+        <a
           href={'https://www.applyhome.co.kr/wa/waa/selectAptPrzwinDescList.do'}
-          legacyBehavior
+          target="_blank"
+          rel="noreferrer"
+          style={{ textDecoration: 'none', color: '#356eff' }}
         >
-          <a style={{ textDecoration: 'none', color: '#356eff' }}>
-            청약당첨자 확인
-          </a>
-        </Link>
+          청약당첨자 확인
+        </a>
       </S.BtnBox>
     </S.Container>
   );
