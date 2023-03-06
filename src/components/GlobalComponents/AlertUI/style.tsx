@@ -4,7 +4,6 @@ export const AlertBack = styled.div`
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.3);
-  /* background-color: rgba(255, 255, 255, 0.3); */
   position: fixed;
   z-index: 1000;
   top: 0%;
@@ -37,8 +36,12 @@ export const AlertBox = styled.div`
 
   background-color: #ffffff;
   box-shadow: 0px 4px 8px rgba(255, 255, 255, 0.5);
-  /* box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.15); */
   border-radius: 16px;
+
+  @media screen and (max-width: 450px) {
+    width: 350px;
+    min-width: 250px;
+  }
 `;
 
 export const TextBox = styled.div`
@@ -52,6 +55,9 @@ export const AlertText = styled.p`
   font-size: 22px;
   text-align: center;
   color: #000000;
+  @media screen and (max-width: 450px) {
+    font-size: 18px;
+  }
 `;
 
 export const AlertDetailText = styled(AlertText)`
@@ -59,6 +65,10 @@ export const AlertDetailText = styled(AlertText)`
   font-size: 14px;
   line-height: 20px;
   color: #7b7b7b;
+
+  @media screen and (max-width: 450px) {
+    font-size: 12px;
+  }
 `;
 
 export const BtnBox = styled.div`
@@ -85,10 +95,19 @@ export const AlertBtn = styled.button`
   gap: 10px;
 
   cursor: pointer;
+
+  @media screen and (max-width: 450px) {
+    width: 226px;
+  }
 `;
 
 export const ConfirmBtn = styled(AlertBtn)`
   width: 89px;
+
+  @media screen and (max-width: 450px) {
+    width: 69px;
+    padding: 5px;
+  }
 `;
 
 export const CancelBtn = styled(ConfirmBtn)`
