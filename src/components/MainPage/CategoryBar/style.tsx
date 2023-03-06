@@ -8,21 +8,25 @@ export const CategorySection = styled.section`
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   z-index: 10;
   position: relative;
-  padding-left: 30px;
 
-  @media screen and (max-width: 1280px) {
-    max-width: 500px;
+  @media screen and (max-width: 450px) {
+    max-width: 450px;
+    height: 33px;
+    margin-top: -10px;
+    margin-bottom: 10px;
   }
-  @media screen and (max-width: 768px) {
-    max-width: 750px;
+`;
+
+export const CategoryContainer = styled.div`
+  width: 50%;
+  @media screen and (max-width: 600px) {
+    width: 100%;
   }
   @media screen and (max-width: 450px) {
-    padding-left: 10px;
-    height: 33px;
-    padding-bottom: 10px;
+    max-width: 360px;
   }
 `;
 

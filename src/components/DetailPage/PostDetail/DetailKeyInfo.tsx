@@ -39,25 +39,7 @@ const DetailKeyInfo = ({ home }: PropsP) => {
       </S.ArticleBox>
       {home && (
         <Link href={home.PBLANC_URL} legacyBehavior>
-          <div
-            style={{
-              width: 110,
-              height: 40,
-              background: '#3D7FFF',
-              borderRadius: 10,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: 'white',
-              fontWeight: 700,
-              marginTop: 10,
-              cursor: 'pointer',
-              fontSize: 13,
-              padding: 10,
-            }}
-          >
-            모집공고문 보기
-          </div>
+          <S.infoBox>모집공고문 보기</S.infoBox>
         </Link>
       )}
     </>

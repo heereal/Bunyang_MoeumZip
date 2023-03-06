@@ -108,7 +108,7 @@ const AddReply = ({
               </div>
             </div>
 
-            <S.BtnBox style={{ marginTop: 5, paddingRight: 55 }}>
+            <S.BtnBox>
               <S.EditSubmit onClick={user ? addReplyHandler : undefined}>
                 게시
               </S.EditSubmit>

@@ -1,6 +1,8 @@
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import fillStar from 'public/assets/fillStar.png';
 import outlineStar from 'public/assets/outlineStar.png';
+import { AiOutlineLeft } from 'react-icons/ai';
 import * as S from './style';
 interface DetailHeaderProps {
   bookmarksList: any;
@@ -15,10 +17,11 @@ const DetailHeader = ({
   home,
   session,
 }: DetailHeaderProps) => {
+  const router = useRouter();
   return (
     <S.PageHeader>
       <S.BmrkBox>
-        <S.BmrBtn
+        <S.BmrkBtn
           onClick={() => editBookmark.mutate()}
           style={{
             display: 'flex',
@@ -85,8 +88,69 @@ const DetailHeader = ({
               </>
             )}
           </div>
-        </S.BmrBtn>
+        </S.BmrkBtn>
       </S.BmrkBox>
+      <S.BmrkBoxMobile>
+        <S.BmrkBackBtnMobile>
+          <AiOutlineLeft
+            color="white"
+            size={21}
+            title="뒤로가기"
+            onClick={() => router.back()}
+          />
+        </S.BmrkBackBtnMobile>
+        <S.BmrkBtnMobile
+          onClick={() => editBookmark.mutate()}
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            gap: 2,
+            backgroundColor: bookmarksList?.usersList.includes(
+              `${session?.user?.provider}_${session?.user?.email}`,
+            )
+              ? 'rgba(255, 255, 255, 0.2)'
+              : 'transparent',
+          }}
+        >
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              gap: 4,
+            }}
+          >
+            {bookmarksList?.usersList.includes(
+              `${session?.user.provider}_${session?.user.email}`,
+            ) ? (
+              <>
+                <div>
+                  <Image
+                    src={fillStar}
+                    alt="fillStar"
+                    height={13}
+                    loading="lazy"
+                    quality={100}
+                  />
+                </div>
+              </>
+            ) : (
+              <>
+                <div>
+                  <Image
+                    src={outlineStar}
+                    alt="outlineStar"
+                    height={13}
+                    loading="lazy"
+                    quality={100}
+                  />
+                </div>
+              </>
+            )}
+          </div>
+        </S.BmrkBtnMobile>
+      </S.BmrkBoxMobile>
       <S.HeaderBox>
         <S.HeaderTagBox>
           {home?.HOUSE_DTL_SECD_NM === home?.HOUSE_SECD_NM ? (
@@ -115,7 +179,7 @@ const DetailHeader = ({
             <Image
               src={fillStar}
               alt="fillStar"
-              height={15}
+              height={14}
               loading="lazy"
               quality={100}
             />
@@ -127,7 +191,7 @@ const DetailHeader = ({
             <Image
               src={fillStar}
               alt="fillStar"
-              height={15}
+              height={14}
               loading="lazy"
               quality={100}
             />

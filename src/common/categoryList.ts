@@ -16,7 +16,7 @@ export const regionArray: string[] = [
   '대구',
   '경남',
   '경북',
-  '제주'
+  '제주',
 ];
 
 // signup 페이지 관심 분양 형태 리스트
@@ -33,4 +33,13 @@ export const typesArray: string[] = [
   '영구임대',
   '분양주택',
   '도시형생활주택',
+];
+
+// 청약캘린더 헤더에서 사용
+export const calendarColorList = [
+  { cate: '임대주택', color: '#356EFF' },
+  { cate: '분양주택', color: '#FF4141' },
+  { cate: '신혼희망타운', color: '#AF1DF3' },
+  { cate: '계약취소 / 무순위', color: '#24CE71' },
+  { cate: '도시형생활주택', color: '#D5BF00' },
 ];

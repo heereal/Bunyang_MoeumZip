@@ -2,17 +2,14 @@ import styled from 'styled-components';
 
 export const Header = styled.header`
   width: 100%;
-  height: 6vh;
-  min-height: 60px;
+  height: 60px;
+  max-height: 60px;
   background-color: #ffffff;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   border-bottom: 1px solid lightgray;
-
-  @media screen and (max-width: 600px) {
-    height: 6vh;
-    padding: 0;
-  }
+  position: fixed;
+  z-index: 500;
 `;
 
 // Logo box

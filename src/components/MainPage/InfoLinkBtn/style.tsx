@@ -4,10 +4,10 @@ export const Container = styled.div`
   height: 30px;
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
-  padding-right: 40px;
   gap: 10px;
+  width: 50%;
 
   @media screen and (max-width: 600px) {
     display: none;
@@ -15,7 +15,10 @@ export const Container = styled.div`
 `;
 
 export const BtnBox = styled.div`
-  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 106px;
   height: 30px;
 
   background: #e5edff;

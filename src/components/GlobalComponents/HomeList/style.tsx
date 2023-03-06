@@ -23,7 +23,7 @@ export const ListArticle = styled.article`
 
   @media screen and (max-width: 600px) {
     width: 400px;
-    max-width: 318px;
+    max-width: 350px;
     height: 246px;
     min-width: 318px;
   }

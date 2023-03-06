@@ -43,7 +43,10 @@ export const LogoContainer = styled.div`
 `;
 
 export const BunyangMoaTitle = styled.h1`
+  font-family: 'PyeongChang-Bold';
   font-size: 20px;
+  font-weight: 700;
+  line-height: 25px;
   padding: 0 0 25px 0;
 `;
 
