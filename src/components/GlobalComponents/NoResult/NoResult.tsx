@@ -2,7 +2,7 @@ import Image from 'next/image';
 import NoResultImage from '../../../../public/assets/NoResult.png';
 import * as S from './style';
 
-const NoResult = ({ keyword, title, text, text2, text3 }: keywordPropsJ) => {
+const NoResult = ({ keyword, title, text, text2 }: keywordPropsJ) => {
   return (
     <S.Container>
       <Image
@@ -25,7 +25,6 @@ const NoResult = ({ keyword, title, text, text2, text3 }: keywordPropsJ) => {
       </S.NoResultTitle>
       <S.NoResultText>{text}</S.NoResultText>
       <S.NoResultText>{text2}</S.NoResultText>
-      <S.NoResultText>{text3}</S.NoResultText>
     </S.Container>
   );
 };

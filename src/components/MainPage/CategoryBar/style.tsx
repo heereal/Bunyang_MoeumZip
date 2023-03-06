@@ -101,7 +101,7 @@ export const RegionCategoryContainer = styled.div`
 
   position: absolute;
   top: 95%;
-  left: 24px;
+  left: 2px;
 
   box-sizing: border-box;
 
@@ -126,7 +126,7 @@ export const TypeCategoryContainer = styled(RegionCategoryContainer)`
   }
 `;
 
-export const CategoryBox = styled.div`
+export const RegionCategoryBox = styled.div`
   width: 100%;
   height: 85%;
   display: flex;
@@ -134,7 +134,7 @@ export const CategoryBox = styled.div`
   flex-wrap: wrap;
   justify-content: flex-start;
   align-items: flex-start;
-  margin-left: 30px;
+  margin-left: 25px;
   margin-top: 20px;
   padding-bottom: 30px;
 
@@ -142,7 +142,14 @@ export const CategoryBox = styled.div`
   gap: 2px 8px;
 
   @media screen and (max-width: 450px) {
-    margin-left: 10px;
+    margin-left: 23px;
+    gap: 6px;
+  }
+`;
+export const TypeCategoryBox = styled(RegionCategoryBox)`
+  @media screen and (max-width: 450px) {
+    margin-left: 8px;
+    gap: 6px;
   }
 `;
 

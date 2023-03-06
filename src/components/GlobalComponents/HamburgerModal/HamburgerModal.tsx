@@ -117,7 +117,7 @@ const HamburgerModal = ({
               </Link>
 
               <S.HamNav>
-                <AiOutlineBarChart size={22} color={'#356eff'} />
+                <AiOutlineBarChart size={23} color={'#356eff'} />
                 {/* 새창에서 열 때는 Link 태그 없이 a태그만 사용 */}
                 <a
                   target="_blank"

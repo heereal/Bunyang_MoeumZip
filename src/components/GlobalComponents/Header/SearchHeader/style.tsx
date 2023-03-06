@@ -90,10 +90,11 @@ export const MobileSearchBox = styled.div`
   }
 
   @media screen and (max-width: 450px) {
-    width: 308px;
+    width: 280px;
     position: fixed;
-    top: 1.5%;
-    right: 8%;
+    top: 2%;
+    right: 25%;
+    left: 18%;
   }
 `;
 

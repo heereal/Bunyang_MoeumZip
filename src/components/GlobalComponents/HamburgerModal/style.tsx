@@ -115,8 +115,8 @@ export const HamNav = styled.nav`
   gap: 12px;
   padding: 10px 30px;
 
-  font-weight: 500;
-  font-size: 14px;
+  font-weight: 600;
+  font-size: 15px;
 
   cursor: pointer;
 
