@@ -26,7 +26,8 @@ export const CategoryBtn = styled.button<CategoryBtnStyledProps>`
   margin-bottom: 8px;
 
   @media screen and (max-width: 650px) {
-    font-size: 12px;
+    font-size: 13px;
+    border: 1px solid ${(props) => props.border};
   }
 `;
 

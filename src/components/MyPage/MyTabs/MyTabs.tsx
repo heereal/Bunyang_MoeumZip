@@ -71,7 +71,7 @@ const MyTabs = () => {
         <S.Line />
       </S.TabContainer>
 
-      <S.TabContentContainer scroll={true}>
+      <S.TabContentContainer>
         {/* 북마크 목록 */}
         {currentTab === 1 && (
           <S.BookmarkListContainer>

@@ -1,12 +1,15 @@
 import { customUIAlert } from '@/common/utils';
 import { useRouter } from 'next/router';
-import { ChangeEvent, KeyboardEvent, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 import * as S from './style';
+import { useOnEnterKeyPress } from '@/hooks';
 
 const SearchInput = ({ setIsMobileSearch, isMobileSearch }: any) => {
   const router = useRouter();
   const [keyword, setKeyword] = useState<string>('');
+
+  const { OnKeyPressHandler } = useOnEnterKeyPress();
 
   const inputChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setKeyword(e.target.value);
@@ -21,19 +24,12 @@ const SearchInput = ({ setIsMobileSearch, isMobileSearch }: any) => {
     }
   };
 
-  // enter 눌러도 검색 가능
-  const OnKeyPressHandler = (e: KeyboardEvent<HTMLDivElement>): void => {
-    if (e.key === 'Enter') {
-      searchHandler();
-    }
-  };
-
   return (
     <>
       <S.SearchInput
         type="text"
         placeholder="분양 정보를 검색해보세요."
-        onKeyPress={OnKeyPressHandler}
+        onKeyPress={(e) => OnKeyPressHandler(e, searchHandler)}
         value={keyword}
         onChange={inputChangeHandler}
       />

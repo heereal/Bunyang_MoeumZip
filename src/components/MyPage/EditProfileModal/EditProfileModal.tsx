@@ -1,6 +1,7 @@
 import { db, storage } from '@/common/firebase';
 import { customUIAlert } from '@/common/utils';
 import AlertUI from '@/components/GlobalComponents/AlertUI/AlertUI';
+import { useOnEnterKeyPress } from '@/hooks';
 import { currentUserState, usersListState } from '@/store/selectors';
 import { uuidv4 } from '@firebase/util';
 import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
@@ -16,6 +17,8 @@ import transparentProfile from '../../../../public/assets/transparentProfile.png
 import * as S from './style';
 
 const EditProfileModal = ({ setIsModalOpen }: any) => {
+  const { OnKeyPressHandler } = useOnEnterKeyPress();
+
   // 현재 로그인한 유저의 firestore 유저 정보
   const [currentUser, setCurrentUser] = useRecoilState(currentUserState);
   const [editNickname, setEditNickname] = useState<any>(currentUser.userName);
@@ -172,6 +175,7 @@ const EditProfileModal = ({ setIsModalOpen }: any) => {
           <S.NicknameInput
             value={editNickname}
             onChange={(e) => setEditNickname(e.target.value)}
+            onKeyPress={(e) => OnKeyPressHandler(e, editProfileHandler)}
           />
           <S.ProfileBtn
             onClick={editProfileHandler}
