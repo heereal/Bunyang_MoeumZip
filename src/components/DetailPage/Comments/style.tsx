@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const Container = styled.div`
   width: 100%;
   padding: 30px;
+  min-height: 280px;
   @media screen and (max-width: 450px) {
     padding: 10px;
   }
@@ -143,7 +144,7 @@ export const BtnBox = styled.div`
   flex-direction: row-reverse;
   cursor: pointer;
   gap: 5px;
-  padding-right: 15px;
+  width: 92%;
 `;
 
 export const SubmitBtn = styled.div`

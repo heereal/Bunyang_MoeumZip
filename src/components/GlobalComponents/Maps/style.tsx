@@ -38,11 +38,12 @@ export const MarkerTest = styled.div`
 export const MapBox = styled.div<any>`
   width: 100%;
   min-width: 300px;
-  min-height: ${(props) => props.minHeight};
+
   height: 100%;
   display: ${(props) => props.display1200};
   @media screen and (max-width: 768px) {
     display: ${(props) => props.display768};
+    min-height: ${(props) => props.minHeight};
   }
 `;
 

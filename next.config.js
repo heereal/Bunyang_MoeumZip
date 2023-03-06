@@ -39,7 +39,7 @@ module.exports = {
       },
       {
         source: '/api/NaverMap',
-        destination: `https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${process.env.NEXT_PUBLIC_NCP_CLIENT_ID}&submodules=geocoder,panorama`,
+        destination: `https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${process.env.NEXT_PUBLIC_NCP_CLIENT_ID}&submodules=geocoder`,
       },
     ];
   },
