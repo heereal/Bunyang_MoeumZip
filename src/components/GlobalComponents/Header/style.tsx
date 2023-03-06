@@ -30,9 +30,8 @@ export const LogoBox = styled.div`
 // Logo Text
 export const LogoText = styled.div`
   font-family: 'PyeongChang-Bold';
-  font-weight: 700;
   font-size: 18px;
-
+  font-weight: 700;
   display: flex;
   align-items: center;
   letter-spacing: 0.02em;

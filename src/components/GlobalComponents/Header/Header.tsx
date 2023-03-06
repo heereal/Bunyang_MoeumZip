@@ -7,9 +7,8 @@ import { GiHamburgerMenu } from 'react-icons/gi';
 import logo from '../../../../public/assets/logo.png';
 import HamburgerModal from '../HamburgerModal/HamburgerModal';
 import LoginModal from '../LoginModal/LoginModal';
-import SearchWeb from './SearchHeader/SearchWeb';
 import SearchMobile from './SearchHeader/SearchMobile';
-import { SearchInput } from './SearchHeader/style';
+import SearchWeb from './SearchHeader/SearchWeb';
 import * as S from './style';
 
 const Header = () => {

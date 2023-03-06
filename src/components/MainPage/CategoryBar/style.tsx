@@ -16,7 +16,7 @@ export const CategorySection = styled.section`
     max-width: 450px;
     height: 33px;
     margin-top: -10px;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
   }
 `;
 
@@ -57,9 +57,6 @@ export const RegionTab = styled.button<{ bd: string; bg: string }>`
 
   :hover {
     border-color: #3d7fff;
-  }
-  @media screen and (max-width: 450px) {
-    height: 25px;
   }
 `;
 

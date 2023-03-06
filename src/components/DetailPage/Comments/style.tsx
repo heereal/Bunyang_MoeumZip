@@ -24,7 +24,7 @@ export const CommentCount = styled.div`
 export const AddCommentBox = styled.div`
   padding: 20px 20px 20px 0px;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   width: 100%;
   gap: 7px;
@@ -35,7 +35,7 @@ export const ImageBox = styled.div`
 `;
 
 export const InputBox = styled.div<any>`
-  width: 95%;
+  width: 87%;
   border-bottom: ${(props) => props.border};
   height: 40px;
   background-color: white;
@@ -45,7 +45,7 @@ export const InputBox = styled.div<any>`
 
 export const Input = styled.input`
   all: unset;
-  width: 80%;
+  width: 100%;
   height: 100%;
   @media screen and (max-width: 450px) {
     font-size: 13px;
@@ -94,13 +94,14 @@ export const ContentsBox = styled.div`
 `;
 export const EditInput = styled.input`
   all: unset;
-  width: 100%;
+  width: 89%;
   height: 100%;
   font-weight: 400;
   border-bottom: 2px solid black;
   height: 20px;
   background-color: white;
   font-size: 15px;
+  color: black;
   @media screen and (max-width: 450px) {
     font-size: 14px;
   }
