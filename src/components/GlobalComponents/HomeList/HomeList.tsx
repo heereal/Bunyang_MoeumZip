@@ -14,7 +14,12 @@ const HomeList = ({ list }: PropsListJ) => {
   const today = getToday();
 
   return (
-    <S.ListArticle onClick={() => router.push(`/detail/${list.PBLANC_NO}`)}>
+    <S.ListArticle
+      onClick={() =>
+        // 대충 돌아가는 스피너가 실행됨.
+        router.push(`/detail/${list.PBLANC_NO}`)
+      }
+    >
       {/* 리스트 분류 */}
       <S.TabInfo>
         <Image

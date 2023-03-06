@@ -42,6 +42,7 @@ const Markers = ({ map, home }: MarkersProps) => {
           const markerIcon = ReactDOMServer.renderToString(
             <MarkerIcon result={item} />,
           );
+
           const marker = new naver.maps.Marker({
             map: map,
             position: new naver.maps.LatLng(
