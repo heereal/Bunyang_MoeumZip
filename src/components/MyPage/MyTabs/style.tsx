@@ -70,7 +70,7 @@ export const Line = styled.div`
   }
 `;
 
-export const TabContentContainer = styled.div<{ scroll: boolean }>`
+export const TabContentContainer = styled.div`
   padding: 15px 0;
   position: relative;
   overflow-y: auto;
@@ -105,6 +105,7 @@ export const NoResultContainer = styled.div`
     display: flex;
     justify-content: center;
     padding-top: 50px;
+    padding-left: 0;
   }
 `;
 
@@ -148,6 +149,7 @@ export const SubmitBtn = styled.button`
 
   @media screen and (max-width: 650px) {
     width: 95%;
+    height: 54px;
   }
 
 `;

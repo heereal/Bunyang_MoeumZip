@@ -1,8 +1,7 @@
 import { getUsersList } from '@/common/api';
 import LoadingSpinner from '@/components/GlobalComponents/LoadingSpinner/LoadingSpinner';
 import NoResult from '@/components/GlobalComponents/NoResult/NoResult';
-import useHomeList from '@/hooks/useHomeList';
-import useTabList from '@/hooks/useTabList';
+import { useHomeList, useTabList } from '@/hooks';
 import { selectedRegionList, selectedTypeList } from '@/store/selectors';
 import { useSession } from 'next-auth/react';
 import dynamic from 'next/dynamic';

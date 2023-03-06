@@ -5,7 +5,7 @@ export const AlertBack = styled.div`
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.3);
   position: fixed;
-  z-index: 1000;
+  z-index: 999;
   top: 0%;
   left: 0%;
   transform: translate(0%, 0%);
