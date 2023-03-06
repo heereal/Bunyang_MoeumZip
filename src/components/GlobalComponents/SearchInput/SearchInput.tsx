@@ -1,9 +1,9 @@
 import { customUIAlert } from '@/common/utils';
 import { useRouter } from 'next/router';
-import { ChangeEvent, KeyboardEvent, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 import * as S from './style';
-import useOnEnterKeyPress from '@/hooks/useOnEnterKeyPress';
+import { useOnEnterKeyPress } from '@/hooks';
 
 const SearchInput = () => {
   const router = useRouter();

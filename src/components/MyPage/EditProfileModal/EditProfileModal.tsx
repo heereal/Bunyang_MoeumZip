@@ -1,7 +1,7 @@
 import { db, storage } from '@/common/firebase';
 import { customUIAlert } from '@/common/utils';
 import AlertUI from '@/components/GlobalComponents/AlertUI/AlertUI';
-import useOnEnterKeyPress from '@/hooks/useOnEnterKeyPress';
+import { useOnEnterKeyPress } from '@/hooks';
 import { currentUserState, usersListState } from '@/store/selectors';
 import { uuidv4 } from '@firebase/util';
 import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
