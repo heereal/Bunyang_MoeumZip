@@ -162,6 +162,7 @@ button {
   color: black;
 }
 
+/* 가로 스크롤 제거 */
 body {
   overflow-x: hidden;
 }

@@ -3,13 +3,13 @@ import styled from 'styled-components';
 // Top button
 export const TopBtnSection = styled.div`
   position: fixed;
-  right: 43%;
+  right: 42%;
   bottom: 5%;
   z-index: 1;
 
   @media screen and (max-width: 768px) {
-    right: 5%;
-    bottom: 8%;
+    right: 3%;
+    bottom: 5%;
   }
 `;
 

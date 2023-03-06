@@ -5,7 +5,7 @@ import { AiOutlineSearch } from 'react-icons/ai';
 import * as S from './style';
 import { useOnEnterKeyPress } from '@/hooks';
 
-const SearchInput = () => {
+const SearchInput = ({ setIsMobileSearch, isMobileSearch }: any) => {
   const router = useRouter();
   const [keyword, setKeyword] = useState<string>('');
 
@@ -26,23 +26,16 @@ const SearchInput = () => {
 
   return (
     <>
-      <S.SearchBox>
-        <S.SearchInputContainer>
-          <S.SearchInputBox>
-            <S.SearchInput
-              type="text"
-              value={keyword}
-              onChange={inputChangeHandler}
-              placeholder="분양 정보를 검색해보세요."
-              onKeyPress={(e) => OnKeyPressHandler(e, searchHandler)}
-            />
-            <S.SearchBtn onClick={searchHandler} aria-label="검색 하기">
-              <AiOutlineSearch style={{ fontSize: 18 }} />
-            </S.SearchBtn>
-          </S.SearchInputBox>
-        </S.SearchInputContainer>
-      </S.SearchBox>
-      <S.SearchBoxMobile></S.SearchBoxMobile>
+      <S.SearchInput
+        type="text"
+        placeholder="분양 정보를 검색해보세요."
+        onKeyPress={(e) => OnKeyPressHandler(e, searchHandler)}
+        value={keyword}
+        onChange={inputChangeHandler}
+      />
+      <S.SearchBtn onClick={searchHandler} aria-label="검색 하기">
+        <AiOutlineSearch style={{ fontSize: 18 }} />
+      </S.SearchBtn>
     </>
   );
 };

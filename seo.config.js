@@ -6,14 +6,15 @@ export default {
     site_name: '분양모음집',
     images: [
       {
-        url: ' https://firebasestorage.googleapis.com/v0/b/bunyang-moa.appspot.com/o/profileImages%2F89a682e9-1a82-4bd3-987c-6b5723ad88b7?alt=media&token=dc719e12-6df1-472a-978a-19368a90f977',
+        //TODO: 배포하면 주소 바꿔야함
+        url: 'https://media.discordapp.net/attachments/1071956935471009888/1082207188782698517/oggg.png',
       },
     ],
   },
   additionalLinkTags: [
     {
       rel: 'ogImage',
-      href: ' https://firebasestorage.googleapis.com/v0/b/bunyang-moa.appspot.com/o/profileImages%2F89a682e9-1a82-4bd3-987c-6b5723ad88b7?alt=media&token=dc719e12-6df1-472a-978a-19368a90f977',
+      href: 'https://media.discordapp.net/attachments/1071956935471009888/1082207188782698517/oggg.png',
     },
   ],
 };
