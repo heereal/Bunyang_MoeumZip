@@ -24,6 +24,10 @@ export const CategoryBtn = styled.button<CategoryBtnStyledProps>`
   line-height: 14px;
   color: ${(props) => props.text};
   margin-bottom: 8px;
+
+  @media screen and (max-width: 650px) {
+    font-size: 12px;
+  }
 `;
 
 export const SelectAllOrNoneContainer = styled.div`
@@ -47,5 +51,9 @@ export const SelectBtn = styled.div<{ color: string }>`
 
   span {
     margin-left: 6px;
+  }
+
+  @media screen and (max-width: 650px) {
+    font-size: 12px;
   }
 `;

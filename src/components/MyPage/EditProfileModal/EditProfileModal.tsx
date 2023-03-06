@@ -126,14 +126,6 @@ const EditProfileModal = ({ setIsModalOpen }: any) => {
         );
       },
     });
-
-    // {
-    //   await deleteDoc(
-    //     doc(db, 'Users', `${currentUser.provider}_${currentUser.userEmail}`),
-    //   );
-    //   signOut({ callbackUrl: '/' });
-
-    // }
   };
 
   return (
@@ -180,7 +172,6 @@ const EditProfileModal = ({ setIsModalOpen }: any) => {
           <S.NicknameInput
             value={editNickname}
             onChange={(e) => setEditNickname(e.target.value)}
-            autoFocus
           />
           <S.ProfileBtn
             onClick={editProfileHandler}
