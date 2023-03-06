@@ -51,22 +51,22 @@ const Loading = () => {
 
     // 이미 가입한 유저라면 메인으로 이동,
     // 최초 로그인한 유저라면 firestore에 유저 정보를 새로 저장하며 회원가입 페이지로 이동
-    // if (array.length >= 1) {
-    //   router.back();
-    // } else {
-    //   await setDoc(
-    //     doc(db, 'Users', `${session.user.provider}_${session.user.email}`),
-    //     newUser,
-    //   );
-    //   router.push(
-    //     {
-    //       pathname: '/signup',
-    //       query: {
-    //         loading: true,
-    //       },
-    //     },
-    //   );
-    // }
+    if (array.length >= 1) {
+      router.back();
+    } else {
+      await setDoc(
+        doc(db, 'Users', `${session.user.provider}_${session.user.email}`),
+        newUser,
+      );
+      router.push(
+        {
+          pathname: '/signup',
+          query: {
+            loading: true,
+          },
+        },
+      );
+    }
   };
 
   useEffect(() => {
