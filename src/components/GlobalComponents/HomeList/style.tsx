@@ -71,7 +71,7 @@ export const CardTitle = styled.p`
   color: #000000;
 
   @media screen and (max-width: 600px) {
-    font-size: 17px;
+    font-size: 18px;
   }
 `;
 
@@ -104,7 +104,7 @@ export const CardCategory = styled.div`
   color: #7b7b7b;
 
   @media screen and (max-width: 600px) {
-    font-size: 13px;
+    font-size: 14px;
   }
 `;
 
@@ -144,14 +144,14 @@ export const CardDateTitle = styled.p`
   font-weight: 400;
 
   @media screen and (max-width: 600px) {
-    font-size: 14px;
+    font-size: 15px;
   }
 `;
 export const CardDate = styled(CardDateTitle)`
   font-weight: 600;
 
   @media screen and (max-width: 600px) {
-    font-size: 14px;
+    font-size: 16px;
   }
 `;
 
@@ -185,7 +185,7 @@ export const CardAreaTitle = styled(CardDateTitle)`
   font-size: 13px;
 
   @media screen and (max-width: 600px) {
-    font-size: 14px;
+    font-size: 15px;
   }
 `;
 
@@ -196,6 +196,6 @@ export const CardArea = styled(CardDate)`
   color: #000000;
 
   @media screen and (max-width: 600px) {
-    font-size: 14px;
+    font-size: 16px;
   }
 `;
