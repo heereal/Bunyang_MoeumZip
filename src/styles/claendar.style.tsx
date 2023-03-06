@@ -10,12 +10,16 @@ export const CalendarWrapper = styled.div`
   box-sizing: content-box;
   z-index: 2;
   position: relative;
-  background-color: #F8FAFF;
+  background-color: #f8faff;
   z-index: 2;
+
+  @media screen and (max-width: 730px) {
+    padding: 30px 0;
+  }
 `;
 
 export const CalendarContainer = styled.div`
-  width: 90%;
+  width: 95%;
   max-width: 1100px;
 `;
 
@@ -23,9 +27,14 @@ export const CalendarHeader = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
+  /* padding-bottom: 30px; */
   padding-bottom: 30px;
   z-index: 2;
   position: relative;
+
+  @media screen and (max-width: 730px) {
+    padding: 0 10px 20px 10px;
+  }
 `;
 
 export const HeaderBackground = styled.div`
@@ -48,10 +57,20 @@ export const Title = styled.div`
   font-size: 22px;
   line-height: 140%;
   padding-bottom: 15px;
+
+  @media screen and (max-width: 730px) {
+    font-size: 18px;
+    padding-bottom: 10px;
+  }
 `;
 
 export const CategoryContainer = styled.div`
   display: flex;
+
+  @media screen and (max-width: 730px) {
+    width: 100%;
+    flex-wrap: wrap;
+  }
 `;
 
 export const Category = styled.div<{ color: string }>`
@@ -62,6 +81,11 @@ export const Category = styled.div<{ color: string }>`
   line-height: 17px;
   margin-right: 7px;
   color: ${(props) => props.color};
+
+  @media screen and (max-width: 730px) {
+    font-size: 14px;
+    padding-bottom: 5px;
+  }
 `;
 
 export const CalendarDescContainer = styled.div`
@@ -69,7 +93,14 @@ export const CalendarDescContainer = styled.div`
   flex-direction: column;
 `;
 
-export const CalendarIcon = styled.div``;
+export const CalendarIcon = styled.div`
+  .calendarIcon {
+    @media screen and (max-width: 730px) {
+      width: 60px;
+      height: 60px;
+    }
+  }
+`;
 
 export const FullCalendarContainer = styled.div`
   width: 100%;
@@ -136,12 +167,15 @@ export const FullCalendarContainer = styled.div`
     color: #7b7b7b;
   }
 
-  
   // 날짜별 그리드
   .fc .fc-daygrid-day-frame {
     padding: 10px;
     background-color: white;
     /* z-index: 3; */
+
+    @media screen and (max-width: 730px) {
+      padding: 3px;
+    }
   }
 
   // 오늘 날짜 배경색
@@ -155,6 +189,10 @@ export const FullCalendarContainer = styled.div`
   .fc .fc-daygrid-day-top {
     flex-direction: row;
     margin-bottom: 8px;
+
+    @media screen and (max-width: 730px) {
+      font-size: 13px;
+    }
   }
 
   // 각 이벤트 요소
@@ -165,5 +203,12 @@ export const FullCalendarContainer = styled.div`
     border-radius: 4px;
     font-weight: 500;
     font-size: 14px;
+
+    @media screen and (max-width: 730px) {
+      font-weight: 600;
+      font-size: 12px;
+      line-height: 11px;
+      padding: 3px 2px;
+    }
   }
 `;
