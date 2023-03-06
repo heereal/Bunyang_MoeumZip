@@ -1,6 +1,5 @@
 import { db } from '@/common/firebase';
 import NoResult from '@/components/GlobalComponents/NoResult/NoResult';
-import ResponsiveTopBtn from '@/components/GlobalComponents/TopBtn/ResponsiveTopBtn';
 import { doc, getDoc } from 'firebase/firestore';
 import { GetServerSideProps } from 'next';
 import { NextSeo } from 'next-seo';
