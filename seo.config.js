@@ -7,7 +7,7 @@ export default {
     images: [
       {
         //TODO: 배포하면 주소 바꿔야함
-        url: 'https://by-dev.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Ffavicon.e7de0244.ico&w=48&q=75',
+        url: 'https://media.discordapp.net/attachments/1071986566014177360/1081946338364755998/50ce22bcdbd576e8.png?width=810&height=230',
       },
     ],
   },
