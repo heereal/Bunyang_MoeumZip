@@ -4,8 +4,8 @@ const ClusterMid = () => {
   return (
     <div
       style={{
-        width: 90,
-        height: 90,
+        width: 60,
+        height: 60,
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
@@ -17,7 +17,7 @@ const ClusterMid = () => {
         borderRadius: 50,
       }}
     >
-      <span style={{ color: '#356EFF', fontSize: 20, fontWeight: 300 }}>1</span>
+      <span style={{ color: '#356EFF', fontSize: 18, fontWeight: 300 }}>1</span>
     </div>
   );
 };
