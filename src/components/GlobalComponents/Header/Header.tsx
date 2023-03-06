@@ -7,7 +7,7 @@ import { GiHamburgerMenu } from 'react-icons/gi';
 import logo from '../../../../public/assets/logo.png';
 import HamburgerModal from '../HamburgerModal/HamburgerModal';
 import LoginModal from '../LoginModal/LoginModal';
-import SearchInput from '../SearchInput/SearchInput';
+import SearchBox from '../SearchHeader/SearchBox';
 import * as S from './style';
 
 const Header = () => {
@@ -57,7 +57,7 @@ const Header = () => {
         </S.LogoBox>
         {/* 검색창 */}
         <S.SearchContainer>
-          <SearchInput />
+          <SearchBox />
         </S.SearchContainer>
         <S.NavBar>
           <S.NavContent
@@ -88,9 +88,11 @@ const Header = () => {
           )}
         </S.NavBar>
         <S.NavBarMobile>
+          {/* 반응형 검색 버튼*/}
           <S.NavContent color={'black'}>
             <AiOutlineSearch style={{ fontSize: 20 }} />
           </S.NavContent>
+          {/* 반응형 햄버거 아이콘 */}
           <S.NavContent color={'black'} onClick={HamburgerOpenHandler}>
             <GiHamburgerMenu style={{ fontSize: 20 }} />
           </S.NavContent>

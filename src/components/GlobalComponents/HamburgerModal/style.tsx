@@ -29,7 +29,6 @@ export const HamModalBack = styled.div`
   bottom: 0;
   right: 0;
   background: rgba(0, 0, 0, 0.6);
-  /* z-index: 500; */
   z-index: 1000;
   display: flex;
   justify-content: flex-end;
@@ -46,7 +45,6 @@ export const HamModalSection = styled.div<{ active: boolean }>`
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  /* margin-top: 100px; */
 
   position: relative;
 
@@ -54,13 +52,13 @@ export const HamModalSection = styled.div<{ active: boolean }>`
   ${(props) =>
     props.active
       ? css`
-          animation-duration: 0.4s;
+          animation-duration: 0.25s;
           animation-timing-function: ease-out;
           animation-name: ${slideOpen};
           animation-fill-mode: forwards;
         `
       : css`
-          animation-duration: 0.4s;
+          animation-duration: 0.25s;
           animation-timing-function: ease-out;
           animation-name: ${slideClose};
           animation-fill-mode: forwards;
