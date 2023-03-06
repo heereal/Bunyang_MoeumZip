@@ -8,21 +8,25 @@ export const CategorySection = styled.section`
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   z-index: 10;
   position: relative;
-  padding-left: 30px;
 
-  @media screen and (max-width: 1280px) {
-    max-width: 500px;
+  @media screen and (max-width: 450px) {
+    max-width: 450px;
+    height: 33px;
+    margin-top: -10px;
+    margin-bottom: 10px;
   }
-  @media screen and (max-width: 768px) {
-    max-width: 750px;
+`;
+
+export const CategoryContainer = styled.div`
+  width: 50%;
+  @media screen and (max-width: 600px) {
+    width: 100%;
   }
   @media screen and (max-width: 450px) {
-    padding-left: 10px;
-    height: 33px;
-    padding-bottom: 10px;
+    max-width: 360px;
   }
 `;
 
@@ -92,7 +96,7 @@ export const RegionCategoryContainer = styled.div`
 
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
 
   position: absolute;
@@ -108,21 +112,21 @@ export const RegionCategoryContainer = styled.div`
 `;
 
 export const TypeCategoryContainer = styled(RegionCategoryContainer)`
-  width: 314px;
-  height: 245px;
-  left: 98px;
+  width: 306px;
+  height: 235px;
 `;
 
 export const CategoryBox = styled.div`
   width: 100%;
-  height: 80%;
+  height: 85%;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-start;
   align-items: flex-start;
-  margin-left: 34px;
-  padding-bottom: 20px;
+  margin-left: 30px;
+  margin-top: 20px;
+  padding-bottom: 30px;
 
   box-sizing: border-box;
   gap: 2px 8px;
@@ -166,14 +170,14 @@ export const CategoryBtn = styled.button<{
 // 초기화 및 전체 선택 버튼
 export const CommonBtnBox = styled.div`
   width: 100%;
-  height: 20%;
+  height: 15%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 
   padding: 0 12px;
-  padding-bottom: 40px;
+  padding-bottom: 30px;
   position: absolute;
   top: 88%;
 `;

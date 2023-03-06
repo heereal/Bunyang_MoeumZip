@@ -55,9 +55,12 @@ const Container = styled.div`
   height: 93vh;
   display: flex;
   flex-direction: row;
+  margin-top: 60px;
 
   @media screen and (max-width: 768px) {
     flex-direction: column-reverse;
+    position: relative;
     height: 100%;
+    overflow: hidden;
   }
 `;

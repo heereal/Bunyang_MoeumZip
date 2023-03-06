@@ -1,3 +1,4 @@
+import NoResult from '@/components/GlobalComponents/NoResult/NoResult';
 import * as S from './style';
 
 const APTRealPrice = ({ dongList }: any) => {
@@ -21,7 +22,12 @@ const APTRealPrice = ({ dongList }: any) => {
   return (
     <S.Wrapper>
       {dongList?.length === 0 ? (
-        '해당 지역의 최근 아파트 매매 실거래가 정보가 없습니다.'
+        <div style={{ padding: 30 }}>
+          <NoResult
+            text="해당 지역의 최근 아파트 매매 실거래가 정보가 없습니다.
+        "
+          />
+        </div>
       ) : (
         <S.Table>
           <thead>
@@ -42,7 +48,7 @@ const APTRealPrice = ({ dongList }: any) => {
                   {item.일.toString().length === 1 ? `0${item.일}` : item.일}
                 </S.TableData>
                 <S.TableData>
-                  {item.아파트} <span>({item.층}층)</span>
+                  <p>{item.아파트}</p> <span>({item.층}층)</span>
                 </S.TableData>
                 <S.TableData>
                   {item.법정동} {item.도로명}

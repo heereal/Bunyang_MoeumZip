@@ -130,7 +130,7 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
       {/* 탭 선택 */}
       <S.TabContainer>
         <S.TabBtn
-          font={!isRealPriceTab ? '#3D7FFF' : 'black'}
+          font={!isRealPriceTab ? '#3D7FFF' : '#7B7B7B'}
           line={!isRealPriceTab ? '#3D7FFF' : '#f4f4f4'}
           onClick={() => setIsRealPriceTab(false)}
         >
@@ -141,7 +141,7 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
           line={isRealPriceTab ? '#3D7FFF' : '#f4f4f4'}
           onClick={() => setIsRealPriceTab(true)}
         >
-          주변 아파트 매매 실거래가
+          <span>주변 아파트 매매</span> <span>실거래가</span>
         </S.TabBtn>
       </S.TabContainer>
 

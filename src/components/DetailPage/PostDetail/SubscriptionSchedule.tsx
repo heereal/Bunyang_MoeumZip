@@ -110,10 +110,10 @@ const SubscriptionSchedule = ({ home }: PropsP) => {
           </S.BoxContent>
         </S.Article>
       </S.ArticleBox>
-      <div style={{ color: '#8E8E8E', fontSize: 14, paddingLeft: 10 }}>
+      <S.info>
         *특별공급 종류에 따라 접수기간 및 장소가 다를 수 있으니 모집공고를
         반드시 확인하시기 바랍니다.
-      </div>
+      </S.info>
     </>
   );
 };

@@ -7,7 +7,6 @@ export const CountSectionBack = styled.div`
   max-width: 750px;
 
   background-color: #ffffff;
-
   display: flex;
   justify-content: center;
   align-items: center;
@@ -21,11 +20,8 @@ export const CountSectionBack = styled.div`
   }
   @media screen and (max-width: 450px) {
     max-width: 420px;
-    height: 75px;
+    height: 110px;
   }
-
-  /* position: sticky;
-  top: 0; */
 `;
 
 export const CountTabList = styled.ul<{ bd: string; bs: string }>`
@@ -37,11 +33,10 @@ export const CountTabList = styled.ul<{ bd: string; bs: string }>`
   display: flex;
   align-items: center;
   gap: 12px;
-  padding-left: 22px;
 
-  @media screen and (max-width: 420px) {
+  @media screen and (max-width: 450px) {
     gap: 6px;
-    padding-left: 5px;
+    justify-content: center;
   }
 
   /* CountTab */
@@ -66,7 +61,7 @@ export const CountTabList = styled.ul<{ bd: string; bs: string }>`
       width: 105px;
       height: 60px;
     }
-    @media screen and (max-width: 420px) {
+    @media screen and (max-width: 450px) {
       width: 85px;
       height: 50px;
       gap: 6px;
@@ -105,11 +100,34 @@ export const CountTabName = styled.div`
   @media screen and (max-width: 800px) {
     font-size: 12px;
   }
-  @media screen and (max-width: 550px) {
-    font-size: 11px;
+  @media screen and (max-width: 450px) {
+    font-size: 10px;
+  }
+`;
+
+export const TapContainer = styled.div`
+  width: 100%;
+  max-width: 750px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+  @media screen and (max-width: 1280px) {
+    max-width: 500px;
+  }
+  @media screen and (max-width: 768px) {
+    max-width: 750px;
+  }
+  @media screen and (max-width: 690px) {
+    max-width: 600px;
+  }
+  @media screen and (max-width: 600px) {
+    max-width: 600px;
   }
   @media screen and (max-width: 450px) {
-    font-size: 9px;
+    max-width: 450px;
+    padding: 0px;
   }
 `;
 
@@ -134,7 +152,7 @@ export const CountTabNum = styled(CountTabName)`
   line-height: 80%;
   color: #000;
   @media screen and (max-width: 550px) {
-    font-size: 15px;
+    font-size: 19px;
     margin-top: -5px;
   }
 `;
@@ -155,6 +173,10 @@ export const ListSection = styled.section`
   margin: auto;
   border-top: 1px solid rgba(0, 0, 0, 0.25);
   padding-top: 24px;
+
+  @media screen and (max-width: 450px) {
+    overflow: auto;
+  }
 `;
 
 export const ListBox = styled.div`

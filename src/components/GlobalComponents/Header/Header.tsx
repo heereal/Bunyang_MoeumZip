@@ -2,14 +2,13 @@ import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import { AiOutlineSearch } from 'react-icons/ai';
+import { GiHamburgerMenu } from 'react-icons/gi';
 import logo from '../../../../public/assets/logo.png';
+import HamburgerModal from '../HamburgerModal/HamburgerModal';
 import LoginModal from '../LoginModal/LoginModal';
 import SearchInput from '../SearchInput/SearchInput';
 import * as S from './style';
-import { AiOutlineSearch } from 'react-icons/ai';
-import { GiHamburgerMenu } from 'react-icons/gi';
-import HamburgerModal from '../HamburgerModal/HamburgerModal';
-import dynamic from 'next/dynamic';
 
 const Header = () => {
   const router = useRouter();

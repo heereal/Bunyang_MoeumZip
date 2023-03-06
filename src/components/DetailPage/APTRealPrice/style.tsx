@@ -6,6 +6,10 @@ export const Wrapper = styled.div`
   align-items: center;
   background-color: white;
   width: 100%;
+  padding: 0 30px 30px 30px;
+  @media screen and (max-width: 450px) {
+    padding: 0 10px 10px 10px;
+  }
 `;
 
 export const Table = styled.table`
@@ -23,6 +27,12 @@ export const TableHead = styled.th`
   padding: 15px 25px;
   background-color: #f0f4ff;
   border: 1px solid #e8eaef;
+  @media screen and (max-width: 1350px) {
+    padding: 10px 10px;
+  }
+  @media screen and (max-width: 450px) {
+    font-size: 13px;
+  }
 `;
 
 export const TableData = styled.td`
@@ -30,6 +40,12 @@ export const TableData = styled.td`
   padding: 15px 25px;
   text-align: center;
   font-size: 15px;
+  @media screen and (max-width: 1350px) {
+    padding: 10px 10px;
+  }
+  @media screen and (max-width: 450px) {
+    font-size: 13px;
+  }
 
   span {
     font-size: 13px;

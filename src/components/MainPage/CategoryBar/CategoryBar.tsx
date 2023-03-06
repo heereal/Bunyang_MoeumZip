@@ -72,7 +72,7 @@ const CategoryBar = () => {
 
   return (
     <S.CategorySection>
-      <div>
+      <S.CategoryContainer>
         <S.CategoryTabList>
           {categoryList.map((item, index) => (
             <S.CategoryTabs
@@ -267,7 +267,7 @@ const CategoryBar = () => {
             </S.CommonBtnBox>
           </S.TypeCategoryContainer>
         )}
-      </div>
+      </S.CategoryContainer>
       <InfoLinkBtn />
     </S.CategorySection>
   );
