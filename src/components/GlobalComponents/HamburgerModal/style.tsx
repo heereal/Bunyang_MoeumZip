@@ -52,13 +52,13 @@ export const HamModalSection = styled.div<{ active: boolean }>`
   ${(props) =>
     props.active
       ? css`
-          animation-duration: 0.25s;
+          animation-duration: 0.4s;
           animation-timing-function: ease-out;
           animation-name: ${slideOpen};
           animation-fill-mode: forwards;
         `
       : css`
-          animation-duration: 0.25s;
+          animation-duration: 0.3s;
           animation-timing-function: ease-out;
           animation-name: ${slideClose};
           animation-fill-mode: forwards;

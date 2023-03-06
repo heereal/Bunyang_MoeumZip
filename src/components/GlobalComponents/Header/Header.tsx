@@ -7,21 +7,29 @@ import { GiHamburgerMenu } from 'react-icons/gi';
 import logo from '../../../../public/assets/logo.png';
 import HamburgerModal from '../HamburgerModal/HamburgerModal';
 import LoginModal from '../LoginModal/LoginModal';
-import SearchBox from '../SearchHeader/SearchBox';
+import SearchWeb from './SearchHeader/SearchWeb';
+import SearchMobile from './SearchHeader/SearchMobile';
+import { SearchInput } from './SearchHeader/style';
 import * as S from './style';
 
 const Header = () => {
   const router = useRouter();
   const [isLoginModalOpen, setIsLoginModalOpen] = useState<boolean>(false);
   const [hamburgerOpen, setHamburgerOpen] = useState<boolean>(false);
+  // 햄버거 모달 애니메이션
   const [expanded, seExpanded] = useState<boolean>(false);
+  const [isMobileSearch, setIsMobileSearch] = useState<boolean>(false);
 
   // 햄버거 모달 애니메이션 적용, 오픈 상태 변경
   const HamburgerOpenHandler = () => {
     seExpanded(!expanded);
     setTimeout(() => {
       setHamburgerOpen(!hamburgerOpen);
-    }, 500);
+    }, 150);
+  };
+
+  const mobileSearchHandler = () => {
+    setIsMobileSearch(true);
   };
 
   // user 로그인 여부에 따라 header Nav 변경
@@ -52,13 +60,24 @@ const Header = () => {
             //quelity 의 기본값은 75 입니다.
             priority={true}
           />
-
-          <S.LogoText onClick={() => router.push('/')}>분양모음집</S.LogoText>
+          {isMobileSearch ? (
+            ''
+          ) : (
+            <S.LogoText onClick={() => router.push('/')}>분양모음집</S.LogoText>
+          )}
         </S.LogoBox>
         {/* 검색창 */}
         <S.SearchContainer>
-          <SearchBox />
+          {isMobileSearch ? (
+            <SearchMobile
+              setIsMobileSearch={setIsMobileSearch}
+              isMobileSearch={isMobileSearch}
+            />
+          ) : (
+            <SearchWeb />
+          )}
         </S.SearchContainer>
+
         <S.NavBar>
           <S.NavContent
             onClick={() => router.push('/calendar')}
@@ -87,16 +106,20 @@ const Header = () => {
             </S.NavContent>
           )}
         </S.NavBar>
-        <S.NavBarMobile>
-          {/* 반응형 검색 버튼*/}
-          <S.NavContent color={'black'}>
-            <AiOutlineSearch style={{ fontSize: 20 }} />
-          </S.NavContent>
-          {/* 반응형 햄버거 아이콘 */}
-          <S.NavContent color={'black'} onClick={HamburgerOpenHandler}>
-            <GiHamburgerMenu style={{ fontSize: 20 }} />
-          </S.NavContent>
-        </S.NavBarMobile>
+        {isMobileSearch ? (
+          ''
+        ) : (
+          <S.NavBarMobile>
+            {/* 모바일 검색창*/}
+            <S.NavContent onClick={mobileSearchHandler} color={'black'}>
+              <AiOutlineSearch style={{ fontSize: 20 }} />
+            </S.NavContent>
+            {/* 모바일 햄버거nav 아이콘 */}
+            <S.NavContent color={'black'} onClick={HamburgerOpenHandler}>
+              <GiHamburgerMenu style={{ fontSize: 20 }} />
+            </S.NavContent>
+          </S.NavBarMobile>
+        )}
       </S.Header>
     </>
   );

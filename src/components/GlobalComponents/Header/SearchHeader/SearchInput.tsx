@@ -4,7 +4,7 @@ import { ChangeEvent, KeyboardEvent, useState } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 import * as S from './style';
 
-const SearchInput = () => {
+const SearchInput = ({ setIsMobileSearch, isMobileSearch }: any) => {
   const router = useRouter();
   const [keyword, setKeyword] = useState<string>('');
 
