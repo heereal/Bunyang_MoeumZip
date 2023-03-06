@@ -1,8 +1,6 @@
 import { getHomeList } from '@/common/api';
 import CommentsList from '@/components/DetailPage/Comments/CommentsList';
 import PostDetail from '@/components/DetailPage/PostDetail/PostDetail';
-import MarkerIcon from '@/components/GlobalComponents/Maps/MarkerIcon';
-import ResponsiveTopBtn from '@/components/GlobalComponents/TopBtn/ResponsiveTopBtn';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { dehydrate, QueryClient } from 'react-query';
