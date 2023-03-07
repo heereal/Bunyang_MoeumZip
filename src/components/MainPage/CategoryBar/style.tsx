@@ -110,8 +110,10 @@ export const RegionCategoryContainer = styled.div`
   border-radius: 20px;
 
   @media screen and (max-width: 450px) {
-    width: 335px;
+    width: 286px;
     height: 170px;
+    left: 20px;
+    top: 99%;
   }
 `;
 
@@ -120,7 +122,7 @@ export const TypeCategoryContainer = styled(RegionCategoryContainer)`
   height: 235px;
 
   @media screen and (max-width: 450px) {
-    width: 355px;
+    width: 361px;
     height: 170px;
   }
 `;
@@ -133,21 +135,20 @@ export const RegionCategoryBox = styled.div`
   flex-wrap: wrap;
   justify-content: flex-start;
   align-items: flex-start;
-  /* margin-left: 25px; */
-  /* margin-top: 20px; */
   padding-bottom: 30px;
 
   box-sizing: border-box;
   gap: 8px;
 
   @media screen and (max-width: 450px) {
-    /* margin-left: 23px; */
     gap: 6px;
   }
 `;
 export const TypeCategoryBox = styled(RegionCategoryBox)`
+  margin-left: 1%;
+
   @media screen and (max-width: 450px) {
-    /* margin-left: 8px; */
+    margin-left: 1%;
     gap: 6px;
   }
 `;
