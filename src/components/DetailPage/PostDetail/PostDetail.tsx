@@ -96,8 +96,6 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
     },
   );
 
-  console.log(detail);
-
   useEffect(() => {
     setHome(detail);
     homeListRefetch();
