@@ -119,7 +119,7 @@ export const RegionCategoryContainer = styled.div`
 
 export const TypeCategoryContainer = styled(RegionCategoryContainer)`
   width: 303px;
-  height: 235px;
+  height: 225px;
 
   @media screen and (max-width: 450px) {
     width: 361px;
@@ -144,6 +144,7 @@ export const RegionCategoryBox = styled.div`
     gap: 6px;
   }
 `;
+
 export const TypeCategoryBox = styled(RegionCategoryBox)`
   margin-left: 1%;
 
