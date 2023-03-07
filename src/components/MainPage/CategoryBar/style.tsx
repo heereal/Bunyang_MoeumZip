@@ -88,9 +88,8 @@ export const TabName = styled.p<{ color: string }>`
 
 // 지역 및 분양형태 카테고리 선택
 export const RegionCategoryContainer = styled.div`
-  /* width: 284px; */
   width: 60.5%;
-  height: 225px;
+  height: 235px;
 
   display: flex;
   flex-direction: column;
@@ -101,7 +100,6 @@ export const RegionCategoryContainer = styled.div`
 
   position: absolute;
   top: 95%;
-  left: 2px;
 
   box-sizing: border-box;
 
@@ -111,21 +109,17 @@ export const RegionCategoryContainer = styled.div`
   border-radius: 20px;
 
   @media screen and (max-width: 450px) {
-    /* width: 286px; */
     width: 77%;
-    height: 170px;
+    height: 205px;
     left: 1%;
     top: 99%;
   }
 `;
 
 export const TypeCategoryContainer = styled(RegionCategoryContainer)`
-  /* width: 303px; */
   width: 64.5%;
-  height: 225px;
 
   @media screen and (max-width: 450px) {
-    /* width: 361px; */
     width: 96.5%;
     height: 170px;
   }
@@ -133,12 +127,10 @@ export const TypeCategoryContainer = styled(RegionCategoryContainer)`
 
 export const RegionCategoryBox = styled.div`
   width: 100%;
-  height: 85%;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  align-items: flex-start;
+  height: 90%;
+
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   padding-bottom: 30px;
 
   box-sizing: border-box;
@@ -146,15 +138,13 @@ export const RegionCategoryBox = styled.div`
 
   @media screen and (max-width: 450px) {
     gap: 6px;
-    margin-left: 1.5%;
   }
 `;
 
 export const TypeCategoryBox = styled(RegionCategoryBox)`
-  margin-left: 1%;
+  grid-template-columns: repeat(3, minmax(40px, auto));
 
   @media screen and (max-width: 450px) {
-    margin-left: 1%;
     gap: 6px;
   }
 `;
@@ -165,12 +155,12 @@ export const CategoryBtn = styled.button<{
   bd: string;
   color: string;
 }>`
-  min-width: 39px;
+  width: 100%;
   height: 30px;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 10px 8px;
+  padding: 10px 4px;
   border-radius: 7px;
 
   background-color: ${(props) => props.bg};
@@ -210,7 +200,7 @@ export const CommonBtnBox = styled.div`
   align-items: center;
 
   padding: 0 12px;
-  padding-bottom: 25px;
+  padding-bottom: 13px;
   position: absolute;
   top: 88%;
 `;
