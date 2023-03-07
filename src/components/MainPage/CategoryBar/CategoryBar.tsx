@@ -139,6 +139,13 @@ const CategoryBar = () => {
                           color: '#356EFF',
                         }}
                       />
+                    ) : !isRegionToggleOpen && item.name !== '지역' ? (
+                      <RiArrowDownSLine
+                        style={{
+                          fontSize: 25,
+                          color: '#356EFF',
+                        }}
+                      />
                     ) : (
                       <RiArrowDownSLine
                         style={{
@@ -171,6 +178,13 @@ const CategoryBar = () => {
                     </S.TabName>
                     {isTypeToggleOpen ? (
                       <RiArrowUpSLine
+                        style={{
+                          fontSize: 25,
+                          color: '#356EFF',
+                        }}
+                      />
+                    ) : !isTypeToggleOpen && item.name !== '분양형태' ? (
+                      <RiArrowDownSLine
                         style={{
                           fontSize: 25,
                           color: '#356EFF',
