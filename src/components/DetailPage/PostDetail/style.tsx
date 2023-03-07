@@ -81,6 +81,9 @@ export const HeaderTag = styled.p`
   align-items: center;
   height: 28px;
   color: white;
+  @media screen and (max-width: 450px) {
+    height: 22px;
+  }
 `;
 
 export const HeaderTitle = styled.div`
@@ -95,6 +98,7 @@ export const HeaderTitle = styled.div`
   line-height: normal;
   @media screen and (max-width: 450px) {
     font-size: 16px;
+    padding-bottom: 5px;
   }
 `;
 
@@ -105,13 +109,14 @@ export const HeaderAdres = styled.div`
   font-weight: 300;
   @media screen and (max-width: 450px) {
     font-size: 12px;
+    padding-bottom: 2px;
   }
 `;
 
 export const BmrkBox = styled.div`
   width: 100%;
   display: flex;
-  justify-content: right;
+  justify-content: space-between;
   align-items: center;
   padding: 10px;
   padding-right: 20px;
@@ -124,20 +129,23 @@ export const BmrkBoxMobile = styled.div`
   display: none;
   height: 30px;
   width: 100%;
-  justify-content: right;
+  justify-content: space-between;
   align-items: center;
-  padding: 10px;
-  padding-right: 20px;
+  margin-left: 30px;
+  margin-bottom: 10px;
   @media screen and (max-width: 450px) {
     display: flex;
   }
 `;
 
-export const BmrkBackBtnMobile = styled.div`
-  position: fixed;
-  top: 10%;
-  left: 4%;
+export const BmrkBackBtn = styled.div`
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  padding-left: 10px;
 `;
+
+export const BmrkBackBtnMobile = styled.div``;
 
 export const BmrkBtn = styled.div`
   display: flex;
@@ -161,9 +169,6 @@ export const BmrkBtnMobile = styled.div`
   font-size: 12px;
   cursor: pointer;
   border: 1px solid white;
-  position: fixed;
-  top: 10%;
-  right: 5%;
 `;
 
 export const Bmrk = styled.div`
@@ -188,6 +193,7 @@ export const HeaderBmrk = styled.div`
   background: rgba(255, 255, 255, 0.15);
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 15px;
+
   @media screen and (max-width: 450px) {
     height: 26px;
     padding-top: 10px;
@@ -203,7 +209,10 @@ export const HeaderBox = styled.div`
   justify-content: center;
   margin-top: -35px;
   gap: 5px;
-  margin-left: 30px;
+
+  @media screen and (max-width: 450px) {
+    margin-left: 30px;
+  }
 `;
 
 export const Container = styled.div`
@@ -353,7 +362,6 @@ export const SPLhead = styled.div`
   align-items: center;
   background-color: ${(props) => props.color};
   height: 50px;
-  border: 1px solid #e8eaef;
   @media screen and (max-width: 460px) {
     font-size: 12px;
   }

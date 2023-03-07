@@ -21,6 +21,14 @@ const DetailHeader = ({
   return (
     <S.PageHeader>
       <S.BmrkBox>
+        <S.BmrkBackBtn>
+          <AiOutlineLeft
+            color="white"
+            size={24}
+            title="뒤로가기"
+            onClick={() => router.back()}
+          />
+        </S.BmrkBackBtn>
         <S.BmrkBtn
           onClick={() => editBookmark.mutate()}
           style={{
@@ -94,7 +102,7 @@ const DetailHeader = ({
         <S.BmrkBackBtnMobile>
           <AiOutlineLeft
             color="white"
-            size={21}
+            size={24}
             title="뒤로가기"
             onClick={() => router.back()}
           />

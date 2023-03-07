@@ -21,15 +21,19 @@ const SupplyInfo = ({ home }: PropsP) => {
                 justifyContent: 'center',
                 alignItems: 'center',
                 width: '100%',
-                padding: 5,
               }}
             >
-              <div style={{ width: '33%' }}>일반</div>
-              <div style={{ width: '33%' }}>특별</div>
-              <div style={{ width: '33%' }}>총계</div>
+              <div style={{ width: '33.3%' }}>일반</div>
+              <div style={{ width: '33.3%' }}>특별</div>
+              <div style={{ width: '33.3%' }}>총계</div>
             </div>
           </S.SPLhead>
-          <S.SPLhead color="#f0f4ff" style={{ flexDirection: 'column' }}>
+          <S.SPLhead
+            color="#f0f4ff"
+            style={{
+              flexDirection: 'column',
+            }}
+          >
             <p>공급금액</p>
             <p>(최고가 기준)</p>
           </S.SPLhead>
@@ -57,14 +61,19 @@ const SupplyInfo = ({ home }: PropsP) => {
                       </>
                     ) : null}
                   </S.SPLTY>
-                  <S.SPLTY style={{ border: 'none', flexDirection: 'row' }}>
-                    <S.TYDetail style={{ width: '33%' }}>
+                  <S.SPLTY
+                    style={{
+                      border: 'none',
+                      flexDirection: 'row',
+                    }}
+                  >
+                    <S.TYDetail style={{ width: '33.3%' }}>
                       {item.SUPLY_HSHLDCO}
                     </S.TYDetail>
-                    <S.TYDetail style={{ width: '33%' }}>
+                    <S.TYDetail style={{ width: '33.3%' }}>
                       {item.SPSPLY_HSHLDCO}
                     </S.TYDetail>
-                    <S.TYDetail style={{ width: '33%' }}>
+                    <S.TYDetail style={{ width: '33.3%' }}>
                       {item.SUPLY_HSHLDCO + item.SPSPLY_HSHLDCO}
                     </S.TYDetail>
                   </S.SPLTY>
@@ -86,13 +95,13 @@ const SupplyInfo = ({ home }: PropsP) => {
                     </p>
                   </S.SPLTY>
                   <S.SPLTY style={{ border: 'none', flexDirection: 'row' }}>
-                    <S.TYDetail style={{ width: '33%' }}>
+                    <S.TYDetail style={{ width: '33.3%' }}>
                       {item.SUPLY_HSHLDCO}
                     </S.TYDetail>
-                    <S.TYDetail style={{ width: '33%' }}>
+                    <S.TYDetail style={{ width: '33.3%' }}>
                       {item.SPSPLY_HSHLDCO}
                     </S.TYDetail>
-                    <S.TYDetail style={{ width: '33%' }}>
+                    <S.TYDetail style={{ width: '33.3%' }}>
                       {item.SUPLY_HSHLDCO}
                     </S.TYDetail>
                   </S.SPLTY>
