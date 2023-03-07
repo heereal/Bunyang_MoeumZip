@@ -15,7 +15,7 @@ class MyDocument extends Document {
     try {
       ctx.renderPage = () =>
         originalRenderPage({
-          enhanceApp: (App) => (props) =>
+          enhanceApp: (App: React.FC) => (props: any) =>
             sheet.collectStyles(<App {...props} />),
         });
 
