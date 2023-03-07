@@ -63,8 +63,9 @@ export const CountTabList = styled.ul<{ bd: string; bs: string }>`
     }
     @media screen and (max-width: 450px) {
       width: 85px;
-      height: 50px;
-      gap: 6px;
+      height: 65px;
+      padding: 5px;
+      gap: 9px;
     }
   }
 
@@ -101,7 +102,7 @@ export const CountTabName = styled.div`
     font-size: 12px;
   }
   @media screen and (max-width: 450px) {
-    font-size: 10px;
+    font-size: 12px;
   }
 `;
 
@@ -145,7 +146,7 @@ export const CountTapImgBoxMobile = styled.div`
 `;
 
 // Tab별 Count Number
-export const CountTabNum = styled(CountTabName)`
+export const CountTabNum = styled.div`
   height: 16px;
   font-weight: 700;
   font-size: 22px;
