@@ -88,8 +88,8 @@ export const TabName = styled.p<{ color: string }>`
 
 // 지역 및 분양형태 카테고리 선택
 export const RegionCategoryContainer = styled.div`
-  width: 60.5%;
-  height: 235px;
+  width: 280px;
+  height: 225px;
 
   display: flex;
   flex-direction: column;
@@ -109,18 +109,16 @@ export const RegionCategoryContainer = styled.div`
   border-radius: 20px;
 
   @media screen and (max-width: 450px) {
-    width: 77%;
-    height: 205px;
+    height: 190px;
     left: 1%;
     top: 99%;
   }
 `;
 
 export const TypeCategoryContainer = styled(RegionCategoryContainer)`
-  width: 64.5%;
+  width: 300px;
 
   @media screen and (max-width: 450px) {
-    width: 96.5%;
     height: 170px;
   }
 `;
@@ -130,7 +128,7 @@ export const RegionCategoryBox = styled.div`
   height: 90%;
 
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   padding-bottom: 30px;
 
   box-sizing: border-box;
