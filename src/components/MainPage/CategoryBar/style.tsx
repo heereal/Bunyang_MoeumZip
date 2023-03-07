@@ -93,8 +93,10 @@ export const RegionCategoryContainer = styled.div`
 
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
+
+  padding: 0 10px;
 
   position: absolute;
   top: 95%;
@@ -125,18 +127,18 @@ export const TypeCategoryContainer = styled(RegionCategoryContainer)`
 
 export const RegionCategoryBox = styled.div`
   width: 100%;
-  height: 85%;
+  height: 75%;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-start;
   align-items: flex-start;
-  margin-left: 25px;
-  margin-top: 20px;
-  padding-bottom: 30px;
+  /* margin-left: 25px; */
+  /* margin-top: 20px; */
+  /* padding-bottom: 30px; */
 
   box-sizing: border-box;
-  gap: 2px 8px;
+  gap: 8px;
 
   @media screen and (max-width: 450px) {
     margin-left: 23px;
@@ -145,7 +147,7 @@ export const RegionCategoryBox = styled.div`
 `;
 export const TypeCategoryBox = styled(RegionCategoryBox)`
   @media screen and (max-width: 450px) {
-    margin-left: 8px;
+    /* margin-left: 8px; */
     gap: 6px;
   }
 `;

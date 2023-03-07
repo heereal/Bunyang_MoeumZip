@@ -106,14 +106,14 @@ export const MobileSearchBox = styled.div`
   @media screen and (max-width: 600px) {
     display: flex;
     position: fixed;
-    top: 1.5%;
+    top: 2%;
     right: 23%;
   }
 
   @media screen and (max-width: 450px) {
     width: 280px;
     position: fixed;
-    top: 3%;
+    top: 2%;
     right: 25%;
     left: 18%;
   }
