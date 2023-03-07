@@ -18,7 +18,6 @@ import { useQuery } from 'react-query';
 import { useRecoilState } from 'recoil';
 import * as S from '../../styles/signup.style';
 
-//TODO: 회원가입 페이지 새로고침 할 때 "작성한 정보가 모두 사라집니다" alert 주기
 const SignUp = () => {
   const router = useRouter();
 

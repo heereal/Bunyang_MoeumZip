@@ -147,7 +147,7 @@ export const TypeCategoryBox = styled(RegionCategoryBox)`
   }
 `;
 
-// 각 카테고리버튼
+// 각 카테고리 버튼
 export const CategoryBtn = styled.button<{
   bg: string;
   bd: string;
@@ -174,11 +174,6 @@ export const CategoryBtn = styled.button<{
   color: ${(props) => props.color};
 
   cursor: pointer;
-
-  :hover {
-    color: #3d7fff;
-    background-color: #f0f4ff;
-  }
 
   @media screen and (max-width: 450px) {
     min-width: 39px;
