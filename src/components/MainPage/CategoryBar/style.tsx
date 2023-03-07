@@ -175,12 +175,6 @@ export const CategoryBtn = styled.button<{
 
   cursor: pointer;
 
-  /* TODO: hover 때문에 모바일에서 버튼 클릭 취소 시 느리게 되는 거라면 hover 삭제 */
-  /* :hover {
-    color: #3d7fff;
-    background-color: #f0f4ff;
-  } */
-
   @media screen and (max-width: 450px) {
     min-width: 39px;
     height: 25px;
