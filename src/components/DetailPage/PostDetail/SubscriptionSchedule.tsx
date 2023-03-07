@@ -64,7 +64,12 @@ const SubscriptionSchedule = ({ home }: PropsP) => {
                   </S.THead>
                   {home?.SPSPLY_RCEPT_BGNDE && (
                     <S.THead>
-                      <S.Tbody style={{ borderRight: '2px solid #e8eaef' }}>
+                      <S.Tbody
+                        style={{
+                          borderRight: '2px solid #e8eaef',
+                          marginLeft: 1,
+                        }}
+                      >
                         특별공급
                       </S.Tbody>
 

@@ -28,9 +28,9 @@ const MainPage = ({ homeList }: HomeListDBPropsJ) => {
         description="전국 분양정보를 한눈에 확인할 수 있는 플랫폼입니다."
       />
       <S.MainUpBtnBox>
-        <div style={{ marginTop: 10 }}>
+        <S.ArrowBox active={expanded ? true : false}>
           <SlArrowUp onClick={sizeHandler} />
-        </div>
+        </S.ArrowBox>
         {/* <S.MainUpBtn onClick={sizeHandler}></S.MainUpBtn> */}
       </S.MainUpBtnBox>
       {/* 지역 및 분양형태 필터 및 청약경쟁률 확인 버튼 */}

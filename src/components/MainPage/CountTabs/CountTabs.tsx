@@ -263,8 +263,7 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
                   </S.CountTapImgBox>
                   <S.CountTapImgBoxMobile>
                     <Image
-                      width={17}
-                      height={13}
+                      height={15}
                       src={
                         index === 0
                           ? allIcon
