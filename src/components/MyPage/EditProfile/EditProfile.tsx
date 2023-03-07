@@ -1,11 +1,35 @@
 import Image from 'next/image';
 import { useState } from 'react';
 import EditProfileModal from '../EditProfileModal/EditProfileModal';
-import transparentProfile from '../../../assets/transparentProfile.png';
+import transparentProfile from '../../../../public/assets/transparentProfile.png';
 import * as S from './style';
+import naver from '../../../../public/assets/naver.png';
+import kakao from '../../../../public/assets/kakao2.png';
+import google from '../../../../public/assets/google.png';
+import facebook from '../../../../public/assets/facebook.png';
+import transparentImage from '../../../../public/assets/transparentProfile.png';
+import { signOut } from 'next-auth/react';
+import { confirmAlert } from 'react-confirm-alert';
+import AlertUI from '@/components/GlobalComponents/AlertUI/AlertUI';
 
 const EditProfile = ({ currentUser }: any) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // [로그아웃] 버튼 클릭 시 작동
+  const LogOutHandler = () => {
+    confirmAlert({
+      customUI: ({ onClose }) => {
+        return (
+          <AlertUI
+            alertText="로그아웃하시겠습니까?"
+            onClose={onClose}
+            onClick={() => signOut({ callbackUrl: '/' })}
+            eventText="확인"
+          />
+        );
+      },
+    });
+  };
 
   return (
     <S.Wrapper>
@@ -18,18 +42,47 @@ const EditProfile = ({ currentUser }: any) => {
             currentUser.userImage ? currentUser.userImage : transparentProfile
           }
           alt="profile"
-          width={150}
-          height={150}
+          width={140}
+          height={140}
           quality={75}
           style={{ borderRadius: '50%', objectFit: 'cover' }}
           priority={true}
+          className="profileImage"
         />
         <S.Nickname>{currentUser.userName}</S.Nickname>
-        <S.Email>{currentUser.userEmail}</S.Email>
-        <S.ProfileBtn onClick={() => setIsModalOpen(true)}>
-          회원정보 수정
-        </S.ProfileBtn>
-        {/* <S.Line /> */}
+        <S.EmailContainer>
+          <Image
+            src={
+              currentUser.provider === 'naver'
+                ? naver
+                : currentUser.provider === 'kakao'
+                ? kakao
+                : currentUser.provider === 'google'
+                ? google
+                : currentUser.provider === 'facebook'
+                ? facebook
+                : transparentImage
+            }
+            alt="providerLogo"
+            height={16}
+            quality={100}
+            priority={true}
+            className="providerLogo"
+          />
+          <S.Email>{currentUser.userEmail}</S.Email>
+        </S.EmailContainer>
+        <S.ProfileBtnContainer>
+          <S.ProfileBtn
+            bg={'#356EFF'}
+            text={'white'}
+            onClick={() => setIsModalOpen(true)}
+          >
+            프로필 수정
+          </S.ProfileBtn>
+          <S.ProfileBtn bg={'#E5EDFF'} text={'#356EFF'} onClick={LogOutHandler}>
+            로그아웃
+          </S.ProfileBtn>
+        </S.ProfileBtnContainer>
       </S.EditProfileContainer>
     </S.Wrapper>
   );

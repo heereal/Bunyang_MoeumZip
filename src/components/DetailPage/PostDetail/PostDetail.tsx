@@ -1,20 +1,36 @@
 import { getBookmarksList, getHomeList } from '@/common/api';
 import { useBookmark } from '@/hooks';
 import { useSession } from 'next-auth/react';
-import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
+import APTRealPrice from '../APTRealPrice/APTRealPrice';
+import DetailHeader from './DetailHeader';
+import DetailKeyInfo from './DetailKeyInfo';
+import { ExtraInfo } from './ExtraInfo';
+import SpecialSupply from './SpecialSupply';
 import * as S from './style';
+import SubscriptionSchedule from './SubscriptionSchedule';
+import SupplyInfo from './SupplyInfo';
+import { getAPTRealPriceList } from '@/common/api';
+import { LAWD_CD_Code } from '@/common/LAWD_CD';
+import LHDetail from './LHDetail';
+import { NextSeo } from 'next-seo';
 
 const PostDetail = ({ postId }: DetailPagePropsP) => {
   const queryClient = useQueryClient();
 
   // 유저의 세션 정보 받아오기
-  const { data: session, status } = useSession();
+  const { data: session, status }: any = useSession();
 
   // 디테일 페이지에서 사용할 특정한 분양 정보
   const [home, setHome] = useState<HomeP>();
   const [email, setEmail] = useState<string | null | undefined>('');
+
+  // 탭 선택 시 사용
+  const [isRealPriceTab, setIsRealPriceTab] = useState(false);
+
+  // 아파트 매매 실거라개 '읍면동'으로 필터링한 리스트
+  const [dongList, setDongList] = useState([]);
 
   // 북마크 리스트 볼러오기
   const { data: bookmarksList, refetch: bookmarksListRefetch } = useQuery(
@@ -32,7 +48,7 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
   // 커스텀 훅 실행
   const { onClickBookmarkBtnHandler } = useBookmark(
     status,
-    email!,
+    `${session?.user?.provider}_${session?.user?.email}`,
     bookmarksList,
     postId,
   );
@@ -43,7 +59,7 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
   // [북마크] 버튼 클릭 시 작동
   const editBookmark = useMutation('Bookmarks', onClickBookmarkBtnHandler, {
     onSuccess: () => {
-      queryClient.invalidateQueries('Bookmarks');
+      queryClient.invalidateQueries('Bookmarks'), bookmarksListRefetch();
     },
   });
 
@@ -51,10 +67,40 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
     (home: { PBLANC_NO: string }) => `${home.PBLANC_NO}` === postId,
   );
 
+  // '시군구' 정보 기준으로 현재 디테일 페이지에 해당하는 지역 코드 찾기
+  const LAWD_CD: any = LAWD_CD_Code.find(
+    (item: string) => item.split(':')[1] === detail?.HSSPLY_ADRES.split(' ')[1],
+  );
+
+  // 아파트 매매 실거래가 API 가져오기
+  const { data: APTRealPriceList, refetch: APTRealPriceRefetch } = useQuery(
+    'APTRealPriceList',
+    () => getAPTRealPriceList(LAWD_CD),
+    {
+      enabled: !!LAWD_CD, // LAWD_CD이 있는 경우에만 useQuery를 실행함
+
+      // 지역코드로 불러온 아파트 매매 실거래가 리스트에서 '읍면동' 기준으로 필터링하기
+      onSuccess: (APTRealPriceList) => {
+        setDongList(
+          APTRealPriceList?.filter(
+            (item: any) =>
+              (item.법정동.split(' ')[0] === ''
+                ? item.법정동.split(' ')[1]
+                : item.법정동.split(' ')[0]) ===
+              (detail.HSSPLY_ADRES.split('(').length > 1
+                ? detail.HSSPLY_ADRES.split('(')[1].slice(0, 3)
+                : detail.HSSPLY_ADRES.split(' ')[2]),
+          ).reverse(),
+        );
+      },
+    },
+  );
+
   useEffect(() => {
     setHome(detail);
     homeListRefetch();
     bookmarksListRefetch();
+    APTRealPriceRefetch();
     // eslint-disable-next-line
   }, [detail]);
 
@@ -68,377 +114,57 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
 
   return (
     <S.Section>
-      <S.PageHeader>
-        <S.BmrkBox>
-          <S.BmrBtn
-            onClick={() => editBookmark.mutate()}
-            style={{
-              color: bookmarksList?.usersList.includes(email)
-                ? ' #FFEF5A     '
-                : '#ffffff',
-            }}
-          >
-            ★
-          </S.BmrBtn>
-        </S.BmrkBox>
-        <S.HeaderBox>
-          <S.HeaderTagBox>
-            {home?.HOUSE_DTL_SECD_NM ? (
-              <S.HeaderTag>{home?.HOUSE_DTL_SECD_NM}</S.HeaderTag>
-            ) : (
-              ''
-            )}
-            <S.HeaderTag>{home?.HOUSE_SECD_NM}</S.HeaderTag>
-            <S.HeaderTag>{home?.SUBSCRPT_AREA_CODE_NM}</S.HeaderTag>
-          </S.HeaderTagBox>
-          <S.HeaderTitle>{home?.HOUSE_NM}</S.HeaderTitle>
-          <S.HeaderAdres>{home?.FOR_COORDINATES_ADRES}</S.HeaderAdres>
-          <S.HeaderBmrk>
-            ★{bookmarksList?.usersList ? bookmarksList?.usersList?.length : '0'}
-            명이 관심을 갖고 있어요
-          </S.HeaderBmrk>
-        </S.HeaderBox>
-      </S.PageHeader>
-      <S.Container>
-        <S.ArticleHead>입주자모집공고 주요정보</S.ArticleHead>
-        <S.ArticleBox>
-          <S.ArticleTitle>
-            <a>{home?.HOUSE_NM}</a>
-          </S.ArticleTitle>
-          <S.Article>
-            <S.BoxTitle>공급위치</S.BoxTitle>
-            <S.BoxContent>{home?.HSSPLY_ADRES}</S.BoxContent>
-          </S.Article>
-          <S.Article>
-            <S.BoxTitle>공급규모</S.BoxTitle>
-            <S.BoxContent>{home?.TOT_SUPLY_HSHLDCO}</S.BoxContent>
-          </S.Article>
-          <S.Article>
-            <S.BoxTitle>관련문의</S.BoxTitle>
-            <S.BoxContent>사업주체 또는 분양사무실로 문의</S.BoxContent>
-          </S.Article>
-          <S.Article>
-            <S.BoxTitle>문의처</S.BoxTitle>
-            {home?.MDHS_TELNO.length === 8 ? (
-              <S.BoxContent color="#ffffff" style={{ width: '33.3%' }}>
-                ☎ {home?.MDHS_TELNO.slice(0, 4)}-{home?.MDHS_TELNO.slice(4, 8)}
-              </S.BoxContent>
-            ) : (
-              <S.BoxContent color="#ffffff" style={{ width: '33.3%' }}>
-                ☎ {home?.MDHS_TELNO.slice(0, 3)}-{home?.MDHS_TELNO.slice(3, 7)}-
-                {home?.MDHS_TELNO.slice(7, 12)}
-              </S.BoxContent>
-            )}
-          </S.Article>
-        </S.ArticleBox>
-        {home && (
-          <Link href={home.PBLANC_URL} legacyBehavior>
-            <div
-              style={{
-                width: 110,
-                height: 40,
-                background: '#3D7FFF',
-                borderRadius: 10,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: 'white',
-                fontWeight: 700,
-                marginTop: 10,
-                cursor: 'pointer',
-                fontSize: 13,
-                padding: 10,
-              }}
-            >
-              모집공고문 보기
-            </div>
-          </Link>
-        )}
+      <NextSeo
+        title={`${home?.HOUSE_NM ? home?.HOUSE_NM : '상세페이지'} -`}
+        description={`${
+          home?.HOUSE_NM ? home?.HOUSE_NM : '모집공고'
+        }의 분양상세정보, 주변아파트 실거래가를 제공합니다.`}
+      />
+      <DetailHeader
+        bookmarksList={bookmarksList}
+        home={home}
+        editBookmark={editBookmark}
+        session={session}
+      />
 
-        <S.ArticleHead>청약일정</S.ArticleHead>
-        <S.ArticleBox>
-          <S.Article>
-            <S.BoxTitle color="#f4f4f4">모집공고일</S.BoxTitle>
-            <S.BoxContent>{home?.RCRIT_PBLANC_DE}</S.BoxContent>
-          </S.Article>
-          {home?.HOUSE_SECD === '02' ||
-            home?.HOUSE_SECD === '06' ||
-            (home?.HOUSE_SECD === '04' ? null : (
-              <S.Article>
-                <S.BoxTitle color="#f4f4f4" style={{ height: 204 }}>
-                  청약접수
-                </S.BoxTitle>
-                <S.BoxContent style={{ paddingLeft: 0 }}>
-                  <S.Table>
-                    <S.THead>
-                      <S.Tbody>구분</S.Tbody>
-                      <S.Tbody>해당지역</S.Tbody>
-                      <S.Tbody>기타경기 </S.Tbody>
-                      <S.Tbody>기타지역</S.Tbody>
-                    </S.THead>
-                    {home?.SPSPLY_RCEPT_BGNDE && (
-                      <S.THead>
-                        <S.Tbody>특별공급</S.Tbody>
-                        <div style={{ textAlign: 'center', width: '70%' }}>
-                          {home?.SPSPLY_RCEPT_BGNDE} ~{' '}
-                          {home?.SPSPLY_RCEPT_ENDDE}
-                        </div>
-                      </S.THead>
-                    )}
-                    <S.THead>
-                      <S.Tbody>1순위</S.Tbody>
-                      <S.Tbody>{home?.GNRL_RNK1_CRSPAREA_RCEPT_PD}</S.Tbody>
-                      <S.Tbody>{home?.GNRL_RNK1_ETC_GG_RCPTDE_PD} </S.Tbody>
-                      <S.Tbody>{home?.GNRL_RNK1_ETC_AREA_RCPTDE_PD}</S.Tbody>
-                    </S.THead>
-                    <S.THead>
-                      <S.Tbody>2순위</S.Tbody>
-                      <S.Tbody>{home?.GNRL_RNK2_CRSPAREA_RCEPT_PD}</S.Tbody>
-                      <S.Tbody>{home?.GNRL_RNK2_ETC_GG_RCPTDE_PD} </S.Tbody>
-                      <S.Tbody>{home?.GNRL_RNK2_ETC_AREA_RCPTDE_PD}</S.Tbody>
-                    </S.THead>
-                  </S.Table>
-                </S.BoxContent>
-              </S.Article>
-            ))}
+      {/* 탭 선택 */}
+      <S.TabContainer>
+        <S.TabBtn
+          font={!isRealPriceTab ? '#3D7FFF' : '#7B7B7B'}
+          line={!isRealPriceTab ? '#3D7FFF' : '#f4f4f4'}
+          onClick={() => setIsRealPriceTab(false)}
+        >
+          분양 상세 정보
+        </S.TabBtn>
+        <S.TabBtn
+          font={isRealPriceTab ? '#3D7FFF' : '#7B7B7B'}
+          line={isRealPriceTab ? '#3D7FFF' : '#f4f4f4'}
+          onClick={() => setIsRealPriceTab(true)}
+        >
+          <span>주변 아파트 매매</span> <span>실거래가</span>
+        </S.TabBtn>
+      </S.TabContainer>
 
-          <S.Article>
-            <S.BoxTitle color="#f4f4f4">당첨자 발표일</S.BoxTitle>
-            <S.BoxContent>{home?.PRZWNER_PRESNATN_DE}</S.BoxContent>
-          </S.Article>
-          <S.Article>
-            <S.BoxTitle color="#f4f4f4">계약일</S.BoxTitle>
-            <S.BoxContent>
-              {home?.CNTRCT_CNCLS_BGNDE} ~ {home?.CNTRCT_CNCLS_ENDDE}
-            </S.BoxContent>
-          </S.Article>
-        </S.ArticleBox>
-        <div style={{ color: '#8E8E8E', fontSize: 14, paddingLeft: 10 }}>
-          *특별공급 종류에 따라 접수기간 및 장소가 다를 수 있으니 모집공고를
-          반드시 확인하시기 바랍니다.
-        </div>
-        <S.ArticleHead>공급개요 </S.ArticleHead>
-        <S.ArticleBox>
-          <S.SPLtable>
-            <S.SPLNUM style={{ width: '10%', backgroundColor: '#f4f4f4' }}>
-              주택번호
-            </S.SPLNUM>
-            <S.SPLhead color="#f4f4f4">주거전용면적</S.SPLhead>
-            <S.SPLhead color="#f4f4f4">공급면적</S.SPLhead>
-            <S.SPLhead color="#f4f4f4" style={{ flexDirection: 'column' }}>
-              <div style={{ padding: 5 }}>공급세대수</div>
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  width: '100%',
-                  padding: 5,
-                }}
-              >
-                <div style={{ width: '33%' }}>일반</div>
-                <div style={{ width: '33%' }}>특별</div>
-                <div style={{ width: '33%' }}>총계</div>
-              </div>
-            </S.SPLhead>
-            <S.SPLhead color="#f4f4f4">공급금액(최고가 기준)</S.SPLhead>
-          </S.SPLtable>
-          {home?.DETAIL.map((item: any) => {
-            return (
-              <S.SPLtable key={item.MODEL_NO}>
-                <S.SPLNUM style={{ width: '10%', backgroundColor: '#f4f4f4' }}>
-                  {item.MODEL_NO}
-                </S.SPLNUM>
-                {item.HOUSE_TY ? (
-                  <S.SPLhead style={{ width: '90%' }}>
-                    <S.SPLTY>
-                      {item.HOUSE_TY}
-                      <a style={{ fontSize: 18, padding: 3 }}>㎡</a>
-                    </S.SPLTY>
-                    <S.SPLTY>
-                      {item.SUPLY_AR !== null ? item.SUPLY_AR : '-'}
-                      {item.SUPLY_AR !== null ? (
-                        <>
-                          <a style={{ fontSize: 18, padding: 3 }}>㎡</a>
-                          <a>({Math.round(item.SUPLY_AR / 3.3)}평)</a>
-                        </>
-                      ) : null}
-                    </S.SPLTY>
-                    <S.SPLTY style={{ border: 'none' }}>
-                      <S.TYDetail style={{ width: '33%' }}>
-                        {item.SUPLY_HSHLDCO}
-                      </S.TYDetail>
-                      <S.TYDetail style={{ width: '33%' }}>
-                        {item.SPSPLY_HSHLDCO}
-                      </S.TYDetail>
-                      <S.TYDetail style={{ width: '33%' }}>
-                        {item.SUPLY_HSHLDCO + item.SPSPLY_HSHLDCO}
-                      </S.TYDetail>
-                    </S.SPLTY>
-                    <S.SPLTY>{item.LTTOT_TOP_AMOUNT}만원</S.SPLTY>
-                  </S.SPLhead>
-                ) : (
-                  <S.SPLhead style={{ width: '90%' }}>
-                    <S.SPLTY>
-                      {item.EXCLUSE_AR}
-                      <a style={{ fontSize: 18, padding: 3 }}>㎡</a>
-                    </S.SPLTY>
-                    <S.SPLTY>
-                      {item.EXCLUSE_AR}
-                      <a style={{ fontSize: 18, padding: 3 }}>㎡</a>(
-                      {Math.round(item.EXCLUSE_AR / 3.3)}평)
-                    </S.SPLTY>
-                    <S.SPLTY style={{ border: 'none' }}>
-                      <S.TYDetail style={{ width: '33%' }}>
-                        {item.SUPLY_HSHLDCO}
-                      </S.TYDetail>
-                      <S.TYDetail style={{ width: '33%' }}>
-                        {item.SPSPLY_HSHLDCO}
-                      </S.TYDetail>
-                      <S.TYDetail style={{ width: '33%' }}>
-                        {item.SUPLY_HSHLDCO}
-                      </S.TYDetail>
-                    </S.SPLTY>
-                    <S.SPLTY>{item.SUPLY_AMOUNT}만원</S.SPLTY>
-                  </S.SPLhead>
-                )}
-              </S.SPLtable>
-            );
-          })}
-        </S.ArticleBox>
-        {home?.HOUSE_SECD === '06' ||
-        home?.HOUSE_SECD === '04' ||
-        home?.HOUSE_SECD === '02' ? (
-          // 계약취소 & 무순위는 특별공급 테이블 안넣음
-          <div></div>
-        ) : (
-          <>
-            <S.ArticleHead>특별공급</S.ArticleHead>
+      {/* 분양 상세 정보 탭 */}
+      {home?.API === '청약홈' && !isRealPriceTab && (
+        <S.Container>
+          <DetailKeyInfo home={home} />
+          <SubscriptionSchedule home={home} />
+          <SupplyInfo home={home} />
+          <SpecialSupply home={home} />
+          <ExtraInfo home={home} />
+        </S.Container>
+      )}
 
-            <S.ArticleBox>
-              <S.SPLtable>
-                <S.SpecialHead style={{ width: '20%' }} color="#f4f4f4">
-                  주거전용면적
-                </S.SpecialHead>
-                <S.SpecialHead
-                  color="#f4f4f4"
-                  style={{ flexDirection: 'column' }}
-                >
-                  <div style={{ padding: 5 }}>공급세대수</div>
-                  <div
-                    style={{
-                      display: 'flex',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      width: '100%',
-                      padding: 5,
-                    }}
-                  >
-                    <div style={{ width: '12.5%', fontSize: 14 }}>다자녀</div>
-                    <div style={{ width: '12.5%', fontSize: 14 }}>신혼부부</div>
-                    <div style={{ width: '12.5%', fontSize: 14 }}>생애최초</div>
-                    <div style={{ width: '12.5%', fontSize: 14 }}>노부모</div>
-                    <div style={{ width: '12.5%', fontSize: 14 }}>기관추천</div>
-                    <div style={{ width: '12.5%', fontSize: 14 }}>기타</div>
-                    <div style={{ width: '12.5%', fontSize: 14 }}>이전기관</div>
-                    <div style={{ width: '12.5%', fontSize: 14 }}>총계</div>
-                  </div>
-                </S.SpecialHead>
-              </S.SPLtable>
-              {home?.DETAIL.map((item: any) => {
-                return (
-                  <S.SPLtable key={item.MODEL_NO}>
-                    <S.SPLNUM
-                      style={{ width: '20%', backgroundColor: '#f4f4f4' }}
-                    >
-                      {item.HOUSE_TY}
-                      <a style={{ fontSize: 18 }}>㎡</a>
-                    </S.SPLNUM>
+      {home?.API === 'LH' && !isRealPriceTab && (
+        <S.Container>
+          <DetailKeyInfo home={home} />
+          <LHDetail home={home} />
+        </S.Container>
+      )}
 
-                    <S.SPLhead style={{ width: '80%' }}>
-                      <S.SPLTY>
-                        <S.TYDetail style={{ width: '12.5%' }}>
-                          {item.MNYCH_HSHLDCO}
-                        </S.TYDetail>
-                        <S.TYDetail style={{ width: '12.5%' }}>
-                          {item.NWWDS_HSHLDCO}
-                        </S.TYDetail>
-                        <S.TYDetail style={{ width: '12.5%' }}>
-                          {item.LFE_FRST_HSHLDCO}
-                        </S.TYDetail>
-                        <S.TYDetail style={{ width: '12.5%' }}>
-                          {item.OLD_PARNTS_SUPORT_HSHLDCO}
-                        </S.TYDetail>
-                        <S.TYDetail style={{ width: '12.5%' }}>
-                          {item.INSTT_RECOMEND_HSHLDCO}
-                        </S.TYDetail>
-                        <S.TYDetail style={{ width: '12.5%' }}>
-                          {item.ETC_HSHLDCO}
-                        </S.TYDetail>
-                        <S.TYDetail style={{ width: '12.5%' }}>
-                          {item.TRANSR_INSTT_ENFSN_HSHLDCO}
-                        </S.TYDetail>
-                        <S.TYDetail style={{ width: '12.5%' }}>
-                          {item.SPSPLY_HSHLDCO}
-                        </S.TYDetail>
-                      </S.SPLTY>
-                    </S.SPLhead>
-                  </S.SPLtable>
-                );
-              })}
-            </S.ArticleBox>
-            <div
-              style={{
-                color: '#8E8E8E',
-                fontSize: 14,
-                paddingLeft: 10,
-                width: '95%',
-              }}
-            >
-              <a>
-                *공급세대수는 사업주체의 최초 입주자모집 공고문 기준입니다.
-                특별공급 신청 미달 시 잔여물량은 일반공급으로 전환됨에 따라
-                일반공급 세대 수가 변경될 수 있으므로 최종 일반공급 세대수는
-                일반공급 신청일에 `청약접수 경쟁률`에서 확인 또는 사업주체에
-                문의하시기 바랍니다.
-              </a>
-            </div>
-          </>
-        )}
-
-        <S.ArticleHead>기타사항</S.ArticleHead>
-        <S.ArticleBox>
-          <S.SPLtable>
-            <S.SPLhead color="#f4f4f4" style={{ width: '33.3%' }}>
-              시행사
-            </S.SPLhead>
-            <S.SPLhead color="#f4f4f4" style={{ width: '33.3%' }}>
-              시공사
-            </S.SPLhead>
-            <S.SPLhead color="#f4f4f4" style={{ width: '33.3%' }}>
-              사업주체 전화번호
-            </S.SPLhead>
-          </S.SPLtable>
-          <S.SPLtable>
-            <S.SPLhead color="#ffffff" style={{ width: '33.3%' }}>
-              {home?.BSNS_MBY_NM}
-            </S.SPLhead>
-            <S.SPLhead color="#ffffff" style={{ width: '33.3%' }}>
-              {home?.CNSTRCT_ENTRPS_NM}
-            </S.SPLhead>
-            {home?.MDHS_TELNO.length === 8 ? (
-              <S.SPLhead color="#ffffff" style={{ width: '33.3%' }}>
-                {home?.MDHS_TELNO.slice(0, 4)}-{home?.MDHS_TELNO.slice(4, 8)}
-              </S.SPLhead>
-            ) : (
-              <S.SPLhead color="#ffffff" style={{ width: '33.3%' }}>
-                {home?.MDHS_TELNO.slice(0, 3)}-{home?.MDHS_TELNO.slice(3, 6)}-
-                {home?.MDHS_TELNO.slice(6, 12)}
-              </S.SPLhead>
-            )}
-          </S.SPLtable>
-        </S.ArticleBox>
-      </S.Container>
+      {/* 아파트 매매 실거래가 탭 */}
+      {isRealPriceTab && <APTRealPrice dongList={dongList} />}
     </S.Section>
   );
 };

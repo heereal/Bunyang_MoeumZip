@@ -1,67 +1,120 @@
 import styled from 'styled-components';
 
 export const Header = styled.header`
-  width: 100vw;
-  height: 48px;
-  background-color: #ffffff;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  box-sizing: border-box;
-
-  position: relative;
-`;
-
-export const HSection = styled.div`
-  margin-inline: auto;
-  justify-content: center;
-  align-items: center;
-  display: flex;
-  height: 100%;
   width: 100%;
-  position: relative;
-  z-index: 100;
-  box-sizing: border-box;
+  height: 60px;
+  max-height: 60px;
+  background-color: #ffffff;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-bottom: 1px solid lightgray;
+  position: fixed;
+  z-index: 300;
 `;
 
 // Logo box
 export const LogoBox = styled.div`
-  /* width: 20%; */
-  margin-left: 17px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 4px;
+  padding-left: 20px;
+
   box-sizing: border-box;
   cursor: pointer;
 `;
 
+// Logo Text
+export const LogoText = styled.div`
+  font-family: 'PyeongChang-Regular';
+  font-weight: 700;
+  font-size: 18px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.02em;
+  margin-left: 9px;
+  padding-top: 5px;
+  @media screen and (max-width: 600px) {
+    font-size: 15px;
+  }
+`;
+
 // Search Section
-export const SearchBox = styled.div`
-  width: 50%;
+export const SearchContainer = styled.div`
+  width: 100%;
+  height: 100%;
 `;
 
 // Nav bar
 export const NavBar = styled.div`
-  width: 30%;
-  height: 25px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  padding-right: 10px;
+  align-items: center;
+  gap: 35px;
+  box-sizing: border-box;
+
+  @media screen and (max-width: 600px) {
+    display: none;
+  }
+`;
+
+export const NavBarMobile = styled.div`
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
-  padding: 4px 0px;
-  gap: 25px;
   box-sizing: border-box;
+  display: none;
+  padding-right: 10px;
+
+  @media screen and (max-width: 600px) {
+    display: flex;
+  }
 `;
 
 // 청약 캘린더, 청약 정보
-export const NavContent = styled.nav`
-  width: 61px;
+export const NavContent = styled.nav<{ color: string }>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+
+  font-weight: 600;
+  font-size: 14px;
+
+  color: ${(props) => props.color};
+
+  cursor: pointer;
+
+  :hover {
+    color: #356eff;
+  }
+
+  @media screen and (max-width: 600px) {
+    width: 30%;
+  }
+`;
+export const NavContent2 = styled.nav`
+  padding: 0 5px;
   height: 17px;
 
   font-weight: 600;
   font-size: 14px;
   line-height: 17px;
+  display: none;
 
   cursor: pointer;
+  @media screen and (max-width: 768px) {
+    display: block;
+  }
 `;

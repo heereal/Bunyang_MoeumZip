@@ -1,4 +1,12 @@
-@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.6/dist/web/static/pretendard.css");
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.6/dist/web/variable/pretendardvariable-dynamic-subset.css');
+
+@font-face {
+  font-family: 'PyeongChang-Regular';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-02@1.0/PyeongChang-Regular.woff2')
+    format('woff2');
+  font-style: normal;
+  font-display: swap;
+}
 
 :root {
   --border-radius: 12px;
@@ -8,7 +16,7 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
-  font-family: 'Pretendard';
+  font-family: 'Pretendard Variable';
 }
 
 /* http://meyerweb.com/eric/tools/css/reset/ 
@@ -148,9 +156,13 @@ table {
 
 * {
   box-sizing: border-box;
-  font-family: 'Pretendard';
 }
 
 button {
   color: black;
+}
+
+/* 가로 스크롤 제거 */
+body {
+  overflow-x: hidden;
 }

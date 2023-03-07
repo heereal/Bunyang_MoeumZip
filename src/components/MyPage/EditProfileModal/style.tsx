@@ -7,21 +7,25 @@ export const ModalBackground = styled.div`
   bottom: 0;
   right: 0;
   background: rgba(0, 0, 0, 0.6);
-  z-index: 1001;
+  z-index: 500;
   display: flex;
   justify-content: center;
   align-items: center;
 `;
 
 export const ModalContainer = styled.div`
-  height: 460px;
-  width: 400px;
+  height: 420px;
+  width: 330px;
   background-color: white;
-  padding: 20px;
+  padding: 15px;
   border-radius: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  @media screen and (max-width: 450px) {
+    width: 85%;
+  }
 `;
 
 export const CloseBtnContainer = styled.div`
@@ -45,7 +49,7 @@ export const EditProfileContainer = styled.div`
 
 export const Title = styled.div`
   font-weight: 600;
-  font-size: 20px;
+  font-size: 18px;
   line-height: 24px;
   margin-bottom: 20px;
 `;
@@ -58,49 +62,65 @@ export const EditProfileImgLabel = styled.label`
 export const CameraIcon = styled.div`
   display: flex;
   position: absolute;
-  bottom: 0;
+  bottom: -5px;
   right: 0;
-  background-color: #F4F4F4;
+  background-color: #f4f4f4;
   border-radius: 50%;
-  padding: 10px;
+  padding: 8px;
   margin: 5px;
   cursor: pointer;
 `;
 
 export const NicknameInput = styled.input`
-  font-size: 15px;
-  line-height: 31px;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 16px;
   text-align: center;
-  padding: 0 20px;
-  height: 43px;
-  width: 70%;
-  border: 2px solid #f4f4f4;
-  margin-top: 20px;
+  padding: 0 10px;
+  height: 36px;
+  width: 200px;
+  border: 1px solid #bcc0cb;
+  margin-top: 30px;
   border-radius: 10px;
 
   :focus {
     outline: none;
+    border: 1px solid #4f70e4;
+  }
+
+  @media screen and (max-width: 650px) {
+    width: 80%;
+    font-size: 15px;
   }
 `;
 
 export const ProfileBtn = styled.button`
   all: unset;
-  width: 70%;
-  height: 43px;
-  font-weight: 700;
-  font-size: 15px;
+  width: 200px;
+  height: 36px;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 14px;
   background: #3d7fff;
-  border-radius: 10px;
+  border-radius: 7px;
   display: flex;
   justify-content: center;
   align-items: center;
   color: white;
-  margin-top: 20px;
+  margin-top: 6px;
+  margin-bottom: 25px;
   cursor: pointer;
 
   :disabled {
     cursor: default;
-    background: #8E8E8E;
+    background: #e8eaef;
+    color: #7b7b7b;
+    margin-top: 10px;
+  }
+
+  @media screen and (max-width: 650px) {
+    width: 80%;
+    font-size: 15px;
   }
 `;
 
@@ -121,5 +141,6 @@ export const WithdrawUserBtn = styled.div`
   text-underline-position: under;
 
   :hover {
+    color: black;
   }
 `;

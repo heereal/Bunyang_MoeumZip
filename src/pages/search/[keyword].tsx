@@ -1,15 +1,29 @@
 import { db } from '@/common/firebase';
 import NoResult from '@/components/GlobalComponents/NoResult/NoResult';
-import HeadTitle from '@/components/GlobalComponents/HeadTitle/HeadTitle';
-import TopBtn from '@/components/GlobalComponents/TopBtn/TopBtn';
-import SearchResults from '@/components/SearchPage/SearchResults';
 import { doc, getDoc } from 'firebase/firestore';
 import { GetServerSideProps } from 'next';
+import { NextSeo } from 'next-seo';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import * as S from '../../styles/search.style';
 
+const HomeList = dynamic(
+  () => import('../../components/GlobalComponents/HomeList/HomeList'),
+  {
+    ssr: false,
+  },
+);
+
+const TopBtn = dynamic(
+  () => import('@/components/GlobalComponents/TopBtn/TopBtn'),
+  {
+    ssr: false,
+  },
+);
+
 const SearchResult = ({ homeList }: HomeListDBPropsJ) => {
   const router = useRouter();
+
   const allHomeList = homeList.allHomeData;
 
   // Search 컴포넌트에 있는 검색창에서 router로 받아 온 검색어
@@ -27,23 +41,28 @@ const SearchResult = ({ homeList }: HomeListDBPropsJ) => {
 
   return (
     <S.ResultSection>
-      <HeadTitle title="검색" />
+      <NextSeo
+        title={`${keyword} 검색결과 -`}
+        description={`${keyword} 의 분양모음집 검색결과 입니다.`}
+      />
       {resultsList.length === 0 ? (
         <NoResult keyword={keyword} text="다른 키워드로 검색해주세요." />
       ) : (
         <>
           <S.TitleBox>
             <S.ResultTitle>
-              <span>{keyword}</span>의 검색 결과는 총
-              <span>{resultsList.length}</span>건입니다.
+              <span>&apos;{keyword}&apos;</span>의 검색 결과는 총
+              <span>{resultsList.length}건</span>입니다.
             </S.ResultTitle>
           </S.TitleBox>
-          <S.ResultListArticle>
-            {resultsList.map((item: ItemJ) => (
-              // 검색 결과 리스트
-              <SearchResults key={item.PBLANC_NO} list={item} />
-            ))}
-            <TopBtn />
+          <S.ResultListArticle id="topBtnScroll">
+            <S.ResultListBox>
+              {resultsList.map((item: ItemJ) => (
+                // 검색 결과 리스트
+                <HomeList key={item.PBLANC_NO} list={item} />
+              ))}
+              <TopBtn />
+            </S.ResultListBox>
           </S.ResultListArticle>
         </>
       )}

@@ -1,47 +1,60 @@
 import styled from 'styled-components';
 
-// TODO: nav 등 semantic tag로 변경하기
-export const CategoryContainer = styled.div<{width: string}>`
-  border: 2px solid #f4f4f4;
+export const CategoryContainer = styled.div<{ width: string; path: string }>`
+  box-shadow: ${(props) =>
+    props.path === '/signup' ? 'none' : '0px 4px 4px rgba(0, 0, 0, 0.25)'};
+  padding: ${(props) => (props.path === '/signup' ? 0 : '30px 30px 25px 30px')};
   border-radius: 20px;
-  padding: 24px 28px;
-  margin-bottom: 44px;
+  margin-bottom: 35px;
   background-color: white;
   width: ${(props) => props.width};
+  gap: 8px;
+  display: flex;
+  flex-wrap: wrap;
 `;
 
 export const CategoryBtn = styled.button<CategoryBtnStyledProps>`
-  padding: 0 17px;
-  height: 35px;
+  padding: 8px 9px;
   background-color: ${(props) => props.bg};
   border: 2px solid ${(props) => props.border};
-  border-radius: 10px;
+  border-radius: 7px;
   cursor: pointer;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 14px;
+  line-height: 14px;
   color: ${(props) => props.text};
-  margin-bottom: 12px;
-  margin-right: 13px;
+  margin-bottom: 8px;
+
+  @media screen and (max-width: 650px) {
+    font-size: 13px;
+    border: 1px solid ${(props) => props.border};
+  }
 `;
 
 export const SelectAllOrNoneContainer = styled.div`
   display: flex;
   justify-content: space-between;
   padding-top: 10px;
+  padding-right: 10px;
+  width: 100%;
 `;
 
-export const SelectBtn = styled.div`
-  font-weight: 500;
+export const SelectBtn = styled.div<{ color: string }>`
+  font-weight: 600;
   font-size: 14px;
-  line-height: 19px;
+  line-height: 17px;
   text-decoration-line: underline;
   text-underline-position: under;
-  color: #7b7b7b;
+  color: ${(props) => props.color};
   cursor: pointer;
+  display: flex;
+  align-items: center;
 
   span {
-    margin-left: 5px;
+    margin-left: 6px;
+  }
+
+  @media screen and (max-width: 650px) {
+    font-size: 12px;
   }
 `;
-
-

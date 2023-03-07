@@ -4,55 +4,114 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 25%;
-  height: 100%;
+  min-width: 270px;
+  height: 376px;
+
+  @media screen and (max-width: 650px) {
+    height: 265px;
+  }
 `;
 
 export const EditProfileContainer = styled.div`
-  width: 100%;
+  width: 270px;
   height: 100%;
-  padding: 50px 20px;
+  padding: 40px 20px 0 20px;
   border-radius: 20px;
-  border: 1px solid lightgray;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   background-color: white;
   display: flex;
   flex-direction: column;
-
   position: relative;
   align-items: center;
   box-sizing: border-box;
+
+  .profileImage {
+    @media screen and (max-width: 650px) {
+      width: 100px;
+      height: 100px;
+    }
+  }
+
+  @media screen and (max-width: 650px) {
+    box-shadow: none;
+    width: 100%;
+    padding: 20px;
+  }
 `;
 
 export const Nickname = styled.div`
-  font-weight: 600;
+  font-weight: 700;
   font-size: 16px;
-  line-height: 31px;
+  line-height: 19px;
   text-align: center;
   padding: 20px 0 5px 0;
 `;
 
-export const Email = styled.div`
-  font-weight: 500;
-  font-size: 14px;
-  color: #7b7b7b;
-  text-align: center;
-  margin-bottom: 30px;
+export const EmailContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+
+  .providerLogo {
+    @media screen and (max-width: 730px) {
+      width: 19px;
+      height: 19px;
+    }
+  }
 `;
 
-export const ProfileBtn = styled.div`
-  width: 90%;
-  height: 40px;
-  font-weight: 600;
-  font-size: 13px;
-  background: #f9fafb;
-  border-radius: 20px;
-  border: 1px solid lightgray;
+export const Email = styled.div`
+  font-weight: 500;
+  font-size: 11px;
+  color: #7b7b7b;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #7b7b7b;
+  margin-left: 7px;
+  padding-top: 2px;
+
+  @media screen and (max-width: 730px) {
+    font-size: 13px;
+  }
+`;
+
+export const ProfileBtnContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+
+  @media screen and (max-width: 650px) {
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+  }
+`;
+
+export const ProfileBtn = styled.div<{ bg: string; text: string }>`
+  width: 90%;
+  max-width: 230px;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 17px;
+  background: ${(props) => props.bg};
+  border-radius: 7px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: ${(props) => props.text};
   margin-bottom: 10px;
   cursor: pointer;
+  min-height: 40px;
+
+  @media screen and (max-width: 650px) {
+    width: 77px;
+    height: 28px;
+    padding: 0 8px;
+    font-size: 14px;
+    line-height: 14px;
+    box-sizing: content-box;
+  }
 `;
 
 export const Line = styled.div`

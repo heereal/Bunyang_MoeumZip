@@ -8,21 +8,24 @@ import * as S from './style';
 
 const CommentsList = ({ postId }: DetailPagePropsP) => {
   const [comments, setComments] = useState<[]>();
+  const [replies, setReplies] = useState<[]>();
   const queryClient = useQueryClient();
   const [user, setUser] = useState<any>();
   // 유저의 세션 정보 받아오기
-  const { data: session } = useSession();
+  const { data: session }: any = useSession();
 
   const { data: profile, refetch: refetchProfile } = useQuery(
     'profile',
     () => {
       if (typeof session?.user?.email === 'string') {
-        return getProfile(session?.user?.email);
+        return getProfile(`${session.user.provider}_${session.user.email}`);
       }
     },
     {
       onSuccess(profile) {
-        setUser(profile);
+        if (profile) {
+          setUser(profile);
+        }
       },
     },
   );
@@ -34,10 +37,28 @@ const CommentsList = ({ postId }: DetailPagePropsP) => {
   });
 
   useEffect(() => {
-    setComments(data?.list.sort((a: any, b: any) => b.date - a.date));
-    refetchProfile();
-  // eslint-disable-next-line
+    setComments(
+      data?.list?.sort(
+        (a: { date: string }, b: { date: string }) =>
+          Number(b.date) - Number(a.date),
+      ),
+    );
+    setReplies(
+      data?.replies?.sort(
+        (a: { date: string }, b: { date: string }) =>
+          Number(b.date) - Number(a.date),
+      ),
+    );
+    // refetchProfile();
+
+    // eslint-disable-next-line
   }, [data, session]);
+
+  useEffect(() => {
+    refetch();
+
+    // eslint-disable-next-line
+  }, [postId]);
 
   return (
     <S.Container>
@@ -51,7 +72,7 @@ const CommentsList = ({ postId }: DetailPagePropsP) => {
         queryClient={queryClient}
         refetch={refetch}
       />
-      <div style={{ borderBottom: '2px solid #b9b9b9' }}>
+      <div>
         {comments?.map((comment: CommentP, index: number) => {
           return (
             <EditComment
@@ -63,6 +84,7 @@ const CommentsList = ({ postId }: DetailPagePropsP) => {
               queryClient={queryClient}
               comments={comments}
               refetch={refetch}
+              replies={replies}
             />
           );
         })}

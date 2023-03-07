@@ -8,25 +8,45 @@ declare interface AddCommentP {
     email: string;
   };
   queryClient?: QueryClient;
+  reply?: any;
 }
 
 //댓글 Props
 interface CommentPropsP {
+  date?: string;
   postId: string | string[] | undefined;
   user:
-  | { userName?: string; userEmail?: string; userImage?: string }
-  | undefined;
+    | {
+        userName?: string;
+        userEmail?: string;
+        userImage?: string;
+        provider?: string;
+      }
+    | undefined;
   queryClient?: QueryClient;
   comment?: {
-    date: number;
-    userEmail: string;
-    contents: string;
-    nickName: string;
+    date?: string;
+    userEmail?: string;
+    contents?: string;
+    nickName?: string;
     userImage?: string;
+    commentId?: string;
+    edit?: boolean;
+    provider?: string;
   };
   index?: number;
   comments?: [];
   refetch?: refetch;
+  replies?: any;
+  list?: {
+    date?: string;
+    userImage?: string;
+    nickName?: string;
+    edit?: boolean;
+    userEmail?: string;
+    contents?: string;
+    provider?: string;
+  };
 }
 
 //DetailPage Props
@@ -60,7 +80,7 @@ interface HomeP {
 //댓글 read type
 interface CommentP {
   contents: string;
-  date: number;
+  date: string;
   nickName: string;
   userEmail: string;
   index?: number;
@@ -74,6 +94,7 @@ interface userProps {
   userEmail: string;
   userName: string;
   userImage: string;
+  provider: string;
 }
 
 // Firebase에서 가져온 data type
@@ -110,8 +131,8 @@ interface CategoryBtnStyledProps {
 
 interface SelectCategoryProps {
   width: string;
+  path: string;
 }
-
 
 // 검색어 타입
 type keywordJ = string | string[] | undefined;
@@ -119,5 +140,8 @@ type keywordJ = string | string[] | undefined;
 // 검색어 props 타입
 interface keywordPropsJ {
   keyword?: keywordJ;
+  title?: string;
   text: string;
+  text2?: string;
+  text3?: string;
 }

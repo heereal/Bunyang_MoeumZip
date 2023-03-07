@@ -1,10 +1,10 @@
 import Image from 'next/image';
-import NoResultImage from '../../../assets/NoResult.png';
+import NoResultImage from '../../../../public/assets/NoResult.png';
 import * as S from './style';
 
-const NoResult = ({ keyword, text }: keywordPropsJ) => {
+const NoResult = ({ keyword, title, text, text2 }: keywordPropsJ) => {
   return (
-    <>
+    <S.Container>
       <Image
         src={NoResultImage}
         alt="NoResultImage"
@@ -20,11 +20,12 @@ const NoResult = ({ keyword, text }: keywordPropsJ) => {
             수 없습니다.
           </>
         ) : (
-          '분양 정보가 없습니다.'
+          title
         )}
       </S.NoResultTitle>
       <S.NoResultText>{text}</S.NoResultText>
-    </>
+      <S.NoResultText>{text2}</S.NoResultText>
+    </S.Container>
   );
 };
 

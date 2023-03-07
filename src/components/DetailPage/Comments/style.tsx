@@ -3,66 +3,74 @@ import styled from 'styled-components';
 export const Container = styled.div`
   width: 100%;
   padding: 30px;
+  min-height: 280px;
+  @media screen and (max-width: 450px) {
+    padding: 10px;
+  }
 `;
 
 export const CommentHeader = styled.div`
   font-size: 18px;
   font-weight: 700;
-  padding-bottom: 10px;
 `;
 
 export const CommentCount = styled.div`
   font-size: 18px;
   font-weight: 700;
-  padding-bottom: 10px;
   padding-left: 10px;
   color: #3d7fff;
 `;
 
 export const AddCommentBox = styled.div`
-  padding: 20px;
-  border-top: 2px solid #b9b9b9;
+  padding: 20px 20px 20px 0px;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   width: 100%;
+  gap: 7px;
 `;
 
 export const ImageBox = styled.div`
-  width: 8%;
+  height: 100%;
 `;
 
-export const InputBox = styled.div`
-  width: 95%;
-  border-radius: 10px;
-  border: 2px solid #b9b9b9;
+export const InputBox = styled.div<any>`
+  width: 87%;
+  border-bottom: ${(props) => props.border};
   height: 40px;
   background-color: white;
   display: flex;
   align-items: center;
-  justify-content: space-between;
 `;
 
 export const Input = styled.input`
   all: unset;
-  padding-left: 10px;
-  width: 90%;
+  width: 100%;
   height: 100%;
+  @media screen and (max-width: 450px) {
+    font-size: 13px;
+  }
 `;
 export const UserNameBox = styled.div`
   display: flex;
   justify-content: space-between;
-  padding-top: 5px;
   font-size: 15px;
+  height: 25px;
+  font-weight: 600;
+  @media screen and (max-width: 450px) {
+    font-size: 14px;
+  }
 `;
 
-export const CommentListBox = styled.div<{ blur: any }>`
-  padding: 20px;
+export const CommentListBox = styled.div<{ blur: string }>`
+  padding: 20px 20px 20px 0;
   display: flex;
   justify-content: center;
-  align-items: center;
   width: 100%;
   filter: blur(${(props) => props.blur});
+  gap: 10px;
+  height: 100%;
+  margin-bottom: 3px;
 `;
 
 export const CommentBox = styled.div`
@@ -71,40 +79,118 @@ export const CommentBox = styled.div`
   width: 92%;
   height: 50px;
   justify-content: center;
+  height: 100%;
 `;
 
 export const ContentsBox = styled.div`
   display: flex;
   padding-top: 5px;
+  padding-left: 2px;
   font-weight: 500;
-  font-size: 17px;
+  font-size: 15px;
+  @media screen and (max-width: 450px) {
+    font-size: 14px;
+  }
 `;
 export const EditInput = styled.input`
   all: unset;
-  padding-left: 10px;
-  width: 90%;
+  width: 89%;
   height: 100%;
-  font-weight: 500;
-  border-radius: 10px;
-  border: 2px solid #b9b9b9;
-  height: 30px;
+  font-weight: 400;
+  border-bottom: 2px solid black;
+  height: 20px;
   background-color: white;
-  font-size: 16px;
+  font-size: 15px;
+  color: black;
+  @media screen and (max-width: 450px) {
+    font-size: 14px;
+  }
+`;
+export const EditSubmit = styled.button`
+  all: unset;
+  width: 45px;
+  height: 25px;
+  text-align: center;
+  background-color: #356eff;
+  border-radius: 7px;
+  color: white;
+  font-size: 12px;
+  padding: 1px;
+  cursor: pointer;
+`;
+export const EditCancel = styled.button`
+  all: unset;
+  width: 45px;
+  height: 25px;
+  text-align: center;
+  background-color: #e8eaef;
+  border-radius: 7px;
+  color: #7b7b7b;
+  font-size: 12px;
+  padding: 1px;
+  cursor: pointer;
 `;
 
 export const Btn = styled.div`
   display: flex;
   align-items: center;
-  padding: 11px 13px;
+
   height: 25px;
-  background: #f1f6ff;
-  border-radius: 10px;
-  color: #3d7fff;
+  color: #8e8e8e;
   font-size: 13px;
   cursor: pointer;
 `;
 export const BtnBox = styled.div`
-  padding-right: 10px;
-  margin-top: 3px;
+  display: flex;
+  flex-direction: row-reverse;
   cursor: pointer;
+  gap: 5px;
+  width: 92%;
+`;
+
+export const SubmitBtn = styled.div`
+  background: #356eff;
+  border-radius: 7px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 55px;
+  height: 33px;
+  cursor: pointer;
+  padding: 8px;
+  color: white;
+  font-weight: 500;
+  font-size: 15px;
+  @media screen and (max-width: 450px) {
+    font-size: 13px;
+    width: 50px;
+    height: 30px;
+  }
+`;
+
+export const ReplyInputBox = styled.div<any>`
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 85%;
+  filter: blur(${(props) => props.blur});
+  margin-top: -14px;
+  margin-left: -7px;
+  color: #8e8e8e;
+  font-size: 14px;
+  padding-bottom: 10px;
+`;
+export const ReplyContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding-left: 60px;
+`;
+export const ReplyHeader = styled.div`
+  display: flex;
+  gap: 10px;
+`;
+
+export const ReplyBox = styled.div`
+  display: flex;
+  flex-direction: column;
 `;

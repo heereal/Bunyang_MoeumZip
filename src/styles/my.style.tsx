@@ -2,8 +2,15 @@ import styled from 'styled-components';
 
 export const Wrapper = styled.div`
   width: 100%;
-  height: 91vh;
+  height: 100%;
   display: flex;
-  padding: 30px 50px;
-  background: #f9fafb;
+  padding: 50px 20px 0 20px;
+  background: #F8F8F9;
+  min-height: 600px;
+  justify-content: center;
+
+  @media screen and (max-width: 650px) {
+    flex-direction: column;
+    padding: 0;
+  }
 `;

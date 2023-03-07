@@ -1,18 +1,24 @@
 import { db, storage } from '@/common/firebase';
-import { customAlert } from '@/common/utils';
+import { customUIAlert } from '@/common/utils';
+import AlertUI from '@/components/GlobalComponents/AlertUI/AlertUI';
+import { useOnEnterKeyPress } from '@/hooks';
 import { currentUserState, usersListState } from '@/store/selectors';
 import { uuidv4 } from '@firebase/util';
-import { doc, updateDoc } from 'firebase/firestore';
+import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { signOut } from 'next-auth/react';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
+import { confirmAlert } from 'react-confirm-alert';
 import { BsCameraFill } from 'react-icons/bs';
 import { MdClose } from 'react-icons/md';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import transparentProfile from '../../../assets/transparentProfile.png';
+import transparentProfile from '../../../../public/assets/transparentProfile.png';
 import * as S from './style';
 
 const EditProfileModal = ({ setIsModalOpen }: any) => {
+  const { OnKeyPressHandler } = useOnEnterKeyPress();
+
   // 현재 로그인한 유저의 firestore 유저 정보
   const [currentUser, setCurrentUser] = useRecoilState(currentUserState);
   const [editNickname, setEditNickname] = useState<any>(currentUser.userName);
@@ -29,26 +35,25 @@ const EditProfileModal = ({ setIsModalOpen }: any) => {
   const editProfileHandler = async () => {
     // 중복되는 닉네임이 있는지 검색하기
     const checkNickname = users.find(
-      (user: userProps) =>
-        user.userName === editNickname && !currentUser.userName,
+      (user: userProps) => user.userName === editNickname,
     );
 
     // TODO: customAlert css 적용해서 모달 위에 뜨게 하기
 
     // 중복되는 닉네임이 있는 경우
     if (checkNickname) {
-      alert('이미 존재하는 닉네임입니다. 다시 입력해주세요.');
+      customUIAlert('이미 존재하는 닉네임입니다. 다시 입력해주세요.');
       return;
     }
 
     // 닉네임을 입력하지 않았을 경우
     if (!editNickname) {
-      alert('닉네임을 입력해주세요.');
+      customUIAlert('닉네임을 입력해주세요.');
       return;
     }
 
     if (editNickname.length >= 9) {
-      alert('닉네임은 8자 이하로 입력해주세요.');
+      customUIAlert('닉네임은 8자 이하로 입력해주세요.');
       return;
     }
 
@@ -64,14 +69,17 @@ const EditProfileModal = ({ setIsModalOpen }: any) => {
     };
 
     setIsModalOpen(false);
-    await updateDoc(doc(db, 'Users', currentUser.userEmail), updateUser);
+    await updateDoc(
+      doc(db, 'Users', `${currentUser.provider}_${currentUser.userEmail}`),
+      updateUser,
+    );
     //FIXME: 쿼리 refetch나 invalidateQueries 사용해서 DB 정보로 업데이트 해주는 방법은 없을까?
     setCurrentUser({
       ...currentUser,
       userName: editNickname,
       userImage: imageUpload ? downloadUrl : currentUser.userImage,
     });
-    customAlert('회원정보가 수정되었습니다.');
+    customUIAlert('회원정보가 수정되었습니다.');
   };
 
   // 이미지 업로드 시 이미지 미리보기 바로 반영됨
@@ -89,25 +97,82 @@ const EditProfileModal = ({ setIsModalOpen }: any) => {
     }
   };
 
+  // [회원탈퇴] 버튼 클릭 시 작동
+  const withdrawMembershipHandler = async () => {
+    setIsModalOpen(false);
+    confirmAlert({
+      customUI: ({ onClose }) => {
+        return (
+          <AlertUI
+            alertText="정말 탈퇴하시겠어요?"
+            alertDetailA="회원탈퇴 시 회원님의 모든 정보가 삭제됩니다."
+            alertDetailB="삭제된 정보는 복구될 수 없으니 신중하게 결정해주세요."
+            onClose={onClose}
+            eventText="탈퇴"
+            onClick={() => {
+              deleteDoc(
+                doc(
+                  db,
+                  'Users',
+                  `${currentUser.provider}_${currentUser.userEmail}`,
+                ),
+              );
+              onClose();
+              customUIAlert(
+                '회원탈퇴가 완료되었습니다.',
+                '그동안 분양모음집을 이용해주셔서 감사합니다.',
+                '보다 나은 분양모음집으로 다시 만나뵐 수 있기를 바랍니다.',
+              );
+              signOut({ callbackUrl: '/' });
+            }}
+          />
+        );
+      },
+    });
+  };
+
+  const profileModalRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handler = () => {
+      // 로그인 모달 밖을 눌렀을 때 로그인 모달 닫힘
+      //@ts-ignore
+      if (
+        profileModalRef.current &&
+        //@ts-ignore
+        !profileModalRef.current.contains(event?.target)
+      ) {
+        setIsModalOpen(false);
+      }
+    }; // 이벤트 핸들러 등록
+    document.addEventListener('mousedown', handler);
+
+    return () => {
+      // 이벤트 핸들러 해제
+      document.removeEventListener('mousedown', handler);
+    };
+    // eslint-disable-next-line
+  }, []);
+
   return (
     <S.ModalBackground>
-      <S.ModalContainer>
+      <S.ModalContainer ref={profileModalRef}>
         <S.CloseBtnContainer>
           <MdClose
-            size="30"
+            size="27"
             onClick={() => setIsModalOpen(false)}
             style={{ cursor: 'pointer' }}
           />
         </S.CloseBtnContainer>
 
         <S.EditProfileContainer>
-          <S.Title>회원정보 수정</S.Title>
+          <S.Title>프로필 수정</S.Title>
           <S.EditProfileImgLabel>
             <Image
               src={editProfileImg ? editProfileImg : transparentProfile}
               alt="profile"
-              width={170}
-              height={170}
+              width={130}
+              height={130}
               quality={75}
               style={{
                 borderRadius: '50%',
@@ -125,7 +190,7 @@ const EditProfileModal = ({ setIsModalOpen }: any) => {
             <S.CameraIcon>
               <BsCameraFill
                 color="gray"
-                size="23"
+                size="17"
                 style={{ marginBottom: 2 }}
               />
             </S.CameraIcon>
@@ -133,7 +198,7 @@ const EditProfileModal = ({ setIsModalOpen }: any) => {
           <S.NicknameInput
             value={editNickname}
             onChange={(e) => setEditNickname(e.target.value)}
-            autoFocus
+            onKeyPress={(e) => OnKeyPressHandler(e, editProfileHandler)}
           />
           <S.ProfileBtn
             onClick={editProfileHandler}
@@ -142,7 +207,9 @@ const EditProfileModal = ({ setIsModalOpen }: any) => {
             수정 완료
           </S.ProfileBtn>
           <S.WithdrawUserBtnContainer>
-            <S.WithdrawUserBtn>회원탈퇴</S.WithdrawUserBtn>
+            <S.WithdrawUserBtn onClick={withdrawMembershipHandler}>
+              회원탈퇴
+            </S.WithdrawUserBtn>
           </S.WithdrawUserBtnContainer>
         </S.EditProfileContainer>
       </S.ModalContainer>

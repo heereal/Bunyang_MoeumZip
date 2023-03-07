@@ -9,6 +9,7 @@ import { useEffect } from 'react';
 import { useQuery } from 'react-query';
 import { useRecoilState } from 'recoil';
 import * as S from '../../styles/my.style';
+import { NextSeo } from 'next-seo';
 
 const MyPage = () => {
   const router = useRouter();
@@ -17,17 +18,25 @@ const MyPage = () => {
   const [users, setUsers] = useRecoilState(usersListState);
 
   // 유저의 세션 정보 받아오기
-  const { data: session, status } = useSession();
+  const { data: session, status }: any = useSession();
 
   // Users 데이터 불러오기
   const { data: usersData }: any = useQuery('users', getUsersList, {
     enabled: !!session, // session이 true인 경우에만 useQuery를 실행함
     // users를 불러오는 데 성공하면 현재 로그인한 유저의 정보를 찾아서 setCurrentUser에 담음
     onSuccess: (usersData) => {
-      setUsers(usersData);
+      setUsers(
+        usersData.filter(
+          (user: userProps) =>
+            user.userEmail !== session.user.email &&
+            user.provider !== session.user.provider,
+        ),
+      );
       setCurrentUser(
         usersData.find(
-          (user: userProps) => user.userEmail === session?.user?.email,
+          (user: userProps) =>
+            user.userEmail === session?.user?.email &&
+            user.provider === session?.user?.provider,
         ),
       );
     },
@@ -36,16 +45,20 @@ const MyPage = () => {
   //TODO: 로딩페이지에서 넘어온 거 아니면 접근 못하도록 제한하기
   useEffect(() => {
     // 비로그인 유저일 경우 접근 제한
-    if (status === 'unauthenticated') router.push('/');
+    if (status === 'unauthenticated' || currentUser === undefined)
+      router.push('/');
     // eslint-disable-next-line
   }, [session]);
 
   return (
     <S.Wrapper>
-      <HeadTitle title="마이페이지" />
+      <NextSeo
+        title="마이페이지 -"
+        description="전국 분양정보를 한눈에 확인할 수 있는 플랫폼입니다."
+      />
 
-      <EditProfile users={users} currentUser={currentUser} />
-      <MyTabs currentUser={currentUser} />
+      <EditProfile currentUser={currentUser} />
+      <MyTabs />
     </S.Wrapper>
   );
 };

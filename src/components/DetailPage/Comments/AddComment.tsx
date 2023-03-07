@@ -1,22 +1,30 @@
 import { addComment } from '@/common/api';
-import { customAlert, postTime } from '@/common/utils';
+import { customUIAlert, postTime } from '@/common/utils';
 import { arrayUnion } from 'firebase/firestore';
 import Image from 'next/image';
+import favicon from 'public/favicon.ico';
 import { KeyboardEvent, useState } from 'react';
-import { RiPencilFill } from 'react-icons/ri';
 import { useMutation } from 'react-query';
-import logo from '../../../assets/logo.png';
+
+import { uuidv4 } from '@firebase/util';
 import * as S from './style';
 
 const AddComment = ({ user, postId, queryClient, refetch }: CommentPropsP) => {
   const [input, setInput] = useState<string>('');
   const [clicked, setClicked] = useState(true);
+  const [borderProps, setBorderProps] = useState<string>('2px solid #b9b9b9');
+  const [boxOpen, setBoxOpen] = useState<boolean>(false);
+
   const postDate = postTime();
 
-  const addCommentHandler = async (e: any) => {
+  const openBoxHandler = () => {
+    setBorderProps('2px solid black'), setBoxOpen(true);
+  };
+
+  const addCommentHandler = async () => {
     setClicked(true);
     if (input === '') {
-      customAlert('1글자 이상 입력해주세요.');
+      customUIAlert('1글자 이상 입력해주세요.');
 
       return setClicked(false);
     }
@@ -27,6 +35,8 @@ const AddComment = ({ user, postId, queryClient, refetch }: CommentPropsP) => {
         nickName: user?.userName,
         userEmail: user?.userEmail,
         userImage: user?.userImage,
+        commentId: uuidv4(),
+        provider: user?.provider,
       }),
     };
     if (typeof postId === 'string') {
@@ -34,6 +44,8 @@ const AddComment = ({ user, postId, queryClient, refetch }: CommentPropsP) => {
     }
     setInput('');
     setClicked(false);
+    setBoxOpen(false);
+    setBorderProps('2px solid #b9b9b9');
   };
 
   const addMutation = useMutation(addComment, {
@@ -48,55 +60,67 @@ const AddComment = ({ user, postId, queryClient, refetch }: CommentPropsP) => {
     type: string,
   ): void => {
     if (e.key === 'Enter' && type === 'add' && user) {
-      addCommentHandler(e);
+      addCommentHandler();
     }
   };
 
   return (
-    <S.AddCommentBox>
-      <S.ImageBox>
-        {typeof user?.userImage === 'string' ? (
+    <>
+      <S.AddCommentBox>
+        <S.ImageBox>
           <Image
-            width={45}
-            height={45}
+            width={40}
+            height={40}
             alt="profile"
-            src={user?.userImage}
+            src={
+              typeof user?.userImage === 'string' ? user?.userImage : favicon
+            }
             quality={75}
             loading="lazy"
             style={{ borderRadius: 25, objectFit: 'cover' }}
           />
-        ) : (
-          <Image
-            height={33}
-            alt="profile"
-            src={logo}
-            quality={75}
-            loading="lazy"
-            style={{ borderRadius: 25, objectFit: 'cover' }}
-          />
-        )}
-      </S.ImageBox>
+        </S.ImageBox>
 
-      <S.InputBox>
-        <S.Input
-          placeholder={
-            user
-              ? '댓글을 남겨주세요.'
-              : '로그인을 하시면 댓글 기능을 이용할 수 있습니다.'
-          }
-          onChange={(e) => setInput(e.currentTarget.value)}
-          value={input}
-          onKeyPress={(e) => OnKeyPressHandler(e, 'add')}
-          disabled={user || clicked === false ? false : true}
-        />
-        <S.BtnBox>
-          <RiPencilFill
-            onClick={user ? addCommentHandler : undefined}
-            style={{ width: 25, height: 25, color: '#7B7B7B' }}
+        <S.InputBox
+          border={borderProps}
+          onClick={() => {
+            {
+              user
+                ? (setBorderProps('2px solid black'), setBoxOpen(true))
+                : undefined;
+            }
+          }}
+        >
+          <S.Input
+            placeholder={
+              user
+                ? '댓글을 남겨주세요.'
+                : '로그인을 하시면 댓글 기능을 이용할 수 있습니다.'
+            }
+            onChange={(e) => setInput(e.currentTarget.value)}
+            value={input}
+            onKeyPress={(e) => OnKeyPressHandler(e, 'add')}
+            disabled={user || clicked === false ? false : true}
           />
+        </S.InputBox>
+      </S.AddCommentBox>
+      {boxOpen && (
+        <S.BtnBox>
+          <S.SubmitBtn onClick={user ? addCommentHandler : undefined}>
+            게시
+          </S.SubmitBtn>
+          <S.SubmitBtn
+            onClick={() => {
+              setBoxOpen(false);
+              setBorderProps('2px solid #b9b9b9');
+            }}
+            style={{ backgroundColor: '#E8EAEF', color: '#7B7B7B' }}
+          >
+            취소
+          </S.SubmitBtn>
         </S.BtnBox>
-      </S.InputBox>
-    </S.AddCommentBox>
+      )}
+    </>
   );
 };
 

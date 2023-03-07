@@ -3,72 +3,153 @@ import styled from 'styled-components';
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 75%;
+  width: 744px;
   height: 100%;
-  /* border: 1px solid lightgray; */
   margin-left: 70px;
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
+
+  @media screen and (max-width: 870px) {
+    width: 100%;
+    margin-left: 20px;
+  }
+
+  @media screen and (max-width: 650px) {
+    margin-left: 0;
+  }
 `;
 
 export const TabContainer = styled.div`
   display: flex;
+  position: relative;
+  margin-bottom: 10px;
+  width: 100%;
+
+  @media screen and (max-width: 650px) {
+    background-color: white;
+    margin-bottom: 20px;
+    padding: 0 20px;
+  }
 `;
 
-export const TabBtn = styled.div<{ font: string; line: string }>`
+export const TabBtn = styled.div<{ color: string }>`
   font-weight: 700;
   font-size: 15px;
-  padding: 15px 35px;
-  border-bottom: 5px solid ${(props) => props.line};
-  color: ${(props) => props.font};
+  line-height: 19px;
+  padding: 11px 48px;
+  border-bottom: 2px solid ${(props) => props.color};
+  color: ${(props) => props.color};
   cursor: pointer;
+  z-index: 1;
+
+  @media screen and (max-width: 870px) {
+    padding: 11px 23px;
+  }
+
+  @media screen and (max-width: 650px) {
+    width: 33.3%;
+    display: flex;
+    justify-content: center;
+    padding: 11px 0;
+  }
 `;
 
 export const Line = styled.div`
-  background-color: #f4f4f4;
-  height: 5px;
-  /* position: absolute; */
-  top: -5px;
+  background-color: #bcc0cb;
+  position: absolute;
+  height: 2px;
+  bottom: 0;
+  width: 95%;
+  z-index: 0;
+
+  @media screen and (max-width: 870px) {
+    width: 95%;
+  }
+
+  @media screen and (max-width: 650px) {
+    width: 90%;
+  }
 `;
 
 export const TabContentContainer = styled.div`
-  padding: 28px 0;
+  padding: 15px 0;
   position: relative;
+  overflow-y: auto;
+  min-height: 320px;
+
+  @media screen and (max-width: 650px) {
+    padding: 0 20px 30px 20px;
+  }
 `;
 
 export const BookmarkListContainer = styled.div`
   flex-wrap: wrap;
   display: flex;
+  gap: 0 25px;
   /* overflow-y: scroll; */
+
+  @media screen and (max-width: 650px) {
+    justify-content: center;
+    
+  }
 `;
 
-export const BookmarkInfoContainer = styled.div`
-  width: 250px;
-  height: 300px;
-  background: #ffffff;
-  border: 1px solid lightgray;
-  border-radius: 20px;
-  padding: 20px;
-  margin-right: 10px;
+export const NoResultContainer = styled.div`
+  padding: 40px 0 0 50px;
+
+  @media screen and (max-width: 870px) {
+    padding: 40px 0 0 20px;
+  }
+
+  @media screen and (max-width: 650px) {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-top: 50px;
+    padding-left: 0;
+  }
+`;
+
+export const HomeListContainer = styled.div`
+  display: flex;
+  gap: 25px;
+`;
+
+export const SelectCategoryContainer = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  @media screen and (max-width: 650px) {
+    align-items: center;
+  }
 `;
 
 export const SubmitBtn = styled.button`
   all: unset;
   width: 220px;
   height: 43px;
-  font-weight: 700;
-  font-size: 15px;
-  background: #3d7fff;
-  border-radius: 10px;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 17px;
+  background-color: #3d7fff;
+  border-radius: 7px;
   display: flex;
   justify-content: center;
   align-items: center;
   color: white;
   cursor: pointer;
-  position: absolute;
-  bottom: 10px;
+  /* position: absolute;
+  bottom: -40px; */
 
   :disabled {
     cursor: default;
-    background: #8E8E8E;
+    background-color: #e8eaef;
+    color: #7b7b7b;
   }
+
+  @media screen and (max-width: 650px) {
+    width: 95%;
+    height: 54px;
+  }
+
 `;
