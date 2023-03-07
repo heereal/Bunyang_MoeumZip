@@ -37,9 +37,10 @@ export const typesArray: string[] = [
 
 // 청약캘린더 헤더에서 사용
 export const calendarColorList = [
-  { cate: '임대주택', color: '#356EFF' },
-  { cate: '분양주택', color: '#FF4141' },
-  { cate: '신혼희망타운', color: '#AF1DF3' },
-  { cate: '계약취소 / 무순위', color: '#24CE71' },
+  { cate: '임대주택', color: '#25AAC8' },
+  { cate: '분양주택', color: '#FF971D' },
+  { cate: '신혼희망타운', color: '#FB39FF' },
+  { cate: '계약취소', color: '#2B54A3' },
+  { cate: '무순위', color: '#5C5C5C' },
   { cate: '도시형생활주택', color: '#D5BF00' },
 ];

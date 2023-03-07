@@ -56,7 +56,7 @@ export const TabBtn = styled.div<{ color: string }>`
 export const Line = styled.div`
   background-color: #bcc0cb;
   position: absolute;
-  height: 1.5px;
+  height: 2px;
   bottom: 0;
   width: 95%;
   z-index: 0;

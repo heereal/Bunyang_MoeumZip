@@ -163,12 +163,7 @@ const SignUp = () => {
         <SelectMyTypes width={'100%'} path={'/signup'} />
 
         <S.SignUpBtnContainer>
-          <S.SignUpBtn
-            onClick={signupHandler}
-            disabled={isValidNickname ? false : true}
-          >
-            가입완료
-          </S.SignUpBtn>
+          <S.SignUpBtn onClick={signupHandler}>가입완료</S.SignUpBtn>
         </S.SignUpBtnContainer>
       </S.SignUpContainer>
     </S.Wrapper>

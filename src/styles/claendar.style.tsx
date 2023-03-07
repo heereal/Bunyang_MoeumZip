@@ -191,6 +191,15 @@ export const FullCalendarContainer = styled.div`
     }
   }
 
+  // 오늘 날짜 배경색
+  .fc .fc-daygrid-day.fc-day-today {
+    background-color: #fff8bd !important;
+    color: #356eff;
+    font-weight: bold;
+    text-decoration-line: underline;
+  text-underline-position: under;
+  }
+
   // 날짜별 그리드
   .fc .fc-daygrid-day-frame {
     padding: 10px;
@@ -199,14 +208,6 @@ export const FullCalendarContainer = styled.div`
     @media screen and (max-width: 730px) {
       padding: 3px;
     }
-  }
-
-  // 오늘 날짜 배경색
-  .fc .fc-daygrid-day.fc-day-today {
-    background-color: #fff8bd !important;
-    color: #356eff;
-    font-weight: 500;
-    /* z-index: 4; */
   }
 
   // 날짜  ex) 2일
