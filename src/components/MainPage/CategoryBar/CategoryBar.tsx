@@ -132,7 +132,7 @@ const CategoryBar = () => {
                     >
                       {item.name}
                     </S.TabName>
-                    {isRegionToggleOpen || item.name !== '지역' ? (
+                    {isRegionToggleOpen ? (
                       <RiArrowUpSLine
                         style={{
                           fontSize: 25,
@@ -169,7 +169,7 @@ const CategoryBar = () => {
                     >
                       {item.name}
                     </S.TabName>
-                    {isTypeToggleOpen || item.name !== '분양형태' ? (
+                    {isTypeToggleOpen ? (
                       <RiArrowUpSLine
                         style={{
                           fontSize: 25,
