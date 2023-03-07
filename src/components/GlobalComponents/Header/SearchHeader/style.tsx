@@ -1,4 +1,25 @@
-import styled from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
+
+// 모바일 검색창 애니메이션
+export const slideOpen = keyframes`
+  
+from{
+  transform: translateX(50%);
+}
+to{
+  transform: translateX(0);
+}
+`;
+
+export const slideClose = keyframes`
+  
+from{
+  transform: translateX(0);
+}
+to{
+  transform: translateX(100%);
+}
+`;
 
 // 검색창
 export const SearchBox = styled.div`
@@ -90,14 +111,18 @@ export const MobileSearchBox = styled.div`
   }
 
   @media screen and (max-width: 450px) {
-    width: 308px;
+    width: 280px;
     position: fixed;
-    top: 1.5%;
-    right: 8%;
+    top: 3%;
+    right: 25%;
+    left: 18%;
   }
 `;
 
-export const MobileSearchInputContainer = styled.div<{ bd: string }>`
+export const MobileSearchInputContainer = styled.div<{
+  bd: string;
+  active: boolean;
+}>`
   width: 100%;
   height: 31px;
   justify-content: space-evenly;
@@ -109,6 +134,22 @@ export const MobileSearchInputContainer = styled.div<{ bd: string }>`
   border-radius: 20px;
   border: solid 1px ${(props) => props.bd};
   background-color: #fff;
+
+  /* active true, false에 따라 검색창 애니메이션 적용 */
+  ${(props) =>
+    props.active
+      ? css`
+          animation-duration: 0.4s;
+          animation-timing-function: ease-out;
+          animation-name: ${slideOpen};
+          animation-fill-mode: forwards;
+        `
+      : css`
+          animation-duration: 0.5s;
+          animation-timing-function: ease-out;
+          animation-name: ${slideClose};
+          animation-fill-mode: forwards;
+        `}
 
   @media screen and (max-width: 600px) {
     display: flex;

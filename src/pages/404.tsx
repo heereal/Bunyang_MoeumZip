@@ -14,9 +14,7 @@ export default function NotFound() {
       />
       <NoResult
         title="페이지를 찾을 수 없습니다."
-        text="찾으시려는 페이지의 주소가 잘못 입력되었거나,"
-        text2="주소의 변경 혹은 삭제로 인해 사용하실 수 없습니다."
-        text3="입력하신 페이지의 주소가 정확한지 다시 한 번 확인해주세요."
+        text="입력하신 페이지의 주소가 정확한지 다시 한 번 확인해주세요."
       />
       <Buttons>
         <HomeBtn onClick={() => router.push('/')}>메인으로</HomeBtn>
@@ -37,7 +35,7 @@ const Wrapper = styled.div`
 `;
 
 const Buttons = styled.div`
-  width: 30%;
+  width: 60%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -60,6 +58,11 @@ const HomeBtn = styled.button`
   color: #ffffff;
 
   cursor: pointer;
+
+  @media screen and (max-width: 450px) {
+    width: 80px;
+    height: 20px;
+  }
 `;
 
 const GoBackBtn = styled(HomeBtn)`

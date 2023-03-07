@@ -17,19 +17,25 @@ const Header = () => {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState<boolean>(false);
   const [hamburgerOpen, setHamburgerOpen] = useState<boolean>(false);
   // 햄버거 모달 애니메이션
-  const [expanded, seExpanded] = useState<boolean>(false);
+  const [expanded, setExpanded] = useState<boolean>(false);
+  // 모바일 검색창 애니메이션
+  const [searchExpanded, setSearchExpanded] = useState<boolean>(false);
   const [isMobileSearch, setIsMobileSearch] = useState<boolean>(false);
 
   // 햄버거 모달 애니메이션 적용, 오픈 상태 변경
   const HamburgerOpenHandler = () => {
-    seExpanded(!expanded);
+    setExpanded(!expanded);
     setTimeout(() => {
       setHamburgerOpen(!hamburgerOpen);
     }, 150);
   };
 
+  // 클릭하면 모바일 검색창이 나타나고 애니메이션 적용 됨
   const mobileSearchHandler = () => {
-    setIsMobileSearch(true);
+    setSearchExpanded(!searchExpanded);
+    setTimeout(() => {
+      setIsMobileSearch(!isMobileSearch);
+    }, 200);
   };
 
   // user 로그인 여부에 따라 header Nav 변경
@@ -70,8 +76,8 @@ const Header = () => {
         <S.SearchContainer>
           {isMobileSearch ? (
             <SearchMobile
-              setIsMobileSearch={setIsMobileSearch}
-              isMobileSearch={isMobileSearch}
+              mobileSearchHandler={mobileSearchHandler}
+              searchExpanded={searchExpanded}
             />
           ) : (
             <SearchWeb />

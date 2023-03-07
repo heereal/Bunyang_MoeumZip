@@ -161,7 +161,7 @@ const CategoryBar = () => {
         {/*  지역 카테고리 선택 */}
         {isRegionToggleOpen && (
           <S.RegionCategoryContainer>
-            <S.CategoryBox>
+            <S.RegionCategoryBox>
               {regionArray.map((region, index) =>
                 region && myRegionArray.includes(region) ? (
                   <S.CategoryBtn
@@ -189,7 +189,7 @@ const CategoryBar = () => {
                   </S.CategoryBtn>
                 ),
               )}
-            </S.CategoryBox>
+            </S.RegionCategoryBox>
             <S.CommonBtnBox>
               <S.CategoryCommonBtn
                 color={myRegionArray.length === 17 ? '#356EFF' : '#505050'}
@@ -216,7 +216,7 @@ const CategoryBar = () => {
         {/* 분양 형태 카테고리 선택 */}
         {isTypeToggleOpen && (
           <S.TypeCategoryContainer>
-            <S.CategoryBox>
+            <S.TypeCategoryBox>
               {typesArray.map((region, index) =>
                 region && myTypeArray.includes(region) ? (
                   <S.CategoryBtn
@@ -244,7 +244,7 @@ const CategoryBar = () => {
                   </S.CategoryBtn>
                 ),
               )}
-            </S.CategoryBox>
+            </S.TypeCategoryBox>
             <S.CommonBtnBox>
               <S.CategoryCommonBtn
                 color={myTypeArray.length === 11 ? '#356EFF' : '#505050'}
