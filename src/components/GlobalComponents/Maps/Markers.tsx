@@ -23,17 +23,17 @@ const Markers = ({ map, home }: MarkersProps) => {
         var htmlMarker1 = {
             content: ReactDOMServer.renderToString(<ClusterSmall />),
             size: new naver.maps.Size(40, 40),
-            anchor: new naver.maps.Point(20, 20),
+            anchor: new naver.maps.Point(0, 0),
           },
           htmlMarker2 = {
             content: ReactDOMServer.renderToString(<ClusterMid />),
             size: new naver.maps.Size(40, 40),
-            anchor: new naver.maps.Point(20, 20),
+            anchor: new naver.maps.Point(0, 0),
           },
           htmlMarker3 = {
             content: ReactDOMServer.renderToString(<ClusterLarge />),
             size: new naver.maps.Size(40, 40),
-            anchor: new naver.maps.Point(20, 20),
+            anchor: new naver.maps.Point(0, 0),
           };
 
         // NOTE: home 데이터를 이용하여 markers 배열 생성
@@ -53,7 +53,7 @@ const Markers = ({ map, home }: MarkersProps) => {
               content: markerIcon,
 
               size: new naver.maps.Size(38, 58),
-              anchor: new naver.maps.Point(0, 0),
+              anchor: new naver.maps.Point(20, 100),
             },
           });
           markers.push(marker);
@@ -73,7 +73,7 @@ const Markers = ({ map, home }: MarkersProps) => {
             // anchorSize: new naver.maps.Size(20, 20),
             // anchorSkew: true,
             // anchorColor: '#eee',
-            pixelOffset: new naver.maps.Point(32, 25),
+            pixelOffset: new naver.maps.Point(20, 25),
             borderWidth: 1,
             borderColor: '#bcc0cb',
           });

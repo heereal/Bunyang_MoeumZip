@@ -18,14 +18,14 @@ from{
   transform: translateY(0);
 }
 to{
-  transform: translateY(-50%);
+  transform: translateY(-35%);
 }
 `;
 
 export const slideDown = keyframes`
   
 from{
-  transform: translateY(-50%);
+  transform: translateY(-35%);
 }
 to{
   transform: translateY(0);
@@ -47,7 +47,7 @@ export const MainSection = styled.section<any>`
   @media screen and (max-width: 450px) {
     height: 100%;
     position: absolute;
-    top: 55%;
+    top: 40%;
     ${(props) =>
       props.active
         ? css`
@@ -89,6 +89,4 @@ export const MainUpBtn = styled.div`
   justify-content: center;
   align-items: center;
   margin-top: 10px;
-
-  animation: ${bounce} 500ms infinite alternate ease-in;
 `;
