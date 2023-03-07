@@ -45,6 +45,7 @@ const CategoryBar = () => {
       setMyRegionArray(userRegionArray);
       setMyTypeArray(userTypeArray);
     }
+    // eslint-disable-next-line
   }, [userRegionArray, userTypeArray]);
 
   // 선택한 지역, 분양형태가 바뀔 때마다 recoil defaultValue를 업데이트
@@ -73,10 +74,6 @@ const CategoryBar = () => {
       return setIsRegionToggleOpen(false);
     }
   };
-
-  // const stayList = [...myRegionArray];
-  // stayList.filter
-  // console.log(stayList);
 
   // 카테고리 Tab 분류
   const categoryList = [

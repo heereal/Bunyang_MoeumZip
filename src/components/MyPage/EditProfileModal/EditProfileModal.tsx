@@ -8,7 +8,7 @@ import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { signOut } from 'next-auth/react';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { confirmAlert } from 'react-confirm-alert';
 import { BsCameraFill } from 'react-icons/bs';
 import { MdClose } from 'react-icons/md';
@@ -131,9 +131,32 @@ const EditProfileModal = ({ setIsModalOpen }: any) => {
     });
   };
 
+  const profileModalRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handler = () => {
+      // 로그인 모달 밖을 눌렀을 때 로그인 모달 닫힘
+      //@ts-ignore
+      if (
+        profileModalRef.current &&
+        //@ts-ignore
+        !profileModalRef.current.contains(event?.target)
+      ) {
+        setIsModalOpen(false);
+      }
+    }; // 이벤트 핸들러 등록
+    document.addEventListener('mousedown', handler);
+
+    return () => {
+      // 이벤트 핸들러 해제
+      document.removeEventListener('mousedown', handler);
+    };
+    // eslint-disable-next-line
+  }, []);
+
   return (
     <S.ModalBackground>
-      <S.ModalContainer>
+      <S.ModalContainer ref={profileModalRef}>
         <S.CloseBtnContainer>
           <MdClose
             size="27"
