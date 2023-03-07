@@ -18,14 +18,14 @@ from{
   transform: translateY(0);
 }
 to{
-  transform: translateY(-50%);
+  transform: translateY(-35%);
 }
 `;
 
 export const slideDown = keyframes`
   
 from{
-  transform: translateY(-50%);
+  transform: translateY(-35%);
 }
 to{
   transform: translateY(0);

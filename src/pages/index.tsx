@@ -5,6 +5,7 @@ import { NextSeo } from 'next-seo';
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
 import * as S from '../styles/main.style';
+import { SlArrowUp } from 'react-icons/sl';
 
 const MainPage = ({ homeList }: HomeListDBPropsJ) => {
   const allHomeList = homeList.allHomeData;
@@ -27,7 +28,10 @@ const MainPage = ({ homeList }: HomeListDBPropsJ) => {
         description="전국 분양정보를 한눈에 확인할 수 있는 플랫폼입니다."
       />
       <S.MainUpBtnBox>
-        <S.MainUpBtn onClick={sizeHandler}></S.MainUpBtn>
+        <div style={{ marginTop: 10 }}>
+          <SlArrowUp onClick={sizeHandler} />
+        </div>
+        {/* <S.MainUpBtn onClick={sizeHandler}></S.MainUpBtn> */}
       </S.MainUpBtnBox>
       {/* 지역 및 분양형태 필터 및 청약경쟁률 확인 버튼 */}
       {/* CountTabs(+HomeList 컴포넌트) */}

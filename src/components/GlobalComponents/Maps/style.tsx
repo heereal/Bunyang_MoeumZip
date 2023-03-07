@@ -33,6 +33,7 @@ export const MarkerTest = styled.div`
   position: absolute;
   font-size: 13px;
   font-weight: 600;
+  margin-top: 10px;
 `;
 
 export const MapBox = styled.div<any>`
