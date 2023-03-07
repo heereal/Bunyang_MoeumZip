@@ -14,7 +14,8 @@ export const ModalBackground = styled.div`
 `;
 
 export const ModalContainer = styled.div`
-  height: 420px;
+  /* height: 420px; */
+  height: 380px;
   width: 360px;
   background-color: white;
   padding: 15px;

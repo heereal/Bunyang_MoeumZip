@@ -83,7 +83,7 @@ const LoginModal = ({ setIsLoginModalOpen }: loginModalProps) => {
             </S.SocialLoginIcon>
             네이버 로그인
           </S.SocialLoginBtn>
-          <S.SocialLoginBtn
+          {/* <S.SocialLoginBtn
             bg={'#1877F2'}
             text={'white'}
             onClick={() => loginHandler('facebook')}
@@ -92,7 +92,7 @@ const LoginModal = ({ setIsLoginModalOpen }: loginModalProps) => {
               <BsFacebook size="17" style={{ marginTop: 5, marginLeft: 2 }} />
             </S.SocialLoginIcon>
             페이스북 로그인
-          </S.SocialLoginBtn>
+          </S.SocialLoginBtn> */}
           <S.GoogleLoginBtn
             bg={'white'}
             text={'black'}
