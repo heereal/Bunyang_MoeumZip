@@ -22,6 +22,8 @@ const useBookmark = (
       return;
     }
 
+    console.log('bookmarksList-firestore에서 불러오는 data:', bookmarksList?.usersList);
+
     const addBookmark: any = {
       usersList: arrayUnion(usersRef),
     };
@@ -30,8 +32,6 @@ const useBookmark = (
     };
 
     const bookmarksRef = doc(db, 'Bookmarks', PBLANC_NO);
-
-    console.log('bookmarksList?.usersList:', bookmarksList?.usersList);
 
     // 북마크를 취소할 때
     if (bookmarksList?.usersList.includes(usersRef)) {

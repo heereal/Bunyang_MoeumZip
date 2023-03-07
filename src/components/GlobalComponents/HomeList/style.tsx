@@ -11,8 +11,7 @@ export const ListArticle = styled.article`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  /* margin-top: 26px; */
-  /* margin-bottom: 15px; */
+
   margin-bottom: 40px;
   border-radius: 20px;
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
@@ -70,6 +69,10 @@ export const CardTitle = styled.p`
   margin-bottom: 3px;
 
   color: #000000;
+
+  @media screen and (max-width: 600px) {
+    font-size: 18px;
+  }
 `;
 
 // 카테고리(분양형태, 주택형태, 지역)
@@ -99,6 +102,10 @@ export const CardCategory = styled.div`
 
   text-align: left;
   color: #7b7b7b;
+
+  @media screen and (max-width: 600px) {
+    font-size: 14px;
+  }
 `;
 
 // 청약일 박스
@@ -135,9 +142,17 @@ export const CardDateTitle = styled.p`
 
   color: #ffffff;
   font-weight: 400;
+
+  @media screen and (max-width: 600px) {
+    font-size: 15px;
+  }
 `;
 export const CardDate = styled(CardDateTitle)`
   font-weight: 600;
+
+  @media screen and (max-width: 600px) {
+    font-size: 16px;
+  }
 `;
 
 // 청약일이 없을 때
@@ -168,6 +183,10 @@ export const CardAreaBox = styled.div`
 export const CardAreaTitle = styled(CardDateTitle)`
   color: #7b7b7b;
   font-size: 13px;
+
+  @media screen and (max-width: 600px) {
+    font-size: 15px;
+  }
 `;
 
 export const CardArea = styled(CardDate)`
@@ -175,4 +194,8 @@ export const CardArea = styled(CardDate)`
   font-size: 13px;
 
   color: #000000;
+
+  @media screen and (max-width: 600px) {
+    font-size: 16px;
+  }
 `;

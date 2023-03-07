@@ -59,8 +59,7 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
   // [북마크] 버튼 클릭 시 작동
   const editBookmark = useMutation('Bookmarks', onClickBookmarkBtnHandler, {
     onSuccess: () => {
-      queryClient.invalidateQueries('Bookmarks');
-      console.log('mutation 성공:');
+      queryClient.invalidateQueries('Bookmarks'), bookmarksListRefetch();
     },
   });
 

@@ -87,6 +87,11 @@ export const NicknameInput = styled.input`
     outline: none;
     border: 1px solid #4f70e4;
   }
+
+  @media screen and (max-width: 650px) {
+    width: 80%;
+    font-size: 15px;
+  }
 `;
 
 export const ProfileBtn = styled.button`
@@ -110,6 +115,12 @@ export const ProfileBtn = styled.button`
     cursor: default;
     background: #e8eaef;
     color: #7b7b7b;
+    margin-top: 10px;
+  }
+
+  @media screen and (max-width: 650px) {
+    width: 80%;
+    font-size: 15px;
   }
 `;
 
