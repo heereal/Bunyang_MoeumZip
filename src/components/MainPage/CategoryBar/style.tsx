@@ -147,7 +147,7 @@ export const TypeCategoryBox = styled(RegionCategoryBox)`
   }
 `;
 
-// 각 카테고리버튼
+// 각 카테고리 버튼
 export const CategoryBtn = styled.button<{
   bg: string;
   bd: string;
@@ -175,10 +175,11 @@ export const CategoryBtn = styled.button<{
 
   cursor: pointer;
 
-  :hover {
+  /* TODO: hover 때문에 모바일에서 버튼 클릭 취소 시 느리게 되는 거라면 hover 삭제 */
+  /* :hover {
     color: #3d7fff;
     background-color: #f0f4ff;
-  }
+  } */
 
   @media screen and (max-width: 450px) {
     min-width: 39px;
