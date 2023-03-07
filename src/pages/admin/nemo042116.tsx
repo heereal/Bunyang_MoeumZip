@@ -663,7 +663,7 @@ const MustHaveToDo = ({
 
   // FIXME: 새로고침 해야 날짜가 바뀜!!
   // eslint-disable-next-line
-  useEffect(() => setBtnTime(homeListDB[0]?.BUTTON_DATE), []);
+  useEffect(() => setBtnTime(homeListDB[homeListDB.length-1]?.BUTTON_DATE), []);
 
   return (
     <>
