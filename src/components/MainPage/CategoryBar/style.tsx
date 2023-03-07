@@ -88,17 +88,18 @@ export const TabName = styled.p<{ color: string }>`
 
 // 지역 및 분양형태 카테고리 선택
 export const RegionCategoryContainer = styled.div`
-  width: 290px;
-  height: 235px;
+  width: 280px;
+  height: 225px;
 
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
+
+  padding: 0 10px;
 
   position: absolute;
   top: 95%;
-  left: 2px;
 
   box-sizing: border-box;
 
@@ -108,44 +109,40 @@ export const RegionCategoryContainer = styled.div`
   border-radius: 20px;
 
   @media screen and (max-width: 450px) {
-    width: 335px;
-    height: 170px;
+    height: 190px;
+    left: 1%;
+    top: 99%;
   }
 `;
 
 export const TypeCategoryContainer = styled(RegionCategoryContainer)`
-  width: 306px;
-  height: 235px;
+  width: 300px;
 
   @media screen and (max-width: 450px) {
-    width: 355px;
     height: 170px;
   }
 `;
 
 export const RegionCategoryBox = styled.div`
   width: 100%;
-  height: 85%;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  align-items: flex-start;
-  margin-left: 25px;
-  margin-top: 20px;
+  height: 90%;
+
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
   padding-bottom: 30px;
 
   box-sizing: border-box;
-  gap: 2px 8px;
+  gap: 8px;
 
   @media screen and (max-width: 450px) {
-    margin-left: 23px;
     gap: 6px;
   }
 `;
+
 export const TypeCategoryBox = styled(RegionCategoryBox)`
+  grid-template-columns: repeat(3, minmax(40px, auto));
+
   @media screen and (max-width: 450px) {
-    margin-left: 8px;
     gap: 6px;
   }
 `;
@@ -156,13 +153,12 @@ export const CategoryBtn = styled.button<{
   bd: string;
   color: string;
 }>`
-  min-width: 39px;
+  width: 100%;
   height: 30px;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 10px;
-  padding: 10px 8px;
+  padding: 10px 4px;
   border-radius: 7px;
 
   background-color: ${(props) => props.bg};
@@ -202,7 +198,7 @@ export const CommonBtnBox = styled.div`
   align-items: center;
 
   padding: 0 12px;
-  padding-bottom: 30px;
+  padding-bottom: 13px;
   position: absolute;
   top: 88%;
 `;

@@ -5,7 +5,7 @@ import { AiOutlineSearch } from 'react-icons/ai';
 import * as S from './style';
 import { useOnEnterKeyPress } from '@/hooks';
 
-const SearchInput = ({ setIsMobileSearch, isMobileSearch }: any) => {
+const SearchInput = () => {
   const router = useRouter();
   const [keyword, setKeyword] = useState<string>('');
 

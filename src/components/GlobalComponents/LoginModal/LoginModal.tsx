@@ -7,6 +7,7 @@ import { FcGoogle } from 'react-icons/fc';
 import logo from '../../../../public/assets/logo.png';
 import * as S from './style';
 import Image from 'next/image';
+import { useRef, useEffect } from 'react';
 
 interface loginModalProps {
   setIsLoginModalOpen: any;
@@ -18,9 +19,32 @@ const LoginModal = ({ setIsLoginModalOpen }: loginModalProps) => {
     await signIn(provider, { callbackUrl: '/loading' });
   };
 
+  const LoginModalRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handler = () => {
+      // 로그인 모달 밖을 눌렀을 때 로그인 모달 닫힘
+      //@ts-ignore
+      if (
+        LoginModalRef.current &&
+        //@ts-ignore
+        !LoginModalRef.current.contains(event?.target)
+      ) {
+        setIsLoginModalOpen(false);
+      }
+    }; // 이벤트 핸들러 등록
+    document.addEventListener('mousedown', handler);
+
+    return () => {
+      // 이벤트 핸들러 해제
+      document.removeEventListener('mousedown', handler);
+    };
+    // eslint-disable-next-line
+  }, []);
+
   return (
     <S.ModalBackground>
-      <S.ModalContainer>
+      <S.ModalContainer ref={LoginModalRef}>
         <S.CloseBtnContainer>
           <MdClose
             size="27"
