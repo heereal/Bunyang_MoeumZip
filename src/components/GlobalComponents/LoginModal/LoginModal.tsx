@@ -19,16 +19,16 @@ const LoginModal = ({ setIsLoginModalOpen }: loginModalProps) => {
     await signIn(provider, { callbackUrl: '/loading' });
   };
 
-  const LoginModalRef = useRef<HTMLDivElement>(null);
+  const loginModalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handler = () => {
       // 로그인 모달 밖을 눌렀을 때 로그인 모달 닫힘
       //@ts-ignore
       if (
-        LoginModalRef.current &&
+        loginModalRef.current &&
         //@ts-ignore
-        !LoginModalRef.current.contains(event?.target)
+        !loginModalRef.current.contains(event?.target)
       ) {
         setIsLoginModalOpen(false);
       }
@@ -44,7 +44,7 @@ const LoginModal = ({ setIsLoginModalOpen }: loginModalProps) => {
 
   return (
     <S.ModalBackground>
-      <S.ModalContainer ref={LoginModalRef}>
+      <S.ModalContainer ref={loginModalRef}>
         <S.CloseBtnContainer>
           <MdClose
             size="27"
