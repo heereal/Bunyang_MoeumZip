@@ -687,7 +687,7 @@ const MustHaveToDo = ({
               style={{ cursor: 'pointer' }}
               priority={true}
             />
-            <S.BtnText>DB에 넣기</S.BtnText>
+            <S.BtnText>DB와 비교</S.BtnText>
           </S.ApiCallBtn>
           <S.ApiCallBtn>
             <Image
@@ -713,7 +713,7 @@ const MustHaveToDo = ({
               style={{ cursor: 'pointer' }}
               priority={true}
             />
-            <S.BtnText>다시 DB에 넣기</S.BtnText>
+            <S.BtnText>DB에 넣기</S.BtnText>
           </S.ApiCallBtn>
         </S.BtnSection>
       </S.AdminSection>

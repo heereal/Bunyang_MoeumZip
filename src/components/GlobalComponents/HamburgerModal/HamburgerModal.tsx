@@ -16,7 +16,7 @@ const HamburgerModal = ({
   HamburgerOpenHandler,
 }: any) => {
   const router = useRouter();
-  const HamModalRef = useRef<HTMLDivElement>(null);
+  const hamModalRef = useRef<HTMLDivElement>(null);
 
   // user 로그인 여부에 따라 Hamburger Nav 변경
   const { data: session } = useSession();
@@ -26,7 +26,7 @@ const HamburgerModal = ({
     const handler = () => {
       // 햄버거 모달 밖을 눌렀을 때 햄버거 모달이 닫힘
       //@ts-ignore
-      if (HamModalRef.current && !HamModalRef.current.contains(event?.target)) {
+      if (hamModalRef.current && !hamModalRef.current.contains(event?.target)) {
         HamburgerOpenHandler();
       }
     };
@@ -52,7 +52,7 @@ const HamburgerModal = ({
   return (
     <S.HamModalBack>
       <div>
-        <S.HamModalSection ref={HamModalRef} active={expanded ? true : false}>
+        <S.HamModalSection ref={hamModalRef} active={expanded ? true : false}>
           <S.CloseBtn onClick={HamburgerOpenHandler}>
             <MdClose size={22} />
           </S.CloseBtn>
