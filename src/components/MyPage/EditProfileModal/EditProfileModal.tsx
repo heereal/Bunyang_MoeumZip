@@ -30,15 +30,12 @@ const EditProfileModal = ({ setIsModalOpen }: any) => {
   // 전체 유저의 firestore 정보
   const users = useRecoilValue(usersListState);
 
-  //TODO: 이미지 업로드 시 용량 줄여서 올리기
   // [수정 완료] 버튼 클릭 시 작동
   const editProfileHandler = async () => {
     // 중복되는 닉네임이 있는지 검색하기
     const checkNickname = users.find(
       (user: userProps) => user.userName === editNickname,
     );
-
-    // TODO: customAlert css 적용해서 모달 위에 뜨게 하기
 
     // 중복되는 닉네임이 있는 경우
     if (checkNickname) {
