@@ -22,8 +22,6 @@ const useBookmark = (
       return;
     }
 
-    console.log('bookmarksList-firestore에서 불러오는 data:', bookmarksList?.usersList);
-
     const addBookmark: any = {
       usersList: arrayUnion(usersRef),
     };

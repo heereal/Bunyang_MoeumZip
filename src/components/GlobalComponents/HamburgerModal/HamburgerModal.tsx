@@ -80,6 +80,7 @@ const HamburgerModal = ({
                   >
                     <CgProfile size={22} color={'#356eff'} />
                     <a
+                      href={'/my'}
                       style={{
                         textDecoration: 'none',
                         color: '#000000',
@@ -106,6 +107,7 @@ const HamburgerModal = ({
                 >
                   <FaRegCalendarAlt size={22} color={'#356eff'} />
                   <a
+                    href={'/calendar'}
                     style={{
                       textDecoration: 'none',
                       color: '#000000',

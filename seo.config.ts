@@ -6,7 +6,6 @@ export default {
     site_name: '분양모음집',
     images: [
       {
-        //TODO: 배포하면 주소 바꿔야함
         url: 'https://media.discordapp.net/attachments/1071956935471009888/1082207188782698517/oggg.png',
       },
     ],
