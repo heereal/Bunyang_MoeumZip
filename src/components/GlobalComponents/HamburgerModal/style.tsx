@@ -89,7 +89,7 @@ export const LogoBox = styled.div`
   justify-content: center;
 `;
 
-export const LogoText = styled.p`
+export const LogoText = styled.div`
   font-family: 'PyeongChang-Bold';
   font-weight: 700;
   font-size: 14px;

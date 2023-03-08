@@ -19,7 +19,7 @@ export const TitleBox = styled.div`
   text-align: center;
 `;
 
-export const DbTimeTitle = styled.p`
+export const DbTimeTitle = styled.div`
   font-size: 30px;
   font-weight: bold;
 `;
