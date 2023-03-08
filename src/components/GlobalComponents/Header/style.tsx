@@ -10,6 +10,10 @@ export const Header = styled.header`
   border-bottom: 1px solid lightgray;
   position: fixed;
   z-index: 300;
+
+  @media screen and (max-width: 450px) {
+    grid-template-columns: 2fr 1fr 1fr;
+  }
 `;
 
 // Logo box
@@ -40,6 +44,7 @@ export const LogoText = styled.div`
   padding-top: 5px;
   @media screen and (max-width: 600px) {
     font-size: 15px;
+    padding-top: 3px;
   }
 `;
 
