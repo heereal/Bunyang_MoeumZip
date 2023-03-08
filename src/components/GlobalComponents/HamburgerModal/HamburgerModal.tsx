@@ -85,14 +85,14 @@ const HamburgerModal = ({
                         color: '#000000',
                       }}
                     >
-                      <p>마이페이지</p>
+                      <div>마이페이지</div>
                     </a>
                   </S.HamNav>
                 </Link>
               ) : (
                 <S.HamNav onClick={LoginHandler} color={'black'}>
                   <CgProfile size={22} color={'#356eff'} />
-                  <p>로그인</p>
+                  <div>로그인</div>
                 </S.HamNav>
               )}
 
@@ -111,7 +111,7 @@ const HamburgerModal = ({
                       color: '#000000',
                     }}
                   >
-                    <p>청약캘린더</p>
+                    <div>청약캘린더</div>
                   </a>
                 </S.HamNav>
               </Link>
@@ -128,7 +128,7 @@ const HamburgerModal = ({
                   }
                   style={{ textDecoration: 'none', color: '#000000' }}
                 >
-                  <p>청약경쟁률 확인</p>
+                  <div>청약경쟁률 확인</div>
                 </a>
               </S.HamNav>
 
@@ -142,7 +142,7 @@ const HamburgerModal = ({
                   }
                   style={{ textDecoration: 'none', color: '#000000' }}
                 >
-                  <p>청약당첨자 확인</p>
+                  <div>청약당첨자 확인</div>
                 </a>
               </S.HamNav>
             </S.HamNavBox>

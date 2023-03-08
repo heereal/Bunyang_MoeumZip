@@ -232,14 +232,14 @@ const CategoryBar = () => {
                     fontSize: 12,
                   }}
                 />
-                <p>전체 선택</p>
+                <div>전체 선택</div>
               </S.CategoryCommonBtn>
               <S.CategoryCommonBtn
                 color={'#505050'}
                 onClick={() => setMyRegionArray([])}
               >
                 <IoReload style={{ fontSize: 12 }} />
-                <p>초기화</p>
+                <div>초기화</div>
               </S.CategoryCommonBtn>
             </S.CommonBtnBox>
           </S.RegionCategoryContainer>
@@ -287,14 +287,14 @@ const CategoryBar = () => {
                     fontSize: 12,
                   }}
                 />
-                <p>전체 선택</p>
+                <div>전체 선택</div>
               </S.CategoryCommonBtn>
               <S.CategoryCommonBtn
                 color={'#505050'}
                 onClick={() => setMyTypeArray([])}
               >
                 <IoReload style={{ fontSize: 12 }} />
-                <p>초기화</p>
+                <div>초기화</div>
               </S.CategoryCommonBtn>
             </S.CommonBtnBox>
           </S.TypeCategoryContainer>

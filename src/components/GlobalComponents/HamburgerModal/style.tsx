@@ -120,7 +120,7 @@ export const HamNav = styled.nav`
 
   cursor: pointer;
 
-  p {
+  div {
     margin-top: 4px;
   }
 `;
