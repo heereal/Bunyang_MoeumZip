@@ -109,7 +109,7 @@ export const HamNavBox = styled.div`
   align-items: flex-start;
 `;
 
-export const HamNav = styled.nav`
+export const HamNav = styled.div`
   width: 100%;
   display: flex;
   gap: 12px;
