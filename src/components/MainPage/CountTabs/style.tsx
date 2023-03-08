@@ -3,7 +3,7 @@ import styled from 'styled-components';
 // Count Tab
 export const CountSectionBack = styled.div`
   width: 100%;
-  height: 127px;
+  height: 90px;
   max-width: 750px;
 
   background-color: #ffffff;
@@ -113,7 +113,8 @@ export const TapContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 15px;
+  padding: 15px 15px 5px 15px;
+  
   @media screen and (max-width: 1280px) {
     max-width: 500px;
   }
