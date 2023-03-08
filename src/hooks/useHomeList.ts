@@ -1,4 +1,5 @@
 import { getToday } from "@/common/utils";
+import { useEffect, useState } from "react";
 
 /**
  * CountTabs.tsx에서 쓰이는 customHook 
@@ -7,26 +8,31 @@ import { getToday } from "@/common/utils";
  */
 
 const useHomeList = (list: ItemJ[]) => {
+    const [isToday, setIsToday] = useState('')
 
+    useEffect(() => {
+        const today = getToday();
+        setIsToday(today)
+
+    }, [])
     // 오늘 날짜
-    const today = getToday();
 
     // 청약 가능 리스트
     const todayList = list.filter(
         (item: ItemJ) =>
-            item.RCEPT_BGNDE <= today &&
-            item.RCEPT_ENDDE >= today &&
+            item.RCEPT_BGNDE <= isToday &&
+            item.RCEPT_ENDDE >= isToday &&
             item.HOUSE_SECD !== '04',
     );
 
     // 청약 예정 리스트
     const comingList = list.filter(
-        (item: ItemJ) => item.RCEPT_BGNDE > today && item.HOUSE_SECD !== '04',
+        (item: ItemJ) => item.RCEPT_BGNDE > isToday && item.HOUSE_SECD !== '04',
     );
 
     // 무순위 리스트
     const randomList = list.filter(
-        (item: ItemJ) => item.HOUSE_SECD === '04' && item.RCEPT_BGNDE >= today,
+        (item: ItemJ) => item.HOUSE_SECD === '04' && item.RCEPT_BGNDE >= isToday,
     );
 
     // 전체 리스트
