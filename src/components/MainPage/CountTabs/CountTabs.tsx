@@ -35,6 +35,7 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
     },
   );
 
+  //
   // useHomeList도 getToday함수를 쓰지만 컴포넌트가 아니라 dynamic import를 쓸 수 없어
   // useEffect로 클라이언트에서 실행
   // useEffect(() => {
