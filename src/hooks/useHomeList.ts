@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 const useHomeList = (list: ItemJ[]) => {
     const [isToday, setIsToday] = useState('')
 
+    // 클라이언트 렌더링 시도
     useEffect(() => {
         const today = getToday();
         setIsToday(today)

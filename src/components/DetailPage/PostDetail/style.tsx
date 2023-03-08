@@ -386,10 +386,7 @@ export const SPLTY = styled.div`
   height: 100%;
 
   border-right: 1px solid #f4f4f4;
-  .p {
-    font-size: 20px;
-    padding: 3px;
-  }
+
   @media screen and (max-width: 1030px) {
     flex-direction: column;
   }
