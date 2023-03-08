@@ -71,7 +71,7 @@ export const TabNameBox = styled.div`
   justify-content: center;
 `;
 
-export const TabName = styled.p<{ color: string }>`
+export const TabName = styled.div<{ color: string }>`
   font-style: normal;
   font-weight: 500;
   font-size: 13px;
