@@ -35,7 +35,7 @@ const MainPage = ({ homeList }: HomeListDBPropsJ) => {
       </S.MainUpBtnBox>
       {/* 지역 및 분양형태 필터 및 청약경쟁률 확인 버튼 */}
       {/* CountTabs(+HomeList 컴포넌트) */}
-      <CountTabs list={allHomeList} />
+      {/* <CountTabs list={allHomeList} /> */}
     </S.MainSection>
   );
 };
