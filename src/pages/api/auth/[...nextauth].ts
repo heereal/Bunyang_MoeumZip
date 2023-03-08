@@ -5,6 +5,7 @@ import KakaoProvider from 'next-auth/providers/kakao';
 import NaverProvider from 'next-auth/providers/naver';
 
 export default NextAuth({
+  debug: true,
   session: {
     strategy: 'jwt',
   },
@@ -29,7 +30,6 @@ export default NextAuth({
       clientSecret: process.env.FACEBOOK_CLIENT_SECRET!,
     }),
   ],
-
   callbacks: {
     async jwt({ user, token, account }) {
       if (user && account) {
@@ -45,4 +45,8 @@ export default NextAuth({
       return session;
     },
   },
+  pages: {
+    error: '/', // Error code passed in query string as ?error=
+    // newUser: '/auth/new-user' // New users will be directed here on first sign in (leave the property out if not of interest)
+  }
 });
