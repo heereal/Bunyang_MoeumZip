@@ -132,7 +132,7 @@ const SignUp = () => {
       <S.SignUpContainer>
         <S.SignUpDesc>
           <h1>회원가입</h1>
-          <p>분양정보 추천을 위한 추가정보를 입력해주세요.</p>
+          <div>분양정보 추천을 위한 추가정보를 입력해주세요.</div>
         </S.SignUpDesc>
 
         {/* 닉네임 제출 */}

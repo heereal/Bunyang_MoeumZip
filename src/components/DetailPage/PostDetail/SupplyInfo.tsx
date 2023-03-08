@@ -34,8 +34,8 @@ const SupplyInfo = ({ home }: PropsP) => {
               flexDirection: 'column',
             }}
           >
-            <p>공급금액</p>
-            <p>(최고가 기준)</p>
+            <div>공급금액</div>
+            <div>(최고가 기준)</div>
           </S.SPLhead>
         </S.SPLtable>
         {home?.DETAIL.map((item: ItemJ) => {
@@ -51,13 +51,13 @@ const SupplyInfo = ({ home }: PropsP) => {
                     {item.SUPLY_AR !== null ? `${item.SUPLY_AR}㎡` : '-'}
                     {item.SUPLY_AR !== null ? (
                       <>
-                        <p>
+                        <div>
                           (
                           {typeof item.SUPLY_AR === 'string'
                             ? Math.round(Number(item.SUPLY_AR) / 3.3)
                             : null}
                           평)
-                        </p>
+                        </div>
                       </>
                     ) : null}
                   </S.SPLTY>
@@ -85,14 +85,14 @@ const SupplyInfo = ({ home }: PropsP) => {
                     <span>{item.EXCLUSE_AR}㎡</span>
                   </S.SPLTY>
                   <S.SPLTY>
-                    <p>{item.EXCLUSE_AR}㎡</p>
-                    <p>
+                    <div>{item.EXCLUSE_AR}㎡</div>
+                    <div>
                       (
                       {typeof item.EXCLUSE_AR === 'number'
                         ? Math.round(item.EXCLUSE_AR / 3.3)
                         : null}
                       평)
-                    </p>
+                    </div>
                   </S.SPLTY>
                   <S.SPLTY style={{ border: 'none', flexDirection: 'row' }}>
                     <S.TYDetail style={{ width: '33.3%' }}>

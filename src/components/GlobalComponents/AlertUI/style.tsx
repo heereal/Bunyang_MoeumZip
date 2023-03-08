@@ -51,7 +51,7 @@ export const TextBox = styled.div`
   gap: 15px;
 `;
 
-export const AlertText = styled.p`
+export const AlertText = styled.div`
   font-weight: 700;
   font-size: 22px;
   text-align: center;
