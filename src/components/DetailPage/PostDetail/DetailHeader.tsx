@@ -59,7 +59,7 @@ const DetailHeader = ({
                   <Image
                     src={fillStar}
                     alt="fillStar"
-                    height={13}
+                    height={14}
                     loading="lazy"
                     quality={100}
                   />
@@ -79,7 +79,7 @@ const DetailHeader = ({
                   <Image
                     src={outlineStar}
                     alt="outlineStar"
-                    height={13}
+                    height={14}
                     loading="lazy"
                     quality={100}
                   />
@@ -137,7 +137,7 @@ const DetailHeader = ({
                   <Image
                     src={fillStar}
                     alt="fillStar"
-                    height={13}
+                    height={14}
                     loading="lazy"
                     quality={100}
                   />
@@ -149,7 +149,7 @@ const DetailHeader = ({
                   <Image
                     src={outlineStar}
                     alt="outlineStar"
-                    height={13}
+                    height={14}
                     loading="lazy"
                     quality={100}
                   />
