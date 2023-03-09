@@ -28,18 +28,27 @@ const MapSection = () => {
   );
 
   useEffect(() => {
-    if (router.asPath === '/') {
-      if (naverMap) {
-        naverMap.updateBy(initialCenter, zoomLevel);
-      }
-    } else {
-      if (naverMap) {
-        const coord = new naver.maps.LatLng({
-          lat: Number(detail?.COORDINATES.y),
-          lng: Number(detail?.COORDINATES.x),
-        });
-        naverMap.updateBy(coord, 16);
-      }
+    // 지도 메인으로 갔을떄 줌 다시 떙겨오는 로직
+    // if (router.asPath === '/') {
+    //   if (naverMap) {
+    //     naverMap.updateBy(initialCenter, zoomLevel);
+    //   }
+    // } else {
+    //   if (naverMap) {
+    //     const coord = new naver.maps.LatLng({
+    //       lat: Number(detail?.COORDINATES.y),
+    //       lng: Number(detail?.COORDINATES.x),
+    //     });
+    //     naverMap.updateBy(coord, 16);
+    //   }
+    // }
+
+    if (naverMap) {
+      const coord = new naver.maps.LatLng({
+        lat: Number(detail?.COORDINATES.y),
+        lng: Number(detail?.COORDINATES.x),
+      });
+      naverMap.updateBy(coord, 16);
     }
   }, [router.asPath]); //eslint-disable-line
 
