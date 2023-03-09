@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 744px;
+  width: 720px;
   height: 100%;
   margin-left: 70px;
   /* overflow-y: scroll; */
@@ -58,7 +58,7 @@ export const Line = styled.div`
   position: absolute;
   height: 2px;
   bottom: 0;
-  width: 95%;
+  width: 100%;
   z-index: 0;
 
   @media screen and (max-width: 870px) {
@@ -85,7 +85,8 @@ export const BookmarkListContainer = styled.div`
   flex-wrap: wrap;
   display: flex;
   gap: 0 25px;
-  /* overflow-y: scroll; */
+  width: 100%;
+  justify-content: center;
 
   @media screen and (max-width: 650px) {
     justify-content: center;
@@ -94,18 +95,17 @@ export const BookmarkListContainer = styled.div`
 `;
 
 export const NoResultContainer = styled.div`
-  padding: 40px 0 0 50px;
+  padding-top: 50px;
 
-  @media screen and (max-width: 870px) {
-    padding: 40px 0 0 20px;
+  @media screen and (max-width: 768px) {
+    padding-top: 0
   }
 
   @media screen and (max-width: 650px) {
     width: 100%;
     display: flex;
     justify-content: center;
-    padding-top: 50px;
-    padding-left: 0;
+    padding-top: 0
   }
 `;
 

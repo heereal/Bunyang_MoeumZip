@@ -130,7 +130,6 @@ interface CategoryBtnStyledProps {
 }
 
 interface SelectCategoryProps {
-  width: string;
   path: string;
 }
 

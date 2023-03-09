@@ -6,7 +6,7 @@ import { BsFillCheckCircleFill } from 'react-icons/bs';
 import { FaUndo } from 'react-icons/fa';
 import { useEffect } from 'react';
 
-const SelectMyTypes = ({ width, path }: SelectCategoryProps) => {
+const SelectMyTypes = ({ path }: SelectCategoryProps) => {
   // 유저가 선택한 카테고리 필터링 리스트
   const [myTypeArray, setMyTypeArray] = useRecoilState<any>(myTypeArrayState);
 
@@ -19,7 +19,7 @@ const SelectMyTypes = ({ width, path }: SelectCategoryProps) => {
   }, []);
 
   return (
-    <S.CategoryContainer width={width} path={path}>
+    <S.CategoryContainer path={path}>
       {typesArray.map((type, index) =>
         type && myTypeArray?.includes(type) ? (
           <S.CategoryBtn

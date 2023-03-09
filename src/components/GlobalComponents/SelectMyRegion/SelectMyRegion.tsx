@@ -7,7 +7,7 @@ import { FaUndo } from 'react-icons/fa';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 
-const SelectMyRegion = ({ width, path }: SelectCategoryProps) => {
+const SelectMyRegion = ({ path }: SelectCategoryProps) => {
   const router = useRouter();
   console.log('router:', router);
   // 유저가 선택한 카테고리 필터링 리스트
@@ -19,11 +19,11 @@ const SelectMyRegion = ({ width, path }: SelectCategoryProps) => {
 
   useEffect(() => {
     setMyRegionArray(currentUser.regions);
-  // eslint-disable-next-line
+    // eslint-disable-next-line
   }, []);
 
   return (
-    <S.CategoryContainer width={width} path={path}>
+    <S.CategoryContainer path={path}>
       {regionArray.map((region, index) =>
         region && myRegionArray?.includes(region) ? (
           <S.CategoryBtn
