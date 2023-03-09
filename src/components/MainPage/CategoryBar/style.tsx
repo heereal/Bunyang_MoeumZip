@@ -120,7 +120,7 @@ export const TypeCategoryContainer = styled(RegionCategoryContainer)`
   width: 300px;
 
   @media screen and (max-width: 450px) {
-    height: 170px;
+    height: 190px;
   }
 `;
 
