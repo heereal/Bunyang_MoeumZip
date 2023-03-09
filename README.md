@@ -1,7 +1,7 @@
 
 <br/>
 
-<img src="https://user-images.githubusercontent.com/117061017/223964952-53843318-bf62-4b0e-aa96-b2521ac98bb3.png" height="500"/>
+<img src="https://user-images.githubusercontent.com/117061017/223964952-53843318-bf62-4b0e-aa96-b2521ac98bb3.png" width="80%" />
 
 # 분양모음집🏡
 분양모음집은 전국의 분양 정보를 한 눈에 확인할 수 있는 **분양 정보 제공** 서비스입니다.
@@ -28,7 +28,7 @@ https://www.by-zip.com/
 <br/>
 
 ## 🧑‍🔧서비스 아키텍쳐
-<img src="https://user-images.githubusercontent.com/117061017/220928547-93bc8d32-66aa-4b3c-8535-f7b7dc0aeba7.jpg" height="500"/>
+<img src="https://user-images.githubusercontent.com/117061017/220928547-93bc8d32-66aa-4b3c-8535-f7b7dc0aeba7.jpg" width="80%"/>
 
 <br/>
 
@@ -67,20 +67,17 @@ https://www.by-zip.com/
 - 청약홈, LH에서 제공 받은 분양 정보 제공
 - 전체, 청약 가능, 청약 예정, 무순위로 탭 선택 가능
 - 지역 및 분양 형태 필터로 분양 정보 필터링 가능
-- 메인 페이지 이미지
 
 
 ### ✅ 지도
 
 - 마커 및 오버레이를 통해 핵심 분양 정보 확인 가능
 - 지도 마커 선택 시 해당 분양 공고의 상세 정보를 확인할 수 있는 상세 페이지로 이동
-- 지도 이미지
     
 
 ### ✅ 검색
 
 - 지역, 분양 형태, 주택 명으로 검색 가능
-- 검색 이미지
     
 
 ### ✅ 상세 페이지
@@ -89,19 +86,17 @@ https://www.by-zip.com/
 - 주변 아파트 매매 실거래가 제공
 - 분양 정보 북마크 기능
 - 댓글 기능
-- 상세 페이지 이미지
     
 
 ### ✅ 청약 캘린더
 
 - 청약 일정을 날짜별로 한 눈에 파악 가능
 - 해당 공고문 클릭 시 상세 페이지로 이동
-- 청약 캘린더 이미지
    
     
-
 ### ✅ 관리자 페이지
 
 - 개발팀만 접근 가능한 관리자 페이지 생성
 - 3개의 버튼을 차례대로 클릭하여 Firestore에 재가공한 분양 정보 API 데이터 업로드 가능
 
+</br>
