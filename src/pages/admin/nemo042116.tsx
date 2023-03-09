@@ -2,12 +2,19 @@ import { addHomeList } from '@/common/api';
 import { db } from '@/common/firebase';
 import { getToday } from '@/common/utils';
 import axios from 'axios';
-import { doc, getDoc } from 'firebase/firestore';
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  setDoc,
+} from 'firebase/firestore';
 import { GetStaticProps } from 'next';
 import { NextSeo } from 'next-seo';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
-import { useMutation, useQueryClient } from 'react-query';
+import { useState } from 'react';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import coordinatesBtn from '../../../public/assets/apiCallButton_blue.png';
 import lastDbButton from '../../../public/assets/apiCallButton_green.png';
 import firsDbtButton from '../../../public/assets/apiCallButton_red.png';
@@ -44,9 +51,6 @@ const MustHaveToDo = ({
 
   // 새로 들어온 데이터에 좌표까지 추가한 배열
   const [newGeoArray, setNewGeoArray] = useState<any>([]);
-
-  // 최종으로 DB 업데이트한 시각
-  const [btnTime, setBtnTime] = useState<string>('');
 
   // LH 통합 데이터(기본 + 상세)에서 행복 주택, 국민 임대 등으로 분리
   const splitHappyLH = lhCombineList.filter(
@@ -369,9 +373,6 @@ const MustHaveToDo = ({
 
   // [1번 버튼] 클릭 시 새로 들어온 데이터를 재가공함
   const apiCallHandler = () => {
-    // DB 마지막으로 업데이트한 시각
-    const onClickDate = new Date().toLocaleString();
-
     // 기존 데이터 제외 새로 들어온 데이터만 필터링함
     const newDataArray = possibleAllHomeList.filter(
       (item: any) => !PBLANCArray.includes(`${item.PBLANC_NO}`),
@@ -382,7 +383,6 @@ const MustHaveToDo = ({
       newList.push({
         API: item.API ? 'LH' : '청약홈',
         COORDINATES: 'x:, y:',
-        BUTTON_DATE: onClickDate,
         DETAIL: item.detail,
         FOR_COORDINATES_ADRES: item.HSSPLY_ADRES.split(',')[0].split('외')[0],
 
@@ -594,7 +594,6 @@ const MustHaveToDo = ({
       setNewHomeData(newList);
     });
     setAllHomeData([...oldDataArray]);
-    setBtnTime(onClickDate);
 
     console.log('1번 버튼 실행 완료👇');
     console.log('firebase에서 불러온 기존 데이터', oldDataArray);
@@ -657,15 +656,56 @@ const MustHaveToDo = ({
   const updateInfoHandler = async () => {
     addHomeListMutate.mutate({ allHomeData });
 
-    console.log('firesotre에 업로드 완료👇');
+    alert('firesotre에 업로드 완료👇');
     console.log('allHomeData:', allHomeData);
   };
 
-  // FIXME: 새로고침 해야 날짜가 바뀜!!
-  // eslint-disable-next-line
-  useEffect(
-    () => setBtnTime(homeListDB[homeListDB.length - 1]?.BUTTON_DATE),
-    [],
+  // 3번 버튼 클릭한 시각 DB에 올리기
+  const updateLastUpdatedDate = async () => {
+    const onClickDate = new Date().toLocaleString();
+    const lastUpdatedDate = {
+      admin: '이희령',
+      date: onClickDate,
+    };
+
+    const ref = doc(db, 'Admin', onClickDate);
+    await setDoc(ref, lastUpdatedDate);
+  };
+
+  // DB 업로드 시각 데이터 가져오기
+  const getLastUpdatedDate = async () => {
+    const array: any[] = [];
+
+    const q = query(collection(db, 'Admin'));
+
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) =>
+      array.push({
+        ...doc.data(),
+      }),
+    );
+
+    return array.reverse();
+  };
+
+  const { data: LastUpdatedDateList, refetch }: any = useQuery(
+    'lastUpdatedDate',
+    getLastUpdatedDate,
+    {
+      onSuccess: (LastUpdatedDateList) => {
+        LastUpdatedDateList.splice(10);
+      },
+    },
+  );
+
+  const lastUpdatedDateMutation = useMutation(
+    'lastUpdatedDate',
+    updateLastUpdatedDate,
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries('lastUpdatedDate'), refetch();
+      },
+    },
   );
 
   return (
@@ -675,30 +715,31 @@ const MustHaveToDo = ({
         description="희령, 윤숙, 성환의 관리자 페이지 입니당😛"
       />
       <S.AdminSection>
-        <S.TitleBox>
+        <button onClick={() => lastUpdatedDateMutation.mutate()}>
+          테스트 버튼
+        </button>
+        {/* <S.TitleBox>
           <S.DbTimeTitle>{btnTime}</S.DbTimeTitle>
-        </S.TitleBox>
+        </S.TitleBox> */}
         <S.BtnSection>
           <S.ApiCallBtn>
             <Image
               onClick={apiCallHandler}
               src={firsDbtButton}
               alt="APICallButton"
-              width={300}
-              height={300}
+              height={200}
               quality={100}
               style={{ cursor: 'pointer' }}
               priority={true}
             />
-            <S.BtnText>DB와 비교</S.BtnText>
+            <S.BtnText>데이터 재가공</S.BtnText>
           </S.ApiCallBtn>
           <S.ApiCallBtn>
             <Image
               onClick={locationHandler}
               src={coordinatesBtn}
               alt="coordinatesBtn"
-              width={300}
-              height={300}
+              height={200}
               quality={100}
               style={{ cursor: 'pointer' }}
               priority={true}
@@ -710,8 +751,7 @@ const MustHaveToDo = ({
               onClick={updateInfoHandler}
               src={lastDbButton}
               alt="APICallButton"
-              width={300}
-              height={300}
+              height={200}
               quality={100}
               style={{ cursor: 'pointer' }}
               priority={true}
@@ -719,6 +759,30 @@ const MustHaveToDo = ({
             <S.BtnText>DB에 넣기</S.BtnText>
           </S.ApiCallBtn>
         </S.BtnSection>
+
+        <S.TableSection>
+          <S.Title>DB 업데이트 내역</S.Title>
+          <S.Table>
+            <thead>
+              <S.TableRow>
+                <S.TableHead>관리자</S.TableHead>
+                <S.TableHead>날짜</S.TableHead>
+              </S.TableRow>
+            </thead>
+            {LastUpdatedDateList?.map((item: any, index: any) => (
+              <tbody key={index}>
+                <S.TableRow
+                  style={{
+                    border: index === 0 ? '2px solid #5685FF' : 'none',
+                  }}
+                >
+                  <S.TableData>{item.admin}</S.TableData>
+                  <S.TableData>{item.date}</S.TableData>
+                </S.TableRow>
+              </tbody>
+            ))}
+          </S.Table>
+        </S.TableSection>
       </S.AdminSection>
     </>
   );

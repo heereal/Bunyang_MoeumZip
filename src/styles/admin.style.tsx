@@ -4,24 +4,7 @@ export const AdminSection = styled.section`
   width: 100vw;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-`;
-
-export const TitleBox = styled.div`
-  width: 50%;
-  height: 100px;
-  border: 2px solid red;
-  box-shadow: 1px 1px 5px 3px red;
-  padding-top: 30px;
-  border-radius: 10px;
-  box-sizing: border-box;
-  text-align: center;
-`;
-
-export const DbTimeTitle = styled.div`
-  font-size: 30px;
-  font-weight: bold;
 `;
 
 export const BtnSection = styled.section`
@@ -29,6 +12,7 @@ export const BtnSection = styled.section`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 20px;
 `;
 
 export const ApiCallBtn = styled.button`
@@ -36,9 +20,51 @@ export const ApiCallBtn = styled.button`
   border: none;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  margin: 20px;
 `;
 
-export const BtnText = styled(DbTimeTitle)``;
+export const BtnText = styled.div`
+  font-size: 20px;
+`;
+
+export const TableSection = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 40px;
+`;
+
+export const Title = styled.h2`
+  padding: 20px 0;
+`;
+
+export const Table = styled.table`
+  border: 1px solid #e8eaef;
+  width: 600px;
+  margin-bottom: 40px;
+`;
+
+export const TableRow = styled.tr`
+  border: 1px solid #e8eaef;
+`;
+
+export const TableHead = styled.th`
+  font-weight: 700;
+  font-size: 15px;
+  padding: 15px 25px;
+  background-color: #f0f4ff;
+  border: 1px solid #e8eaef;
+`;
+
+export const TableData = styled.td`
+  border: 1px solid #e8eaef;
+  padding: 15px 25px;
+  text-align: center;
+  font-size: 15px;
+
+  span {
+    font-size: 13px;
+    color: gray;
+  }
+`;
