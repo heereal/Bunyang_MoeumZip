@@ -73,12 +73,12 @@ export const CameraIcon = styled.div`
 
 export const NicknameInput = styled.input`
   font-weight: 500;
-  font-size: 13px;
-  line-height: 16px;
+  font-size: 14px;
+  line-height: 17px;
   text-align: center;
   padding: 0 10px;
-  height: 36px;
-  width: 200px;
+  width: 242px;
+  height: 40px;
   border: 1px solid #bcc0cb;
   margin-top: 30px;
   border-radius: 10px;
@@ -88,19 +88,19 @@ export const NicknameInput = styled.input`
     border: 1px solid #4f70e4;
   }
 
-  @media screen and (max-width: 650px) {
+  @media screen and (max-width: 450px) {
     width: 80%;
-    font-size: 15px;
+    font-size: 14px;
   }
 `;
 
 export const ProfileBtn = styled.button`
   all: unset;
-  width: 200px;
-  height: 36px;
+  width: 242px;
+  height: 40px;
   font-weight: 600;
-  font-size: 12px;
-  line-height: 14px;
+  font-size: 14px;
+  line-height: 17px;
   background: #3d7fff;
   border-radius: 7px;
   display: flex;
@@ -118,9 +118,9 @@ export const ProfileBtn = styled.button`
     margin-top: 10px;
   }
 
-  @media screen and (max-width: 650px) {
+  @media screen and (max-width: 450px) {
     width: 80%;
-    font-size: 15px;
+    font-size: 14px;
   }
 `;
 
@@ -135,8 +135,8 @@ export const WithdrawUserBtn = styled.div`
   font-size: 12px;
   cursor: pointer;
   position: absolute;
-  right: 25px;
-  margin-top: 30px;
+  right: 10px;
+  margin-top: 16px;
   text-decoration: underline;
   text-underline-position: under;
 
