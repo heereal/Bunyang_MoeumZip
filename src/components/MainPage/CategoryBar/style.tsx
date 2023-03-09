@@ -20,13 +20,14 @@ export const CategorySection = styled.section`
   }
 `;
 
-export const CategoryContainer = styled.div`
+export const CategoryContainer = styled.div<{ display: string }>`
   width: 50%;
   @media screen and (max-width: 600px) {
     width: 100%;
   }
   @media screen and (max-width: 450px) {
     max-width: 360px;
+    display: ${(props) => props.display};
   }
 `;
 

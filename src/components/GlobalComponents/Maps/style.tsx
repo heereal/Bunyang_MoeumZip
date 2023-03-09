@@ -45,6 +45,7 @@ export const MapBox = styled.div<any>`
   @media screen and (max-width: 768px) {
     display: ${(props) => props.display768};
     min-height: ${(props) => props.minHeight};
+    height: 100vh;
   }
 `;
 
@@ -52,5 +53,6 @@ export const MapContainer = styled.div`
   width: 40%;
   @media screen and (max-width: 768px) {
     width: 100vw;
+    height: 100vh;
   }
 `;
