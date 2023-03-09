@@ -1,4 +1,4 @@
-// signup 페이지 관심 지역 리스트
+//지역 카테고리 리스트
 export const regionArray: string[] = [
   '서울',
   '경기',
@@ -19,7 +19,7 @@ export const regionArray: string[] = [
   '제주',
 ];
 
-// signup 페이지 관심 분양 형태 리스트
+//분양 형태 카ㅌ고리 리스트
 export const typesArray: string[] = [
   '도시형생활주택',
   '영구임대',

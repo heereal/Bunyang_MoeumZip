@@ -171,7 +171,7 @@ const Replies = ({
                 wordBreak: 'break-all',
               }}
             >
-              <p>{list?.contents}</p>
+              <div>{list?.contents}</div>
             </S.ContentsBox>
           )}
           {isOpen && (

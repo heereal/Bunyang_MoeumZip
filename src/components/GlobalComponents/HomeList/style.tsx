@@ -41,7 +41,7 @@ export const TabInfo = styled.div`
   gap: 5px;
 `;
 
-export const TabInfoText = styled.p`
+export const TabInfoText = styled.div`
   width: 100%;
   height: 14px;
 
@@ -60,7 +60,7 @@ export const CardTitleBox = styled.div`
   padding: 0px 13px;
 `;
 
-export const CardTitle = styled.p`
+export const CardTitle = styled.div`
   height: 19px;
 
   font-weight: 600;
@@ -134,7 +134,7 @@ export const CardDateBox = styled.div`
   border-radius: 10px;
 `;
 
-export const CardDateTitle = styled.p`
+export const CardDateTitle = styled.div`
   height: 14px;
 
   font-size: 12px;

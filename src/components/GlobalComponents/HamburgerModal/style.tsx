@@ -89,7 +89,7 @@ export const LogoBox = styled.div`
   justify-content: center;
 `;
 
-export const LogoText = styled.p`
+export const LogoText = styled.div`
   font-family: 'PyeongChang-Bold';
   font-weight: 700;
   font-size: 14px;
@@ -109,7 +109,7 @@ export const HamNavBox = styled.div`
   align-items: flex-start;
 `;
 
-export const HamNav = styled.nav`
+export const HamNav = styled.div`
   width: 100%;
   display: flex;
   gap: 12px;
@@ -120,7 +120,7 @@ export const HamNav = styled.nav`
 
   cursor: pointer;
 
-  p {
+  div {
     margin-top: 4px;
   }
 `;

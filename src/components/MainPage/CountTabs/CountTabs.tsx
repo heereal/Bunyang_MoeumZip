@@ -16,7 +16,7 @@ import todayIcon from 'public/assets/today.png';
 import comingIcon from 'public/assets/coming.png';
 import randomIcon from 'public/assets/random.png';
 
-const CountTabs = ({ list }: CountTabPropsListJ) => {
+const CountTabs = ({ list, expanded }: CountTabPropsListJ) => {
   const [currentTab, SetCurrentTab] = useState<number>(0);
 
   // getToday()함수를 쓰는 컴포넌트는 클라이언트에서 실행되게 해야
@@ -278,14 +278,14 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
                       priority={true}
                     />
                   </S.CountTapImgBoxMobile>
-                  <p style={{ paddingTop: '3px' }}>{el.name}</p>
+                  <div style={{ paddingTop: '3px' }}>{el.name}</div>
                 </S.CountTabName>
                 <S.CountTabNum>{el.count}</S.CountTabNum>
               </S.BaseCountTab>
             ))}
           </S.CountTabList>
         </S.CountSectionBack>
-        <CategoryBar />
+        <CategoryBar expanded={expanded} />
       </S.TapContainer>
       {/* 분양 정보가 없을 때 보여줄 문구 */}
       {isLoading ? (

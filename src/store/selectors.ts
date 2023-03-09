@@ -20,7 +20,7 @@ export const zoomState = atom({
 
 export const centerState = atom({
   key: 'center',
-  default: { y: 35.2262411, x: 127.65289439 },
+  default: { y: 35.7262411, x: 127.95289439 },
 });
 
 export const hideState = atom({

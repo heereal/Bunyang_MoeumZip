@@ -70,9 +70,6 @@ const Markers = ({ map, home }: MarkersProps) => {
           const infowindow = new naver.maps.InfoWindow({
             content: contentString,
             backgroundColor: '#fff',
-            // anchorSize: new naver.maps.Size(20, 20),
-            // anchorSkew: true,
-            // anchorColor: '#eee',
             pixelOffset: new naver.maps.Point(20, 25),
             borderWidth: 1,
             borderColor: '#bcc0cb',

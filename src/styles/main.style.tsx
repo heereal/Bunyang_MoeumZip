@@ -18,14 +18,14 @@ from{
   transform: translateY(0);
 }
 to{
-  transform: translateY(-35%);
+  transform: translateY(-75%);
 }
 `;
 
 export const slideDown = keyframes`
   
 from{
-  transform: translateY(-35%);
+  transform: translateY(-75%);
 }
 to{
   transform: translateY(0);
@@ -65,7 +65,7 @@ export const MainSection = styled.section<any>`
   @media screen and (max-width: 450px) {
     height: 100%;
     position: absolute;
-    top: 40%;
+    top: 75%;
     ${(props) =>
       props.active
         ? css`
