@@ -1,19 +1,17 @@
-import { addHomeList } from '@/common/api';
+import {
+  addHomeList,
+  getLastUpdatedDate,
+  updateLastUpdatedDate,
+} from '@/common/api';
 import { db } from '@/common/firebase';
 import { getToday } from '@/common/utils';
 import axios from 'axios';
-import {
-  collection,
-  doc,
-  getDoc,
-  getDocs,
-  query,
-  setDoc,
-} from 'firebase/firestore';
+import { doc, getDoc } from 'firebase/firestore';
 import { GetStaticProps } from 'next';
+import { useSession } from 'next-auth/react';
 import { NextSeo } from 'next-seo';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import coordinatesBtn from '../../../public/assets/apiCallButton_blue.png';
 import lastDbButton from '../../../public/assets/apiCallButton_green.png';
@@ -28,6 +26,7 @@ const MustHaveToDo = ({
   homeListDB,
 }: ListPropsJ) => {
   const queryClient = useQueryClient();
+  const { data: session } = useSession();
 
   // DB에 들어가는 최종 분양 정보 리스트
   const [allHomeData, setAllHomeData] = useState<{ [key: string]: string }[]>(
@@ -660,34 +659,7 @@ const MustHaveToDo = ({
     console.log('allHomeData:', allHomeData);
   };
 
-  // 3번 버튼 클릭한 시각 DB에 올리기
-  const updateLastUpdatedDate = async () => {
-    const onClickDate = new Date().toLocaleString();
-    const lastUpdatedDate = {
-      admin: '이희령',
-      date: onClickDate,
-    };
-
-    const ref = doc(db, 'Admin', onClickDate);
-    await setDoc(ref, lastUpdatedDate);
-  };
-
-  // DB 업로드 시각 데이터 가져오기
-  const getLastUpdatedDate = async () => {
-    const array: any[] = [];
-
-    const q = query(collection(db, 'Admin'));
-
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc) =>
-      array.push({
-        ...doc.data(),
-      }),
-    );
-
-    return array.reverse();
-  };
-
+  // DB 업데이트 내역 불러오기
   const { data: LastUpdatedDateList, refetch }: any = useQuery(
     'lastUpdatedDate',
     getLastUpdatedDate,
@@ -698,15 +670,19 @@ const MustHaveToDo = ({
     },
   );
 
+  // DB 업데이트 내역 수정 시
   const lastUpdatedDateMutation = useMutation(
     'lastUpdatedDate',
-    updateLastUpdatedDate,
+    () => updateLastUpdatedDate('정윤숙'),
     {
       onSuccess: () => {
         queryClient.invalidateQueries('lastUpdatedDate'), refetch();
       },
     },
   );
+
+  // 관리자 계정 아닐 시 접근 제한
+  useEffect(() => {}, []);
 
   return (
     <>
