@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 
-export const CategoryContainer = styled.div<{ width: string; path: string }>`
+export const CategoryContainer = styled.div<{ path: string }>`
   box-shadow: ${(props) =>
     props.path === '/signup' ? 'none' : '0px 4px 4px rgba(0, 0, 0, 0.25)'};
   padding: ${(props) => (props.path === '/signup' ? 0 : '30px 30px 25px 30px')};
   border-radius: 20px;
   margin-bottom: 35px;
   background-color: white;
-  width: ${(props) => props.width};
+  width: 100%;
   gap: 8px;
   display: flex;
   flex-wrap: wrap;
