@@ -9,7 +9,7 @@ import { useRouter } from 'next/router';
 
 const SelectMyRegion = ({ path }: SelectCategoryProps) => {
   const router = useRouter();
-  console.log('router:', router);
+
   // 유저가 선택한 카테고리 필터링 리스트
   const [myRegionArray, setMyRegionArray] =
     useRecoilState<any>(myRegionArrayState);
@@ -17,7 +17,9 @@ const SelectMyRegion = ({ path }: SelectCategoryProps) => {
   // 현재 로그인한 유저의 firestore 유저 정보
   const currentUser = useRecoilValue(currentUserState);
 
+  // 마이페이지일 때만 setState 실행
   useEffect(() => {
+    if (router.pathname === '/signup') return;
     setMyRegionArray(currentUser.regions);
     // eslint-disable-next-line
   }, []);

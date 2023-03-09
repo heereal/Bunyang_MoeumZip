@@ -5,15 +5,20 @@ import { currentUserState, myTypeArrayState } from '@/store/selectors';
 import { BsFillCheckCircleFill } from 'react-icons/bs';
 import { FaUndo } from 'react-icons/fa';
 import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 
 const SelectMyTypes = ({ path }: SelectCategoryProps) => {
+  const router = useRouter();
+
   // 유저가 선택한 카테고리 필터링 리스트
   const [myTypeArray, setMyTypeArray] = useRecoilState<any>(myTypeArrayState);
 
   // 현재 로그인한 유저의 firestore 유저 정보
   const currentUser = useRecoilValue(currentUserState);
 
+  // 마이페이지일 때만 setState 실행
   useEffect(() => {
+    if (router.pathname === '/signup') return;
     setMyTypeArray(currentUser.types);
     // eslint-disable-next-line
   }, []);

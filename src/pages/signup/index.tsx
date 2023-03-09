@@ -17,6 +17,7 @@ import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { useRecoilState } from 'recoil';
 import * as S from '../../styles/signup.style';
+import { regionArray, typesArray } from '@/common/categoryList';
 
 const SignUp = () => {
   const router = useRouter();
@@ -71,8 +72,8 @@ const SignUp = () => {
     // 관심 카테고리 선택하지 않으면 전체 리스트를 선택한 것으로 간주함
     const updateUser = {
       userName: nickname,
-      regions: myRegionArray,
-      types: myTypeArray,
+      regions: myRegionArray.length === 0 ? regionArray : myRegionArray,
+      types: myTypeArray.length === 0 ? typesArray : myTypeArray,
     };
 
     await updateDoc(
@@ -116,8 +117,6 @@ const SignUp = () => {
     // session(유저 정보)가 들어왔을 때만 함수를 실행함
     if (currentUser) {
       setNickname(currentUser.userName);
-      setMyRegionArray(currentUser.regions);
-      setMyTypeArray(currentUser.types);
     }
     // eslint-disable-next-line
   }, [currentUser]);
