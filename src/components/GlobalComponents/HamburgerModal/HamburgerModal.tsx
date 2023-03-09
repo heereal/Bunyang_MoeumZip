@@ -16,7 +16,7 @@ const HamburgerModal = ({
   HamburgerOpenHandler,
 }: any) => {
   const router = useRouter();
-  const HamModalRef = useRef<HTMLDivElement>(null);
+  const hamModalRef = useRef<HTMLDivElement>(null);
 
   // user 로그인 여부에 따라 Hamburger Nav 변경
   const { data: session } = useSession();
@@ -26,7 +26,7 @@ const HamburgerModal = ({
     const handler = () => {
       // 햄버거 모달 밖을 눌렀을 때 햄버거 모달이 닫힘
       //@ts-ignore
-      if (HamModalRef.current && !HamModalRef.current.contains(event?.target)) {
+      if (hamModalRef.current && !hamModalRef.current.contains(event?.target)) {
         HamburgerOpenHandler();
       }
     };
@@ -52,7 +52,7 @@ const HamburgerModal = ({
   return (
     <S.HamModalBack>
       <div>
-        <S.HamModalSection ref={HamModalRef} active={expanded ? true : false}>
+        <S.HamModalSection ref={hamModalRef} active={expanded ? true : false}>
           <S.CloseBtn onClick={HamburgerOpenHandler}>
             <MdClose size={22} />
           </S.CloseBtn>
@@ -80,19 +80,20 @@ const HamburgerModal = ({
                   >
                     <CgProfile size={22} color={'#356eff'} />
                     <a
+                      href={'/my'}
                       style={{
                         textDecoration: 'none',
                         color: '#000000',
                       }}
                     >
-                      <p>마이페이지</p>
+                      <div>마이페이지</div>
                     </a>
                   </S.HamNav>
                 </Link>
               ) : (
                 <S.HamNav onClick={LoginHandler} color={'black'}>
                   <CgProfile size={22} color={'#356eff'} />
-                  <p>로그인</p>
+                  <div>로그인</div>
                 </S.HamNav>
               )}
 
@@ -106,12 +107,13 @@ const HamburgerModal = ({
                 >
                   <FaRegCalendarAlt size={22} color={'#356eff'} />
                   <a
+                    href={'/calendar'}
                     style={{
                       textDecoration: 'none',
                       color: '#000000',
                     }}
                   >
-                    <p>청약캘린더</p>
+                    <div>청약캘린더</div>
                   </a>
                 </S.HamNav>
               </Link>
@@ -128,7 +130,7 @@ const HamburgerModal = ({
                   }
                   style={{ textDecoration: 'none', color: '#000000' }}
                 >
-                  <p>청약경쟁률 확인</p>
+                  <div>청약경쟁률 확인</div>
                 </a>
               </S.HamNav>
 
@@ -142,7 +144,7 @@ const HamburgerModal = ({
                   }
                   style={{ textDecoration: 'none', color: '#000000' }}
                 >
-                  <p>청약당첨자 확인</p>
+                  <div>청약당첨자 확인</div>
                 </a>
               </S.HamNav>
             </S.HamNavBox>

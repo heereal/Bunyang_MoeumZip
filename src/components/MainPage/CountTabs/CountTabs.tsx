@@ -278,7 +278,7 @@ const CountTabs = ({ list }: CountTabPropsListJ) => {
                       priority={true}
                     />
                   </S.CountTapImgBoxMobile>
-                  <p style={{ paddingTop: '3px' }}>{el.name}</p>
+                  <div style={{ paddingTop: '3px' }}>{el.name}</div>
                 </S.CountTabName>
                 <S.CountTabNum>{el.count}</S.CountTabNum>
               </S.BaseCountTab>

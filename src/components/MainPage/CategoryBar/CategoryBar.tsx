@@ -7,15 +7,46 @@ import InfoLinkBtn from '../InfoLinkBtn/InfoLinkBtn';
 import { RiArrowDownSLine, RiArrowUpSLine } from 'react-icons/ri';
 import { BsCheckCircleFill } from 'react-icons/bs';
 import { IoReload } from 'react-icons/io5';
+import { useSession } from 'next-auth/react';
+import { useQuery } from 'react-query';
+import { getUsersList } from '@/common/api';
 
 const CategoryBar = () => {
   const [isRegionToggleOpen, setIsRegionToggleOpen] = useState<boolean>(false);
   const [isTypeToggleOpen, setIsTypeToggleOpen] = useState<boolean>(false);
   const [currentTab, SetCurrentTab] = useState<number>(0);
 
+  // 로그인 여부 확인
+  const { data: session }: any = useSession();
+
+  // Users 데이터 불러오기
+  const { data: users, isLoading }: any = useQuery('users', getUsersList, {
+    enabled: !!session, // session이 true인 경우에만 useQuery를 실행함
+  });
+
+  // 현재 유저의 데이터 불러오기
+  const currentUser = users?.find(
+    (item: ItemJ) =>
+      item.userEmail === session?.user?.email &&
+      item.provider === session?.user?.provider,
+  );
+
+  const userRegionArray = currentUser?.regions;
+  const userTypeArray = currentUser?.types;
+
+  // 회원가입한 유저의 카테고리 필터링 리스트
+
   // 유저가 선택한 카테고리 필터링 리스트
   const [myRegionArray, setMyRegionArray] = useState<any>([]);
   const [myTypeArray, setMyTypeArray] = useState<any>([]);
+
+  useEffect(() => {
+    if (currentUser) {
+      setMyRegionArray(userRegionArray);
+      setMyTypeArray(userTypeArray);
+    }
+    // eslint-disable-next-line
+  }, [userRegionArray, userTypeArray]);
 
   // 선택한 지역, 분양형태가 바뀔 때마다 recoil defaultValue를 업데이트
   const [selectedRegionArray, setSelectedRegionArray] =
@@ -43,6 +74,7 @@ const CategoryBar = () => {
       return setIsRegionToggleOpen(false);
     }
   };
+
   // 카테고리 Tab 분류
   const categoryList = [
     {
@@ -100,8 +132,15 @@ const CategoryBar = () => {
                     >
                       {item.name}
                     </S.TabName>
-                    {isRegionToggleOpen || item.name !== '지역' ? (
+                    {isRegionToggleOpen ? (
                       <RiArrowUpSLine
+                        style={{
+                          fontSize: 25,
+                          color: '#356EFF',
+                        }}
+                      />
+                    ) : !isRegionToggleOpen && item.name !== '지역' ? (
+                      <RiArrowDownSLine
                         style={{
                           fontSize: 25,
                           color: '#356EFF',
@@ -137,8 +176,15 @@ const CategoryBar = () => {
                     >
                       {item.name}
                     </S.TabName>
-                    {isTypeToggleOpen || item.name !== '분양형태' ? (
+                    {isTypeToggleOpen ? (
                       <RiArrowUpSLine
+                        style={{
+                          fontSize: 25,
+                          color: '#356EFF',
+                        }}
+                      />
+                    ) : !isTypeToggleOpen && item.name !== '분양형태' ? (
+                      <RiArrowDownSLine
                         style={{
                           fontSize: 25,
                           color: '#356EFF',
@@ -200,14 +246,14 @@ const CategoryBar = () => {
                     fontSize: 12,
                   }}
                 />
-                <p>전체 선택</p>
+                <div>전체 선택</div>
               </S.CategoryCommonBtn>
               <S.CategoryCommonBtn
                 color={'#505050'}
                 onClick={() => setMyRegionArray([])}
               >
                 <IoReload style={{ fontSize: 12 }} />
-                <p>초기화</p>
+                <div>초기화</div>
               </S.CategoryCommonBtn>
             </S.CommonBtnBox>
           </S.RegionCategoryContainer>
@@ -255,14 +301,14 @@ const CategoryBar = () => {
                     fontSize: 12,
                   }}
                 />
-                <p>전체 선택</p>
+                <div>전체 선택</div>
               </S.CategoryCommonBtn>
               <S.CategoryCommonBtn
                 color={'#505050'}
                 onClick={() => setMyTypeArray([])}
               >
                 <IoReload style={{ fontSize: 12 }} />
-                <p>초기화</p>
+                <div>초기화</div>
               </S.CategoryCommonBtn>
             </S.CommonBtnBox>
           </S.TypeCategoryContainer>

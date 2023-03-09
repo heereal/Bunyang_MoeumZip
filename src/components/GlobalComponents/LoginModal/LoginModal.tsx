@@ -4,9 +4,10 @@ import { RiKakaoTalkFill } from 'react-icons/ri';
 import { SiNaver } from 'react-icons/si';
 import { BsFacebook } from 'react-icons/bs';
 import { FcGoogle } from 'react-icons/fc';
-import logo from '../../../../public/assets/logo.png';
+import logo from 'public/assets/logo.png';
 import * as S from './style';
 import Image from 'next/image';
+import { useRef, useEffect } from 'react';
 
 interface loginModalProps {
   setIsLoginModalOpen: any;
@@ -18,9 +19,32 @@ const LoginModal = ({ setIsLoginModalOpen }: loginModalProps) => {
     await signIn(provider, { callbackUrl: '/loading' });
   };
 
+  const loginModalRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handler = () => {
+      // 로그인 모달 밖을 눌렀을 때 로그인 모달 닫힘
+      //@ts-ignore
+      if (
+        loginModalRef.current &&
+        //@ts-ignore
+        !loginModalRef.current.contains(event?.target)
+      ) {
+        setIsLoginModalOpen(false);
+      }
+    }; // 이벤트 핸들러 등록
+    document.addEventListener('mousedown', handler);
+
+    return () => {
+      // 이벤트 핸들러 해제
+      document.removeEventListener('mousedown', handler);
+    };
+    // eslint-disable-next-line
+  }, []);
+
   return (
     <S.ModalBackground>
-      <S.ModalContainer>
+      <S.ModalContainer ref={loginModalRef}>
         <S.CloseBtnContainer>
           <MdClose
             size="27"
@@ -59,7 +83,7 @@ const LoginModal = ({ setIsLoginModalOpen }: loginModalProps) => {
             </S.SocialLoginIcon>
             네이버 로그인
           </S.SocialLoginBtn>
-          <S.SocialLoginBtn
+          {/* <S.SocialLoginBtn
             bg={'#1877F2'}
             text={'white'}
             onClick={() => loginHandler('facebook')}
@@ -68,7 +92,7 @@ const LoginModal = ({ setIsLoginModalOpen }: loginModalProps) => {
               <BsFacebook size="17" style={{ marginTop: 5, marginLeft: 2 }} />
             </S.SocialLoginIcon>
             페이스북 로그인
-          </S.SocialLoginBtn>
+          </S.SocialLoginBtn> */}
           <S.GoogleLoginBtn
             bg={'white'}
             text={'black'}

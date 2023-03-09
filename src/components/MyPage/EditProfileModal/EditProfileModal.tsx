@@ -8,7 +8,7 @@ import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { signOut } from 'next-auth/react';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { confirmAlert } from 'react-confirm-alert';
 import { BsCameraFill } from 'react-icons/bs';
 import { MdClose } from 'react-icons/md';
@@ -30,15 +30,12 @@ const EditProfileModal = ({ setIsModalOpen }: any) => {
   // 전체 유저의 firestore 정보
   const users = useRecoilValue(usersListState);
 
-  //TODO: 이미지 업로드 시 용량 줄여서 올리기
   // [수정 완료] 버튼 클릭 시 작동
   const editProfileHandler = async () => {
     // 중복되는 닉네임이 있는지 검색하기
     const checkNickname = users.find(
       (user: userProps) => user.userName === editNickname,
     );
-
-    // TODO: customAlert css 적용해서 모달 위에 뜨게 하기
 
     // 중복되는 닉네임이 있는 경우
     if (checkNickname) {
@@ -131,9 +128,32 @@ const EditProfileModal = ({ setIsModalOpen }: any) => {
     });
   };
 
+  const profileModalRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handler = () => {
+      // 로그인 모달 밖을 눌렀을 때 로그인 모달 닫힘
+      //@ts-ignore
+      if (
+        profileModalRef.current &&
+        //@ts-ignore
+        !profileModalRef.current.contains(event?.target)
+      ) {
+        setIsModalOpen(false);
+      }
+    }; // 이벤트 핸들러 등록
+    document.addEventListener('mousedown', handler);
+
+    return () => {
+      // 이벤트 핸들러 해제
+      document.removeEventListener('mousedown', handler);
+    };
+    // eslint-disable-next-line
+  }, []);
+
   return (
     <S.ModalBackground>
-      <S.ModalContainer>
+      <S.ModalContainer ref={profileModalRef}>
         <S.CloseBtnContainer>
           <MdClose
             size="27"

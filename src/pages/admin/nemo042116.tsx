@@ -663,7 +663,10 @@ const MustHaveToDo = ({
 
   // FIXME: 새로고침 해야 날짜가 바뀜!!
   // eslint-disable-next-line
-  useEffect(() => setBtnTime(homeListDB[0]?.BUTTON_DATE), []);
+  useEffect(
+    () => setBtnTime(homeListDB[homeListDB.length - 1]?.BUTTON_DATE),
+    [],
+  );
 
   return (
     <>
@@ -687,7 +690,7 @@ const MustHaveToDo = ({
               style={{ cursor: 'pointer' }}
               priority={true}
             />
-            <S.BtnText>DB에 넣기</S.BtnText>
+            <S.BtnText>DB와 비교</S.BtnText>
           </S.ApiCallBtn>
           <S.ApiCallBtn>
             <Image
@@ -713,7 +716,7 @@ const MustHaveToDo = ({
               style={{ cursor: 'pointer' }}
               priority={true}
             />
-            <S.BtnText>다시 DB에 넣기</S.BtnText>
+            <S.BtnText>DB에 넣기</S.BtnText>
           </S.ApiCallBtn>
         </S.BtnSection>
       </S.AdminSection>
@@ -883,7 +886,6 @@ export const getStaticProps: GetStaticProps = async () => {
     }),
   );
 
-  // TODO: client에서 불러오기
   // 통합 리스트 불러오기 - 버튼 누른 날짜 화면에 표시하기
   const docRef = doc(db, 'HomeList', 'homeData');
   const docSnap = await getDoc(docRef);

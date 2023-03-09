@@ -81,9 +81,10 @@ export const SearchInput = styled.input`
   }
 
   @media screen and (max-width: 600px) {
-    width: 237px;
-    height: 20px;
+    width: 250px;
+    height: 100%;
     padding: 0;
+    font-size: 13px;
   }
 `;
 
@@ -106,16 +107,16 @@ export const MobileSearchBox = styled.div`
   @media screen and (max-width: 600px) {
     display: flex;
     position: fixed;
-    top: 1.5%;
-    right: 23%;
+    top: 2%;
+    right: 22%;
   }
 
   @media screen and (max-width: 450px) {
-    width: 280px;
+    width: 300px;
     position: fixed;
-    top: 3%;
+    top: 1.5%;
     right: 25%;
-    left: 18%;
+    left: 16.5%;
   }
 `;
 
@@ -124,7 +125,7 @@ export const MobileSearchInputContainer = styled.div<{
   active: boolean;
 }>`
   width: 100%;
-  height: 31px;
+  height: 38px;
   justify-content: space-evenly;
   align-items: center;
   gap: 8px;

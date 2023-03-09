@@ -18,11 +18,8 @@ import { useQuery } from 'react-query';
 import { useRecoilState } from 'recoil';
 import * as S from '../../styles/signup.style';
 
-//TODO: 회원가입 페이지 새로고침 할 때 "작성한 정보가 모두 사라집니다" alert 주기
-// TODO: isSignedUp이라는 속성을 하나 추가할까? 회원가입 완료해야 true가 됨 (닉네임 중복 검사해야되기 때문에)
 const SignUp = () => {
   const router = useRouter();
-  console.log('router:', router);
 
   // 유저의 세션 정보 받아오기
   const { data: session, status }: any = useSession();
@@ -135,7 +132,7 @@ const SignUp = () => {
       <S.SignUpContainer>
         <S.SignUpDesc>
           <h1>회원가입</h1>
-          <p>분양정보 추천을 위한 추가정보를 입력해주세요.</p>
+          <div>분양정보 추천을 위한 추가정보를 입력해주세요.</div>
         </S.SignUpDesc>
 
         {/* 닉네임 제출 */}

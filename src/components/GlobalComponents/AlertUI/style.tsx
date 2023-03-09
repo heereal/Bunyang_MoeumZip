@@ -41,6 +41,7 @@ export const AlertBox = styled.div`
   @media screen and (max-width: 450px) {
     width: 350px;
     min-width: 250px;
+    padding: 20px 20px;
   }
 `;
 
@@ -50,13 +51,13 @@ export const TextBox = styled.div`
   gap: 15px;
 `;
 
-export const AlertText = styled.p`
+export const AlertText = styled.div`
   font-weight: 700;
   font-size: 22px;
   text-align: center;
   color: #000000;
   @media screen and (max-width: 450px) {
-    font-size: 18px;
+    font-size: 17px;
   }
 `;
 

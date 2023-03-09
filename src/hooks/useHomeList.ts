@@ -8,8 +8,10 @@ import { getToday } from "@/common/utils";
 
 const useHomeList = (list: ItemJ[]) => {
 
+
     // 오늘 날짜
     const today = getToday();
+
 
     // 청약 가능 리스트
     const todayList = list.filter(
