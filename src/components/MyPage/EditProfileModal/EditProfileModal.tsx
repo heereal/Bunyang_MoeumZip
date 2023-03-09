@@ -96,7 +96,6 @@ const EditProfileModal = ({ setIsModalOpen }: any) => {
 
   // [회원탈퇴] 버튼 클릭 시 작동
   const withdrawMembershipHandler = async () => {
-    setIsModalOpen(false);
     confirmAlert({
       customUI: ({ onClose }) => {
         return (
@@ -114,6 +113,7 @@ const EditProfileModal = ({ setIsModalOpen }: any) => {
                   `${currentUser.provider}_${currentUser.userEmail}`,
                 ),
               );
+              setIsModalOpen(false);
               onClose();
               customUIAlert(
                 '회원탈퇴가 완료되었습니다.',
@@ -128,32 +128,9 @@ const EditProfileModal = ({ setIsModalOpen }: any) => {
     });
   };
 
-  const profileModalRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handler = () => {
-      // 로그인 모달 밖을 눌렀을 때 로그인 모달 닫힘
-      //@ts-ignore
-      if (
-        profileModalRef.current &&
-        //@ts-ignore
-        !profileModalRef.current.contains(event?.target)
-      ) {
-        setIsModalOpen(false);
-      }
-    }; // 이벤트 핸들러 등록
-    document.addEventListener('mousedown', handler);
-
-    return () => {
-      // 이벤트 핸들러 해제
-      document.removeEventListener('mousedown', handler);
-    };
-    // eslint-disable-next-line
-  }, []);
-
   return (
     <S.ModalBackground>
-      <S.ModalContainer ref={profileModalRef}>
+      <S.ModalContainer>
         <S.CloseBtnContainer>
           <MdClose
             size="27"
