@@ -53,7 +53,14 @@ const MapSection = () => {
   }, [router.asPath]); //eslint-disable-line
 
   return (
-    <MapContainer>
+    <MapContainer
+      display1200={router.asPath === '/admin/nemo042116' ? 'none' : 'block'}
+      display768={
+        router.asPath.includes('search') || router.asPath.includes('detail')
+          ? 'none'
+          : 'block'
+      }
+    >
       <Map onLoad={onLoadMap} />
       <Markers map={naverMap} home={home} />
     </MapContainer>

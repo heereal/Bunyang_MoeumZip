@@ -65,7 +65,7 @@ export const MainSection = styled.section<any>`
   @media screen and (max-width: 450px) {
     height: 100%;
     position: absolute;
-    top: 84%;
+    top: 70%;
     ${(props) =>
       props.active
         ? css`
