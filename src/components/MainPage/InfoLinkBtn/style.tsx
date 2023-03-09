@@ -9,6 +9,10 @@ export const Container = styled.div`
   gap: 10px;
   width: 50%;
 
+  @media screen and (max-width: 1280px) {
+    width: 45%;
+  }
+
   @media screen and (max-width: 600px) {
     display: none;
   }
@@ -33,4 +37,8 @@ export const BtnBox = styled.div`
   display: flex;
   align-items: center;
   text-align: center;
+
+  @media screen and (max-width: 1280px) {
+    width: 100px;
+  }
 `;

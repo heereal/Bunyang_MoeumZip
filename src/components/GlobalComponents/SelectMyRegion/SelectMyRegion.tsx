@@ -5,8 +5,11 @@ import { currentUserState, myRegionArrayState } from '@/store/selectors';
 import { BsFillCheckCircleFill } from 'react-icons/bs';
 import { FaUndo } from 'react-icons/fa';
 import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 
 const SelectMyRegion = ({ width, path }: SelectCategoryProps) => {
+  const router = useRouter();
+  console.log('router:', router);
   // 유저가 선택한 카테고리 필터링 리스트
   const [myRegionArray, setMyRegionArray] =
     useRecoilState<any>(myRegionArrayState);

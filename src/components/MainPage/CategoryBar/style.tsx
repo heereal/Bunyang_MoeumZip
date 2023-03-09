@@ -22,6 +22,10 @@ export const CategorySection = styled.section`
 
 export const CategoryContainer = styled.div`
   width: 50%;
+
+  @media screen and (max-width: 1280px) {
+    width: 55%;
+  }
   @media screen and (max-width: 600px) {
     width: 100%;
   }
@@ -80,6 +84,10 @@ export const TabName = styled.p<{ color: string }>`
 
   :hover {
     color: #3d7fff;
+  }
+
+  @media screen and (max-width: 1280px) {
+    font-size: 12px;
   }
   @media screen and (max-width: 450px) {
     font-size: 12px;
