@@ -121,6 +121,7 @@ interface PropsListJ {
 
 interface CountTabPropsListJ {
   list: ItemJ[];
+  expanded: boolean;
 }
 
 interface CategoryBtnStyledProps {

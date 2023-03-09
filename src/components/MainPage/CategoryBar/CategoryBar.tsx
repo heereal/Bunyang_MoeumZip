@@ -11,7 +11,11 @@ import { useSession } from 'next-auth/react';
 import { useQuery } from 'react-query';
 import { getUsersList } from '@/common/api';
 
-const CategoryBar = () => {
+interface Expanded {
+  expanded: boolean;
+}
+
+const CategoryBar = ({ expanded }: Expanded) => {
   const [isRegionToggleOpen, setIsRegionToggleOpen] = useState<boolean>(false);
   const [isTypeToggleOpen, setIsTypeToggleOpen] = useState<boolean>(false);
   const [currentTab, SetCurrentTab] = useState<number>(0);
@@ -104,7 +108,7 @@ const CategoryBar = () => {
 
   return (
     <S.CategorySection>
-      <S.CategoryContainer>
+      <S.CategoryContainer display={expanded ? 'flex' : 'none'}>
         <S.CategoryTabList>
           {categoryList.map((item, index) => (
             <S.CategoryTabs
