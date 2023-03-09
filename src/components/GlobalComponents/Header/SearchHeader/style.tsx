@@ -104,15 +104,13 @@ export const SearchBtn = styled.button`
 
 // 모바일(반응형) 검색창 style component
 export const MobileSearchBox = styled.div`
-  @media screen and (max-width: 600px) {
-    display: flex;
-    position: fixed;
-    top: 2%;
-    right: 22%;
+  @media screen and (min-width: 600px) {
+    display: none;
   }
 
   @media screen and (max-width: 450px) {
     width: 300px;
+    display: flex;
     position: fixed;
     top: 1.5%;
     right: 25%;

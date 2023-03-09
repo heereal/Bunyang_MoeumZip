@@ -72,7 +72,7 @@ const CommentsList = ({ postId }: DetailPagePropsP) => {
         queryClient={queryClient}
         refetch={refetch}
       />
-      <div>
+      <div style={{ marginBottom: '20px' }}>
         {comments?.map((comment: CommentP, index: number) => {
           return (
             <EditComment
