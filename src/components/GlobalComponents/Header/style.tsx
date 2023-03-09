@@ -81,6 +81,7 @@ export const NavBarMobile = styled.div`
   box-sizing: border-box;
   display: none;
   padding-right: 10px;
+  gap: 15px;
 
   @media screen and (max-width: 600px) {
     display: flex;
