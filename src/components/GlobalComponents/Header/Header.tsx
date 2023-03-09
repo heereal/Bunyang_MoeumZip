@@ -40,7 +40,6 @@ const Header = () => {
   // user 로그인 여부에 따라 header Nav 변경
   const { data: session } = useSession();
 
-  // 테스트 주석
   return (
     <>
       {/* 로그인 모달 */}
