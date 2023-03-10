@@ -16,7 +16,7 @@ import { LAWD_CD_Code } from '@/common/LAWD_CD';
 import LHDetail from './LHDetail';
 import { NextSeo } from 'next-seo';
 
-const PostDetail = ({ postId }: DetailPagePropsP) => {
+const PostDetail = ({ postId, detail }: DetailPagePropsP) => {
   const queryClient = useQueryClient();
 
   // 유저의 세션 정보 받아오기
@@ -24,6 +24,7 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
 
   // 디테일 페이지에서 사용할 특정한 분양 정보
   const [home, setHome] = useState<HomeP>();
+
   const [email, setEmail] = useState<string | null | undefined>('');
 
   // 탭 선택 시 사용
@@ -56,6 +57,8 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
   // 분양 정보 모두 불러온 후에 setHome 실행
   const { data, refetch: homeListRefetch } = useQuery('detail', getHomeList);
 
+  console.log(data?.allHomeData);
+
   // [북마크] 버튼 클릭 시 작동
   const editBookmark = useMutation('Bookmarks', onClickBookmarkBtnHandler, {
     onSuccess: () => {
@@ -63,9 +66,9 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
     },
   });
 
-  const detail = data?.allHomeData.find(
-    (home: { PBLANC_NO: string }) => `${home.PBLANC_NO}` === postId,
-  );
+  // const detail = data?.allHomeData.find(
+  //   (home: { PBLANC_NO: string }) => `${home.PBLANC_NO}` === postId,
+  // );
 
   // '시군구' 정보 기준으로 현재 디테일 페이지에 해당하는 지역 코드 찾기
   const LAWD_CD: any = LAWD_CD_Code.find(

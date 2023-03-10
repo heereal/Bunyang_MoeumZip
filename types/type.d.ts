@@ -52,6 +52,7 @@ interface CommentPropsP {
 //DetailPage Props
 interface DetailPagePropsP {
   postId: string | string[] | undefined;
+  detail?: any;
 }
 
 // 모집공고 useState
