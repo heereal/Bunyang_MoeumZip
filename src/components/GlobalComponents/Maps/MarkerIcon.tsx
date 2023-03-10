@@ -21,7 +21,7 @@ const MarkerIcon = ({ result }: any) => {
               quality={100}
             />
             <S.MarkerTest>
-              {result?.HOUSE_DTL_SECD_NM === '행복주택' ||
+              {result?.HOUSE_DTL_SECD_NM.includes('행복주택') ||
               result?.HOUSE_DTL_SECD_NM === '공공임대' ||
               result?.HOUSE_DTL_SECD_NM === '국민임대' ||
               result?.HOUSE_DTL_SECD_NM === '영구임대' ||
@@ -50,7 +50,7 @@ const MarkerIcon = ({ result }: any) => {
           <>
             <Image src={LH_today} alt={'청약가능'} height={65} quality={100} />
             <S.MarkerTest>
-              {result?.HOUSE_DTL_SECD_NM === '행복주택' ||
+              {result?.HOUSE_DTL_SECD_NM.includes('행복주택') ||
               result?.HOUSE_DTL_SECD_NM === '공공임대' ||
               result?.HOUSE_DTL_SECD_NM === '국민임대' ||
               result?.HOUSE_DTL_SECD_NM === '영구임대' ||
@@ -82,8 +82,7 @@ const MarkerIcon = ({ result }: any) => {
             quality={100}
           />
           <S.MarkerTest>
-            {' '}
-            {result?.HOUSE_DTL_SECD_NM === '행복주택' ||
+            {result?.HOUSE_DTL_SECD_NM.includes('행복주택') ||
             result?.HOUSE_DTL_SECD_NM === '공공임대' ||
             result?.HOUSE_DTL_SECD_NM === '국민임대' ||
             result?.HOUSE_DTL_SECD_NM === '영구임대' ||
@@ -115,8 +114,7 @@ const MarkerIcon = ({ result }: any) => {
             quality={100}
           />
           <S.MarkerTest>
-            {' '}
-            {result?.HOUSE_DTL_SECD_NM === '행복주택' ||
+            {result?.HOUSE_DTL_SECD_NM.includes('행복주택') ||
             result?.HOUSE_DTL_SECD_NM === '공공임대' ||
             result?.HOUSE_DTL_SECD_NM === '국민임대' ||
             result?.HOUSE_DTL_SECD_NM === '영구임대' ||
