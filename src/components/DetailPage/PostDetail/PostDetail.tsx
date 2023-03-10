@@ -119,6 +119,7 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
         description={`${
           home?.HOUSE_NM ? home?.HOUSE_NM : '모집공고'
         }의 분양상세정보, 주변아파트 실거래가를 제공합니다.`}
+        canonical={`https://www.by-zip.com/${postId}`}
       />
       <DetailHeader
         bookmarksList={bookmarksList}

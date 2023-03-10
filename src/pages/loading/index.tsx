@@ -81,6 +81,7 @@ const Loading = () => {
       <NextSeo
         title="로딩중 -"
         description="전국 분양정보를 한눈에 확인할 수 있는 플랫폼입니다."
+        canonical='https://www.by-zip.com/loading'
       />
       <LoadingSpinner />
     </SpinnerWrapper>
