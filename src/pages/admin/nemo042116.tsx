@@ -2,6 +2,8 @@ import {
   addHomeList,
   getLastUpdatedDate,
   updateLastUpdatedDate,
+  updateDailyWorkLog,
+  getDailyWorkLog,
 } from '@/common/api';
 import { db } from '@/common/firebase';
 import { getToday } from '@/common/utils';
@@ -16,6 +18,7 @@ import { useMutation, useQuery, useQueryClient } from 'react-query';
 import coordinatesBtn from '../../../public/assets/apiCallButton_blue.png';
 import lastDbButton from '../../../public/assets/apiCallButton_green.png';
 import firsDbtButton from '../../../public/assets/apiCallButton_red.png';
+import { useOnEnterKeyPress } from '@/hooks';
 import * as S from '../../styles/admin.style';
 
 const MustHaveToDo = ({
@@ -27,6 +30,12 @@ const MustHaveToDo = ({
 }: ListPropsJ) => {
   const queryClient = useQueryClient();
   const { data: session } = useSession();
+
+  // input 입력 시 enter 키로도 제출 가능
+  const { OnKeyPressHandler } = useOnEnterKeyPress();
+
+  // dalily log input 입력값
+  const [logContent, setLogContent] = useState('');
 
   // DB에 들어가는 최종 분양 정보 리스트
   const [allHomeData, setAllHomeData] = useState<{ [key: string]: string }[]>(
@@ -660,7 +669,7 @@ const MustHaveToDo = ({
   };
 
   // DB 업데이트 내역 불러오기
-  const { data: LastUpdatedDateList, refetch }: any = useQuery(
+  const { data: LastUpdatedDateList, refetch: dateRefetch }: any = useQuery(
     'lastUpdatedDate',
     getLastUpdatedDate,
     {
@@ -676,10 +685,35 @@ const MustHaveToDo = ({
     () => updateLastUpdatedDate('정윤숙'),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries('lastUpdatedDate'), refetch();
+        queryClient.invalidateQueries('lastUpdatedDate'), dateRefetch();
       },
     },
   );
+
+  // DAILY WORK LOG 내역 불러오기
+  const { data: dailyWorkLogList, refetch: logRefetch }: any = useQuery(
+    'dailyWorkLog',
+    getDailyWorkLog,
+    {
+      onSuccess: (dailyWorkLogList) => {
+        dailyWorkLogList?.reverse();
+      },
+    },
+  );
+
+  // DAILY WORK LOG 추가 시
+  const dailyWorkLogMutation = useMutation(updateDailyWorkLog, {
+    onSuccess: () => {
+      queryClient.invalidateQueries('dailyWorkLog'), logRefetch();
+    },
+  });
+
+  // dailt work log [등록] 버튼 클릭 시
+  const WorkLogHandler = () => {
+    // updateDailyWorkLog({ name: '이희령', logContent });
+    dailyWorkLogMutation.mutate({ name: '이희령', logContent });
+    setLogContent('');
+  };
 
   // 관리자 계정 아닐 시 접근 제한
   useEffect(() => {}, []);
@@ -765,21 +799,29 @@ const MustHaveToDo = ({
           <S.TableSection>
             <S.Title>DAILY WORK LOG</S.Title>
             <S.AdminInputContainer>
-              <S.DailyLogInput />
-              <S.DailyLogSubmitBtn>등록</S.DailyLogSubmitBtn>
+              <S.DailyLogInput
+                value={logContent}
+                onChange={(e) => setLogContent(e.target.value)}
+                onKeyPress={(e) => OnKeyPressHandler(e, WorkLogHandler)}
+              />
+              <S.DailyLogSubmitBtn onClick={WorkLogHandler}>
+                등록
+              </S.DailyLogSubmitBtn>
             </S.AdminInputContainer>
             <S.Table>
               <thead>
                 <S.TableRow>
                   <S.TableHead>관리자</S.TableHead>
                   <S.TableHead>날짜</S.TableHead>
+                  <S.TableHead>로그</S.TableHead>
                 </S.TableRow>
               </thead>
-              {LastUpdatedDateList?.map((item: any, index: any) => (
+              {dailyWorkLogList?.map((item: any, index: any) => (
                 <tbody key={index}>
                   <S.TableRow>
                     <S.TableData>{item.admin}</S.TableData>
                     <S.TableData>{item.date}</S.TableData>
+                    <S.TableData>{item.content}</S.TableData>
                   </S.TableRow>
                 </tbody>
               ))}

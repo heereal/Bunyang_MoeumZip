@@ -112,11 +112,31 @@ export const updateLastUpdatedDate = async (name: string) => {
 
 // 관리자 페이지에서 DB 업로드 시각 데이터 가져오기
 export const getLastUpdatedDate = async () => {
-
   const docRef = doc(db, 'Admin', 'lastUpdatedDate');
   const docSnap = await getDoc(docRef);
   const result = docSnap.data();
   return result?.list;
 };
 
+// 관리자 페이지 DAILY WORK LOG 입력하기
+export const updateDailyWorkLog = async ({ name, logContent }: any) => {
+  const onClickDate = new Date().toLocaleString();
+  const addDailyWorkLog = {
+    list: arrayUnion({
+      admin: name,
+      date: onClickDate,
+      content: logContent,
+    }),
+  };
 
+  const ref = doc(db, 'Admin', 'dailyWorkLog');
+  await updateDoc(ref, addDailyWorkLog);
+};
+
+// 관리자 페이지에서 DAILY WORK LOG 데이터 가져오기
+export const getDailyWorkLog = async () => {
+  const docRef = doc(db, 'Admin', 'dailyWorkLog');
+  const docSnap = await getDoc(docRef);
+  const result = docSnap.data();
+  return result?.list;
+};

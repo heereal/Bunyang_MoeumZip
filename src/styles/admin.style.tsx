@@ -60,14 +60,14 @@ export const TableRow = styled.tr`
 export const TableHead = styled.th`
   font-weight: 700;
   font-size: 15px;
-  padding: 15px 25px;
+  padding: 15px 10px;
   background-color: #f0f4ff;
   border: 1px solid #e8eaef;
 `;
 
 export const TableData = styled.td`
   border: 1px solid #e8eaef;
-  padding: 15px 25px;
+  padding: 15px 10px;
   text-align: center;
   font-size: 15px;
 
