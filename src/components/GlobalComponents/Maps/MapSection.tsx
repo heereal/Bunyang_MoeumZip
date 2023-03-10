@@ -1,9 +1,9 @@
 import { getHomeList } from '@/common/api';
-// import { centerState, zoomState } from '@/store/selectors';  31번 코드와 관련된 스테이트
+// import { centerState, zoomState } from '@/store/selectors';  31번 코드와 관련
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
-// import { useRecoilState } from 'recoil';  31번 코드와 관련된 스테이트
+// import { useRecoilState } from 'recoil';  31번 코드와 관련
 import Map from './Map';
 import Markers from './Markers';
 import { MapContainer } from './style';
