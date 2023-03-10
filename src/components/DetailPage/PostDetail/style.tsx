@@ -188,7 +188,6 @@ export const HeaderBmrk = styled.div`
   font-weight: 500;
   font-size: 12px;
   color: #ffffff;
-  /* background: rgba(255, 255, 255, 0.3); */
 
   background: rgba(255, 255, 255, 0.15);
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -223,15 +222,6 @@ export const Container = styled.div`
     padding: 10px;
   }
 `;
-export const ArticleBox = styled.div`
-  border: 1px solid #f4f4f4;
-  margin-bottom: 15px;
-  font-size: 15px;
-  border-top: 1.3px solid #8e8e8e;
-  @media screen and (max-width: 450px) {
-    font-size: 12px;
-  }
-`;
 
 export const infoBox = styled.div`
   width: 110px;
@@ -258,11 +248,14 @@ export const info = styled.div`
   color: #8e8e8e;
   font-size: 14px;
   padding-left: 10px;
+  line-height: 20px;
+
   @media screen and (max-width: 450px) {
     font-size: 11px;
   }
 `;
 
+// 표 제목
 export const ArticleHead = styled.div`
   font-size: 19px;
   font-weight: 600;
@@ -274,131 +267,146 @@ export const ArticleHead = styled.div`
   }
 `;
 
-export const ArticleTitle = styled.div`
-  background-color: #f0f4ff;
+// 상세정보 테이블
+export const ArticleBox = styled.table`
+  width: 100%;
+  min-width: 680px;
   text-align: center;
+  border: 1px solid #f4f4f4;
+  margin-bottom: 15px;
+  font-size: 15px;
+  border-right: 1px solid #e8eaef;
+  border-top: 1.3px solid #8e8e8e;
+
+  @media screen and (max-width: 450px) {
+    font-size: 12px;
+    min-width: 344px;
+  }
+`;
+
+export const ArticleTitle = styled.td`
+  background-color: #f0f4ff;
   height: 51px;
+  text-align: center;
+  vertical-align: middle;
   font-size: 16px;
   font-weight: 600;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
+
+  box-sizing: border-box;
+  border-right: 1px solid #e8eaef;
+
   color: #356eff;
   @media screen and (max-width: 450px) {
     font-size: 14px;
   }
 `;
 
-export const Article = styled.div`
-  text-align: center;
-  font-size: 15px;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  border-bottom: 1px solid #f4f4f4;
-`;
-
-export const BoxTitle = styled.div`
+export const BoxTitle = styled(ArticleTitle)`
   font-size: 15px;
   width: 20%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: ${(props) => props.color};
-  padding: 15px 0px 15px 0px;
-  background-color: #f0f4ff;
-  border-bottom: 1px solid #f8f8f9;
-  @media screen and (max-width: 450px) {
-    font-size: 12px;
-  }
-`;
-export const BoxContent = styled.div`
-  text-align: left;
-  font-weight: 400;
-  width: 80%;
-  padding-left: 10px;
-  font-size: 15px;
-  @media screen and (max-width: 450px) {
-    font-size: 12px;
-  }
-`;
-
-export const Table = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 204px;
-`;
-export const THead = styled.div`
-  display: flex;
-  text-align: center;
-  align-items: center;
-  height: 100%;
-`;
-export const Tbody = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 25%;
-  height: 100%;
-  border: 1px solid #e8eaef;
-`;
-
-export const TYHead = styled.div`
-  border: 1px solid #f4f4f4;
-  width: 20%;
-`;
-
-export const SPLtable = styled.div`
-  width: 100%;
-  display: flex;
-`;
-
-export const SPLhead = styled.div`
-  width: 22.5%;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: ${(props) => props.color};
   height: 50px;
-  @media screen and (max-width: 460px) {
-    font-size: 12px;
-  }
-`;
-export const SPLNUM = styled.div`
-  width: 10%;
-  background-color: '#f4f4f4';
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid #e8eaef;
+  color: black;
+
   @media screen and (max-width: 450px) {
     font-size: 12px;
   }
 `;
 
-export const SPLTY = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
+// 청약 일정
+export const BoxTitleDate = styled(BoxTitle)`
+  color: #356eff;
+`;
 
-  border-right: 1px solid #f4f4f4;
+// 공급 개요
+// 번호
+export const BoxTitleNumTitle = styled(BoxTitle)`
+  width: 10%;
+  height: 25px;
+  font-weight: 400;
+`;
 
-  @media screen and (max-width: 1030px) {
-    flex-direction: column;
+// 01,02~
+export const BoxTitleNum = styled(BoxTitleNumTitle)`
+  height: 50px;
+  border-bottom: 1px solid #e8eaef;
+`;
+
+// 공급개요 제목행
+export const BoxTitleSupply = styled(BoxTitleNumTitle)`
+  width: 20%;
+`;
+
+// 일반, 특별, 총계
+export const BoxTitleDetail = styled(BoxTitleNumTitle)`
+  height: 10px;
+`;
+
+// 표 안에 들어가는 정보
+export const BoxContent = styled.td`
+  width: 80%;
+  height: 50px;
+  padding-left: 10px;
+
+  text-align: left;
+  vertical-align: middle;
+  font-weight: 400;
+  font-size: 15px;
+
+  border: 1px solid #e8eaef;
+
+  @media screen and (max-width: 450px) {
+    font-size: 12px;
   }
 `;
 
-export const TYDetail = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 33%;
-  border-right: 1px solid #f4f4f4;
+// 기타사항
+export const BoxTitleETC = styled(BoxTitleNumTitle)`
+  width: 33.3%;
+  height: 50px;
+`;
+
+// 특별공급
+export const BoxTitleSpecialHead = styled(BoxTitleNumTitle)`
+  height: 30px;
+`;
+
+// 다자녀, 신혼부부~
+export const BoxTitleSpecial = styled(BoxTitleNumTitle)`
+  width: 5%;
+  height: 30px;
+`;
+
+// LH
+export const BoxTitleLH = styled(BoxTitleNumTitle)`
+  width: 20%;
+  min-height: 50px;
   height: 100%;
+`;
+
+export const BoxContentDate = styled(BoxContent)`
+  text-align: center;
+  width: 20%;
+  padding-left: 0px;
+`;
+
+export const BoxContentSupply = styled(BoxContentDate)`
+  width: 10%;
+`;
+
+// 특별공급 주거면적
+export const BoxContentHouseTY = styled(BoxTitleNum)`
+  padding-left: 0px;
+  width: 20%;
+`;
+
+// 기타사항
+export const BoxContentETC = styled(BoxContentDate)`
+  width: 33.3%;
+`;
+
+// LH 내용
+export const BoxContentLH = styled(BoxContentDate)`
+  width: 80%;
 `;
 
 export const SpecialHead = styled.div`
@@ -410,24 +418,4 @@ export const SpecialHead = styled.div`
   align-items: center;
   background-color: ${(props) => props.color};
   height: 65px;
-`;
-
-export const SPLtitleBox = styled.div`
-  width: 12.5%;
-  font-size: 13;
-  @media screen and (max-width: 450px) {
-    font-size: 10px;
-  }
-`;
-
-export const DetailMapContainer = styled.div`
-  width: 100%;
-  height: 200px;
-`;
-export const DetailMapBox = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 200px;
 `;
