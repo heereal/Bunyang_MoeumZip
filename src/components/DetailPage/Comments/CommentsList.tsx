@@ -49,7 +49,7 @@ const CommentsList = ({ postId }: DetailPagePropsP) => {
           Number(b.date) - Number(a.date),
       ),
     );
-    // refetchProfile();
+    refetchProfile();
 
     // eslint-disable-next-line
   }, [data, session]);
