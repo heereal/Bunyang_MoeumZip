@@ -1,20 +1,22 @@
 import Image from 'next/image';
 import { useState } from 'react';
 import EditProfileModal from '../EditProfileModal/EditProfileModal';
-import transparentProfile from '../../../../public/assets/transparentProfile.png';
+import transparentProfile from 'public/assets/transparentProfile.png';
 import * as S from './style';
-import naver from '../../../../public/assets/naver.png';
-import kakao from '../../../../public/assets/kakao2.png';
-import google from '../../../../public/assets/google.png';
-import facebook from '../../../../public/assets/facebook.png';
-import transparentImage from '../../../../public/assets/transparentProfile.png';
+import naver from 'public/assets/naver.png';
+import kakao from 'public/assets/kakao2.png';
+import google from 'public/assets/google.png';
+import facebook from 'public/assets/facebook.png';
+import transparentImage from 'public/assets/transparentProfile.png';
 import { signOut } from 'next-auth/react';
 import { confirmAlert } from 'react-confirm-alert';
 import AlertUI from '@/components/GlobalComponents/AlertUI/AlertUI';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 const EditProfile = ({ currentUser }: any) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const router = useRouter();
   // [로그아웃] 버튼 클릭 시 작동
   const LogOutHandler = () => {
     confirmAlert({
@@ -84,6 +86,15 @@ const EditProfile = ({ currentUser }: any) => {
           </S.ProfileBtn>
         </S.ProfileBtnContainer>
       </S.EditProfileContainer>
+      {(currentUser?.userEmail === 'suk921@gmail.com' ||
+        currentUser?.userEmail === 'psh5575@gmail.com' ||
+        currentUser?.userEmail === 'mika013@naver.com') && (
+        <S.AdminBtn>
+          <Link href={'/admin/nemo042116'} style={{ all: 'unset' }}>
+            {currentUser.userName} 관리자님 환영합니다.
+          </Link>
+        </S.AdminBtn>
+      )}
     </S.Wrapper>
   );
 };

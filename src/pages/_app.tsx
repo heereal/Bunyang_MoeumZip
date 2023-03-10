@@ -2,16 +2,15 @@ import Layout from '@/components/GlobalComponents/Layout/Layout';
 import MapSection from '@/components/GlobalComponents/Maps/MapSection';
 import '@/styles/globals.css';
 import { SessionProvider } from 'next-auth/react';
+import { DefaultSeo } from 'next-seo';
 import type { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
-import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
-import { RecoilRoot } from 'recoil';
-import { ReactQueryDevtools } from 'react-query/devtools';
-import styled from 'styled-components';
-import { DefaultSeo } from 'next-seo';
-import SEO from '../../seo.config';
-import Head from 'next/head';
 import Script from 'next/script';
+import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
+import { RecoilRoot } from 'recoil';
+import styled from 'styled-components';
+import SEO from '../../seo.config';
 
 const App = ({ Component, pageProps }: AppProps) => {
   const router = useRouter();

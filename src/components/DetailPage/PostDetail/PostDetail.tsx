@@ -55,8 +55,6 @@ const PostDetail = ({ postId, detail }: DetailPagePropsP) => {
   // 분양 정보 모두 불러온 후에 setHome 실행
   const { data, refetch: homeListRefetch } = useQuery('detail', getHomeList);
 
-  console.log(data?.allHomeData);
-
   // [북마크] 버튼 클릭 시 작동
   const editBookmark = useMutation('Bookmarks', onClickBookmarkBtnHandler, {
     onSuccess: () => {

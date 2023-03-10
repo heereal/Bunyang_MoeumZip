@@ -1,26 +1,26 @@
 import {
   addHomeList,
-  getLastUpdatedDate,
-  updateLastUpdatedDate,
-  updateDailyWorkLog,
   getDailyWorkLog,
+  getLastUpdatedDate,
+  updateDailyWorkLog,
+  updateLastUpdatedDate,
 } from '@/common/api';
 import { db } from '@/common/firebase';
 import { getToday } from '@/common/utils';
+import { useOnEnterKeyPress } from '@/hooks';
 import axios from 'axios';
 import { doc, getDoc } from 'firebase/firestore';
 import { GetStaticProps } from 'next';
 import { useSession } from 'next-auth/react';
 import { NextSeo } from 'next-seo';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import coordinatesBtn from '../../../public/assets/apiCallButton_blue.png';
 import lastDbButton from '../../../public/assets/apiCallButton_green.png';
 import firsDbtButton from '../../../public/assets/apiCallButton_red.png';
-import { useOnEnterKeyPress } from '@/hooks';
 import * as S from '../../styles/admin.style';
-import { useRouter } from 'next/router';
 
 const MustHaveToDo = ({
   aptCombineList,
@@ -31,7 +31,7 @@ const MustHaveToDo = ({
 }: ListPropsJ) => {
   const router = useRouter();
   const queryClient = useQueryClient();
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
 
   // input 입력 시 enter 키로도 제출 가능
   const { OnKeyPressHandler } = useOnEnterKeyPress();
@@ -718,16 +718,19 @@ const MustHaveToDo = ({
   };
 
   // 관리자 계정 아닐 시 접근 제한
-  useEffect(() => {
-    if (!session) return;
-    if (
-      session?.user?.email !== 'mika013@naver.com' &&
-      session?.user?.email !== 'suk921@gmail.com' &&
-      session?.user?.email !== 'psh5575@gmail.com'
-    ) {
-      router.push('/', undefined, { shallow: true });
-    }
-  }, [session]);
+  // useEffect(() => {
+  //   if (status === 'unauthenticated') {
+  //     router.push('/', undefined, { shallow: true });
+  //   }
+
+  //   if (
+  //     session?.user?.email !== 'mika013@naver.com' &&
+  //     session?.user?.email !== 'suk921@gmail.com' &&
+  //     session?.user?.email !== 'psh5575@gmail.com'
+  //   ) {
+  //     router.push('/', undefined, { shallow: true });
+  //   }
+  // }, [session]);
 
   return (
     <>
@@ -1018,7 +1021,7 @@ export const getStaticProps: GetStaticProps = async () => {
       lhCombineList,
       homeListDB,
     },
-    // ISR - 1시간 마다 데이터 업데이트
-    revalidate: 3600,
+    // ISR - 12시간 마다 데이터 업데이트
+    revalidate: 43200,
   };
 };

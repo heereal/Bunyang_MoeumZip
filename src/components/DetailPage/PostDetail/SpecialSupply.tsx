@@ -18,46 +18,54 @@ const SpecialSupply = ({ home }: PropsP) => {
           <S.ArticleHead>특별공급</S.ArticleHead>
 
           <S.ArticleBox>
-            <tr>
-              <S.BoxTitleSpecialHead rowSpan={2}>
-                주거전용면적
-              </S.BoxTitleSpecialHead>
-              <S.BoxTitleSupply colSpan={8}>공급세대수</S.BoxTitleSupply>
-            </tr>
-            <tr>
-              <S.BoxTitleSpecial>다자녀</S.BoxTitleSpecial>
-              <S.BoxTitleSpecial>신혼부부</S.BoxTitleSpecial>
-              <S.BoxTitleSpecial>생애최초</S.BoxTitleSpecial>
-              <S.BoxTitleSpecial>노부모</S.BoxTitleSpecial>
-              <S.BoxTitleSpecial>기관추천</S.BoxTitleSpecial>
-              <S.BoxTitleSpecial>기타</S.BoxTitleSpecial>
-              <S.BoxTitleSpecial>이전기관</S.BoxTitleSpecial>
-              <S.BoxTitleSpecial>총계</S.BoxTitleSpecial>
-            </tr>
+            <tbody>
+              <tr>
+                <S.BoxTitleSpecialHead rowSpan={2}>
+                  주거전용면적
+                </S.BoxTitleSpecialHead>
+                <S.BoxTitleSupply colSpan={8}>공급세대수</S.BoxTitleSupply>
+              </tr>
+              <tr>
+                <S.BoxTitleSpecial>다자녀</S.BoxTitleSpecial>
+                <S.BoxTitleSpecial>신혼부부</S.BoxTitleSpecial>
+                <S.BoxTitleSpecial>생애최초</S.BoxTitleSpecial>
+                <S.BoxTitleSpecial>노부모</S.BoxTitleSpecial>
+                <S.BoxTitleSpecial>기관추천</S.BoxTitleSpecial>
+                <S.BoxTitleSpecial>기타</S.BoxTitleSpecial>
+                <S.BoxTitleSpecial>이전기관</S.BoxTitleSpecial>
+                <S.BoxTitleSpecial>총계</S.BoxTitleSpecial>
+              </tr>
 
-            {home?.DETAIL.map((item: ItemJ) => {
-              return (
-                <tr key={item.MODEL_NO}>
-                  <S.BoxContentHouseTY>{item.HOUSE_TY}</S.BoxContentHouseTY>
-                  <S.BoxContentSupply>{item.MNYCH_HSHLDCO}</S.BoxContentSupply>
-                  <S.BoxContentSupply>{item.NWWDS_HSHLDCO}</S.BoxContentSupply>
-                  <S.BoxContentSupply>
-                    {item.LFE_FRST_HSHLDCO}
-                  </S.BoxContentSupply>
-                  <S.BoxContentSupply>
-                    {item.OLD_PARNTS_SUPORT_HSHLDCO}
-                  </S.BoxContentSupply>
-                  <S.BoxContentSupply>
-                    {item.INSTT_RECOMEND_HSHLDCO}
-                  </S.BoxContentSupply>
-                  <S.BoxContentSupply>{item.ETC_HSHLDCO}</S.BoxContentSupply>
-                  <S.BoxContentSupply>
-                    {item.TRANSR_INSTT_ENFSN_HSHLDCO}
-                  </S.BoxContentSupply>
-                  <S.BoxContentSupply>{item.SPSPLY_HSHLDCO}</S.BoxContentSupply>
-                </tr>
-              );
-            })}
+              {home?.DETAIL.map((item: ItemJ) => {
+                return (
+                  <tr key={item.MODEL_NO}>
+                    <S.BoxContentHouseTY>{item.HOUSE_TY}</S.BoxContentHouseTY>
+                    <S.BoxContentSupply>
+                      {item.MNYCH_HSHLDCO}
+                    </S.BoxContentSupply>
+                    <S.BoxContentSupply>
+                      {item.NWWDS_HSHLDCO}
+                    </S.BoxContentSupply>
+                    <S.BoxContentSupply>
+                      {item.LFE_FRST_HSHLDCO}
+                    </S.BoxContentSupply>
+                    <S.BoxContentSupply>
+                      {item.OLD_PARNTS_SUPORT_HSHLDCO}
+                    </S.BoxContentSupply>
+                    <S.BoxContentSupply>
+                      {item.INSTT_RECOMEND_HSHLDCO}
+                    </S.BoxContentSupply>
+                    <S.BoxContentSupply>{item.ETC_HSHLDCO}</S.BoxContentSupply>
+                    <S.BoxContentSupply>
+                      {item.TRANSR_INSTT_ENFSN_HSHLDCO}
+                    </S.BoxContentSupply>
+                    <S.BoxContentSupply>
+                      {item.SPSPLY_HSHLDCO}
+                    </S.BoxContentSupply>
+                  </tr>
+                );
+              })}
+            </tbody>
           </S.ArticleBox>
           <div
             style={{
