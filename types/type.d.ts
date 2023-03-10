@@ -121,6 +121,7 @@ interface PropsListJ {
 
 interface CountTabPropsListJ {
   list: ItemJ[];
+  expanded: boolean;
 }
 
 interface CategoryBtnStyledProps {
@@ -130,7 +131,6 @@ interface CategoryBtnStyledProps {
 }
 
 interface SelectCategoryProps {
-  width: string;
   path: string;
 }
 

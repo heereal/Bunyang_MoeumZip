@@ -20,13 +20,18 @@ export const CategorySection = styled.section`
   }
 `;
 
-export const CategoryContainer = styled.div`
+export const CategoryContainer = styled.div<{ display: string }>`
   width: 50%;
+
+  @media screen and (max-width: 1280px) {
+    width: 55%;
+  }
   @media screen and (max-width: 600px) {
     width: 100%;
   }
   @media screen and (max-width: 450px) {
     max-width: 360px;
+    display: ${(props) => props.display};
   }
 `;
 
@@ -71,7 +76,7 @@ export const TabNameBox = styled.div`
   justify-content: center;
 `;
 
-export const TabName = styled.p<{ color: string }>`
+export const TabName = styled.div<{ color: string }>`
   font-style: normal;
   font-weight: 500;
   font-size: 13px;
@@ -80,6 +85,10 @@ export const TabName = styled.p<{ color: string }>`
 
   :hover {
     color: #3d7fff;
+  }
+
+  @media screen and (max-width: 1280px) {
+    font-size: 12px;
   }
   @media screen and (max-width: 450px) {
     font-size: 12px;
@@ -119,7 +128,7 @@ export const TypeCategoryContainer = styled(RegionCategoryContainer)`
   width: 300px;
 
   @media screen and (max-width: 450px) {
-    height: 170px;
+    height: 190px;
   }
 `;
 

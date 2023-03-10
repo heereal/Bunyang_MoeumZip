@@ -21,6 +21,7 @@ const Calender = ({ homeList }: any) => {
         <NextSeo
           title="청약캘린더 -"
           description="청약일정을 캘린더에서 한 눈에 확인 가능합니다."
+          canonical='https://www.by-zip.com/calendar'
         />
         <S.CalendarContainer>
           <S.CalendarHeader>

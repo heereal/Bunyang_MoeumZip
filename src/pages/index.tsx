@@ -26,6 +26,7 @@ const MainPage = ({ homeList }: HomeListDBPropsJ) => {
       <NextSeo
         title=" "
         description="전국 분양정보를 한눈에 확인할 수 있는 플랫폼입니다."
+        canonical='https://www.by-zip.com/'
       />
       <S.MainUpBtnBox>
         <S.ArrowBox active={expanded ? true : false}>
@@ -35,7 +36,7 @@ const MainPage = ({ homeList }: HomeListDBPropsJ) => {
       </S.MainUpBtnBox>
       {/* 지역 및 분양형태 필터 및 청약경쟁률 확인 버튼 */}
       {/* CountTabs(+HomeList 컴포넌트) */}
-      <CountTabs list={allHomeList} />
+      <CountTabs list={allHomeList} expanded={expanded} />
     </S.MainSection>
   );
 };

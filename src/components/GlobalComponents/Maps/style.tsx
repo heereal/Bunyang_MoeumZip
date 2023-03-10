@@ -45,12 +45,19 @@ export const MapBox = styled.div<any>`
   @media screen and (max-width: 768px) {
     display: ${(props) => props.display768};
     min-height: ${(props) => props.minHeight};
+    height: 100vh;
   }
 `;
 
-export const MapContainer = styled.div`
+export const MapContainer = styled.div<any>`
   width: 40%;
   @media screen and (max-width: 768px) {
     width: 100vw;
+    height: 93vh;
+  }
+  display: ${(props) => props.display1200};
+  @media screen and (max-width: 768px) {
+    display: ${(props) => props.display768};
+    min-height: ${(props) => props.minHeight};
   }
 `;

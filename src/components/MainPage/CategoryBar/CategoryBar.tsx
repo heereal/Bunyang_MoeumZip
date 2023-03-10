@@ -11,7 +11,11 @@ import { useSession } from 'next-auth/react';
 import { useQuery } from 'react-query';
 import { getUsersList } from '@/common/api';
 
-const CategoryBar = () => {
+interface Expanded {
+  expanded: boolean;
+}
+
+const CategoryBar = ({ expanded }: Expanded) => {
   const [isRegionToggleOpen, setIsRegionToggleOpen] = useState<boolean>(false);
   const [isTypeToggleOpen, setIsTypeToggleOpen] = useState<boolean>(false);
   const [currentTab, SetCurrentTab] = useState<number>(0);
@@ -104,7 +108,7 @@ const CategoryBar = () => {
 
   return (
     <S.CategorySection>
-      <S.CategoryContainer>
+      <S.CategoryContainer display={expanded ? 'flex' : 'none'}>
         <S.CategoryTabList>
           {categoryList.map((item, index) => (
             <S.CategoryTabs
@@ -246,14 +250,14 @@ const CategoryBar = () => {
                     fontSize: 12,
                   }}
                 />
-                <p>전체 선택</p>
+                <div>전체 선택</div>
               </S.CategoryCommonBtn>
               <S.CategoryCommonBtn
                 color={'#505050'}
                 onClick={() => setMyRegionArray([])}
               >
                 <IoReload style={{ fontSize: 12 }} />
-                <p>초기화</p>
+                <div>초기화</div>
               </S.CategoryCommonBtn>
             </S.CommonBtnBox>
           </S.RegionCategoryContainer>
@@ -301,14 +305,14 @@ const CategoryBar = () => {
                     fontSize: 12,
                   }}
                 />
-                <p>전체 선택</p>
+                <div>전체 선택</div>
               </S.CategoryCommonBtn>
               <S.CategoryCommonBtn
                 color={'#505050'}
                 onClick={() => setMyTypeArray([])}
               >
                 <IoReload style={{ fontSize: 12 }} />
-                <p>초기화</p>
+                <div>초기화</div>
               </S.CategoryCommonBtn>
             </S.CommonBtnBox>
           </S.TypeCategoryContainer>

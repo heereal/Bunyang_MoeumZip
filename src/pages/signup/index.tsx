@@ -17,6 +17,7 @@ import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { useRecoilState } from 'recoil';
 import * as S from '../../styles/signup.style';
+import { regionArray, typesArray } from '@/common/categoryList';
 
 const SignUp = () => {
   const router = useRouter();
@@ -71,8 +72,8 @@ const SignUp = () => {
     // 관심 카테고리 선택하지 않으면 전체 리스트를 선택한 것으로 간주함
     const updateUser = {
       userName: nickname,
-      regions: myRegionArray,
-      types: myTypeArray,
+      regions: myRegionArray.length === 0 ? regionArray : myRegionArray,
+      types: myTypeArray.length === 0 ? typesArray : myTypeArray,
     };
 
     await updateDoc(
@@ -116,8 +117,6 @@ const SignUp = () => {
     // session(유저 정보)가 들어왔을 때만 함수를 실행함
     if (currentUser) {
       setNickname(currentUser.userName);
-      setMyRegionArray(currentUser.regions);
-      setMyTypeArray(currentUser.types);
     }
     // eslint-disable-next-line
   }, [currentUser]);
@@ -127,12 +126,13 @@ const SignUp = () => {
       <NextSeo
         title="회원가입 -"
         description="전국 분양정보를 한눈에 확인할 수 있는 플랫폼입니다."
+        canonical='https://www.by-zip.com/signup'
       />
 
       <S.SignUpContainer>
         <S.SignUpDesc>
           <h1>회원가입</h1>
-          <p>분양정보 추천을 위한 추가정보를 입력해주세요.</p>
+          <div>분양정보 추천을 위한 추가정보를 입력해주세요.</div>
         </S.SignUpDesc>
 
         {/* 닉네임 제출 */}
@@ -153,11 +153,11 @@ const SignUp = () => {
 
         {/* 관심 지역 카테고리 선택 */}
         <S.CategoryTitle>관심 지역</S.CategoryTitle>
-        <SelectMyRegion width={'100%'} path={'/signup'} />
+        <SelectMyRegion path={'/signup'} />
 
         {/* 관심 분양 형태 카테고리 선택 */}
         <S.CategoryTitle>관심 분양형태</S.CategoryTitle>
-        <SelectMyTypes width={'100%'} path={'/signup'} />
+        <SelectMyTypes path={'/signup'} />
 
         <S.SignUpBtnContainer>
           <S.SignUpBtn onClick={signupHandler}>가입완료</S.SignUpBtn>

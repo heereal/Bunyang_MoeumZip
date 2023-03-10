@@ -5,8 +5,11 @@ import { currentUserState, myRegionArrayState } from '@/store/selectors';
 import { BsFillCheckCircleFill } from 'react-icons/bs';
 import { FaUndo } from 'react-icons/fa';
 import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 
-const SelectMyRegion = ({ width, path }: SelectCategoryProps) => {
+const SelectMyRegion = ({ path }: SelectCategoryProps) => {
+  const router = useRouter();
+
   // 유저가 선택한 카테고리 필터링 리스트
   const [myRegionArray, setMyRegionArray] =
     useRecoilState<any>(myRegionArrayState);
@@ -14,13 +17,15 @@ const SelectMyRegion = ({ width, path }: SelectCategoryProps) => {
   // 현재 로그인한 유저의 firestore 유저 정보
   const currentUser = useRecoilValue(currentUserState);
 
+  // 마이페이지일 때만 setState 실행
   useEffect(() => {
+    if (router.pathname === '/signup') return;
     setMyRegionArray(currentUser.regions);
-  // eslint-disable-next-line
+    // eslint-disable-next-line
   }, []);
 
   return (
-    <S.CategoryContainer width={width} path={path}>
+    <S.CategoryContainer path={path}>
       {regionArray.map((region, index) =>
         region && myRegionArray?.includes(region) ? (
           <S.CategoryBtn

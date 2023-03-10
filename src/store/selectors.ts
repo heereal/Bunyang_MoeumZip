@@ -15,12 +15,12 @@ export const myTypeArrayState = atom({
 
 export const zoomState = atom({
   key: 'zoom',
-  default: 7,
+  default: 8,
 });
 
 export const centerState = atom({
   key: 'center',
-  default: { y: 35.2262411, x: 127.65289439 },
+  default: { y: 35.9262411, x: 127.95289439 },
 });
 
 export const hideState = atom({

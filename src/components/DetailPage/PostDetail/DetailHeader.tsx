@@ -2,6 +2,9 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import fillStar from 'public/assets/fillStar.png';
 import outlineStar from 'public/assets/outlineStar.png';
+import { AiOutlineStar } from 'react-icons/ai';
+import { AiFillStar } from 'react-icons/ai';
+
 import { AiOutlineLeft } from 'react-icons/ai';
 import * as S from './style';
 interface DetailHeaderProps {
@@ -56,13 +59,7 @@ const DetailHeader = ({
             ) ? (
               <>
                 <div>
-                  <Image
-                    src={fillStar}
-                    alt="fillStar"
-                    height={13}
-                    loading="lazy"
-                    quality={100}
-                  />
+                  <AiFillStar size={16} color="yellow" />
                 </div>
                 <p
                   style={{
@@ -76,13 +73,7 @@ const DetailHeader = ({
             ) : (
               <>
                 <div>
-                  <Image
-                    src={outlineStar}
-                    alt="outlineStar"
-                    height={13}
-                    loading="lazy"
-                    quality={100}
-                  />
+                  <AiOutlineStar size={16} color="white" />
                 </div>
 
                 <p
@@ -134,25 +125,13 @@ const DetailHeader = ({
             ) ? (
               <>
                 <div>
-                  <Image
-                    src={fillStar}
-                    alt="fillStar"
-                    height={13}
-                    loading="lazy"
-                    quality={100}
-                  />
+                  <AiFillStar size={16} color="yellow" />
                 </div>
               </>
             ) : (
               <>
                 <div>
-                  <Image
-                    src={outlineStar}
-                    alt="outlineStar"
-                    height={13}
-                    loading="lazy"
-                    quality={100}
-                  />
+                  <AiOutlineStar size={20} color="white" />
                 </div>
               </>
             )}
@@ -184,25 +163,13 @@ const DetailHeader = ({
           `${session?.user.provider}_${session?.user.email}`,
         ) ? (
           <S.HeaderBmrk>
-            <Image
-              src={fillStar}
-              alt="fillStar"
-              height={14}
-              loading="lazy"
-              quality={100}
-            />
+            <AiFillStar size={18} color="yellow" />
             {bookmarksList?.usersList ? bookmarksList?.usersList?.length : '0'}
             명이 관심을 갖고 있어요
           </S.HeaderBmrk>
         ) : (
           <S.HeaderBmrk>
-            <Image
-              src={fillStar}
-              alt="fillStar"
-              height={14}
-              loading="lazy"
-              quality={100}
-            />
+            <AiFillStar size={18} color="yellow" />
             {bookmarksList?.usersList ? bookmarksList?.usersList?.length : '0'}
             명이 관심을 갖고 있어요
           </S.HeaderBmrk>

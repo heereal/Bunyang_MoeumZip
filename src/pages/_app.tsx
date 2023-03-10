@@ -10,6 +10,8 @@ import { ReactQueryDevtools } from 'react-query/devtools';
 import styled from 'styled-components';
 import { DefaultSeo } from 'next-seo';
 import SEO from '../../seo.config';
+import Head from 'next/head';
+import Script from 'next/script';
 
 const App = ({ Component, pageProps }: AppProps) => {
   const router = useRouter();
@@ -31,6 +33,22 @@ const App = ({ Component, pageProps }: AppProps) => {
             <DefaultSeo {...SEO} />
             <Layout>
               <Container path={router.asPath}>
+                {/* Global Site Tag (gtag.js) - Google Analytics */}
+                <Script
+                  strategy="afterInteractive"
+                  src={`https://www.googletagmanager.com/gtag/js?id=G-KX4ED9Q5EQ`}
+                />
+                <Script
+                  id="gtag-init"
+                  dangerouslySetInnerHTML={{
+                    __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-KX4ED9Q5EQ');
+            `,
+                  }}
+                />
                 <Component {...pageProps} />
                 {router.asPath === '/' ||
                 router.asPath.includes('detail') ||

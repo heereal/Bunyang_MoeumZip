@@ -4,6 +4,7 @@ export const Container = styled.div`
   width: 100%;
   padding: 30px;
   min-height: 280px;
+
   @media screen and (max-width: 450px) {
     padding: 10px;
   }
@@ -70,7 +71,7 @@ export const CommentListBox = styled.div<{ blur: string }>`
   filter: blur(${(props) => props.blur});
   gap: 10px;
   height: 100%;
-  margin-bottom: 3px;
+  margin-bottom: 5px;
 `;
 
 export const CommentBox = styled.div`
@@ -178,7 +179,7 @@ export const ReplyInputBox = styled.div<any>`
   margin-left: -7px;
   color: #8e8e8e;
   font-size: 14px;
-  padding-bottom: 10px;
+  padding-bottom: 25px;
 `;
 export const ReplyContainer = styled.div`
   display: flex;

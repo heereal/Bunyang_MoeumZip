@@ -12,7 +12,7 @@ export const Container = styled.div`
   }
 `;
 
-export const NoResultTitle = styled.p`
+export const NoResultTitle = styled.div`
   font-style: normal;
   font-weight: 700;
   font-size: 20px;
@@ -22,7 +22,7 @@ export const NoResultTitle = styled.p`
   margin-bottom: 8px;
 `;
 
-export const NoResultText = styled.p`
+export const NoResultText = styled.div`
   font-weight: 500;
   font-size: 16px;
   line-height: 21px;

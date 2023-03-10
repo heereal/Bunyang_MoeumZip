@@ -37,10 +37,6 @@ module.exports = {
         source: '/api/APTRealPrice/:id',
         destination: `http://openapi.molit.go.kr/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptTradeDev?numOfRows=1000&LAWD_CD=:id&DEAL_YMD=202302&serviceKey=${SERVICE_KEY}`,
       },
-      {
-        source: '/api/NaverMap',
-        destination: `https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${process.env.NEXT_PUBLIC_NCP_CLIENT_ID}&submodules=geocoder`,
-      },
     ];
   },
 };
