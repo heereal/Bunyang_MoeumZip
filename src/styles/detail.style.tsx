@@ -11,3 +11,9 @@ export const DetailBody = styled.div`
     height: 100%;
   }
 `;
+
+export const DetailLoadingBox = styled.div`
+  position: relative;
+  top: 40%;
+  left: 50%;
+`;

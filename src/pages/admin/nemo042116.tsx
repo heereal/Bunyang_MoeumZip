@@ -673,7 +673,10 @@ const MustHaveToDo = ({
       <NextSeo
         title="관리자페이지 -"
         description="희령, 윤숙, 성환의 관리자 페이지 입니당😛"
-        canonical='https://www.by-zip.com/admin/nemo042116'
+        canonical="https://www.by-zip.com/admin/nemo042116"
+        openGraph={{
+          url: 'https://www.by-zip.com/admin/nemo042116',
+        }}
       />
       <S.AdminSection>
         <S.TitleBox>

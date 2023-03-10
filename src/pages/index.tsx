@@ -26,7 +26,10 @@ const MainPage = ({ homeList }: HomeListDBPropsJ) => {
       <NextSeo
         title=" "
         description="전국 분양정보를 한눈에 확인할 수 있는 플랫폼입니다."
-        canonical='https://www.by-zip.com/'
+        canonical="https://www.by-zip.com/"
+        openGraph={{
+          url: 'https://www.by-zip.com/',
+        }}
       />
       <S.MainUpBtnBox>
         <S.ArrowBox active={expanded ? true : false}>
