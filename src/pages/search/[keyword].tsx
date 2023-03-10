@@ -44,6 +44,7 @@ const SearchResult = ({ homeList }: HomeListDBPropsJ) => {
       <NextSeo
         title={`${keyword} 검색결과 -`}
         description={`${keyword} 의 분양모음집 검색결과 입니다.`}
+        canonical={`https://www.by-zip.com/${keyword}`}
       />
       {resultsList.length === 0 ? (
         <NoResult keyword={keyword} text="다른 키워드로 검색해주세요." />
