@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 720px;
+  width: 730px;
   height: 100%;
   margin-left: 70px;
   /* overflow-y: scroll; */
@@ -86,7 +86,6 @@ export const BookmarkListContainer = styled.div`
   display: flex;
   gap: 0 25px;
   width: 100%;
-  justify-content: center;
 
   @media screen and (max-width: 650px) {
     justify-content: center;
