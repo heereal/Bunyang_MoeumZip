@@ -76,3 +76,37 @@ export const TableData = styled.td`
     color: gray;
   }
 `;
+
+export const AdminInputContainer = styled.div`
+  width: 600px;
+  margin-bottom: 15px;
+  display: flex;
+`;
+
+export const DailyLogInput = styled.input`
+  width: 80%;
+  height: 36px;
+  margin-right: 20px;
+  border: 1px solid gray;
+  border-radius: 5px;
+  padding: 0 15px;
+  font-size: 17px;
+
+  :focus {
+    outline: none;
+    border: 1px solid #4f70e4;
+  }
+`;
+
+export const DailyLogSubmitBtn = styled.div`
+  width: 18%;
+  height: 36px;
+  border-radius: 10px;
+  font-size: 17px;
+  background-color: #356eff;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+`;

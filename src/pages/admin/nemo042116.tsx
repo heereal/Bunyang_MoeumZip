@@ -669,7 +669,6 @@ const MustHaveToDo = ({
       },
     },
   );
-  console.log('LastUpdatedDateList:', LastUpdatedDateList);
 
   // DB 업데이트 내역 수정 시
   const lastUpdatedDateMutation = useMutation(
@@ -692,7 +691,7 @@ const MustHaveToDo = ({
         description="희령, 윤숙, 성환의 관리자 페이지 입니당😛"
       />
       <S.AdminSection>
-        <S.AdminHalfSection style={{ alignItems: 'flex-end', marginRight: 30 }}>
+        <S.AdminHalfSection style={{ alignItems: 'flex-end', marginRight: 25 }}>
           <button onClick={() => lastUpdatedDateMutation.mutate()}>
             테스트 버튼
           </button>
@@ -760,9 +759,15 @@ const MustHaveToDo = ({
           </S.TableSection>
         </S.AdminHalfSection>
 
-        {/* <S.AdminHalfSection style={{alignItems: "flex-start", marginLeft: 30}}>
+        <S.AdminHalfSection
+          style={{ alignItems: 'flex-start', marginLeft: 25 }}
+        >
           <S.TableSection>
             <S.Title>DAILY WORK LOG</S.Title>
+            <S.AdminInputContainer>
+              <S.DailyLogInput />
+              <S.DailyLogSubmitBtn>등록</S.DailyLogSubmitBtn>
+            </S.AdminInputContainer>
             <S.Table>
               <thead>
                 <S.TableRow>
@@ -770,13 +775,9 @@ const MustHaveToDo = ({
                   <S.TableHead>날짜</S.TableHead>
                 </S.TableRow>
               </thead>
-              {LastUpdatedDateList?.list.map((item: any, index: any) => (
+              {LastUpdatedDateList?.map((item: any, index: any) => (
                 <tbody key={index}>
-                  <S.TableRow
-                    style={{
-                      border: index === 0 ? '2px solid #5685FF' : 'none',
-                    }}
-                  >
+                  <S.TableRow>
                     <S.TableData>{item.admin}</S.TableData>
                     <S.TableData>{item.date}</S.TableData>
                   </S.TableRow>
@@ -784,7 +785,7 @@ const MustHaveToDo = ({
               ))}
             </S.Table>
           </S.TableSection>
-        </S.AdminHalfSection> */}
+        </S.AdminHalfSection>
       </S.AdminSection>
     </>
   );
