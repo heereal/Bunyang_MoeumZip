@@ -65,7 +65,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   return {
     props: { detail },
-    revalidate: 108000,
+     // ISR - 12시간 마다 데이터 업데이트
+    revalidate: 43200,
   };
 };
 
