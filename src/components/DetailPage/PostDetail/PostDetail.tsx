@@ -16,7 +16,7 @@ import { LAWD_CD_Code } from '@/common/LAWD_CD';
 import LHDetail from './LHDetail';
 import { NextSeo } from 'next-seo';
 
-const PostDetail = ({ postId }: DetailPagePropsP) => {
+const PostDetail = ({ postId, detail }: DetailPagePropsP) => {
   const queryClient = useQueryClient();
 
   // 유저의 세션 정보 받아오기
@@ -24,7 +24,6 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
 
   // 디테일 페이지에서 사용할 특정한 분양 정보
   const [home, setHome] = useState<HomeP>();
-  const [email, setEmail] = useState<string | null | undefined>('');
 
   // 탭 선택 시 사용
   const [isRealPriceTab, setIsRealPriceTab] = useState(false);
@@ -56,6 +55,8 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
   // 분양 정보 모두 불러온 후에 setHome 실행
   const { data, refetch: homeListRefetch } = useQuery('detail', getHomeList);
 
+  console.log(data?.allHomeData);
+
   // [북마크] 버튼 클릭 시 작동
   const editBookmark = useMutation('Bookmarks', onClickBookmarkBtnHandler, {
     onSuccess: () => {
@@ -63,9 +64,9 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
     },
   });
 
-  const detail = data?.allHomeData.find(
-    (home: { PBLANC_NO: string }) => `${home.PBLANC_NO}` === postId,
-  );
+  // const detail = data?.allHomeData.find(
+  //   (home: { PBLANC_NO: string }) => `${home.PBLANC_NO}` === postId,
+  // );
 
   // '시군구' 정보 기준으로 현재 디테일 페이지에 해당하는 지역 코드 찾기
   const LAWD_CD: any = LAWD_CD_Code.find(
@@ -73,7 +74,7 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
   );
 
   // 아파트 매매 실거래가 API 가져오기
-  const { data: APTRealPriceList, refetch: APTRealPriceRefetch } = useQuery(
+  const { data: APTRealPriceList, refetch: APTRealPriceRefetch, isLoading } = useQuery(
     'APTRealPriceList',
     () => getAPTRealPriceList(LAWD_CD),
     {
@@ -104,14 +105,6 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
     // eslint-disable-next-line
   }, [detail]);
 
-  // firestore에서 유저 정보 불러오면 state에 저장함
-  useEffect(() => {
-    if (session) {
-      setEmail(session?.user?.email);
-    }
-    // eslint-disable-next-line
-  }, [session]);
-
   return (
     <S.Section>
       <NextSeo
@@ -120,6 +113,9 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
           home?.HOUSE_NM ? home?.HOUSE_NM : '모집공고'
         }의 분양상세정보, 주변아파트 실거래가를 제공합니다.`}
         canonical={`https://www.by-zip.com/${postId}`}
+        openGraph={{
+          url: `https://www.by-zip.com/admin/${postId}`,
+        }}
       />
       <DetailHeader
         bookmarksList={bookmarksList}
@@ -165,7 +161,7 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
       )}
 
       {/* 아파트 매매 실거래가 탭 */}
-      {isRealPriceTab && <APTRealPrice dongList={dongList} />}
+      {isRealPriceTab && <APTRealPrice dongList={dongList} isLoading={isLoading} />}
     </S.Section>
   );
 };

@@ -1,7 +1,8 @@
+import LoadingSpinner from '@/components/GlobalComponents/LoadingSpinner/LoadingSpinner';
 import NoResult from '@/components/GlobalComponents/NoResult/NoResult';
 import * as S from './style';
 
-const APTRealPrice = ({ dongList }: any) => {
+const APTRealPrice = ({ dongList, isLoading }: any) => {
   // 유효성 검사 위한 주석이니 삭제하지 말아 주세요😇
   // console.log(
   //   '디테일 페이지 동 주소:',
@@ -21,7 +22,7 @@ const APTRealPrice = ({ dongList }: any) => {
 
   return (
     <S.Wrapper>
-      {dongList?.length === 0 ? (
+      {dongList?.length === 0 || dongList === undefined ? (
         <div style={{ padding: 30 }}>
           <NoResult
             text="해당 지역의 최근 아파트 매매 실거래가 정보가 없습니다.

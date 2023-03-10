@@ -21,7 +21,10 @@ const Calender = ({ homeList }: any) => {
         <NextSeo
           title="청약캘린더 -"
           description="청약일정을 캘린더에서 한 눈에 확인 가능합니다."
-          canonical='https://www.by-zip.com/calendar'
+          canonical="https://www.by-zip.com/calendar"
+          openGraph={{
+            url: 'https://www.by-zip.com/admin/calendar',
+          }}
         />
         <S.CalendarContainer>
           <S.CalendarHeader>

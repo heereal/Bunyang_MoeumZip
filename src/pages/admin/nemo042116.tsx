@@ -1,17 +1,26 @@
-import { addHomeList } from '@/common/api';
+import {
+  addHomeList,
+  getLastUpdatedDate,
+  updateLastUpdatedDate,
+  updateDailyWorkLog,
+  getDailyWorkLog,
+} from '@/common/api';
 import { db } from '@/common/firebase';
 import { getToday } from '@/common/utils';
 import axios from 'axios';
 import { doc, getDoc } from 'firebase/firestore';
 import { GetStaticProps } from 'next';
+import { useSession } from 'next-auth/react';
 import { NextSeo } from 'next-seo';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import { useMutation, useQueryClient } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import coordinatesBtn from '../../../public/assets/apiCallButton_blue.png';
 import lastDbButton from '../../../public/assets/apiCallButton_green.png';
 import firsDbtButton from '../../../public/assets/apiCallButton_red.png';
+import { useOnEnterKeyPress } from '@/hooks';
 import * as S from '../../styles/admin.style';
+import { useRouter } from 'next/router';
 
 const MustHaveToDo = ({
   aptCombineList,
@@ -20,7 +29,15 @@ const MustHaveToDo = ({
   lhCombineList,
   homeListDB,
 }: ListPropsJ) => {
+  const router = useRouter();
   const queryClient = useQueryClient();
+  const { data: session } = useSession();
+
+  // input 입력 시 enter 키로도 제출 가능
+  const { OnKeyPressHandler } = useOnEnterKeyPress();
+
+  // dalily log input 입력값
+  const [logContent, setLogContent] = useState('');
 
   // DB에 들어가는 최종 분양 정보 리스트
   const [allHomeData, setAllHomeData] = useState<{ [key: string]: string }[]>(
@@ -44,9 +61,6 @@ const MustHaveToDo = ({
 
   // 새로 들어온 데이터에 좌표까지 추가한 배열
   const [newGeoArray, setNewGeoArray] = useState<any>([]);
-
-  // 최종으로 DB 업데이트한 시각
-  const [btnTime, setBtnTime] = useState<string>('');
 
   // LH 통합 데이터(기본 + 상세)에서 행복 주택, 국민 임대 등으로 분리
   const splitHappyLH = lhCombineList.filter(
@@ -369,9 +383,6 @@ const MustHaveToDo = ({
 
   // [1번 버튼] 클릭 시 새로 들어온 데이터를 재가공함
   const apiCallHandler = () => {
-    // DB 마지막으로 업데이트한 시각
-    const onClickDate = new Date().toLocaleString();
-
     // 기존 데이터 제외 새로 들어온 데이터만 필터링함
     const newDataArray = possibleAllHomeList.filter(
       (item: any) => !PBLANCArray.includes(`${item.PBLANC_NO}`),
@@ -382,7 +393,6 @@ const MustHaveToDo = ({
       newList.push({
         API: item.API ? 'LH' : '청약홈',
         COORDINATES: 'x:, y:',
-        BUTTON_DATE: onClickDate,
         DETAIL: item.detail,
         FOR_COORDINATES_ADRES: item.HSSPLY_ADRES.split(',')[0].split('외')[0],
 
@@ -594,7 +604,6 @@ const MustHaveToDo = ({
       setNewHomeData(newList);
     });
     setAllHomeData([...oldDataArray]);
-    setBtnTime(onClickDate);
 
     console.log('1번 버튼 실행 완료👇');
     console.log('firebase에서 불러온 기존 데이터', oldDataArray);
@@ -656,70 +665,178 @@ const MustHaveToDo = ({
   // [3번 버튼] 좌표가 생성된 최종 데이터를 다시 DB에 넣음
   const updateInfoHandler = async () => {
     addHomeListMutate.mutate({ allHomeData });
+    lastUpdatedDateMutation.mutate();
 
-    console.log('firesotre에 업로드 완료👇');
+    alert('firesotre에 업로드 완료👇');
     console.log('allHomeData:', allHomeData);
   };
 
-  // FIXME: 새로고침 해야 날짜가 바뀜!!
-  // eslint-disable-next-line
-  useEffect(
-    () => setBtnTime(homeListDB[homeListDB.length - 1]?.BUTTON_DATE),
-    [],
+  // DB 업데이트 내역 불러오기
+  const { data: LastUpdatedDateList, refetch: dateRefetch }: any = useQuery(
+    'lastUpdatedDate',
+    getLastUpdatedDate,
+    {
+      onSuccess: (LastUpdatedDateList) => {
+        LastUpdatedDateList?.reverse().splice(10);
+      },
+    },
   );
+
+  // DB 업데이트 내역 수정 시
+  const lastUpdatedDateMutation = useMutation(
+    'lastUpdatedDate',
+    () => updateLastUpdatedDate(session?.user?.email),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries('lastUpdatedDate'), dateRefetch();
+      },
+    },
+  );
+
+  // DAILY WORK LOG 내역 불러오기
+  const { data: dailyWorkLogList, refetch: logRefetch }: any = useQuery(
+    'dailyWorkLog',
+    getDailyWorkLog,
+    {
+      onSuccess: (dailyWorkLogList) => {
+        dailyWorkLogList?.reverse();
+      },
+    },
+  );
+
+  // DAILY WORK LOG 추가 시
+  const dailyWorkLogMutation = useMutation(updateDailyWorkLog, {
+    onSuccess: () => {
+      queryClient.invalidateQueries('dailyWorkLog'), logRefetch();
+    },
+  });
+
+  // dailt work log [등록] 버튼 클릭 시
+  const WorkLogHandler = () => {
+    dailyWorkLogMutation.mutate({ email: session?.user?.email, logContent });
+    setLogContent('');
+  };
+
+  // 관리자 계정 아닐 시 접근 제한
+  useEffect(() => {
+    if (!session) return;
+    if (
+      session?.user?.email !== 'mika013@naver.com' &&
+      session?.user?.email !== 'suk921@gmail.com' &&
+      session?.user?.email !== 'psh5575@gmail.com'
+    ) {
+      router.push('/', undefined, { shallow: true });
+    }
+  }, [session]);
 
   return (
     <>
       <NextSeo
         title="관리자페이지 -"
         description="희령, 윤숙, 성환의 관리자 페이지 입니당😛"
-        canonical='https://www.by-zip.com/admin/nemo042116'
+        canonical="https://www.by-zip.com/admin/nemo042116"
+        openGraph={{
+          url: 'https://www.by-zip.com/admin/nemo042116',
+        }}
       />
       <S.AdminSection>
-        <S.TitleBox>
-          <S.DbTimeTitle>{btnTime}</S.DbTimeTitle>
-        </S.TitleBox>
-        <S.BtnSection>
-          <S.ApiCallBtn>
-            <Image
-              onClick={apiCallHandler}
-              src={firsDbtButton}
-              alt="APICallButton"
-              width={300}
-              height={300}
-              quality={100}
-              style={{ cursor: 'pointer' }}
-              priority={true}
+        <S.AdminLeftSection>
+          <S.Title>DB 업데이트</S.Title>
+          <S.BtnSection>
+            <S.ApiCallBtn>
+              <Image
+                onClick={apiCallHandler}
+                src={firsDbtButton}
+                alt="APICallButton"
+                height={130}
+                quality={100}
+                style={{ cursor: 'pointer' }}
+                priority={true}
+              />
+              <S.BtnText>데이터 재가공</S.BtnText>
+            </S.ApiCallBtn>
+            <S.ApiCallBtn>
+              <Image
+                onClick={locationHandler}
+                src={coordinatesBtn}
+                alt="coordinatesBtn"
+                height={130}
+                quality={100}
+                style={{ cursor: 'pointer' }}
+                priority={true}
+              />
+              <S.BtnText>좌표 생성</S.BtnText>
+            </S.ApiCallBtn>
+            <S.ApiCallBtn>
+              <Image
+                onClick={updateInfoHandler}
+                src={lastDbButton}
+                alt="APICallButton"
+                height={130}
+                quality={100}
+                style={{ cursor: 'pointer' }}
+                priority={true}
+              />
+              <S.BtnText>DB에 넣기</S.BtnText>
+            </S.ApiCallBtn>
+          </S.BtnSection>
+
+          <S.TableSection>
+            <S.Title>DB 업데이트 내역</S.Title>
+            <S.Table style={{ width: '100%' }}>
+              <thead>
+                <S.TableRow>
+                  <S.TableHead>관리자</S.TableHead>
+                  <S.TableHead>날짜</S.TableHead>
+                </S.TableRow>
+              </thead>
+              {LastUpdatedDateList?.map((item: any, index: any) => (
+                <tbody key={index}>
+                  <S.TableRow
+                    style={{
+                      border: index === 0 ? '2px solid #5685FF' : 'none',
+                    }}
+                  >
+                    <S.TableData>{item.admin}</S.TableData>
+                    <S.TableData>{item.date}</S.TableData>
+                  </S.TableRow>
+                </tbody>
+              ))}
+            </S.Table>
+          </S.TableSection>
+        </S.AdminLeftSection>
+
+        <S.TableSection>
+          <S.Title>DAILY WORK LOG</S.Title>
+          <S.AdminInputContainer>
+            <S.DailyLogInput
+              value={logContent}
+              onChange={(e) => setLogContent(e.target.value)}
+              onKeyPress={(e) => OnKeyPressHandler(e, WorkLogHandler)}
             />
-            <S.BtnText>DB와 비교</S.BtnText>
-          </S.ApiCallBtn>
-          <S.ApiCallBtn>
-            <Image
-              onClick={locationHandler}
-              src={coordinatesBtn}
-              alt="coordinatesBtn"
-              width={300}
-              height={300}
-              quality={100}
-              style={{ cursor: 'pointer' }}
-              priority={true}
-            />
-            <S.BtnText>좌표 생성</S.BtnText>
-          </S.ApiCallBtn>
-          <S.ApiCallBtn>
-            <Image
-              onClick={updateInfoHandler}
-              src={lastDbButton}
-              alt="APICallButton"
-              width={300}
-              height={300}
-              quality={100}
-              style={{ cursor: 'pointer' }}
-              priority={true}
-            />
-            <S.BtnText>DB에 넣기</S.BtnText>
-          </S.ApiCallBtn>
-        </S.BtnSection>
+            <S.DailyLogSubmitBtn onClick={WorkLogHandler}>
+              등록
+            </S.DailyLogSubmitBtn>
+          </S.AdminInputContainer>
+          <S.Table style={{ width: 700 }}>
+            <thead>
+              <S.TableRow>
+                <S.TableHead style={{ width: 80 }}>관리자</S.TableHead>
+                <S.TableHead style={{ width: 200 }}>날짜</S.TableHead>
+                <S.TableHead>로그</S.TableHead>
+              </S.TableRow>
+            </thead>
+            {dailyWorkLogList?.map((item: any, index: any) => (
+              <tbody key={index}>
+                <S.TableRow>
+                  <S.TableData>{item.admin}</S.TableData>
+                  <S.TableData>{item.date}</S.TableData>
+                  <S.TableData>{item.content}</S.TableData>
+                </S.TableRow>
+              </tbody>
+            ))}
+          </S.Table>
+        </S.TableSection>
       </S.AdminSection>
     </>
   );

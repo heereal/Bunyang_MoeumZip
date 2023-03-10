@@ -15,7 +15,7 @@ import { NextSeo } from 'next-seo';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import * as S from '../../styles/signup.style';
 import { regionArray, typesArray } from '@/common/categoryList';
 
@@ -29,9 +29,8 @@ const SignUp = () => {
   const [users, setUsers] = useRecoilState(usersListState);
 
   // 유저가 선택한 카테고리 필터링 리스트
-  const [myTypeArray, setMyTypeArray] = useRecoilState<any>(myTypeArrayState);
-  const [myRegionArray, setMyRegionArray] =
-    useRecoilState<any>(myRegionArrayState);
+  const myTypeArray = useRecoilValue<any>(myTypeArrayState);
+  const myRegionArray = useRecoilValue<any>(myRegionArrayState);
 
   // 닉네임 중복 검사 시 사용
   const [isValidNickname, setIsValidNickname] = useState(false);
@@ -126,7 +125,10 @@ const SignUp = () => {
       <NextSeo
         title="회원가입 -"
         description="전국 분양정보를 한눈에 확인할 수 있는 플랫폼입니다."
-        canonical='https://www.by-zip.com/signup'
+        canonical="https://www.by-zip.com/signup"
+        openGraph={{
+          url: 'https://www.by-zip.com/signup',
+        }}
       />
 
       <S.SignUpContainer>

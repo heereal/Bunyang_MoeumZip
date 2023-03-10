@@ -43,9 +43,14 @@ const DetailKeyInfo = ({ home }: PropsP) => {
       </S.ArticleBox>
 
       {home && (
-        <Link href={home.PBLANC_URL} legacyBehavior>
+        <a
+          href={home.PBLANC_URL}
+          target="_blank"
+          rel="noreferrer"
+          style={{ all: 'unset' }}
+        >
           <S.infoBox>모집공고문 보기</S.infoBox>
-        </Link>
+        </a>
       )}
     </>
   );

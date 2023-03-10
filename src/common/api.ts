@@ -7,6 +7,7 @@ import {
   collection,
   query,
   getDocs,
+  arrayUnion,
 } from 'firebase/firestore';
 import { db } from './firebase';
 
@@ -93,4 +94,63 @@ export const getAPTRealPriceList = async (LAWD_CD: string) => {
     .get(`/api/APTRealPrice/${LAWD_CD?.split(':')[0]}`)
     .then((res) => res.data.response.body.items.item);
   return data;
+};
+
+// 관리자 페이지 3번 버튼 클릭한 시각 DB에 올리기
+export const updateLastUpdatedDate = async (email: any) => {
+  const onClickDate = new Date().toLocaleString();
+  const addLastUpdatedDate = {
+    list: arrayUnion({
+      admin:
+        email === 'mika013@naver.com'
+          ? '이희령'
+          : email === 'suk921@gmail.com'
+          ? '정윤숙'
+          : email === 'psh5575@gmail.com'
+          ? '박성환'
+          : '침입자다!!😱',
+      date: onClickDate,
+    }),
+  };
+
+  const ref = doc(db, 'Admin', 'lastUpdatedDate');
+  await updateDoc(ref, addLastUpdatedDate);
+};
+
+// 관리자 페이지에서 DB 업로드 시각 데이터 가져오기
+export const getLastUpdatedDate = async () => {
+  const docRef = doc(db, 'Admin', 'lastUpdatedDate');
+  const docSnap = await getDoc(docRef);
+  const result = docSnap.data();
+  return result?.list;
+};
+
+// 관리자 페이지 DAILY WORK LOG 입력하기
+export const updateDailyWorkLog = async ({ email, logContent }: any) => {
+  const onClickDate = new Date().toLocaleString();
+  const addDailyWorkLog = {
+    list: arrayUnion({
+      admin:
+        email === 'mika013@naver.com'
+          ? '이희령'
+          : email === 'suk921@gmail.com'
+          ? '정윤숙'
+          : email === 'psh5575@gmail.com'
+          ? '박성환'
+          : '침입자다!!😱',
+      date: onClickDate,
+      content: logContent,
+    }),
+  };
+
+  const ref = doc(db, 'Admin', 'dailyWorkLog');
+  await updateDoc(ref, addDailyWorkLog);
+};
+
+// 관리자 페이지에서 DAILY WORK LOG 데이터 가져오기
+export const getDailyWorkLog = async () => {
+  const docRef = doc(db, 'Admin', 'dailyWorkLog');
+  const docSnap = await getDoc(docRef);
+  const result = docSnap.data();
+  return result?.list;
 };
