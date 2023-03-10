@@ -3,16 +3,25 @@ import styled from 'styled-components';
 export const AdminSection = styled.section`
   width: 100vw;
   display: flex;
+`;
+
+export const AdminHalfSection = styled.div`
+  width: 50%;
+  display: flex;
   flex-direction: column;
-  align-items: center;
+  /* align-items: center; */
 `;
 
 export const BtnSection = styled.section`
-  width: 100%;
+  /* width: 100%; */
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 20px;
+  border: 2px solid lightgray;
+  border-radius: 20px;
+  width: 600px;
+  padding-bottom: 10px;
 `;
 
 export const ApiCallBtn = styled.button`
@@ -24,15 +33,14 @@ export const ApiCallBtn = styled.button`
 `;
 
 export const BtnText = styled.div`
-  font-size: 20px;
+  font-size: 17px;
+  font-weight: 700;
 `;
 
 export const TableSection = styled.div`
-  width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  margin-top: 40px;
+  margin-top: 20px;
 `;
 
 export const Title = styled.h2`

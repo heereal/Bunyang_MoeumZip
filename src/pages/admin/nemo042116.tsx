@@ -665,10 +665,11 @@ const MustHaveToDo = ({
     getLastUpdatedDate,
     {
       onSuccess: (LastUpdatedDateList) => {
-        LastUpdatedDateList.splice(10);
+        LastUpdatedDateList?.reverse().splice(10);
       },
     },
   );
+  console.log('LastUpdatedDateList:', LastUpdatedDateList);
 
   // DB 업데이트 내역 수정 시
   const lastUpdatedDateMutation = useMutation(
@@ -691,74 +692,99 @@ const MustHaveToDo = ({
         description="희령, 윤숙, 성환의 관리자 페이지 입니당😛"
       />
       <S.AdminSection>
-        <button onClick={() => lastUpdatedDateMutation.mutate()}>
-          테스트 버튼
-        </button>
-        {/* <S.TitleBox>
-          <S.DbTimeTitle>{btnTime}</S.DbTimeTitle>
-        </S.TitleBox> */}
-        <S.BtnSection>
-          <S.ApiCallBtn>
-            <Image
-              onClick={apiCallHandler}
-              src={firsDbtButton}
-              alt="APICallButton"
-              height={200}
-              quality={100}
-              style={{ cursor: 'pointer' }}
-              priority={true}
-            />
-            <S.BtnText>데이터 재가공</S.BtnText>
-          </S.ApiCallBtn>
-          <S.ApiCallBtn>
-            <Image
-              onClick={locationHandler}
-              src={coordinatesBtn}
-              alt="coordinatesBtn"
-              height={200}
-              quality={100}
-              style={{ cursor: 'pointer' }}
-              priority={true}
-            />
-            <S.BtnText>좌표 생성</S.BtnText>
-          </S.ApiCallBtn>
-          <S.ApiCallBtn>
-            <Image
-              onClick={updateInfoHandler}
-              src={lastDbButton}
-              alt="APICallButton"
-              height={200}
-              quality={100}
-              style={{ cursor: 'pointer' }}
-              priority={true}
-            />
-            <S.BtnText>DB에 넣기</S.BtnText>
-          </S.ApiCallBtn>
-        </S.BtnSection>
+        <S.AdminHalfSection style={{ alignItems: 'flex-end', marginRight: 30 }}>
+          <button onClick={() => lastUpdatedDateMutation.mutate()}>
+            테스트 버튼
+          </button>
+          <S.BtnSection>
+            <S.ApiCallBtn>
+              <Image
+                onClick={apiCallHandler}
+                src={firsDbtButton}
+                alt="APICallButton"
+                height={150}
+                quality={100}
+                style={{ cursor: 'pointer' }}
+                priority={true}
+              />
+              <S.BtnText>데이터 재가공</S.BtnText>
+            </S.ApiCallBtn>
+            <S.ApiCallBtn>
+              <Image
+                onClick={locationHandler}
+                src={coordinatesBtn}
+                alt="coordinatesBtn"
+                height={150}
+                quality={100}
+                style={{ cursor: 'pointer' }}
+                priority={true}
+              />
+              <S.BtnText>좌표 생성</S.BtnText>
+            </S.ApiCallBtn>
+            <S.ApiCallBtn>
+              <Image
+                onClick={updateInfoHandler}
+                src={lastDbButton}
+                alt="APICallButton"
+                height={150}
+                quality={100}
+                style={{ cursor: 'pointer' }}
+                priority={true}
+              />
+              <S.BtnText>DB에 넣기</S.BtnText>
+            </S.ApiCallBtn>
+          </S.BtnSection>
 
-        <S.TableSection>
-          <S.Title>DB 업데이트 내역</S.Title>
-          <S.Table>
-            <thead>
-              <S.TableRow>
-                <S.TableHead>관리자</S.TableHead>
-                <S.TableHead>날짜</S.TableHead>
-              </S.TableRow>
-            </thead>
-            {LastUpdatedDateList?.map((item: any, index: any) => (
-              <tbody key={index}>
-                <S.TableRow
-                  style={{
-                    border: index === 0 ? '2px solid #5685FF' : 'none',
-                  }}
-                >
-                  <S.TableData>{item.admin}</S.TableData>
-                  <S.TableData>{item.date}</S.TableData>
+          <S.TableSection>
+            <S.Title>DB 업데이트 내역</S.Title>
+            <S.Table>
+              <thead>
+                <S.TableRow>
+                  <S.TableHead>관리자</S.TableHead>
+                  <S.TableHead>날짜</S.TableHead>
                 </S.TableRow>
-              </tbody>
-            ))}
-          </S.Table>
-        </S.TableSection>
+              </thead>
+              {LastUpdatedDateList?.map((item: any, index: any) => (
+                <tbody key={index}>
+                  <S.TableRow
+                    style={{
+                      border: index === 0 ? '2px solid #5685FF' : 'none',
+                    }}
+                  >
+                    <S.TableData>{item.admin}</S.TableData>
+                    <S.TableData>{item.date}</S.TableData>
+                  </S.TableRow>
+                </tbody>
+              ))}
+            </S.Table>
+          </S.TableSection>
+        </S.AdminHalfSection>
+
+        {/* <S.AdminHalfSection style={{alignItems: "flex-start", marginLeft: 30}}>
+          <S.TableSection>
+            <S.Title>DAILY WORK LOG</S.Title>
+            <S.Table>
+              <thead>
+                <S.TableRow>
+                  <S.TableHead>관리자</S.TableHead>
+                  <S.TableHead>날짜</S.TableHead>
+                </S.TableRow>
+              </thead>
+              {LastUpdatedDateList?.list.map((item: any, index: any) => (
+                <tbody key={index}>
+                  <S.TableRow
+                    style={{
+                      border: index === 0 ? '2px solid #5685FF' : 'none',
+                    }}
+                  >
+                    <S.TableData>{item.admin}</S.TableData>
+                    <S.TableData>{item.date}</S.TableData>
+                  </S.TableRow>
+                </tbody>
+              ))}
+            </S.Table>
+          </S.TableSection>
+        </S.AdminHalfSection> */}
       </S.AdminSection>
     </>
   );

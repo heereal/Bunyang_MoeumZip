@@ -7,6 +7,7 @@ import {
   collection,
   query,
   getDocs,
+  arrayUnion,
 } from 'firebase/firestore';
 import { db } from './firebase';
 
@@ -98,27 +99,24 @@ export const getAPTRealPriceList = async (LAWD_CD: string) => {
 // 관리자 페이지 3번 버튼 클릭한 시각 DB에 올리기
 export const updateLastUpdatedDate = async (name: string) => {
   const onClickDate = new Date().toLocaleString();
-  const lastUpdatedDate = {
-    admin: name,
-    date: onClickDate,
+  const addLastUpdatedDate = {
+    list: arrayUnion({
+      admin: name,
+      date: onClickDate,
+    }),
   };
 
-  const ref = doc(db, 'Admin', onClickDate);
-  await setDoc(ref, lastUpdatedDate);
+  const ref = doc(db, 'Admin', 'lastUpdatedDate');
+  await updateDoc(ref, addLastUpdatedDate);
 };
 
 // 관리자 페이지에서 DB 업로드 시각 데이터 가져오기
 export const getLastUpdatedDate = async () => {
-  const array: any[] = [];
 
-  const q = query(collection(db, 'Admin'));
-
-  const querySnapshot = await getDocs(q);
-  querySnapshot.forEach((doc) =>
-    array.push({
-      ...doc.data(),
-    }),
-  );
-
-  return array.reverse();
+  const docRef = doc(db, 'Admin', 'lastUpdatedDate');
+  const docSnap = await getDoc(docRef);
+  const result = docSnap.data();
+  return result?.list;
 };
+
+
