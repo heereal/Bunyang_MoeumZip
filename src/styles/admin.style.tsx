@@ -3,13 +3,15 @@ import styled from 'styled-components';
 export const AdminSection = styled.section`
   width: 100vw;
   display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-bottom: 30px;
 `;
 
-export const AdminHalfSection = styled.div`
-  width: 50%;
+export const AdminLeftSection = styled.div`
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
+  width: 450px;
 `;
 
 export const BtnSection = styled.section`
@@ -17,10 +19,10 @@ export const BtnSection = styled.section`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 20px;
-  border: 2px solid lightgray;
+  border: 1px solid lightgray;
   border-radius: 20px;
-  width: 600px;
+  width: 100%;
+  margin-bottom: 20px;
   padding-bottom: 10px;
 `;
 
@@ -33,23 +35,22 @@ export const ApiCallBtn = styled.button`
 `;
 
 export const BtnText = styled.div`
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 700;
 `;
 
 export const TableSection = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 20px;
 `;
 
 export const Title = styled.h2`
   padding: 20px 0;
+  font-size: 20px;
 `;
 
 export const Table = styled.table`
   border: 1px solid #e8eaef;
-  width: 600px;
   margin-bottom: 40px;
 `;
 
@@ -70,6 +71,7 @@ export const TableData = styled.td`
   padding: 15px 10px;
   text-align: center;
   font-size: 15px;
+  line-height: 20px;
 
   span {
     font-size: 13px;
@@ -78,7 +80,7 @@ export const TableData = styled.td`
 `;
 
 export const AdminInputContainer = styled.div`
-  width: 600px;
+  width: 700px;
   margin-bottom: 15px;
   display: flex;
 `;
@@ -90,7 +92,7 @@ export const DailyLogInput = styled.input`
   border: 1px solid gray;
   border-radius: 5px;
   padding: 0 15px;
-  font-size: 17px;
+  font-size: 15px;
 
   :focus {
     outline: none;

@@ -20,6 +20,7 @@ import lastDbButton from '../../../public/assets/apiCallButton_green.png';
 import firsDbtButton from '../../../public/assets/apiCallButton_red.png';
 import { useOnEnterKeyPress } from '@/hooks';
 import * as S from '../../styles/admin.style';
+import { useRouter } from 'next/router';
 
 const MustHaveToDo = ({
   aptCombineList,
@@ -28,6 +29,7 @@ const MustHaveToDo = ({
   lhCombineList,
   homeListDB,
 }: ListPropsJ) => {
+  const router = useRouter();
   const queryClient = useQueryClient();
   const { data: session } = useSession();
 
@@ -663,6 +665,7 @@ const MustHaveToDo = ({
   // [3번 버튼] 좌표가 생성된 최종 데이터를 다시 DB에 넣음
   const updateInfoHandler = async () => {
     addHomeListMutate.mutate({ allHomeData });
+    lastUpdatedDateMutation.mutate();
 
     alert('firesotre에 업로드 완료👇');
     console.log('allHomeData:', allHomeData);
@@ -682,7 +685,7 @@ const MustHaveToDo = ({
   // DB 업데이트 내역 수정 시
   const lastUpdatedDateMutation = useMutation(
     'lastUpdatedDate',
-    () => updateLastUpdatedDate('정윤숙'),
+    () => updateLastUpdatedDate(session?.user?.email),
     {
       onSuccess: () => {
         queryClient.invalidateQueries('lastUpdatedDate'), dateRefetch();
@@ -710,33 +713,39 @@ const MustHaveToDo = ({
 
   // dailt work log [등록] 버튼 클릭 시
   const WorkLogHandler = () => {
-    // updateDailyWorkLog({ name: '이희령', logContent });
-    dailyWorkLogMutation.mutate({ name: '이희령', logContent });
+    dailyWorkLogMutation.mutate({ email: session?.user?.email, logContent });
     setLogContent('');
   };
 
   // 관리자 계정 아닐 시 접근 제한
-  useEffect(() => {}, []);
+  useEffect(() => {
+    if (!session) return;
+    if (
+      session?.user?.email !== 'mika013@naver.com' &&
+      session?.user?.email !== 'suk921@gmail.com' &&
+      session?.user?.email !== 'psh5575@gmail.com'
+    ) {
+      router.push('/', undefined, { shallow: true });
+    }
+  }, [session]);
 
   return (
     <>
       <NextSeo
         title="관리자페이지 -"
         description="희령, 윤숙, 성환의 관리자 페이지 입니당😛"
-        canonical='https://www.by-zip.com/admin/nemo042116'
+        canonical="https://www.by-zip.com/admin/nemo042116"
       />
       <S.AdminSection>
-        <S.AdminHalfSection style={{ alignItems: 'flex-end', marginRight: 25 }}>
-          <button onClick={() => lastUpdatedDateMutation.mutate()}>
-            테스트 버튼
-          </button>
+        <S.AdminLeftSection>
+          <S.Title>DB 업데이트</S.Title>
           <S.BtnSection>
             <S.ApiCallBtn>
               <Image
                 onClick={apiCallHandler}
                 src={firsDbtButton}
                 alt="APICallButton"
-                height={150}
+                height={130}
                 quality={100}
                 style={{ cursor: 'pointer' }}
                 priority={true}
@@ -748,7 +757,7 @@ const MustHaveToDo = ({
                 onClick={locationHandler}
                 src={coordinatesBtn}
                 alt="coordinatesBtn"
-                height={150}
+                height={130}
                 quality={100}
                 style={{ cursor: 'pointer' }}
                 priority={true}
@@ -760,7 +769,7 @@ const MustHaveToDo = ({
                 onClick={updateInfoHandler}
                 src={lastDbButton}
                 alt="APICallButton"
-                height={150}
+                height={130}
                 quality={100}
                 style={{ cursor: 'pointer' }}
                 priority={true}
@@ -771,7 +780,7 @@ const MustHaveToDo = ({
 
           <S.TableSection>
             <S.Title>DB 업데이트 내역</S.Title>
-            <S.Table>
+            <S.Table style={{ width: '100%' }}>
               <thead>
                 <S.TableRow>
                   <S.TableHead>관리자</S.TableHead>
@@ -792,43 +801,39 @@ const MustHaveToDo = ({
               ))}
             </S.Table>
           </S.TableSection>
-        </S.AdminHalfSection>
+        </S.AdminLeftSection>
 
-        <S.AdminHalfSection
-          style={{ alignItems: 'flex-start', marginLeft: 25 }}
-        >
-          <S.TableSection>
-            <S.Title>DAILY WORK LOG</S.Title>
-            <S.AdminInputContainer>
-              <S.DailyLogInput
-                value={logContent}
-                onChange={(e) => setLogContent(e.target.value)}
-                onKeyPress={(e) => OnKeyPressHandler(e, WorkLogHandler)}
-              />
-              <S.DailyLogSubmitBtn onClick={WorkLogHandler}>
-                등록
-              </S.DailyLogSubmitBtn>
-            </S.AdminInputContainer>
-            <S.Table>
-              <thead>
+        <S.TableSection>
+          <S.Title>DAILY WORK LOG</S.Title>
+          <S.AdminInputContainer>
+            <S.DailyLogInput
+              value={logContent}
+              onChange={(e) => setLogContent(e.target.value)}
+              onKeyPress={(e) => OnKeyPressHandler(e, WorkLogHandler)}
+            />
+            <S.DailyLogSubmitBtn onClick={WorkLogHandler}>
+              등록
+            </S.DailyLogSubmitBtn>
+          </S.AdminInputContainer>
+          <S.Table style={{ width: 700 }}>
+            <thead>
+              <S.TableRow>
+                <S.TableHead style={{ width: 80 }}>관리자</S.TableHead>
+                <S.TableHead style={{ width: 200 }}>날짜</S.TableHead>
+                <S.TableHead>로그</S.TableHead>
+              </S.TableRow>
+            </thead>
+            {dailyWorkLogList?.map((item: any, index: any) => (
+              <tbody key={index}>
                 <S.TableRow>
-                  <S.TableHead>관리자</S.TableHead>
-                  <S.TableHead>날짜</S.TableHead>
-                  <S.TableHead>로그</S.TableHead>
+                  <S.TableData>{item.admin}</S.TableData>
+                  <S.TableData>{item.date}</S.TableData>
+                  <S.TableData>{item.content}</S.TableData>
                 </S.TableRow>
-              </thead>
-              {dailyWorkLogList?.map((item: any, index: any) => (
-                <tbody key={index}>
-                  <S.TableRow>
-                    <S.TableData>{item.admin}</S.TableData>
-                    <S.TableData>{item.date}</S.TableData>
-                    <S.TableData>{item.content}</S.TableData>
-                  </S.TableRow>
-                </tbody>
-              ))}
-            </S.Table>
-          </S.TableSection>
-        </S.AdminHalfSection>
+              </tbody>
+            ))}
+          </S.Table>
+        </S.TableSection>
       </S.AdminSection>
     </>
   );

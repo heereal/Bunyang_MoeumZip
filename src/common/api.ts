@@ -97,11 +97,18 @@ export const getAPTRealPriceList = async (LAWD_CD: string) => {
 };
 
 // 관리자 페이지 3번 버튼 클릭한 시각 DB에 올리기
-export const updateLastUpdatedDate = async (name: string) => {
+export const updateLastUpdatedDate = async (email: any) => {
   const onClickDate = new Date().toLocaleString();
   const addLastUpdatedDate = {
     list: arrayUnion({
-      admin: name,
+      admin:
+        email === 'mika013@naver.com'
+          ? '이희령'
+          : email === 'suk921@gmail.com'
+          ? '정윤숙'
+          : email === 'psh5575@gmail.com'
+          ? '박성환'
+          : '침입자다!!😱',
       date: onClickDate,
     }),
   };
@@ -119,11 +126,18 @@ export const getLastUpdatedDate = async () => {
 };
 
 // 관리자 페이지 DAILY WORK LOG 입력하기
-export const updateDailyWorkLog = async ({ name, logContent }: any) => {
+export const updateDailyWorkLog = async ({ email, logContent }: any) => {
   const onClickDate = new Date().toLocaleString();
   const addDailyWorkLog = {
     list: arrayUnion({
-      admin: name,
+      admin:
+        email === 'mika013@naver.com'
+          ? '이희령'
+          : email === 'suk921@gmail.com'
+          ? '정윤숙'
+          : email === 'psh5575@gmail.com'
+          ? '박성환'
+          : '침입자다!!😱',
       date: onClickDate,
       content: logContent,
     }),
