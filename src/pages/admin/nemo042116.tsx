@@ -31,7 +31,7 @@ const MustHaveToDo = ({
 }: ListPropsJ) => {
   const router = useRouter();
   const queryClient = useQueryClient();
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
 
   // input 입력 시 enter 키로도 제출 가능
   const { OnKeyPressHandler } = useOnEnterKeyPress();
@@ -718,16 +718,19 @@ const MustHaveToDo = ({
   };
 
   // 관리자 계정 아닐 시 접근 제한
-  useEffect(() => {
-    if (!session) return;
-    if (
-      session?.user?.email !== 'mika013@naver.com' &&
-      session?.user?.email !== 'suk921@gmail.com' &&
-      session?.user?.email !== 'psh5575@gmail.com'
-    ) {
-      router.push('/', undefined, { shallow: true });
-    }
-  }, [session]);
+  // useEffect(() => {
+  //   if (status === 'unauthenticated') {
+  //     router.push('/', undefined, { shallow: true });
+  //   }
+
+  //   if (
+  //     session?.user?.email !== 'mika013@naver.com' &&
+  //     session?.user?.email !== 'suk921@gmail.com' &&
+  //     session?.user?.email !== 'psh5575@gmail.com'
+  //   ) {
+  //     router.push('/', undefined, { shallow: true });
+  //   }
+  // }, [session]);
 
   return (
     <>
@@ -1018,7 +1021,7 @@ export const getStaticProps: GetStaticProps = async () => {
       lhCombineList,
       homeListDB,
     },
-    // ISR - 1시간 마다 데이터 업데이트
-    revalidate: 3600,
+    // ISR - 12시간 마다 데이터 업데이트
+    revalidate: 43200,
   };
 };
