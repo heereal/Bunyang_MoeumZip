@@ -10,110 +10,73 @@ const SubscriptionSchedule = ({ home }: PropsP) => {
     <>
       <S.ArticleHead>청약일정</S.ArticleHead>
       <S.ArticleBox>
-        <S.Article>
-          <S.BoxTitle color="#f0f4ff">모집공고일</S.BoxTitle>
-          <S.BoxContent>{home?.RCRIT_PBLANC_DE}</S.BoxContent>
-        </S.Article>
-        {home?.HOUSE_SECD === '02' ||
-          home?.HOUSE_SECD === '06' ||
-          home?.HOUSE_SECD === '03' ||
-          (home?.HOUSE_SECD === '04' ? null : (
-            <S.Article>
-              <S.BoxTitle color="#f0f4ff" style={{ height: 204 }}>
-                청약접수
-              </S.BoxTitle>
-              <S.BoxContent style={{ paddingLeft: 0 }}>
-                <S.Table>
-                  <S.THead>
-                    <S.Tbody
-                      style={{
-                        backgroundColor: '#f0f4ff',
-                        color: '#356EFF',
-                        fontWeight: 600,
-                      }}
-                    >
-                      구분
-                    </S.Tbody>
-                    <S.Tbody
-                      style={{
-                        backgroundColor: '#f0f4ff',
-                        color: '#356EFF',
-                        fontWeight: 600,
-                      }}
-                    >
-                      해당지역
-                    </S.Tbody>
-                    <S.Tbody
-                      style={{
-                        backgroundColor: '#f0f4ff',
-                        color: '#356EFF',
-                        fontWeight: 600,
-                      }}
-                    >
-                      기타경기{' '}
-                    </S.Tbody>
-                    <S.Tbody
-                      style={{
-                        backgroundColor: '#f0f4ff',
-                        color: '#356EFF',
-                        fontWeight: 600,
-                      }}
-                    >
-                      기타지역
-                    </S.Tbody>
-                  </S.THead>
-                  {home?.SPSPLY_RCEPT_BGNDE && (
-                    <S.THead>
-                      <S.Tbody
-                        style={{
-                          borderRight: '2px solid #e8eaef',
-                          marginLeft: 1,
-                        }}
-                      >
-                        특별공급
-                      </S.Tbody>
+        <tbody>
+          <tr>
+            <S.BoxTitle>모집공고일</S.BoxTitle>
+            <S.BoxContent
+              style={{ borderTop: '1.3px solid #8e8e8e' }}
+              colSpan={4}
+            >
+              {home?.RCRIT_PBLANC_DE}
+            </S.BoxContent>
+          </tr>
+          {home?.HOUSE_SECD === '02' ||
+            home?.HOUSE_SECD === '06' ||
+            home?.HOUSE_SECD === '03' ||
+            (home?.HOUSE_SECD === '04' ? null : (
+              <>
+                <tr>
+                  <S.BoxTitle rowSpan={4}>청약접수</S.BoxTitle>
+                  <S.BoxTitleDate>구분</S.BoxTitleDate>
+                  <S.BoxTitleDate>해당지역</S.BoxTitleDate>
+                  <S.BoxTitleDate>기타경기</S.BoxTitleDate>
+                  <S.BoxTitleDate>기타지역</S.BoxTitleDate>
+                </tr>
 
-                      <div
-                        style={{
-                          textAlign: 'center',
-                          width: '70%',
-                          height: '100%',
-                          display: 'flex',
-                          justifyContent: 'center',
-                          alignItems: 'center',
-                        }}
-                      >
-                        {home?.SPSPLY_RCEPT_BGNDE} ~ {home?.SPSPLY_RCEPT_ENDDE}
-                      </div>
-                    </S.THead>
-                  )}
-                  <S.THead>
-                    <S.Tbody>1순위</S.Tbody>
-                    <S.Tbody>{home?.GNRL_RNK1_CRSPAREA_RCEPT_PD}</S.Tbody>
-                    <S.Tbody>{home?.GNRL_RNK1_ETC_GG_RCPTDE_PD} </S.Tbody>
-                    <S.Tbody>{home?.GNRL_RNK1_ETC_AREA_RCPTDE_PD}</S.Tbody>
-                  </S.THead>
-                  <S.THead>
-                    <S.Tbody>2순위</S.Tbody>
-                    <S.Tbody>{home?.GNRL_RNK2_CRSPAREA_RCEPT_PD}</S.Tbody>
-                    <S.Tbody>{home?.GNRL_RNK2_ETC_GG_RCPTDE_PD} </S.Tbody>
-                    <S.Tbody>{home?.GNRL_RNK2_ETC_AREA_RCPTDE_PD}</S.Tbody>
-                  </S.THead>
-                </S.Table>
-              </S.BoxContent>
-            </S.Article>
-          ))}
+                <tr>
+                  <S.BoxContentDate>특별공급</S.BoxContentDate>
+                  <S.BoxContentDate colSpan={3}>
+                    {home?.SPSPLY_RCEPT_BGNDE} ~{home?.SPSPLY_RCEPT_ENDDE}
+                  </S.BoxContentDate>
+                </tr>
+                <tr>
+                  <S.BoxContentDate>1순위</S.BoxContentDate>
+                  <S.BoxContentDate>
+                    {home?.GNRL_RNK1_CRSPAREA_RCEPT_PD}
+                  </S.BoxContentDate>
+                  <S.BoxContentDate>
+                    {home?.GNRL_RNK1_ETC_GG_RCPTDE_PD}
+                  </S.BoxContentDate>
+                  <S.BoxContentDate>
+                    {home?.GNRL_RNK1_ETC_AREA_RCPTDE_PD}
+                  </S.BoxContentDate>
+                </tr>
+                <tr>
+                  <S.BoxContentDate>2순위</S.BoxContentDate>
+                  <S.BoxContentDate>
+                    {home?.GNRL_RNK2_CRSPAREA_RCEPT_PD}
+                  </S.BoxContentDate>
+                  <S.BoxContentDate>
+                    {home?.GNRL_RNK2_ETC_GG_RCPTDE_PD}
+                  </S.BoxContentDate>
+                  <S.BoxContentDate>
+                    {home?.GNRL_RNK2_ETC_AREA_RCPTDE_PD}
+                  </S.BoxContentDate>
+                </tr>
+              </>
+            ))}
 
-        <S.Article>
-          <S.BoxTitle color="#f4f4f4">당첨자 발표일</S.BoxTitle>
-          <S.BoxContent>{home?.PRZWNER_PRESNATN_DE}</S.BoxContent>
-        </S.Article>
-        <S.Article>
-          <S.BoxTitle color="#f4f4f4">계약일</S.BoxTitle>
-          <S.BoxContent>
-            {home?.CNTRCT_CNCLS_BGNDE} ~ {home?.CNTRCT_CNCLS_ENDDE}
-          </S.BoxContent>
-        </S.Article>
+          <tr>
+            <S.BoxTitle color="#f4f4f4">당첨자 발표일</S.BoxTitle>
+            <S.BoxContent colSpan={4}>{home?.PRZWNER_PRESNATN_DE}</S.BoxContent>
+          </tr>
+          <tr>
+            <S.BoxTitle color="#f4f4f4">계약일</S.BoxTitle>
+            <S.BoxContent colSpan={4}>
+              {home?.CNTRCT_CNCLS_BGNDE} ~ {home?.CNTRCT_CNCLS_ENDDE}
+            </S.BoxContent>
+          </tr>
+        </tbody>
       </S.ArticleBox>
       <S.info>
         *특별공급 종류에 따라 접수기간 및 장소가 다를 수 있으니 모집공고를
