@@ -1,9 +1,9 @@
 import { getHomeList } from '@/common/api';
-import { centerState, zoomState } from '@/store/selectors';
+// import { centerState, zoomState } from '@/store/selectors';  31번 코드와 관련
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
-import { useRecoilState } from 'recoil';
+// import { useRecoilState } from 'recoil';  31번 코드와 관련
 import Map from './Map';
 import Markers from './Markers';
 import { MapContainer } from './style';
@@ -12,8 +12,8 @@ const MapSection = () => {
   const router = useRouter();
   const [home, setHome] = useState<any>();
   const [naverMap, setNaverMap] = useState<NaverMap>();
-  const [zoomLevel] = useRecoilState(zoomState);
-  const [initialCenter] = useRecoilState(centerState);
+  // const [zoomLevel] = useRecoilState(zoomState);  31번 코드와 관련된 스테이트
+  // const [initialCenter] = useRecoilState(centerState); 31번 코드와 관련된 스테이트
   const { data } = useQuery('homelist', getHomeList, {
     onSuccess(data) {
       setHome(data?.allHomeData);

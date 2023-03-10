@@ -91,7 +91,7 @@ export const getStaticProps: GetStaticProps = async () => {
       id: item.PBLANC_NO,
       borderColor: 'transparent',
       backgroundColor:
-        item.HOUSE_DTL_SECD_NM === '행복주택' ||
+        item.HOUSE_DTL_SECD_NM.includes('행복주택') ||
         item.HOUSE_DTL_SECD_NM === '공공임대' ||
         item.HOUSE_DTL_SECD_NM === '국민임대' ||
         item.HOUSE_DTL_SECD_NM === '영구임대' ||
@@ -113,7 +113,7 @@ export const getStaticProps: GetStaticProps = async () => {
           : '#b1b7bdac',
 
       textColor:
-        item.HOUSE_DTL_SECD_NM === '행복주택' ||
+        item.HOUSE_DTL_SECD_NM.includes('행복주택') ||
         item.HOUSE_DTL_SECD_NM === '공공임대' ||
         item.HOUSE_DTL_SECD_NM === '국민임대' ||
         item.HOUSE_DTL_SECD_NM === '영구임대' ||
@@ -138,7 +138,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
   return {
     props: { homeList },
-    // ISR - 3시간 마다 데이터 업데이트
-    revalidate: 108000,
+    // ISR - 12시간 마다 데이터 업데이트
+    revalidate: 43200,
   };
 };

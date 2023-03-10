@@ -1,4 +1,3 @@
-import LoadingSpinner from '@/components/GlobalComponents/LoadingSpinner/LoadingSpinner';
 import NoResult from '@/components/GlobalComponents/NoResult/NoResult';
 import * as S from './style';
 

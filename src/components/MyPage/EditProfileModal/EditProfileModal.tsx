@@ -8,7 +8,7 @@ import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { signOut } from 'next-auth/react';
 import Image from 'next/image';
-import { useState, useRef, useEffect } from 'react';
+import { useState } from 'react';
 import { confirmAlert } from 'react-confirm-alert';
 import { BsCameraFill } from 'react-icons/bs';
 import { MdClose } from 'react-icons/md';
@@ -70,7 +70,6 @@ const EditProfileModal = ({ setIsModalOpen }: any) => {
       doc(db, 'Users', `${currentUser.provider}_${currentUser.userEmail}`),
       updateUser,
     );
-    //FIXME: 쿼리 refetch나 invalidateQueries 사용해서 DB 정보로 업데이트 해주는 방법은 없을까?
     setCurrentUser({
       ...currentUser,
       userName: editNickname,

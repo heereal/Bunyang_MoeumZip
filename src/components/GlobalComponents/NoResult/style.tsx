@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 // 검색 결과가 없을 때
-
 export const Container = styled.div`
   display: flex;
   flex-direction: column;

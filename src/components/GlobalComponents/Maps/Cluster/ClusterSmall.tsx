@@ -1,5 +1,3 @@
-import React from 'react';
-
 const ClusterSmall = () => {
   return (
     <div
@@ -9,7 +7,6 @@ const ClusterSmall = () => {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        // padding: '23.6px 22.8px 23.4px 22.2px',
         border: 'solid 2px #5685ff',
 
         backgroundColor: ' rgba(229, 237, 255, 0.7)',
