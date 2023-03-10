@@ -24,7 +24,6 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
 
   // 디테일 페이지에서 사용할 특정한 분양 정보
   const [home, setHome] = useState<HomeP>();
-  const [email, setEmail] = useState<string | null | undefined>('');
 
   // 탭 선택 시 사용
   const [isRealPriceTab, setIsRealPriceTab] = useState(false);
@@ -73,7 +72,7 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
   );
 
   // 아파트 매매 실거래가 API 가져오기
-  const { data: APTRealPriceList, refetch: APTRealPriceRefetch } = useQuery(
+  const { data: APTRealPriceList, refetch: APTRealPriceRefetch, isLoading } = useQuery(
     'APTRealPriceList',
     () => getAPTRealPriceList(LAWD_CD),
     {
@@ -103,14 +102,6 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
     APTRealPriceRefetch();
     // eslint-disable-next-line
   }, [detail]);
-
-  // firestore에서 유저 정보 불러오면 state에 저장함
-  useEffect(() => {
-    if (session) {
-      setEmail(session?.user?.email);
-    }
-    // eslint-disable-next-line
-  }, [session]);
 
   return (
     <S.Section>
@@ -164,7 +155,7 @@ const PostDetail = ({ postId }: DetailPagePropsP) => {
       )}
 
       {/* 아파트 매매 실거래가 탭 */}
-      {isRealPriceTab && <APTRealPrice dongList={dongList} />}
+      {isRealPriceTab && <APTRealPrice dongList={dongList} isLoading={isLoading} />}
     </S.Section>
   );
 };
