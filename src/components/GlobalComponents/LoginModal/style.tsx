@@ -14,7 +14,7 @@ export const ModalBackground = styled.div`
 `;
 
 export const ModalContainer = styled.div`
-  /* height: 420px; */
+  /* height: 420px; 이거 페이스북 돌아오면 써야함 */
   height: 380px;
   width: 360px;
   background-color: white;

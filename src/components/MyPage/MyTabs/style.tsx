@@ -6,7 +6,6 @@ export const Wrapper = styled.div`
   width: 730px;
   height: 100%;
   margin-left: 70px;
-  /* overflow-y: scroll; */
 
   @media screen and (max-width: 870px) {
     width: 100%;
@@ -89,7 +88,6 @@ export const BookmarkListContainer = styled.div`
 
   @media screen and (max-width: 650px) {
     justify-content: center;
-    
   }
 `;
 
@@ -97,14 +95,14 @@ export const NoResultContainer = styled.div`
   padding-top: 50px;
 
   @media screen and (max-width: 768px) {
-    padding-top: 0
+    padding-top: 0;
   }
 
   @media screen and (max-width: 650px) {
     width: 100%;
     display: flex;
     justify-content: center;
-    padding-top: 0
+    padding-top: 0;
   }
 `;
 
@@ -137,8 +135,6 @@ export const SubmitBtn = styled.button`
   align-items: center;
   color: white;
   cursor: pointer;
-  /* position: absolute;
-  bottom: -40px; */
 
   :disabled {
     cursor: default;
@@ -150,5 +146,4 @@ export const SubmitBtn = styled.button`
     width: 95%;
     height: 54px;
   }
-
 `;

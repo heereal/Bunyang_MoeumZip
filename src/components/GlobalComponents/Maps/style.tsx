@@ -22,7 +22,7 @@ export const OverlayContainer = styled.div`
   font-size: 12px;
 `;
 
-export const MarkerIconContainer = styled.div<any>`
+export const MarkerIconContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -36,7 +36,11 @@ export const MarkerTest = styled.div`
   margin-top: 10px;
 `;
 
-export const MapBox = styled.div<any>`
+export const MapBox = styled.div<{
+  display1200: string;
+  display768: string;
+  minHeight?: string;
+}>`
   width: 100%;
   min-width: 300px;
 
@@ -49,7 +53,11 @@ export const MapBox = styled.div<any>`
   }
 `;
 
-export const MapContainer = styled.div<any>`
+export const MapContainer = styled.div<{
+  display1200: string;
+  display768: string;
+  minHeight?: string;
+}>`
   width: 40%;
   @media screen and (max-width: 768px) {
     width: 100vw;

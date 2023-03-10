@@ -11,11 +11,11 @@ import { useSession } from 'next-auth/react';
 import { useQuery } from 'react-query';
 import { getUsersList } from '@/common/api';
 
-interface Expanded {
+interface ExpandedJ {
   expanded: boolean;
 }
 
-const CategoryBar = ({ expanded }: Expanded) => {
+const CategoryBar = ({ expanded }: ExpandedJ) => {
   const [isRegionToggleOpen, setIsRegionToggleOpen] = useState<boolean>(false);
   const [isTypeToggleOpen, setIsTypeToggleOpen] = useState<boolean>(false);
   const [currentTab, SetCurrentTab] = useState<number>(0);

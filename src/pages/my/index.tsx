@@ -61,6 +61,7 @@ const MyPage = () => {
       />
 
       <EditProfile currentUser={currentUser} />
+
       <MyTabs />
     </S.Wrapper>
   );
