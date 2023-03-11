@@ -737,6 +737,7 @@ const MustHaveToDo = ({
       router.push('/', undefined, { shallow: true });
       console.log('이메일 메인으로');
     }
+  // eslint-disable-next-line
   }, [session]);
 
   if (!session) {

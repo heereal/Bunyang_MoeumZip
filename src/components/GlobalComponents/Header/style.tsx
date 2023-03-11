@@ -28,7 +28,6 @@ export const LogoBox = styled.div`
   padding-left: 20px;
 
   box-sizing: border-box;
-  cursor: pointer;
 `;
 
 // Logo Text
@@ -42,6 +41,7 @@ export const LogoText = styled.div`
   letter-spacing: 0.02em;
   margin-left: 9px;
   padding-top: 5px;
+  cursor: pointer;
   @media screen and (max-width: 600px) {
     font-size: 15px;
     padding-top: 3px;

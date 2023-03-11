@@ -55,7 +55,7 @@ const Header = () => {
         />
       )}
       <S.Header>
-        <S.LogoBox onClick={() => router.push('/')}>
+        <S.LogoBox>
           <Image
             onClick={() => router.push('/')}
             src={logo}
@@ -64,6 +64,7 @@ const Header = () => {
             quality={100}
             //quelity 의 기본값은 75 입니다.
             priority={true}
+            style={{cursor: "pointer"}}
           />
           {isMobileSearch ? (
             ''
