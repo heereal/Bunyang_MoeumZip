@@ -13,7 +13,10 @@ export const DetailBody = styled.div`
 `;
 
 export const DetailLoadingBox = styled.div`
-  position: relative;
-  top: 40%;
-  left: 50%;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rebeccapurple;
 `;

@@ -10,6 +10,11 @@ export const Header = styled.header`
   border-bottom: 1px solid lightgray;
   position: fixed;
   z-index: 300;
+  padding: 0 30px;
+
+  @media screen and (max-width: 600px) {
+    padding: 0 0 0 20px;
+  }
 
   @media screen and (max-width: 450px) {
     grid-template-columns: 2fr 1fr 1fr;
@@ -25,10 +30,7 @@ export const LogoBox = styled.div`
   justify-content: flex-start;
   align-items: center;
   gap: 4px;
-  padding-left: 20px;
-
   box-sizing: border-box;
-  cursor: pointer;
 `;
 
 // Logo Text
@@ -40,8 +42,9 @@ export const LogoText = styled.div`
   display: flex;
   align-items: center;
   letter-spacing: 0.02em;
-  margin-left: 9px;
+  margin-left: 7px;
   padding-top: 5px;
+  cursor: pointer;
   @media screen and (max-width: 600px) {
     font-size: 15px;
     padding-top: 3px;
@@ -61,10 +64,13 @@ export const NavBar = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
-  padding-right: 10px;
   align-items: center;
   gap: 35px;
   box-sizing: border-box;
+
+  @media screen and (max-width: 660px) {
+    gap: 10px;
+  }
 
   @media screen and (max-width: 600px) {
     display: none;
