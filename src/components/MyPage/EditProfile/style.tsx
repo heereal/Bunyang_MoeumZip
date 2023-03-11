@@ -114,6 +114,31 @@ export const ProfileBtn = styled.div<{ bg: string; text: string }>`
   }
 `;
 
+export const AdminBtn = styled.div`
+  width: 90%;
+  max-width: 230px;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 17px;
+  border-radius: 7px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+  cursor: pointer;
+  min-height: 40px;
+  background-color: lavender;
+  position: fixed;
+  @media screen and (max-width: 650px) {
+    width: 77px;
+    height: 28px;
+    padding: 0 8px;
+    font-size: 14px;
+    line-height: 14px;
+    box-sizing: content-box;
+  }
+`;
+
 export const Line = styled.div`
   height: 2px;
   background-color: #f4f4f4;

@@ -1,12 +1,8 @@
-import Image from 'next/image';
 import { useRouter } from 'next/router';
-import fillStar from 'public/assets/fillStar.png';
-import outlineStar from 'public/assets/outlineStar.png';
-import { AiOutlineStar } from 'react-icons/ai';
-import { AiFillStar } from 'react-icons/ai';
-
+import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
 import { AiOutlineLeft } from 'react-icons/ai';
 import * as S from './style';
+
 interface DetailHeaderProps {
   bookmarksList: any;
   editBookmark: any;
