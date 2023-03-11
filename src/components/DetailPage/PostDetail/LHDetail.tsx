@@ -31,27 +31,28 @@ const LHDetail = ({ home }: PropsP) => {
         </tbody>
       </S.ArticleBox>
       {home?.DETAIL[0]?.REGISTER[0].SIL_OFC_GUD_FCTS && (
-        <S.ArticleHead>유의사항</S.ArticleHead>
+        <>
+          <S.ArticleHead>유의사항</S.ArticleHead>
+          <S.ArticleBox>
+            <tbody>
+              <tr>
+                <S.BoxTitleLH>유의사항</S.BoxTitleLH>
+                <S.BoxContentLH
+                  style={{
+                    borderTop: '1.3px solid #8e8e8e',
+                    textAlign: 'left',
+                    lineHeight: '25px',
+                    padding: '10px',
+                    flexWrap: 'wrap',
+                  }}
+                >
+                  {home?.DETAIL[0]?.REGISTER[0].SIL_OFC_GUD_FCTS}
+                </S.BoxContentLH>
+              </tr>
+            </tbody>
+          </S.ArticleBox>
+        </>
       )}
-      <S.ArticleBox>
-        <S.BoxContentLH>
-          {home?.DETAIL[0]?.REGISTER[0].SIL_OFC_GUD_FCTS && (
-            <>
-              <S.BoxTitleLH>유의사항</S.BoxTitleLH>
-              <S.BoxContentLH
-                style={{
-                  textAlign: 'left',
-                  lineHeight: '25px',
-                  padding: '10px',
-                  flexWrap: 'wrap',
-                }}
-              >
-                {home?.DETAIL[0]?.REGISTER[0].SIL_OFC_GUD_FCTS}
-              </S.BoxContentLH>
-            </>
-          )}
-        </S.BoxContentLH>
-      </S.ArticleBox>
     </>
   );
 };
