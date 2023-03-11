@@ -8,12 +8,16 @@ import {
   updateDoc,
 } from 'firebase/firestore';
 
+interface bookmarksListType {
+  usersList: string[]
+}
+
 // [북마크] 버튼 클릭 시 작동
 const useBookmark = (
   status: string,
   usersRef: string,
-  bookmarksList: any,
-  PBLANC_NO: any,
+  bookmarksList: bookmarksListType,
+  PBLANC_NO: string,
 ) => {
   const onClickBookmarkBtnHandler = async () => {
     // 로그인하지 않았을 때
@@ -22,7 +26,7 @@ const useBookmark = (
       return;
     }
 
-    const addBookmark: any = {
+    const addBookmark = {
       usersList: arrayUnion(usersRef),
     };
     const addUserBookmarkList = {
@@ -33,7 +37,7 @@ const useBookmark = (
 
     // 북마크를 취소할 때
     if (bookmarksList?.usersList.includes(usersRef)) {
-      const deleteBookmark: any = {
+      const deleteBookmark = {
         usersList: arrayRemove(usersRef),
       };
       const deleteUserBookmarkList = {

@@ -7,7 +7,7 @@ export const myRegionArrayState = atom({
 });
 
 // 유저가 선택한 관심 분양 형태 리스트
-export const myTypeArrayState = atom({
+export const myTypeArrayState = atom<[]>({
   key: 'myTypeArray',
   default: [],
 });

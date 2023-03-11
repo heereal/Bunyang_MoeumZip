@@ -12,7 +12,7 @@ import Calendar from '../../../public/assets/calendar.png';
 import { RxDotFilled } from 'react-icons/rx';
 import { calendarColorList } from '@/common/categoryList';
 
-const Calender = ({ homeList }: any) => {
+const Calender = ({ homeList }: HomeP) => {
   const router = useRouter();
 
   return (
@@ -84,7 +84,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
   const homeList: any = [];
   // 캘린더에 이벤트를 보여주기 위해 기존 분양 데이터를 재가공함
-  getHomeList?.allHomeData.map((item: any) =>
+  getHomeList?.allHomeData.map((item: HomeP) =>
     homeList.push({
       title: item.HOUSE_NM,
       date: item.RCEPT_ENDDE,

@@ -12,11 +12,15 @@ import { signOut } from 'next-auth/react';
 import { confirmAlert } from 'react-confirm-alert';
 import AlertUI from '@/components/GlobalComponents/AlertUI/AlertUI';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 
-const EditProfile = ({ currentUser }: any) => {
+interface editProfileProps {
+  currentUser: userProps
+}
+
+const EditProfile = ({ currentUser }: editProfileProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const router = useRouter();
+  console.log('currentUser:', currentUser);
+
   // [로그아웃] 버튼 클릭 시 작동
   const LogOutHandler = () => {
     confirmAlert({

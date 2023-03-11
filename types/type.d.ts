@@ -146,3 +146,8 @@ interface keywordPropsJ {
   text2?: string;
   text3?: string;
 }
+
+// 모달 온오프 위한 setState 타입
+interface setModalProps {
+  [key: string]: Dispatch<SetStateAction<boolean>>;
+}

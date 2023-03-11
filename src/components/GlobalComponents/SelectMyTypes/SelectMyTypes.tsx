@@ -29,7 +29,7 @@ const SelectMyTypes = ({ path }: SelectCategoryProps) => {
         type && myTypeArray?.includes(type) ? (
           <S.CategoryBtn
             onClick={() =>
-              setMyTypeArray(myTypeArray.filter((item: any) => item !== type))
+              setMyTypeArray(myTypeArray.filter((item: string) => item !== type))
             }
             key={index}
             bg={'#F8FAFF'}

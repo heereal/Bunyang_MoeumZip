@@ -16,12 +16,12 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import transparentProfile from '../../../../public/assets/transparentProfile.png';
 import * as S from './style';
 
-const EditProfileModal = ({ setIsModalOpen }: any) => {
+const EditProfileModal = ({ setIsModalOpen }: setModalProps) => {
   const { OnKeyPressHandler } = useOnEnterKeyPress();
 
   // 현재 로그인한 유저의 firestore 유저 정보
   const [currentUser, setCurrentUser] = useRecoilState(currentUserState);
-  const [editNickname, setEditNickname] = useState<any>(currentUser.userName);
+  const [editNickname, setEditNickname] = useState(currentUser.userName);
   const [editProfileImg, setEditProfileImg] = useState(currentUser.userImage);
 
   // 파일 업로드 시 업로드한 파일을 담아둘 state

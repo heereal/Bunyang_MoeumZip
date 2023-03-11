@@ -31,7 +31,7 @@ const SelectMyRegion = ({ path }: SelectCategoryProps) => {
           <S.CategoryBtn
             onClick={() =>
               setMyRegionArray(
-                myRegionArray.filter((item: any) => item !== region),
+                myRegionArray.filter((item: string) => item !== region),
               )
             }
             key={index}
