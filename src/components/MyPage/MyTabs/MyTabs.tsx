@@ -74,7 +74,12 @@ const MyTabs = () => {
       <S.TabContentContainer>
         {/* 북마크 목록 */}
         {currentTab === 1 && (
-          <S.BookmarkListContainer style={{justifyContent: myBookmarkList?.length === 0 ? "center" : "flex-start"}}>
+          <S.BookmarkListContainer
+            style={{
+              justifyContent:
+                myBookmarkList?.length === 0 ? 'center' : 'flex-start',
+            }}
+          >
             {!myBookmarkList ? null : myBookmarkList?.length === 0 ? (
               <S.NoResultContainer>
                 <NoResult

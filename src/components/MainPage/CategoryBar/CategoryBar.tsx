@@ -20,15 +20,15 @@ const CategoryBar = ({ expanded }: ExpandedJ) => {
   const [isTypeToggleOpen, setIsTypeToggleOpen] = useState<boolean>(false);
   const [currentTab, SetCurrentTab] = useState<number>(0);
 
-  // 유저가 선택한 필터 LocalStorage에 저장
-  const LS_REGION_KEY = 'LS_REGION_KEY';
-  const LS_TYPE_KEY = 'LS_TYPE_KEY';
+  // 유저가 선택한 필터 SessionStorage 저장
+  const SS_REGION_KEY = 'SS_REGION_KEY';
+  const SS_TYPE_KEY = 'SS_TYPE_KEY';
 
   // 로그인 여부 확인
   const { data: session }: any = useSession();
 
   // Users 데이터 불러오기
-  const { data: users, isLoading }: any = useQuery('users', getUsersList, {
+  const { data: users }: any = useQuery('users', getUsersList, {
     enabled: !!session, // session이 true인 경우에만 useQuery를 실행함
   });
 
@@ -39,46 +39,66 @@ const CategoryBar = ({ expanded }: ExpandedJ) => {
       item.provider === session?.user?.provider,
   );
 
+  // 회원가입한 유저의 카테고리 필터링 리스트
   const userRegionArray = currentUser?.regions;
   const userTypeArray = currentUser?.types;
-
-  // 회원가입한 유저의 카테고리 필터링 리스트
 
   // 유저가 선택한 카테고리 필터링 리스트
   const [myRegionArray, setMyRegionArray] = useState<any>([]);
   const [myTypeArray, setMyTypeArray] = useState<any>([]);
 
-  // 로그인 시 유저가 선택한 지역 및 관심형태
-  // useEffect(() => {
-  //   if (currentUser) {
-  //     setMyRegionArray(userRegionArray);
-  //     setMyTypeArray(userTypeArray);
-  //   }
-  //   // eslint-disable-next-line
-  // }, [userRegionArray, userTypeArray]);
-
-  // 선택한 지역, 분양형태가 바뀔 때마다 recoil defaultValue를 업데이트
+  // 선택한 지역, 분양형태를 전역 상태로 관리 - CountTabs에서 배열을 받아 리스트를 필터링 함
   const [selectedRegionArray, setSelectedRegionArray] =
     useRecoilState(selectedRegionList);
   const [selectedTypeArray, setSelectedTypeArray] =
     useRecoilState(selectedTypeList);
 
+  // 로그인 시 유저가 선택한 지역 및 관심형태 필터 반영
   useEffect(() => {
-    if (myRegionArray.length > 0) {
-      localStorage.setItem(LS_REGION_KEY, myRegionArray);
+    if (currentUser) {
+      setMyRegionArray(userRegionArray);
+      setMyTypeArray(userTypeArray);
+    }
+    // eslint-disable-next-line
+  }, [userRegionArray, userTypeArray]);
+
+  useEffect(() => {
+    // 초기화 버튼을 누르거나 선택했던 걸 모두 취소했을 때 sessionStorage 비우기
+    if (myRegionArray?.length === 0) {
+      sessionStorage.removeItem(SS_REGION_KEY);
+    }
+    if (myTypeArray?.length === 0) {
+      sessionStorage.removeItem(SS_TYPE_KEY);
     }
 
-    const regionLS = localStorage.getItem(LS_REGION_KEY);
-
-    if (regionLS !== null) {
-      setSelectedRegionArray(myRegionArray);
-      setSelectedTypeArray(myTypeArray);
+    // 유저가 선택한 필터가 있으면 sessionStorage에 저장
+    if (myRegionArray?.length > 0) {
+      sessionStorage.setItem(SS_REGION_KEY, JSON.stringify(myRegionArray));
+    }
+    if (myTypeArray?.length > 0) {
+      sessionStorage.setItem(SS_TYPE_KEY, JSON.stringify(myTypeArray));
     }
 
+    // recoil defaultValue를 업데이트
+    setSelectedRegionArray(myRegionArray);
+    setSelectedTypeArray(myTypeArray);
     // eslint-disable-next-line
   }, [myRegionArray, myTypeArray]);
 
-  console.log('ls', localStorage.getItem(LS_REGION_KEY));
+  const regionLS: any = sessionStorage.getItem(SS_REGION_KEY);
+  const regionLSArray = JSON.parse(regionLS);
+  const typesLS: any = sessionStorage.getItem(SS_TYPE_KEY);
+  const typesLSArray = JSON.parse(typesLS);
+  // 새로 고침 시에도 유저가 선택한 필터 유지
+  useEffect(() => {
+    if (regionLSArray !== null) {
+      setMyRegionArray(regionLSArray);
+    }
+    if (typesLSArray !== null) {
+      setMyTypeArray(typesLSArray);
+    }
+    // eslint-disable-next-line
+  }, []);
 
   // 지역, 분양형태 카테고리 Tabs를 누를 때마다 Open, Close 전환
   const openToggleHandler = () => {
@@ -99,19 +119,19 @@ const CategoryBar = ({ expanded }: ExpandedJ) => {
   const categoryList = [
     {
       name:
-        myRegionArray.length !== 0 && myRegionArray.length === 1
+        myRegionArray?.length !== 0 && myRegionArray?.length === 1
           ? myRegionArray[0]
-          : myRegionArray.length > 1
-          ? myRegionArray[0] + '+' + (myRegionArray.length - 1).toString()
+          : myRegionArray?.length > 1
+          ? myRegionArray[0] + '+' + (myRegionArray?.length - 1).toString()
           : '지역',
       category: regionArray,
     },
     {
       name:
-        myTypeArray.length !== 0 && myTypeArray.length === 1
+        myTypeArray?.length !== 0 && myTypeArray?.length === 1
           ? myTypeArray[0]
-          : myTypeArray.length > 1
-          ? myTypeArray[0] + '+' + (myTypeArray.length - 1).toString()
+          : myTypeArray?.length > 1
+          ? myTypeArray[0] + '+' + (myTypeArray?.length - 1).toString()
           : '분양형태',
       category: typesArray,
     },
