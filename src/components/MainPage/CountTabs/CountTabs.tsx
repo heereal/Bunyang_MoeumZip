@@ -288,9 +288,8 @@ const CountTabs = ({ list, expanded }: CountTabPropsListJ) => {
         <CategoryBar expanded={expanded} />
       </S.TapContainer>
       {/* 분양 정보가 없을 때 보여줄 문구 */}
-      {isLoading ? (
-        <LoadingSpinner />
-      ) : tabList[currentTab].content.length === 0 ? (
+      {isLoading ? null : // <LoadingSpinner /> 이건 지우는게 좋을것 같아요
+      tabList[currentTab].content.length === 0 ? (
         <div
           style={{
             paddingTop: '12%',
