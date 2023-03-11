@@ -19,6 +19,7 @@ const MainPage = ({ homeList }: HomeListDBPropsJ) => {
 
   const [loading, setLoading] = useState(false);
 
+  //메인-> 상세페이지 페이지 로딩 시 스피너 실행되는 함수
   useEffect(() => {
     const start = () => {
       setLoading(true);
