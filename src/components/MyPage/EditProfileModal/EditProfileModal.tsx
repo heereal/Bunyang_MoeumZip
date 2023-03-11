@@ -2,22 +2,24 @@ import { db, storage } from '@/common/firebase';
 import { customUIAlert } from '@/common/utils';
 import AlertUI from '@/components/GlobalComponents/AlertUI/AlertUI';
 import { useOnEnterKeyPress } from '@/hooks';
-import { currentUserState, usersListState } from '@/store/selectors';
+import { currentUserState, isNotUserState, usersListState } from '@/store/selectors';
 import { uuidv4 } from '@firebase/util';
 import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { signOut } from 'next-auth/react';
+import { useRouter } from 'next/dist/client/router';
 import Image from 'next/image';
 import { useState } from 'react';
 import { confirmAlert } from 'react-confirm-alert';
 import { BsCameraFill } from 'react-icons/bs';
 import { MdClose } from 'react-icons/md';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import transparentProfile from '../../../../public/assets/transparentProfile.png';
 import * as S from './style';
 
 const EditProfileModal = ({ setIsModalOpen }: setModalProps) => {
   const { OnKeyPressHandler } = useOnEnterKeyPress();
+  const router = useRouter();
 
   // 현재 로그인한 유저의 firestore 유저 정보
   const [currentUser, setCurrentUser] = useRecoilState(currentUserState);
@@ -29,6 +31,8 @@ const EditProfileModal = ({ setIsModalOpen }: setModalProps) => {
 
   // 전체 유저의 firestore 정보
   const users = useRecoilValue(usersListState);
+
+  const setIsNotUser = useSetRecoilState(isNotUserState);
 
   // [수정 완료] 버튼 클릭 시 작동
   const editProfileHandler = async () => {
@@ -105,21 +109,24 @@ const EditProfileModal = ({ setIsModalOpen }: setModalProps) => {
             onClose={onClose}
             eventText="탈퇴"
             onClick={() => {
-              deleteDoc(
-                doc(
-                  db,
-                  'Users',
-                  `${currentUser.provider}_${currentUser.userEmail}`,
-                ),
-              );
+              //TODO: 주석 풀기
+              // deleteDoc(
+              //   doc(
+              //     db,
+              //     'Users',
+              //     `${currentUser.provider}_${currentUser.userEmail}`,
+              //   ),
+              // );
               setIsModalOpen(false);
+              setIsNotUser(true);
+              signOut({redirect: false});
               onClose();
+              //TODO: router.push('/') 추가하기
               customUIAlert(
                 '회원탈퇴가 완료되었습니다.',
                 '그동안 분양모음집을 이용해주셔서 감사합니다.',
                 '보다 나은 분양모음집으로 다시 만나뵐 수 있기를 바랍니다.',
               );
-              signOut({ callbackUrl: '/' });
             }}
           />
         );

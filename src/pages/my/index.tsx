@@ -2,12 +2,16 @@ import { getUsersList } from '@/common/api';
 import HeadTitle from '@/components/GlobalComponents/HeadTitle/HeadTitle';
 import EditProfile from '@/components/MyPage/EditProfile/EditProfile';
 import MyTabs from '@/components/MyPage/MyTabs/MyTabs';
-import { currentUserState, usersListState } from '@/store/selectors';
+import {
+  currentUserState,
+  isNotUserState,
+  usersListState,
+} from '@/store/selectors';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useQuery } from 'react-query';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import * as S from '../../styles/my.style';
 import { NextSeo } from 'next-seo';
 
@@ -15,7 +19,8 @@ const MyPage = () => {
   const router = useRouter();
 
   const [currentUser, setCurrentUser] = useRecoilState(currentUserState);
-  const [users, setUsers] = useRecoilState(usersListState);
+  const setUsers = useSetRecoilState(usersListState);
+  const isNotUser = useRecoilValue(isNotUserState);
 
   // 유저의 세션 정보 받아오기
   const { data: session, status }: any = useSession();
@@ -42,8 +47,11 @@ const MyPage = () => {
     },
   });
 
+  // 비로그인 유저일 경우 접근 제한
   useEffect(() => {
-    // 비로그인 유저일 경우 접근 제한
+    // 회원탈퇴 시 alert 닫히기 전에 바로 메인으로 이동하지 않도록 추가
+    if (isNotUser) return;
+
     if (status === 'unauthenticated' || currentUser === undefined)
       router.push('/');
     // eslint-disable-next-line

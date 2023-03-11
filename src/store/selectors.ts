@@ -50,3 +50,9 @@ export const selectedTypeList = atom({
   key: 'selectedType',
   default: [],
 });
+
+// 회원탈퇴 시 사용하는 state
+export const isNotUserState = atom({
+  key: 'isNotUser',
+  default: false,
+});
