@@ -21,6 +21,7 @@ import firsDbtButton from '../../../public/assets/apiCallButton_red.png';
 import { useOnEnterKeyPress } from '@/hooks';
 import * as S from '../../styles/admin.style';
 import { useRouter } from 'next/router';
+import LoadingSpinner from '@/components/GlobalComponents/LoadingSpinner/LoadingSpinner';
 
 const MustHaveToDo = ({
   aptCombineList,
@@ -718,19 +719,33 @@ const MustHaveToDo = ({
   };
 
   // 관리자 계정 아닐 시 접근 제한
-  // useEffect(() => {
-  //   if (status === 'unauthenticated') {
-  //     router.push('/', undefined, { shallow: true });
-  //   }
+  useEffect(() => {
+    if (status === 'unauthenticated') {
+      router.push('/', undefined, { shallow: true });
+      console.log('unauthenticated 메인으로');
+    }
 
-  //   if (
-  //     session?.user?.email !== 'mika013@naver.com' &&
-  //     session?.user?.email !== 'suk921@gmail.com' &&
-  //     session?.user?.email !== 'psh5575@gmail.com'
-  //   ) {
-  //     router.push('/', undefined, { shallow: true });
-  //   }
-  // }, [session]);
+    if (!session) return;
+
+    if (
+      session?.user?.email === 'mika013@naver.com' ||
+      session?.user?.email === 'suk921@gmail.com' ||
+      session?.user?.email === 'psh5575@gmail.com'
+    ) {
+      console.log('관리자 페이지에 오신 것을 환영합니다.🥳 오늘도 화이팅!!');
+    } else {
+      router.push('/', undefined, { shallow: true });
+      console.log('이메일 메인으로');
+    }
+  }, [session]);
+
+  if (!session) {
+    return (
+      <S.SpinnerWrapper>
+        <LoadingSpinner />
+      </S.SpinnerWrapper>
+    );
+  }
 
   return (
     <>
