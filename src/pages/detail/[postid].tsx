@@ -1,7 +1,6 @@
 import { db } from '@/common/firebase';
 import CommentsList from '@/components/DetailPage/Comments/CommentsList';
 import PostDetail from '@/components/DetailPage/PostDetail/PostDetail';
-import LoadingSpinner from '@/components/GlobalComponents/LoadingSpinner/LoadingSpinner';
 import { doc, getDoc } from 'firebase/firestore';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import dynamic from 'next/dynamic';
@@ -21,11 +20,6 @@ const DetailPage = ({ detail }: any) => {
   return (
     <>
       <S.DetailBody id="topBtnScroll">
-        {router.isFallback && (
-          <S.DetailLoadingBox>
-            <LoadingSpinner />
-          </S.DetailLoadingBox>
-        )}
         <PostDetail postId={router?.query.postid} detail={detail} />
         <CommentsList postId={router?.query.postid} />
         <TopBtn />
@@ -65,7 +59,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   return {
     props: { detail },
-     // ISR - 12시간 마다 데이터 업데이트
+    // ISR - 12시간 마다 데이터 업데이트
     revalidate: 43200,
   };
 };
