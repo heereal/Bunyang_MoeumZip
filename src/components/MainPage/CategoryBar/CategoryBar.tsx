@@ -20,6 +20,10 @@ const CategoryBar = ({ expanded }: ExpandedJ) => {
   const [isTypeToggleOpen, setIsTypeToggleOpen] = useState<boolean>(false);
   const [currentTab, SetCurrentTab] = useState<number>(0);
 
+  // 유저가 선택한 필터 LocalStorage에 저장
+  const LS_REGION_KEY = 'LS_REGION_KEY';
+  const LS_TYPE_KEY = 'LS_TYPE_KEY';
+
   // 로그인 여부 확인
   const { data: session }: any = useSession();
 
@@ -44,13 +48,14 @@ const CategoryBar = ({ expanded }: ExpandedJ) => {
   const [myRegionArray, setMyRegionArray] = useState<any>([]);
   const [myTypeArray, setMyTypeArray] = useState<any>([]);
 
-  useEffect(() => {
-    if (currentUser) {
-      setMyRegionArray(userRegionArray);
-      setMyTypeArray(userTypeArray);
-    }
-    // eslint-disable-next-line
-  }, [userRegionArray, userTypeArray]);
+  // 로그인 시 유저가 선택한 지역 및 관심형태
+  // useEffect(() => {
+  //   if (currentUser) {
+  //     setMyRegionArray(userRegionArray);
+  //     setMyTypeArray(userTypeArray);
+  //   }
+  //   // eslint-disable-next-line
+  // }, [userRegionArray, userTypeArray]);
 
   // 선택한 지역, 분양형태가 바뀔 때마다 recoil defaultValue를 업데이트
   const [selectedRegionArray, setSelectedRegionArray] =
@@ -59,10 +64,21 @@ const CategoryBar = ({ expanded }: ExpandedJ) => {
     useRecoilState(selectedTypeList);
 
   useEffect(() => {
-    setSelectedRegionArray(myRegionArray);
-    setSelectedTypeArray(myTypeArray);
+    if (myRegionArray.length > 0) {
+      localStorage.setItem(LS_REGION_KEY, myRegionArray);
+    }
+
+    const regionLS = localStorage.getItem(LS_REGION_KEY);
+
+    if (regionLS !== null) {
+      setSelectedRegionArray(myRegionArray);
+      setSelectedTypeArray(myTypeArray);
+    }
+
     // eslint-disable-next-line
   }, [myRegionArray, myTypeArray]);
+
+  console.log('ls', localStorage.getItem(LS_REGION_KEY));
 
   // 지역, 분양형태 카테고리 Tabs를 누를 때마다 Open, Close 전환
   const openToggleHandler = () => {
