@@ -1,7 +1,7 @@
 
 <br/>
 
-<img src="https://user-images.githubusercontent.com/117061017/223964952-53843318-bf62-4b0e-aa96-b2521ac98bb3.png" width="80%" />
+<img src="https://user-images.githubusercontent.com/117061017/223964952-53843318-bf62-4b0e-aa96-b2521ac98bb3.png" width="90%" />
 
 # 분양모음집🏡
 분양모음집은 전국의 분양 정보를 한 눈에 확인할 수 있는 **분양 정보 제공** 서비스입니다.
@@ -13,24 +13,12 @@
 https://www.by-zip.com/
 
 
+<br/>
+
 [💙 팀 노션](https://team-nemo.notion.site/Team-NEMO-fdf2da573c554862b5a702a0e374ba91) | [🧑🏻‍💻 개발일지](https://fanatical-marigold-762.notion.site/eac72d734a5e41029c6fc42f3ddb09b7) | 📺 시연영상  
 
 <br/>
 
-## 👨‍👩‍👧‍👦팀원 소개
-  | 이름 | GITHUB | BLOG |
-  | --- | --- | --- |
-  | 이희령 (리더) | [heereal](https://github.com/heereal) | [Tistory](https://divheer.tistory.com/) |
-  | 정윤숙 (부리더) | [YS739](https://github.com/YS739) | [Velog](https://velog.io/@chmi4) |
-  | 박성환 (부부리더) | [hwan910](https://github.com/hwan910) | [Tistory](https://william910.tistory.com/) |
-  | 이소윤 (디자이너) |  |  |
-  
-<br/>
-
-## 🧑‍🔧서비스 아키텍쳐
-<img src="https://user-images.githubusercontent.com/117061017/220928547-93bc8d32-66aa-4b3c-8535-f7b7dc0aeba7.jpg" width="80%"/>
-
-<br/>
 
 ## 🍀주요 기능
 <table>
@@ -52,15 +40,14 @@ https://www.by-zip.com/
     </tr>
     <tr>
       <td align="center">마이 페이지</td>
-      <td align="center">관리 페이지</td>
+      <td align="center">관리자 페이지</td>
     </tr>
     <tr>
       <td align="center"><img src="https://user-images.githubusercontent.com/117061017/224009663-1d8051a6-25d8-4234-94f7-b5384970a8d3.png" /></td>
-      <td align="center"><img src="https://user-images.githubusercontent.com/117061017/224009541-291edf69-19b3-4093-a959-4227256e4312.png" /></td>
+      <td align="center"><img src="https://user-images.githubusercontent.com/117061017/224461630-50e512c3-05ef-4695-a539-3235c5447b57.png" /></td>
     </tr>
  </table>
  
- </br>
 
 ### ✅ 최신 분양 정보 제공
 
@@ -98,5 +85,21 @@ https://www.by-zip.com/
 
 - 개발팀만 접근 가능한 관리자 페이지 생성
 - 3개의 버튼을 차례대로 클릭하여 Firestore에 재가공한 분양 정보 API 데이터 업로드 가능
+- DB 업데이트 내역 자동 반영 및 Daily Work Log 작성 가능
 
 </br>
+
+## 🧑‍🔧서비스 아키텍쳐
+<img src="https://user-images.githubusercontent.com/117061017/220928547-93bc8d32-66aa-4b3c-8535-f7b7dc0aeba7.jpg" width="90%"/>
+
+<br/>
+
+## 👨‍👩‍👧‍👦팀원 소개
+  | 이름 | GITHUB | BLOG |
+  | --- | --- | --- |
+  | 이희령 (리더) | [heereal](https://github.com/heereal) | [Tistory](https://divheer.tistory.com/) |
+  | 정윤숙 (부리더) | [YS739](https://github.com/YS739) | [Velog](https://velog.io/@chmi4) |
+  | 박성환 (부부리더) | [hwan910](https://github.com/hwan910) | [Tistory](https://william910.tistory.com/) |
+  | 이소윤 (디자이너) |  |  |
+  
+<br/>
