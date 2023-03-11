@@ -1,7 +1,7 @@
 
 <br/>
 
-<img src="https://user-images.githubusercontent.com/117061017/223964952-53843318-bf62-4b0e-aa96-b2521ac98bb3.png" width="80%" />
+<img src="https://user-images.githubusercontent.com/117061017/223964952-53843318-bf62-4b0e-aa96-b2521ac98bb3.png" width="90%" />
 
 # 분양모음집🏡
 분양모음집은 전국의 분양 정보를 한 눈에 확인할 수 있는 **분양 정보 제공** 서비스입니다.
@@ -90,7 +90,7 @@ https://www.by-zip.com/
 </br>
 
 ## 🧑‍🔧서비스 아키텍쳐
-<img src="https://user-images.githubusercontent.com/117061017/220928547-93bc8d32-66aa-4b3c-8535-f7b7dc0aeba7.jpg" width="80%"/>
+<img src="https://user-images.githubusercontent.com/117061017/220928547-93bc8d32-66aa-4b3c-8535-f7b7dc0aeba7.jpg" width="90%"/>
 
 <br/>
 
