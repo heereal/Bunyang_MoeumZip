@@ -16,7 +16,7 @@ interface bookmarksListType {
 const useBookmark = (
   status: string,
   usersRef: string,
-  bookmarksList: bookmarksListType,
+  bookmarksList: any,
   PBLANC_NO: string,
 ) => {
   const onClickBookmarkBtnHandler = async () => {
