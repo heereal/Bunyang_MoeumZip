@@ -89,7 +89,7 @@ export const getProfile = async (email: string | null | undefined) => {
 };
 
 // '시군구' 정보를 기준으로 아파트 매매 실거래가 정보를 가져옴
-export const getAPTRealPriceList = async (LAWD_CD: string) => {
+export const getAPTRealPriceList = async (LAWD_CD: any) => {
   const data = await axios
     .get(`/api/APTRealPrice/${LAWD_CD?.split(':')[0]}`)
     .then((res) => res.data.response.body.items.item);
@@ -126,7 +126,7 @@ export const getLastUpdatedDate = async () => {
 };
 
 // 관리자 페이지 DAILY WORK LOG 입력하기
-export const updateDailyWorkLog = async ({ email, logContent}: any) => {
+export const updateDailyWorkLog = async ({ email, logContent }: any) => {
   const onClickDate = new Date().toLocaleString();
   const addDailyWorkLog = {
     list: arrayUnion({

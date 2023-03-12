@@ -669,6 +669,7 @@ const MustHaveToDo = ({
     lastUpdatedDateMutation.mutate();
 
     alert('firesotre에 업로드 완료👇');
+    console.log('3번 버튼 실행 완료👇');
     console.log('allHomeData:', allHomeData);
   };
 
@@ -722,7 +723,6 @@ const MustHaveToDo = ({
   useEffect(() => {
     if (status === 'unauthenticated') {
       router.push('/', undefined, { shallow: true });
-      console.log('unauthenticated 메인으로');
     }
 
     if (!session) return;
@@ -735,7 +735,6 @@ const MustHaveToDo = ({
       console.log('관리자 페이지에 오신 것을 환영합니다.🥳 오늘도 화이팅!!');
     } else {
       router.push('/', undefined, { shallow: true });
-      console.log('이메일 메인으로');
     }
     // eslint-disable-next-line
   }, [session]);

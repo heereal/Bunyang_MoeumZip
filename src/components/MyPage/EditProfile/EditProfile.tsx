@@ -19,7 +19,6 @@ interface editProfileProps {
 
 const EditProfile = ({ currentUser }: editProfileProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  console.log('currentUser:', currentUser);
 
   // [로그아웃] 버튼 클릭 시 작동
   const LogOutHandler = () => {
