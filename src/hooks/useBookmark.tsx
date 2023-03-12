@@ -8,16 +8,12 @@ import {
   updateDoc,
 } from 'firebase/firestore';
 
-interface bookmarksListType {
-  usersList: string[]
-}
-
 // [북마크] 버튼 클릭 시 작동
 const useBookmark = (
   status: string,
   usersRef: string,
   bookmarksList: any,
-  PBLANC_NO: string,
+  PBLANC_NO: any,
 ) => {
   const onClickBookmarkBtnHandler = async () => {
     // 로그인하지 않았을 때
