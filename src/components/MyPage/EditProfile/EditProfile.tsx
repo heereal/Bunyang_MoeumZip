@@ -31,6 +31,8 @@ const EditProfile = ({ currentUser }: any) => {
         );
       },
     });
+    // 로그아웃 시 sessionStorage를 삭제하면 메인에서 전체 리스트가 보임
+    sessionStorage.clear();
   };
 
   return (

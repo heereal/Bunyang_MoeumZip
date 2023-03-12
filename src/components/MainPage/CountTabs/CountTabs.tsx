@@ -287,9 +287,7 @@ const CountTabs = ({ list, expanded }: CountTabPropsListJ) => {
         </S.CountSectionBack>
         <CategoryBar expanded={expanded} />
       </S.TapContainer>
-      {/* 분양 정보가 없을 때 보여줄 문구 */}
-      {isLoading ? null : // <LoadingSpinner /> 이건 지우는게 좋을것 같아요
-      tabList[currentTab].content.length === 0 ? (
+      {isLoading ? null : tabList[currentTab].content.length === 0 ? (
         <div
           style={{
             paddingTop: '12%',
@@ -300,6 +298,7 @@ const CountTabs = ({ list, expanded }: CountTabPropsListJ) => {
             backgroundColor: '#f7f7f7',
           }}
         >
+          {/* 분양 정보가 없을 때 보여줄 문구 */}
           <NoResult
             title="현재 설정하신 필터에 해당되는 분양 정보가 없습니다."
             text="다른 지역 및 분양 형태를 찾아보세요."
