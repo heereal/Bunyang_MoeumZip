@@ -126,7 +126,7 @@ export const getLastUpdatedDate = async () => {
 };
 
 // 관리자 페이지 DAILY WORK LOG 입력하기
-export const updateDailyWorkLog = async ({ email, logContent }: any) => {
+export const updateDailyWorkLog = async ({ email, logContent}: any) => {
   const onClickDate = new Date().toLocaleString();
   const addDailyWorkLog = {
     list: arrayUnion({

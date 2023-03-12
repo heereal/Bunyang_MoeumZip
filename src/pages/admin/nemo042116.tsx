@@ -737,9 +737,10 @@ const MustHaveToDo = ({
       router.push('/', undefined, { shallow: true });
       console.log('이메일 메인으로');
     }
-  // eslint-disable-next-line
+    // eslint-disable-next-line
   }, [session]);
 
+  // 비로그인 유저인 경우 로딩스피너 보여줌
   if (!session) {
     return (
       <S.SpinnerWrapper>
@@ -809,7 +810,7 @@ const MustHaveToDo = ({
                   <S.TableHead>날짜</S.TableHead>
                 </S.TableRow>
               </thead>
-              {LastUpdatedDateList?.map((item: any, index: any) => (
+              {LastUpdatedDateList?.map((item: any, index: number) => (
                 <tbody key={index}>
                   <S.TableRow
                     style={{
@@ -845,7 +846,7 @@ const MustHaveToDo = ({
                 <S.TableHead>로그</S.TableHead>
               </S.TableRow>
             </thead>
-            {dailyWorkLogList?.map((item: any, index: any) => (
+            {dailyWorkLogList?.map((item: any, index: number) => (
               <tbody key={index}>
                 <S.TableRow>
                   <S.TableData>{item.admin}</S.TableData>

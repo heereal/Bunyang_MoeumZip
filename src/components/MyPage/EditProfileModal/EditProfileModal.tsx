@@ -2,26 +2,32 @@ import { db, storage } from '@/common/firebase';
 import { customUIAlert } from '@/common/utils';
 import AlertUI from '@/components/GlobalComponents/AlertUI/AlertUI';
 import { useOnEnterKeyPress } from '@/hooks';
-import { currentUserState, usersListState } from '@/store/selectors';
+import {
+  currentUserState,
+  isNotUserState,
+  usersListState,
+} from '@/store/selectors';
 import { uuidv4 } from '@firebase/util';
 import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { signOut } from 'next-auth/react';
+import { useRouter } from 'next/dist/client/router';
 import Image from 'next/image';
 import { useState } from 'react';
 import { confirmAlert } from 'react-confirm-alert';
 import { BsCameraFill } from 'react-icons/bs';
 import { MdClose } from 'react-icons/md';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import transparentProfile from '../../../../public/assets/transparentProfile.png';
 import * as S from './style';
 
-const EditProfileModal = ({ setIsModalOpen }: any) => {
+const EditProfileModal = ({ setIsModalOpen }: setModalProps) => {
   const { OnKeyPressHandler } = useOnEnterKeyPress();
+  const router = useRouter();
 
   // 현재 로그인한 유저의 firestore 유저 정보
   const [currentUser, setCurrentUser] = useRecoilState(currentUserState);
-  const [editNickname, setEditNickname] = useState<any>(currentUser.userName);
+  const [editNickname, setEditNickname] = useState(currentUser.userName);
   const [editProfileImg, setEditProfileImg] = useState(currentUser.userImage);
 
   // 파일 업로드 시 업로드한 파일을 담아둘 state
@@ -29,6 +35,8 @@ const EditProfileModal = ({ setIsModalOpen }: any) => {
 
   // 전체 유저의 firestore 정보
   const users = useRecoilValue(usersListState);
+
+  const setIsNotUser = useSetRecoilState(isNotUserState);
 
   // [수정 완료] 버튼 클릭 시 작동
   const editProfileHandler = async () => {
@@ -93,8 +101,8 @@ const EditProfileModal = ({ setIsModalOpen }: any) => {
     }
   };
 
-  // [회원탈퇴] 버튼 클릭 시 작동
-  const withdrawMembershipHandler = async () => {
+   // [회원탈퇴] 버튼 클릭 시 작동
+   const withdrawMembershipHandler = async () => {
     confirmAlert({
       customUI: ({ onClose }) => {
         return (
