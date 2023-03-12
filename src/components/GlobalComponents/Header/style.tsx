@@ -42,7 +42,7 @@ export const LogoText = styled.div`
   display: flex;
   align-items: center;
   letter-spacing: 0.02em;
-  margin-left: 7px;
+  padding-left: 7px;
   padding-top: 5px;
   cursor: pointer;
   @media screen and (max-width: 600px) {

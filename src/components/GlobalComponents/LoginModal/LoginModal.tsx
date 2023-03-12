@@ -7,13 +7,13 @@ import { FcGoogle } from 'react-icons/fc';
 import logo from 'public/assets/logo.png';
 import * as S from './style';
 import Image from 'next/image';
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, Dispatch, SetStateAction } from 'react';
 
-interface loginModalProps {
-  setIsLoginModalOpen: any;
+interface setModalProps {
+  [key: string]: Dispatch<SetStateAction<boolean>>;
 }
 
-const LoginModal = ({ setIsLoginModalOpen }: loginModalProps) => {
+const LoginModal = ({ setIsLoginModalOpen }: setModalProps) => {
   // 소셜 로그인-로그인 시 로딩 페이지로 이동함
   const loginHandler = async (provider: string) => {
     await signIn(provider, { callbackUrl: '/loading' });

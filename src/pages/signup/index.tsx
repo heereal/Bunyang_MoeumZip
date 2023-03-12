@@ -35,7 +35,7 @@ const SignUp = () => {
   // 닉네임 중복 검사 시 사용
   const [isValidNickname, setIsValidNickname] = useState(false);
 
-  const [nickname, setNickname] = useState<any>('');
+  const [nickname, setNickname] = useState<string>('');
 
   // [닉네임 중복 확인] 버튼 클릭 시 작동
   const checkNicknameHandler = () => {

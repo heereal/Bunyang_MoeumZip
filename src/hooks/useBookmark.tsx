@@ -22,7 +22,7 @@ const useBookmark = (
       return;
     }
 
-    const addBookmark: any = {
+    const addBookmark = {
       usersList: arrayUnion(usersRef),
     };
     const addUserBookmarkList = {
@@ -33,7 +33,7 @@ const useBookmark = (
 
     // 북마크를 취소할 때
     if (bookmarksList?.usersList.includes(usersRef)) {
-      const deleteBookmark: any = {
+      const deleteBookmark = {
         usersList: arrayRemove(usersRef),
       };
       const deleteUserBookmarkList = {

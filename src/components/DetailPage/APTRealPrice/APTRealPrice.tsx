@@ -1,7 +1,7 @@
 import NoResult from '@/components/GlobalComponents/NoResult/NoResult';
 import * as S from './style';
 
-const APTRealPrice = ({ dongList, isLoading }: any) => {
+const APTRealPrice = ({ dongList }: any) => {
   // 유효성 검사 위한 주석이니 삭제하지 말아 주세요😇
   // console.log(
   //   '디테일 페이지 동 주소:',
@@ -39,7 +39,7 @@ const APTRealPrice = ({ dongList, isLoading }: any) => {
               <S.TableHead>거래금액</S.TableHead>
             </S.TableRow>
           </thead>
-          {dongList?.map((item: any, index: any) => (
+          {dongList?.map((item: any, index: number) => (
             <tbody key={index}>
               <S.TableRow>
                 <S.TableData>
