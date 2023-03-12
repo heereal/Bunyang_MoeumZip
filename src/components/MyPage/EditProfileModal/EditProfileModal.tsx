@@ -2,7 +2,11 @@ import { db, storage } from '@/common/firebase';
 import { customUIAlert } from '@/common/utils';
 import AlertUI from '@/components/GlobalComponents/AlertUI/AlertUI';
 import { useOnEnterKeyPress } from '@/hooks';
-import { currentUserState, isNotUserState, usersListState } from '@/store/selectors';
+import {
+  currentUserState,
+  isNotUserState,
+  usersListState,
+} from '@/store/selectors';
 import { uuidv4 } from '@firebase/util';
 import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
@@ -97,8 +101,8 @@ const EditProfileModal = ({ setIsModalOpen }: setModalProps) => {
     }
   };
 
-  // [회원탈퇴] 버튼 클릭 시 작동
-  const withdrawMembershipHandler = async () => {
+   // [회원탈퇴] 버튼 클릭 시 작동
+   const withdrawMembershipHandler = async () => {
     confirmAlert({
       customUI: ({ onClose }) => {
         return (
@@ -109,24 +113,21 @@ const EditProfileModal = ({ setIsModalOpen }: setModalProps) => {
             onClose={onClose}
             eventText="탈퇴"
             onClick={() => {
-              //TODO: 주석 풀기
-              // deleteDoc(
-              //   doc(
-              //     db,
-              //     'Users',
-              //     `${currentUser.provider}_${currentUser.userEmail}`,
-              //   ),
-              // );
+              deleteDoc(
+                doc(
+                  db,
+                  'Users',
+                  `${currentUser.provider}_${currentUser.userEmail}`,
+                ),
+              );
               setIsModalOpen(false);
-              setIsNotUser(true);
-              signOut({redirect: false});
               onClose();
-              //TODO: router.push('/') 추가하기
               customUIAlert(
                 '회원탈퇴가 완료되었습니다.',
                 '그동안 분양모음집을 이용해주셔서 감사합니다.',
                 '보다 나은 분양모음집으로 다시 만나뵐 수 있기를 바랍니다.',
               );
+              signOut({ callbackUrl: '/' });
             }}
           />
         );
