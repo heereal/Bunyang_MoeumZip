@@ -48,18 +48,18 @@ const MainPage = ({ homeList }: HomeListDBPropsJ) => {
 
   return loading ? (
     <S.MainSection active={expanded ? true : false}>
-      <S.MainUpBtnBox>
+      {/* <S.MainUpBtnBox>
         <S.ArrowBox active={expanded ? true : false}>
           <SlArrowUp onClick={sizeHandler} />
         </S.ArrowBox>
       </S.MainUpBtnBox>
       <S.MainLoadingBox>
         <LoadingSpinner />
-      </S.MainLoadingBox>
+      </S.MainLoadingBox> */}
     </S.MainSection>
   ) : (
     <S.MainSection active={expanded ? true : false}>
-      <NextSeo
+      {/* <NextSeo
         title=" "
         description="내집마련을 위한 솔루션, 전국 분양정보를 한눈에 확인할 수 있는 플랫폼입니다. 국토교통부 아파트 실거래가와 시세 정보를 확인할 수 있습니다. 청약캘린더를 통해 분양일정을 관리해보세요."
         canonical="https://www.by-zip.com/"
@@ -74,7 +74,7 @@ const MainPage = ({ homeList }: HomeListDBPropsJ) => {
       </S.MainUpBtnBox>
       {/* 지역 및 분양형태 필터 및 청약경쟁률 확인 버튼 */}
       {/* CountTabs(+HomeList 컴포넌트) */}
-      <CountTabs list={allHomeList} expanded={expanded} />
+      {/* <CountTabs list={allHomeList} expanded={expanded} /> */}
     </S.MainSection>
   );
 };

@@ -7,24 +7,24 @@ import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import * as S from '../../styles/search.style';
 
-const HomeList = dynamic(
-  () => import('../../components/GlobalComponents/HomeList/HomeList'),
-  {
-    ssr: false,
-  },
-);
-
-const TopBtn = dynamic(
-  () => import('@/components/GlobalComponents/TopBtn/TopBtn'),
-  {
-    ssr: false,
-  },
-);
-
 const SearchResult = ({ homeList }: HomeListDBPropsJ) => {
   const router = useRouter();
 
   const allHomeList = homeList.allHomeData;
+
+  const HomeList = dynamic(
+    () => import('../../components/GlobalComponents/HomeList/HomeList'),
+    {
+      ssr: false,
+    },
+  );
+
+  const TopBtn = dynamic(
+    () => import('@/components/GlobalComponents/TopBtn/TopBtn'),
+    {
+      ssr: false,
+    },
+  );
 
   // Search 컴포넌트에 있는 검색창에서 router로 받아 온 검색어
   const keyword: keywordJ = router.query.keyword;
