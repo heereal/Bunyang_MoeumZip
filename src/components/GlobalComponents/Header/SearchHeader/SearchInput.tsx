@@ -28,7 +28,7 @@ const SearchInput = () => {
     <>
       <S.SearchInput
         type="text"
-        placeholder="분양 정보를 검색해보세요."
+        placeholder="지역, 분양형태, 주택명을 검색해보세요."
         onKeyPress={(e) => OnKeyPressHandler(e, searchHandler)}
         value={keyword}
         onChange={inputChangeHandler}
