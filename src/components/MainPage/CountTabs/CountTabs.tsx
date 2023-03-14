@@ -1,39 +1,23 @@
 import { getUsersList } from '@/common/api';
-import LoadingSpinner from '@/components/GlobalComponents/LoadingSpinner/LoadingSpinner';
+import HomeList from '@/components/GlobalComponents/HomeList/HomeList';
 import NoResult from '@/components/GlobalComponents/NoResult/NoResult';
+import TopBtn from '@/components/GlobalComponents/TopBtn/TopBtn';
 import { useHomeList, useTabList } from '@/hooks';
 import { selectedRegionList, selectedTypeList } from '@/store/selectors';
 import { useSession } from 'next-auth/react';
-import dynamic from 'next/dynamic';
 import Image from 'next/image';
-import { useState, useEffect } from 'react';
+import allIcon from 'public/assets/all.png';
+import comingIcon from 'public/assets/coming.png';
+import randomIcon from 'public/assets/random.png';
+import todayIcon from 'public/assets/today.png';
+import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { useRecoilState } from 'recoil';
 import CategoryBar from '../CategoryBar/CategoryBar';
 import * as S from './style';
-import allIcon from 'public/assets/all.png';
-import todayIcon from 'public/assets/today.png';
-import comingIcon from 'public/assets/coming.png';
-import randomIcon from 'public/assets/random.png';
 
 const CountTabs = ({ list, expanded }: CountTabPropsListJ) => {
   const [currentTab, SetCurrentTab] = useState<number>(0);
-
-  // getToday()함수를 쓰는 컴포넌트는 클라이언트에서 실행되게 해야
-  // (서버와 클라이언트 시간이 맞지 않을 때)ssr 418, 423오류가 안 생김
-  const HomeList = dynamic(
-    () => import('../../GlobalComponents/HomeList/HomeList'),
-    {
-      ssr: false,
-    },
-  );
-
-  const TopBtn = dynamic(
-    () => import('@/components/GlobalComponents/TopBtn/TopBtn'),
-    {
-      ssr: false,
-    },
-  );
 
   // useHomeList도 getToday함수를 쓰지만 컴포넌트가 아니라 dynamic import를 쓸 수 없어
   // useEffect로 클라이언트에서 실행

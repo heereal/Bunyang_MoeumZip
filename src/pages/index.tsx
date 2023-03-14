@@ -9,6 +9,13 @@ import { SlArrowUp } from 'react-icons/sl';
 import { useRouter } from 'next/router';
 import LoadingSpinner from '@/components/GlobalComponents/LoadingSpinner/LoadingSpinner';
 
+const CountTabs = dynamic(
+  () => import('@/components/MainPage/CountTabs/CountTabs'),
+  {
+    ssr: false,
+  },
+);
+
 const MainPage = ({ homeList }: HomeListDBPropsJ) => {
   const allHomeList = homeList.allHomeData;
   const [expanded, seExpanded] = useState(false);
@@ -38,13 +45,6 @@ const MainPage = ({ homeList }: HomeListDBPropsJ) => {
       router.events.off('routeChangeError', end);
     };
   }, []); //eslint-disable-line
-
-  const CountTabs = dynamic(
-    () => import('@/components/MainPage/CountTabs/CountTabs'),
-    {
-      ssr: false,
-    },
-  );
 
   return loading ? (
     <S.MainSection active={expanded ? true : false}>

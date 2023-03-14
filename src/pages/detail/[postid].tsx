@@ -7,15 +7,15 @@ import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import * as S from '../../styles/detail.style';
 
+const TopBtn = dynamic(
+  () => import('@/components/GlobalComponents/TopBtn/TopBtn'),
+  {
+    ssr: false,
+  },
+);
+
 const DetailPage = ({ detail }: any) => {
   const router = useRouter();
-
-  const TopBtn = dynamic(
-    () => import('@/components/GlobalComponents/TopBtn/TopBtn'),
-    {
-      ssr: false,
-    },
-  );
 
   return (
     <>

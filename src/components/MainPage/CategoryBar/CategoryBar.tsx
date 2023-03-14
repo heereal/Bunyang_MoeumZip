@@ -55,7 +55,8 @@ const CategoryBar = ({ expanded }: ExpandedJ) => {
 
   // 로그인 시 유저가 선택한 지역 및 관심형태 필터 반영
   useEffect(() => {
-    if (currentUser) {
+    // 로그인한 유저의 관심 필터가 변경되었을 때 메인 페이지 필터에 반영
+    if (currentUser && sessionStorage.length === 0) {
       setMyRegionArray(userRegionArray);
       setMyTypeArray(userTypeArray);
     }
@@ -89,6 +90,7 @@ const CategoryBar = ({ expanded }: ExpandedJ) => {
   const regionLSArray = JSON.parse(regionLS);
   const typesLS: any = sessionStorage.getItem(SS_TYPE_KEY);
   const typesLSArray = JSON.parse(typesLS);
+
   // 새로 고침 시에도 유저가 선택한 필터 유지
   useEffect(() => {
     if (regionLSArray !== null) {

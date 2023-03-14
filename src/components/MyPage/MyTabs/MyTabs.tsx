@@ -45,6 +45,8 @@ const MyTabs = () => {
       [category]: array,
     });
     customUIAlert('관심 카테고리 설정이 수정되었습니다.');
+    // 관심카테고리 변경 시 sessionStorage 비우기 -> 변경된 관심카테고리가 필터에 바로 반영
+    sessionStorage.clear();
   };
 
   return (
