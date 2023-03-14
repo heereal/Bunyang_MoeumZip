@@ -10,7 +10,7 @@ import allIcon from 'public/assets/all.png';
 import comingIcon from 'public/assets/coming.png';
 import randomIcon from 'public/assets/random.png';
 import todayIcon from 'public/assets/today.png';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useQuery } from 'react-query';
 import { useRecoilState } from 'recoil';
 import CategoryBar from '../CategoryBar/CategoryBar';
@@ -18,12 +18,6 @@ import * as S from './style';
 
 const CountTabs = ({ list, expanded }: CountTabPropsListJ) => {
   const [currentTab, SetCurrentTab] = useState<number>(0);
-
-  // useHomeList도 getToday함수를 쓰지만 컴포넌트가 아니라 dynamic import를 쓸 수 없어
-  // useEffect로 클라이언트에서 실행
-  useEffect(() => {
-    useHomeList;
-  }, []);
 
   // CategoryBar에서 선택된 지역, 분양 형태 리스트 가져오기
   const [selectedRegionArray] = useRecoilState(selectedRegionList);
