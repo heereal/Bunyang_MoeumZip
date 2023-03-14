@@ -72,6 +72,8 @@ const Loading = () => {
     // session(유저 정보)가 들어왔을 때만 함수를 실행함
     if (session) {
       redirectUser();
+      // 로그인 시 sessionStorage 비우기
+      sessionStorage.clear();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [session]);
