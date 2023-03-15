@@ -1,10 +1,9 @@
 import { getUsersList } from '@/common/api';
-import HomeList from '@/components/GlobalComponents/HomeList/HomeList';
 import NoResult from '@/components/GlobalComponents/NoResult/NoResult';
-import TopBtn from '@/components/GlobalComponents/TopBtn/TopBtn';
 import { useHomeList, useTabList } from '@/hooks';
 import { selectedRegionList, selectedTypeList } from '@/store/selectors';
 import { useSession } from 'next-auth/react';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import allIcon from 'public/assets/all.png';
 import comingIcon from 'public/assets/coming.png';
@@ -15,6 +14,20 @@ import { useQuery } from 'react-query';
 import { useRecoilState } from 'recoil';
 import CategoryBar from '../CategoryBar/CategoryBar';
 import * as S from './style';
+
+const HomeList = dynamic(
+  () => import('@/components/GlobalComponents/HomeList/HomeList'),
+  {
+    ssr: false,
+  },
+);
+
+const TopBtn = dynamic(
+  () => import('@/components/GlobalComponents/TopBtn/TopBtn'),
+  {
+    ssr: false,
+  },
+);
 
 const CountTabs = ({ list, expanded }: CountTabPropsListJ) => {
   const [currentTab, SetCurrentTab] = useState<number>(0);

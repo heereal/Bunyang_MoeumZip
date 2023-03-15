@@ -10,7 +10,7 @@ import * as S from '../../styles/search.style';
 // getToday()함수를 쓰는 컴포넌트는 클라이언트에서 실행되게 해야
 // (서버와 클라이언트 시간이 맞지 않을 때)ssr 418, 423오류가 안 생김
 const HomeList = dynamic(
-  () => import('../../components/GlobalComponents/HomeList/HomeList'),
+  () => import('@/components/GlobalComponents/HomeList/HomeList'),
   {
     ssr: false,
   },
