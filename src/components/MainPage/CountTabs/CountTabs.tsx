@@ -26,7 +26,7 @@ const CountTabs = ({ list, expanded }: CountTabPropsListJ) => {
   // 로그인 여부 확인
   const { data: session }: any = useSession();
 
-  // Users 데이터 불러오기
+  // User 데이터 불러오기
   const { data: users, isLoading }: any = useQuery('users', getUsersList, {
     enabled: !!session, // session이 true인 경우에만 useQuery를 실행함
   });
