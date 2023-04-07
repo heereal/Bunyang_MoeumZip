@@ -111,9 +111,9 @@ const PostDetail = ({ postId, detail }: DetailPagePropsP) => {
         description={`${
           home?.HOUSE_NM ? home?.HOUSE_NM : '모집공고'
         }의 분양상세정보, 주변아파트 실거래가를 제공합니다.`}
-        canonical={`https://www.by-zip.com/${postId}`}
+        canonical={`https://www.by-zip.com/detail/${postId}`}
         openGraph={{
-          url: `https://www.by-zip.com/admin/${postId}`,
+          url: `https://www.by-zip.com/detail/${postId}`,
         }}
       />
       <DetailHeader
