@@ -2,6 +2,14 @@
 User-agent: *
 Allow: /
 
+# *
+User-agent: *
+Disallow: /404
+Disallow: /my
+Disallow: /admin
+Disallow: /signup
+Disallow: /loading
+
 # Host
 Host: https://www.by-zip.com
 
