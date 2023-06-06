@@ -35,7 +35,7 @@ module.exports = {
     return [
       {
         source: '/api/APTRealPrice/:id',
-        destination: `http://openapi.molit.go.kr/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptTradeDev?numOfRows=1000&LAWD_CD=:id&DEAL_YMD=202303&serviceKey=${SERVICE_KEY}`,
+        destination: `http://openapi.molit.go.kr/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptTradeDev?numOfRows=1000&LAWD_CD=:id&DEAL_YMD=202305&serviceKey=${SERVICE_KEY}`,
       },
     ];
   },
