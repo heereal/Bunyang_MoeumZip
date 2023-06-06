@@ -282,8 +282,12 @@ const MustHaveToDo = ({
         {
           PBLANC_NO: item.PAN_ID,
           HOUSE_MANAGE_NO: item.PAN_ID,
-          HOUSE_TY: item.detail[0][1].dsSbd[0].MIN_MAX_RSDN_DDO_AR,
-          TOT_SUPLY_HSHLDCO: item.detail[0][1].dsSbd[0].SUM_TOT_HSH_CNT,
+          HOUSE_TY: item.detail[0][1].dsSbd
+            ? item.detail[0][1].dsSbd[0].MIN_MAX_RSDN_DDO_AR
+            : null,
+          TOT_SUPLY_HSHLDCO: item.detail[0][1].dsSbd
+            ? item.detail[0][1].dsSbd[0].SUM_TOT_HSH_CNT
+            : null,
           MODEL_NO: null,
           SUPLY_AR: null,
           SUPLY_HSHLDCO: null,
