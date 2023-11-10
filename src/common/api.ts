@@ -89,9 +89,9 @@ export const getProfile = async (email: string | null | undefined) => {
 };
 
 // '시군구' 정보를 기준으로 아파트 매매 실거래가 정보를 가져옴
-export const getAPTRealPriceList = async (LAWD_CD: any) => {
+export const getAPTRealPriceList = async (id: any, contractMonth: string) => {
   const data = await axios
-    .get(`/api/APTRealPrice/${LAWD_CD?.split(':')[0]}`)
+    .get(`/api/APTRealPrice/${id?.split(':')[0]}/${contractMonth}`)
     .then((res) => res.data.response.body.items.item);
   return data;
 };

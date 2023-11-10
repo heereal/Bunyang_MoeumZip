@@ -1,7 +1,7 @@
 import { getBookmarksList, getHomeList } from '@/common/api';
 import { useBookmark } from '@/hooks';
 import { useSession } from 'next-auth/react';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import APTRealPrice from '../APTRealPrice/APTRealPrice';
 import DetailHeader from './DetailHeader';
@@ -15,6 +15,7 @@ import { getAPTRealPriceList } from '@/common/api';
 import { LAWD_CD_Code } from '@/common/LAWD_CD';
 import LHDetail from './LHDetail';
 import { NextSeo } from 'next-seo';
+import { getPreviousMonth } from '@/common/utils';
 
 const PostDetail = ({ postId, detail }: DetailPagePropsP) => {
   const queryClient = useQueryClient();
@@ -28,8 +29,13 @@ const PostDetail = ({ postId, detail }: DetailPagePropsP) => {
   // 탭 선택 시 사용
   const [isRealPriceTab, setIsRealPriceTab] = useState(false);
 
-  // 아파트 매매 실거라개 '읍면동'으로 필터링한 리스트
+  // 아파트 매매 실거래가 '읍면동'으로 필터링한 리스트
   const [dongList, setDongList] = useState([]);
+
+  // 아파트 매매 실거래가 api 호출 시 전달하는 실거래 자료의 계약년월 query parameter
+  const previousMonth = useMemo(() => {
+    return getPreviousMonth();
+  }, []);
 
   // 북마크 리스트 볼러오기
   const { data: bookmarksList, refetch: bookmarksListRefetch } = useQuery(
@@ -74,7 +80,7 @@ const PostDetail = ({ postId, detail }: DetailPagePropsP) => {
   // 아파트 매매 실거래가 API 가져오기
   const { data: APTRealPriceList, refetch: APTRealPriceRefetch } = useQuery(
     'APTRealPriceList',
-    () => getAPTRealPriceList(LAWD_CD),
+    () => getAPTRealPriceList(LAWD_CD, previousMonth),
     {
       enabled: !!LAWD_CD, // LAWD_CD이 있는 경우에만 useQuery를 실행함
 
