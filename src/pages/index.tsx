@@ -17,7 +17,7 @@ const CountTabs = dynamic(
 );
 
 const MainPage = ({ homeList }: HomeListDBPropsJ) => {
-  const allHomeList = homeList.allHomeData;
+  const allHomeList = homeList.allHomeData.reverse();
   const [expanded, seExpanded] = useState(false);
   const sizeHandler = () => {
     seExpanded(!expanded);
