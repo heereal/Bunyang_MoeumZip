@@ -15,7 +15,7 @@ https://www.by-zip.com/
 
 <br/>
 
-[💙 팀 노션](https://team-nemo.notion.site/Team-NEMO-fdf2da573c554862b5a702a0e374ba91) | [🧑🏻‍💻 개발일지](https://fanatical-marigold-762.notion.site/eac72d734a5e41029c6fc42f3ddb09b7) | 📺 시연영상  
+[💙 팀 노션](https://team-nemo.notion.site/Team-NEMO-fdf2da573c554862b5a702a0e374ba91) | [🧑🏻‍💻 개발일지](https://fanatical-marigold-762.notion.site/eac72d734a5e41029c6fc42f3ddb09b7)
 
 <br/>
 
