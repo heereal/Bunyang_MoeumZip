@@ -15,34 +15,46 @@ export default NextAuth({
     KakaoProvider({
       clientId: process.env.KAKAO_CLIENT_ID!,
       clientSecret: process.env.KAKAO_CLIENT_SECRET!,
+      allowDangerousEmailAccountLinking: true, // 동일한 이메일을 가진 계정 간에 자동 연결을 허용함
     }),
     NaverProvider({
       clientId: process.env.NAVER_CLIENT_ID!,
       clientSecret: process.env.NAVER_CLIENT_SECRET!,
+      allowDangerousEmailAccountLinking: true,
     }),
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+      allowDangerousEmailAccountLinking: true,
     }),
     FacebookProvider({
       clientId: process.env.FACEBOOK_CLIENT_ID!,
       clientSecret: process.env.FACEBOOK_CLIENT_SECRET!,
     }),
   ],
-
   callbacks: {
     async jwt({ user, token, account }) {
-      if (user && account) {
-        token = { ...token, provider: account.provider };
+      try {
+        if (user && account) {
+          token = { ...token, provider: account.provider };
+        }
+        return token;
+      } catch (e: any) {
+        console.error(e);
+        throw new Error(e.response.data.msg);
       }
-      return token;
     },
 
     async session({ session, token }: any) {
-      if (session.user && token) {
-        session.user = { ...session.user, provider: token.provider };
+      try {
+        if (session.user && token) {
+          session.user = { ...session.user, provider: token.provider };
+        }
+        return session;
+      } catch (e: any) {
+        console.error(e);
+        throw new Error(e.response.data.msg);
       }
-      return session;
     },
   },
 });
