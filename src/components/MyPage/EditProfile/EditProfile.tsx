@@ -14,7 +14,7 @@ import AlertUI from '@/components/GlobalComponents/AlertUI/AlertUI';
 import Link from 'next/link';
 
 interface editProfileProps {
-  currentUser: userProps
+  currentUser: userProps;
 }
 
 const EditProfile = ({ currentUser }: editProfileProps) => {
@@ -44,40 +44,42 @@ const EditProfile = ({ currentUser }: editProfileProps) => {
       {isModalOpen && <EditProfileModal setIsModalOpen={setIsModalOpen} />}
 
       <S.EditProfileContainer>
-        <Image
-          src={
-            currentUser.userImage ? currentUser.userImage : transparentProfile
-          }
-          alt="profile"
-          width={140}
-          height={140}
-          quality={75}
-          style={{ borderRadius: '50%', objectFit: 'cover' }}
-          priority={true}
-          className="profileImage"
-        />
-        <S.Nickname>{currentUser.userName}</S.Nickname>
-        <S.EmailContainer>
+        <>
           <Image
             src={
-              currentUser.provider === 'naver'
-                ? naver
-                : currentUser.provider === 'kakao'
-                ? kakao
-                : currentUser.provider === 'google'
-                ? google
-                : currentUser.provider === 'facebook'
-                ? facebook
-                : transparentImage
+              currentUser.userImage ? currentUser.userImage : transparentProfile
             }
-            alt="providerLogo"
-            height={16}
-            quality={100}
+            alt="profile"
+            width={140}
+            height={140}
+            quality={75}
+            style={{ borderRadius: '50%', objectFit: 'cover' }}
             priority={true}
-            className="providerLogo"
+            className="profileImage"
           />
-          <S.Email>{currentUser.userEmail}</S.Email>
-        </S.EmailContainer>
+          <S.Nickname>{currentUser.userName}</S.Nickname>
+          <S.EmailContainer>
+            <Image
+              src={
+                currentUser.provider === 'naver'
+                  ? naver
+                  : currentUser.provider === 'kakao'
+                  ? kakao
+                  : currentUser.provider === 'google'
+                  ? google
+                  : currentUser.provider === 'facebook'
+                  ? facebook
+                  : transparentImage
+              }
+              alt="providerLogo"
+              height={16}
+              quality={100}
+              priority={true}
+              className="providerLogo"
+            />
+            <S.Email>{currentUser.userEmail}</S.Email>
+          </S.EmailContainer>
+        </>
         <S.ProfileBtnContainer>
           <S.ProfileBtn
             bg={'#356EFF'}

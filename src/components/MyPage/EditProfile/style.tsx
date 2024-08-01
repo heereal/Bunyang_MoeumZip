@@ -5,7 +5,7 @@ export const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   min-width: 270px;
-  height: 376px;
+  height: 380px;
 
   @media screen and (max-width: 650px) {
     height: 265px;
@@ -23,6 +23,7 @@ export const EditProfileContainer = styled.div`
   flex-direction: column;
   position: relative;
   align-items: center;
+  justify-content: space-between;
   box-sizing: border-box;
 
   .profileImage {
@@ -80,6 +81,7 @@ export const ProfileBtnContainer = styled.div`
   flex-direction: column;
   width: 100%;
   align-items: center;
+  padding-bottom: 14px;
 
   @media screen and (max-width: 650px) {
     flex-direction: row;
