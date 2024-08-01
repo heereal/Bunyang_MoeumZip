@@ -15,8 +15,8 @@ import { regionArray, typesArray } from '@/common/categoryList';
 import { NextSeo } from 'next-seo';
 import styled from 'styled-components';
 
-// 로그인 후 회원가입 페이지로 이동 전에 보여지는 로딩 페이지
-// 최초 로그인이라면 회원가입 페이지로 이동, 아니면 메인 페이지로 이동
+// 로그인 후 로딩 중에 보여지는 로딩 페이지
+// 최초 로그인이라면 회원가입 페이지로 이동, 이미 가입한 유저라면 이전 페이지로 이동
 const Loading = () => {
   const router = useRouter();
 
@@ -40,6 +40,16 @@ const Loading = () => {
       }),
     );
 
+    // 이미 가입한 유저라면 이전 페이지로 이동,
+    // 최초 로그인한 유저라면 firestore에 유저 정보를 새로 저장하며 회원가입 페이지로 이동
+    if (array.length >= 1) {
+      router.back();
+    } else {
+      await signUpUser();
+    }
+  };
+
+  const signUpUser = async () => {
     const newUser = {
       userEmail: session?.user?.email,
       userName: session?.user?.name,
@@ -50,26 +60,21 @@ const Loading = () => {
       types: typesArray,
     };
 
-    // 이미 가입한 유저라면 메인으로 이동,
-    // 최초 로그인한 유저라면 firestore에 유저 정보를 새로 저장하며 회원가입 페이지로 이동
-    if (array.length >= 1) {
-      router.back();
-    } else {
-      await setDoc(
-        doc(db, 'Users', `${session.user.provider}_${session.user.email}`),
-        newUser,
-      );
-      router.push({
-        pathname: '/signup',
-        query: {
-          loading: true,
-        },
-      });
-    }
+    await setDoc(
+      doc(db, 'Users', `${session.user.provider}_${session.user.email}`),
+      newUser,
+    );
+
+    router.push({
+      pathname: '/signup',
+      query: {
+        loading: true,
+      },
+    });
   };
 
   useEffect(() => {
-    // session(유저 정보)가 들어왔을 때만 함수를 실행함
+    // session(유저 정보)이 들어왔을 때만 함수를 실행함
     if (session) {
       redirectUser();
       // 로그인 시 sessionStorage 비우기
