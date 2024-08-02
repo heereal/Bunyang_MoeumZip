@@ -12,7 +12,6 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import LoadingSpinner from '@/components/GlobalComponents/LoadingSpinner/LoadingSpinner';
 import { regionArray, typesArray } from '@/common/categoryList';
-import { NextSeo } from 'next-seo';
 import styled from 'styled-components';
 
 // 로그인 후 로딩 중에 보여지는 로딩 페이지
@@ -85,11 +84,6 @@ const Loading = () => {
 
   return (
     <SpinnerWrapper>
-      <NextSeo
-        title="로딩중 -"
-        description="전국 분양정보를 한눈에 확인할 수 있는 플랫폼입니다."
-        canonical="https://www.by-zip.com/loading"
-      />
       <LoadingSpinner />
     </SpinnerWrapper>
   );

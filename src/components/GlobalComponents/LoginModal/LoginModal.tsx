@@ -33,9 +33,7 @@ const LoginModal = ({ setIsLoginModalOpen }: setModalProps) => {
   // 소셜 로그인-로그인 시 로딩 페이지로 이동함
   const loginHandler = async (provider: string) => {
     try {
-      await signIn(provider, {
-        callbackUrl: '/loading',
-      });
+      await signIn(provider);
     } catch (e) {
       console.error(e);
       showLoginFailedAlert();

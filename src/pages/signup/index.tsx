@@ -9,7 +9,7 @@ import {
   myTypeArrayState,
   usersListState,
 } from '@/store/selectors';
-import { doc, updateDoc } from 'firebase/firestore';
+import { doc, setDoc } from 'firebase/firestore';
 import { useSession } from 'next-auth/react';
 import { NextSeo } from 'next-seo';
 import { useRouter } from 'next/router';
@@ -34,7 +34,6 @@ const SignUp = () => {
 
   // 닉네임 중복 검사 시 사용
   const [isValidNickname, setIsValidNickname] = useState(false);
-
   const [nickname, setNickname] = useState<string>('');
 
   // [닉네임 중복 확인] 버튼 클릭 시 작동
@@ -68,17 +67,23 @@ const SignUp = () => {
       customUIAlert('닉네임 중복 검사를 완료해주세요.');
       return;
     }
+
     // 관심 카테고리 선택하지 않으면 전체 리스트를 선택한 것으로 간주함
-    const updateUser = {
+    const newUser = {
+      userEmail: '',
       userName: nickname,
+      userImage: '',
+      provider: '',
+      bookmarkList: [],
       regions: myRegionArray.length === 0 ? regionArray : myRegionArray,
       types: myTypeArray.length === 0 ? typesArray : myTypeArray,
     };
 
-    await updateDoc(
-      doc(db, 'Users', `${currentUser.provider}_${currentUser.userEmail}`),
-      updateUser,
+    await setDoc(
+      doc(db, 'Users', `${session.user.provider}_${session.user.email}`),
+      newUser,
     );
+
     customUIAlert('회원가입이 완료되었습니다.');
     router.push('/');
   };
@@ -107,8 +112,7 @@ const SignUp = () => {
 
   useEffect(() => {
     // 비로그인 유저일 경우 접근 제한
-    if (status === 'unauthenticated' || router.query.loading === undefined)
-      router.push('/', undefined, { shallow: true });
+    if (session) router.push('/', undefined, { shallow: true });
     // eslint-disable-next-line
   }, [session]);
 

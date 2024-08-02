@@ -1,3 +1,4 @@
+import { getProfile } from '@/common/api';
 import NextAuth from 'next-auth';
 import FacebookProvider from 'next-auth/providers/facebook';
 import GoogleProvider from 'next-auth/providers/google';
@@ -33,6 +34,23 @@ export default NextAuth({
     }),
   ],
   callbacks: {
+    async signIn({ user, account }) {
+      const userEmail = `${account?.provider}_${user.email}`;
+      const userProfile = await getProfile(userEmail);
+
+      if (userProfile) {
+        return true;
+      } else {
+        const temporaryUserData = {
+          email: user.email,
+          provider: account?.provider,
+          image: user.image,
+        };
+
+        // 최초로 로그인한 유저는 로그인을 중단하고 회원가입 페이지로 이동
+        return '/signup';
+      }
+    },
     async jwt({ user, token, account }) {
       try {
         if (user && account) {
