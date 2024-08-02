@@ -154,3 +154,27 @@ export const getDailyWorkLog = async () => {
   const result = docSnap.data();
   return result?.list;
 };
+
+// 관리자 페이지 로그인
+export const adminLogin = async (id: string, password: string) => {
+  // 'Admin' 컬렉션 내의 adminAccount 문서 참조
+  const docRef = doc(db, 'AdminUsers', id);
+  try {
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      const data = docSnap.data();
+      // 필드 값 확인
+      const docPassword = data.password;
+      if (docPassword === password) {
+        return { msg: 'AUTH' };
+      } else {
+        return { msg: 'FAILED' };
+      }
+    } else {
+      return { msg: 'REJECTED' };
+    }
+  } catch (error) {
+    return { msg: 'ERROR' };
+  }
+};

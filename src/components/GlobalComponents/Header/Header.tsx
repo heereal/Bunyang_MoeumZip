@@ -40,6 +40,16 @@ const Header = () => {
   // user 로그인 여부에 따라 header Nav 변경
   const { data: session } = useSession();
 
+  const path = router?.asPath;
+
+  switch (path) {
+    case '/login':
+      return false;
+
+    default:
+      break;
+  }
+
   return (
     <>
       {/* 로그인 모달 */}
@@ -64,7 +74,7 @@ const Header = () => {
             quality={100}
             //quelity 의 기본값은 75 입니다.
             priority={true}
-            style={{cursor: "pointer"}}
+            style={{ cursor: 'pointer' }}
           />
           {isMobileSearch ? (
             ''
