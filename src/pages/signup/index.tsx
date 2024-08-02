@@ -9,7 +9,7 @@ import {
   myTypeArrayState,
   usersListState,
 } from '@/store/selectors';
-import { doc, setDoc } from 'firebase/firestore';
+import { deleteDoc, doc, getDoc, setDoc } from 'firebase/firestore';
 import { useSession } from 'next-auth/react';
 import { NextSeo } from 'next-seo';
 import { useRouter } from 'next/router';
@@ -68,24 +68,40 @@ const SignUp = () => {
       return;
     }
 
-    // 관심 카테고리 선택하지 않으면 전체 리스트를 선택한 것으로 간주함
-    const newUser = {
-      userEmail: '',
-      userName: nickname,
-      userImage: '',
-      provider: '',
-      bookmarkList: [],
-      regions: myRegionArray.length === 0 ? regionArray : myRegionArray,
-      types: myTypeArray.length === 0 ? typesArray : myTypeArray,
-    };
+    try {
+      const userId = Array.isArray(router?.query.id)
+        ? router.query.id[0]
+        : router?.query.id ?? '';
 
-    await setDoc(
-      doc(db, 'Users', `${session.user.provider}_${session.user.email}`),
-      newUser,
-    );
+      if (userId) {
+        const docSnap = await getDoc(doc(db, 'TemporaryUsers', userId));
+        const usetData = docSnap.data();
 
-    customUIAlert('회원가입이 완료되었습니다.');
-    router.push('/');
+        // 관심 카테고리 선택하지 않으면 전체 리스트를 선택한 것으로 간주함
+        const newUser = {
+          userEmail: usetData?.email,
+          userName: nickname,
+          userImage: usetData?.image,
+          provider: usetData?.provider,
+          bookmarkList: [],
+          regions: myRegionArray.length === 0 ? regionArray : myRegionArray,
+          types: myTypeArray.length === 0 ? typesArray : myTypeArray,
+        };
+
+        // 회원 정보 저장
+        await setDoc(doc(db, 'Users', userId), newUser);
+
+        // 임시 회원 정보 삭제
+        await deleteDoc(doc(db, 'TemporaryUsers', userId));
+
+        customUIAlert('회원가입이 완료되었습니다.');
+        router.push('/');
+      } else {
+        customUIAlert('회원가입에 실패했습니다.');
+      }
+    } catch (e) {
+      customUIAlert('회원가입에 실패했습니다.');
+    }
   };
 
   // Users 데이터 불러오기
@@ -113,6 +129,7 @@ const SignUp = () => {
   useEffect(() => {
     // 비로그인 유저일 경우 접근 제한
     if (session) router.push('/', undefined, { shallow: true });
+
     // eslint-disable-next-line
   }, [session]);
 

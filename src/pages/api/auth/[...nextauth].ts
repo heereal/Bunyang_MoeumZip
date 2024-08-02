@@ -1,4 +1,6 @@
 import { getProfile } from '@/common/api';
+import { db } from '@/common/firebase';
+import { doc, setDoc } from 'firebase/firestore';
 import NextAuth from 'next-auth';
 import FacebookProvider from 'next-auth/providers/facebook';
 import GoogleProvider from 'next-auth/providers/google';
@@ -35,20 +37,22 @@ export default NextAuth({
   ],
   callbacks: {
     async signIn({ user, account }) {
-      const userEmail = `${account?.provider}_${user.email}`;
-      const userProfile = await getProfile(userEmail);
+      const { email, image } = user;
+      const provider = account?.provider;
+
+      const userId = `${provider}_${email}`;
+      const userProfile = await getProfile(userId);
 
       if (userProfile) {
         return true;
       } else {
-        const temporaryUserData = {
-          email: user.email,
-          provider: account?.provider,
-          image: user.image,
-        };
+        const temporaryUserData = { email, provider, image };
+
+        // 회원가입 시 필요한 유저 데이터를 DB에 임시 저장
+        await setDoc(doc(db, 'TemporaryUsers', userId), temporaryUserData);
 
         // 최초로 로그인한 유저는 로그인을 중단하고 회원가입 페이지로 이동
-        return '/signup';
+        return `/signup?id=${userId}`;
       }
     },
     async jwt({ user, token, account }) {
