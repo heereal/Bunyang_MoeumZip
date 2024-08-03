@@ -4,7 +4,6 @@ import { customUIAlert } from '@/common/utils';
 import SelectMyRegion from '@/components/GlobalComponents/SelectMyRegion/SelectMyRegion';
 import SelectMyTypes from '@/components/GlobalComponents/SelectMyTypes/SelectMyTypes';
 import {
-  currentUserState,
   myRegionArrayState,
   myTypeArrayState,
   usersListState,
@@ -23,9 +22,12 @@ const SignUp = () => {
   const router = useRouter();
 
   // 유저의 세션 정보 받아오기
-  const { data: session, status }: any = useSession();
+  const { data: session }: any = useSession();
+  // 로그인 시 쿼리 파라미터로 전달 받은 유저 ID
+  const userId = Array.isArray(router?.query.id)
+    ? router.query.id[0]
+    : router?.query.id ?? '';
 
-  const [currentUser, setCurrentUser] = useRecoilState(currentUserState);
   const [users, setUsers] = useRecoilState(usersListState);
 
   // 유저가 선택한 카테고리 필터링 리스트
@@ -48,6 +50,7 @@ const SignUp = () => {
       setIsValidNickname(false);
       return;
     }
+
     if (!checkNickname) {
       customUIAlert('사용 가능한 닉네임입니다.');
       setIsValidNickname(true);
@@ -63,17 +66,19 @@ const SignUp = () => {
 
   // [회원가입 완료] 버튼 클릭 시 작동
   const signupHandler = async () => {
+    if (!nickname) {
+      customUIAlert('닉네임을 입력해주세요.');
+      return;
+    }
+
     if (!isValidNickname) {
       customUIAlert('닉네임 중복 검사를 완료해주세요.');
       return;
     }
 
     try {
-      const userId = Array.isArray(router?.query.id)
-        ? router.query.id[0]
-        : router?.query.id ?? '';
-
       if (userId) {
+        // 임시로 저장된 유저 데이터
         const docSnap = await getDoc(doc(db, 'TemporaryUsers', userId));
         const usetData = docSnap.data();
 
@@ -105,24 +110,10 @@ const SignUp = () => {
   };
 
   // Users 데이터 불러오기
-  const { data: usersData }: any = useQuery('users', getUsersList, {
-    enabled: !!session, // session이 true인 경우에만 useQuery를 실행함
-    // users를 불러오는 데 성공하면 현재 로그인한 유저의 정보를 찾아서 setCurrentUser에 담음
+  useQuery('users', getUsersList, {
+    enabled: userId !== '', // userId가 있는 경우에만 useQuery를 실행함
     onSuccess: (usersData) => {
-      setUsers(
-        usersData.filter(
-          (user: userProps) =>
-            user.userEmail !== session?.user?.email &&
-            user.provider !== session?.user?.provider,
-        ),
-      );
-      setCurrentUser(
-        usersData.find(
-          (user: userProps) =>
-            user.userEmail === session?.user?.email &&
-            user.provider === session?.user?.provider,
-        ),
-      );
+      setUsers(usersData);
     },
   });
 
@@ -132,14 +123,6 @@ const SignUp = () => {
 
     // eslint-disable-next-line
   }, [session]);
-
-  useEffect(() => {
-    // session(유저 정보)가 들어왔을 때만 함수를 실행함
-    if (currentUser) {
-      setNickname(currentUser.userName);
-    }
-    // eslint-disable-next-line
-  }, [currentUser]);
 
   return (
     <S.Wrapper>

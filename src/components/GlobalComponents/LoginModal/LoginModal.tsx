@@ -34,6 +34,8 @@ const LoginModal = ({ setIsLoginModalOpen }: setModalProps) => {
   const loginHandler = async (provider: string) => {
     try {
       await signIn(provider);
+      // 로그인 시 sessionStorage 비우기
+      sessionStorage.clear();
     } catch (e) {
       console.error(e);
       showLoginFailedAlert();
