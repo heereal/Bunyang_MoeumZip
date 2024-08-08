@@ -10,9 +10,11 @@ import LoginModal from '../LoginModal/LoginModal';
 import SearchMobile from './SearchHeader/SearchMobile';
 import SearchWeb from './SearchHeader/SearchWeb';
 import * as S from './style';
+import Skeleton from '../Skeleton/Skeleton';
 
 const Header = () => {
   const router = useRouter();
+
   const [isLoginModalOpen, setIsLoginModalOpen] = useState<boolean>(false);
   const [hamburgerOpen, setHamburgerOpen] = useState<boolean>(false);
   // 햄버거 모달 애니메이션
@@ -38,7 +40,7 @@ const Header = () => {
   };
 
   // user 로그인 여부에 따라 header Nav 변경
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
 
   return (
     <>
@@ -64,7 +66,7 @@ const Header = () => {
             quality={100}
             //quelity 의 기본값은 75 입니다.
             priority={true}
-            style={{cursor: "pointer"}}
+            style={{ cursor: 'pointer' }}
           />
           {isMobileSearch ? (
             ''
@@ -92,24 +94,26 @@ const Header = () => {
             청약캘린더
           </S.NavContent>
 
-          {session ? (
+          {status === 'loading' && <Skeleton />}
+
+          {status !== 'loading' && (
             <>
-              <S.NavContent
-                onClick={() => {
-                  router.push('/my');
-                }}
-                color={router.asPath === '/my' ? '#356EFF' : 'black'}
-              >
-                마이페이지
-              </S.NavContent>
+              {session ? (
+                <S.NavContent
+                  onClick={() => router.push('/my')}
+                  color={router.asPath === '/my' ? '#356EFF' : 'black'}
+                >
+                  마이페이지
+                </S.NavContent>
+              ) : (
+                <S.NavContent
+                  onClick={() => setIsLoginModalOpen(true)}
+                  color="black"
+                >
+                  로그인
+                </S.NavContent>
+              )}
             </>
-          ) : (
-            <S.NavContent
-              onClick={() => setIsLoginModalOpen(true)}
-              color={'black'}
-            >
-              로그인
-            </S.NavContent>
           )}
         </S.NavBar>
         {isMobileSearch ? (
