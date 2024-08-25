@@ -94,7 +94,9 @@ const Header = () => {
             청약캘린더
           </S.NavContent>
 
-          {status === 'loading' && <Skeleton />}
+          {status === 'loading' && (
+            <S.NavContent color={'white'}>로그인</S.NavContent>
+          )}
 
           {status !== 'loading' && (
             <>
