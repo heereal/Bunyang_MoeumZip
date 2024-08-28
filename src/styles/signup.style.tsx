@@ -82,8 +82,8 @@ export const CheckNicknameBtn = styled.div`
   font-weight: 600;
   font-size: 12px;
   line-height: 14px;
-  color: #7b7b7b;
-  background: #e8eaef;
+  color: #356eff;
+  background: #e5edff;
   border-radius: 20px;
   cursor: pointer;
 `;
@@ -107,7 +107,7 @@ export const SignUpBtn = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 91.5%;
+  width: 100%;
   height: 42px;
   background-color: #356eff;
   border-radius: 7px;

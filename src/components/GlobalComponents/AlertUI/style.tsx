@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const AlertBack = styled.div`
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.6);
   position: fixed;
   z-index: 999;
   top: 0%;
@@ -35,7 +35,6 @@ export const AlertBox = styled.div`
   padding: 24px 30px;
 
   background-color: #ffffff;
-  box-shadow: 0px 4px 8px rgba(255, 255, 255, 0.5);
   border-radius: 16px;
 
   @media screen and (max-width: 450px) {

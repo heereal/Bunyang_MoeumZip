@@ -30,18 +30,11 @@ const MyPage = () => {
     enabled: !!session, // session이 true인 경우에만 useQuery를 실행함
     // users를 불러오는 데 성공하면 현재 로그인한 유저의 정보를 찾아서 setCurrentUser에 담음
     onSuccess: (usersData) => {
-      setUsers(
-        usersData.filter(
-          (user: userProps) =>
-            user.userEmail !== session.user.email &&
-            user.provider !== session.user.provider,
-        ),
-      );
+      setUsers(usersData);
       setCurrentUser(
         usersData.find(
           (user: userProps) =>
-            user.userEmail === session?.user?.email &&
-            user.provider === session?.user?.provider,
+            user.id === `${session?.user?.provider}_${session?.user?.email}`,
         ),
       );
     },

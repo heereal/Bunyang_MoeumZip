@@ -96,6 +96,7 @@ interface userProps {
   userName: string;
   userImage: string;
   provider: string;
+  id: string;
 }
 
 // Firebase에서 가져온 data type

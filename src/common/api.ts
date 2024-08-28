@@ -61,6 +61,7 @@ export const getUsersList = async () => {
   const querySnapshot = await getDocs(q);
   querySnapshot.forEach((doc) =>
     array.push({
+      id: doc.id, // provider_email 형식의 id
       ...doc.data(),
     }),
   );
