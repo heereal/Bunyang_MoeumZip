@@ -46,6 +46,22 @@ export const getToday = () => {
   return today;
 };
 
+// 지난 달 구하기 - 'YYYYMM' 형식으로 출력
+export const getPreviousMonth = () => {
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = today.getMonth() + 1;
+
+  if (month === 1) {
+    // 1월인 경우, 이전 달은 12월이 되고, 년도는 현재 년도에서 1을 뺍니다.
+    return `${year - 1}12`;
+  } else {
+    // 그 외의 경우, 이전 달은 현재 월에서 1을 빼고, 년도는 현재 년도와 동일합니다.
+    const previousMonth = month - 1;
+    return `${year}${previousMonth.toString().padStart(2, '0')}`;
+  }
+};
+
 // Custom Alert(react confirm Library)실행함수
 export const customUIAlert = (
   alertText: string,
