@@ -14,7 +14,7 @@ import AlertUI from '@/components/GlobalComponents/AlertUI/AlertUI';
 import Link from 'next/link';
 
 interface editProfileProps {
-  currentUser: userProps
+  currentUser: userProps;
 }
 
 const EditProfile = ({ currentUser }: editProfileProps) => {
@@ -39,68 +39,79 @@ const EditProfile = ({ currentUser }: editProfileProps) => {
   };
 
   return (
-    <S.Wrapper>
+    <>
       {/* 회원정보 수정 모달 */}
       {isModalOpen && <EditProfileModal setIsModalOpen={setIsModalOpen} />}
-
-      <S.EditProfileContainer>
-        <Image
-          src={
-            currentUser.userImage ? currentUser.userImage : transparentProfile
-          }
-          alt="profile"
-          width={140}
-          height={140}
-          quality={75}
-          style={{ borderRadius: '50%', objectFit: 'cover' }}
-          priority={true}
-          className="profileImage"
-        />
-        <S.Nickname>{currentUser.userName}</S.Nickname>
-        <S.EmailContainer>
-          <Image
-            src={
-              currentUser.provider === 'naver'
-                ? naver
-                : currentUser.provider === 'kakao'
-                ? kakao
-                : currentUser.provider === 'google'
-                ? google
-                : currentUser.provider === 'facebook'
-                ? facebook
-                : transparentImage
-            }
-            alt="providerLogo"
-            height={16}
-            quality={100}
-            priority={true}
-            className="providerLogo"
-          />
-          <S.Email>{currentUser.userEmail}</S.Email>
-        </S.EmailContainer>
-        <S.ProfileBtnContainer>
-          <S.ProfileBtn
-            bg={'#356EFF'}
-            text={'white'}
-            onClick={() => setIsModalOpen(true)}
-          >
-            프로필 수정
-          </S.ProfileBtn>
-          <S.ProfileBtn bg={'#E5EDFF'} text={'#356EFF'} onClick={LogOutHandler}>
-            로그아웃
-          </S.ProfileBtn>
-        </S.ProfileBtnContainer>
-      </S.EditProfileContainer>
-      {(currentUser?.userEmail === 'suk921@gmail.com' ||
-        currentUser?.userEmail === 'psh5575@gmail.com' ||
-        currentUser?.userEmail === 'mika013@naver.com') && (
-        <S.AdminBtn>
-          <Link href={'/admin/nemo042116'} style={{ all: 'unset' }}>
-            {currentUser.userName} 관리자님 환영합니다.
-          </Link>
-        </S.AdminBtn>
-      )}
-    </S.Wrapper>
+      <S.Wrapper>
+        <S.EditProfileContainer>
+          {currentUser && (
+            <>
+              <Image
+                src={
+                  currentUser.userImage
+                    ? currentUser.userImage
+                    : transparentProfile
+                }
+                alt="profile"
+                width={140}
+                height={140}
+                quality={75}
+                style={{ borderRadius: '50%', objectFit: 'cover' }}
+                priority={true}
+                className="profileImage"
+              />
+              <S.Nickname>{currentUser.userName}</S.Nickname>
+              <S.EmailContainer>
+                <Image
+                  src={
+                    currentUser.provider === 'naver'
+                      ? naver
+                      : currentUser.provider === 'kakao'
+                      ? kakao
+                      : currentUser.provider === 'google'
+                      ? google
+                      : currentUser.provider === 'facebook'
+                      ? facebook
+                      : transparentImage
+                  }
+                  alt="providerLogo"
+                  height={16}
+                  quality={100}
+                  priority={true}
+                  className="providerLogo"
+                />
+                <S.Email>{currentUser.userEmail}</S.Email>
+              </S.EmailContainer>
+              <S.ProfileBtnContainer>
+                <S.ProfileBtn
+                  bg={'#356EFF'}
+                  text={'white'}
+                  onClick={() => setIsModalOpen(true)}
+                >
+                  프로필 수정
+                </S.ProfileBtn>
+                <S.ProfileBtn
+                  bg={'#E5EDFF'}
+                  text={'#356EFF'}
+                  onClick={LogOutHandler}
+                >
+                  로그아웃
+                </S.ProfileBtn>
+              </S.ProfileBtnContainer>
+            </>
+          )}
+        </S.EditProfileContainer>
+        {(currentUser?.userEmail === 'suk921@gmail.com' ||
+          currentUser?.userEmail === 'psh5575@gmail.com' ||
+          currentUser?.userEmail === 'mika013@naver.com') && (
+          <S.AdminBtn>
+            <Link href={'/admin/nemo042116'} style={{ all: 'unset' }}>
+              {currentUser.userName} 관리자님 환영합니다.
+            </Link>
+          </S.AdminBtn>
+        )}
+      </S.Wrapper>
+    </>
   );
 };
 

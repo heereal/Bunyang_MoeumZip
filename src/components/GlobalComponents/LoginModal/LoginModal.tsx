@@ -8,15 +8,40 @@ import logo from 'public/assets/logo.png';
 import * as S from './style';
 import Image from 'next/image';
 import { useRef, useEffect, Dispatch, SetStateAction } from 'react';
+import AlertUI from '../AlertUI/AlertUI';
+import { confirmAlert } from 'react-confirm-alert';
 
 interface setModalProps {
   [key: string]: Dispatch<SetStateAction<boolean>>;
 }
 
 const LoginModal = ({ setIsLoginModalOpen }: setModalProps) => {
+  const showLoginFailedAlert = () => {
+    confirmAlert({
+      customUI: ({ onClose }) => {
+        return (
+          <AlertUI
+            alertText="로그인에 실패했습니다."
+            onClose={onClose}
+            eventText="확인"
+          />
+        );
+      },
+    });
+  };
+
   // 소셜 로그인-로그인 시 로딩 페이지로 이동함
   const loginHandler = async (provider: string) => {
-    await signIn(provider, { callbackUrl: '/loading' });
+    try {
+      await signIn(provider);
+      // 로그인 시 sessionStorage 비우기
+      sessionStorage.clear();
+    } catch (e) {
+      console.error(e);
+      showLoginFailedAlert();
+    } finally {
+      setIsLoginModalOpen(false);
+    }
   };
 
   const loginModalRef = useRef<HTMLDivElement>(null);

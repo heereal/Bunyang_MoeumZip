@@ -4,7 +4,7 @@
 <img src="https://user-images.githubusercontent.com/117061017/223964952-53843318-bf62-4b0e-aa96-b2521ac98bb3.png" width="90%" />
 
 # 분양모음집🏡
-분양모음집은 전국의 분양 정보를 한 눈에 확인할 수 있는 **분양 정보 제공** 서비스입니다.
+분양모음집은 전국의 분양 정보를 한 눈에 확인할 수 있는 **최신 분양 정보 제공** 서비스입니다.
 
 <br/>
 
@@ -12,10 +12,15 @@
 <br/>
 https://www.by-zip.com/
 
+<br/>
+
+💻 공공데이터포털에 소개된 활용사례
+<br/>
+[https://www.data.go.kr](https://www.data.go.kr/tcs/puc/selectPublicUseCaseView.do?pageIndex=1&prcuseCaseSn=1046480)
 
 <br/>
 
-[💙 팀 노션](https://team-nemo.notion.site/Team-NEMO-fdf2da573c554862b5a702a0e374ba91) | [🧑🏻‍💻 개발일지](https://fanatical-marigold-762.notion.site/eac72d734a5e41029c6fc42f3ddb09b7) | 📺 시연영상  
+[💙 팀 노션](https://team-nemo.notion.site/Team-NEMO-fdf2da573c554862b5a702a0e374ba91) | [🧑🏻‍💻 개발일지](https://fanatical-marigold-762.notion.site/eac72d734a5e41029c6fc42f3ddb09b7)
 
 <br/>
 
