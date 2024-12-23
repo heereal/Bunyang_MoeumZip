@@ -84,19 +84,10 @@ const PostDetail = ({ postId, detail }: DetailPagePropsP) => {
     {
       enabled: !!LAWD_CD, // LAWD_CD이 있는 경우에만 useQuery를 실행함
 
-      // 지역코드로 불러온 아파트 매매 실거래가 리스트에서 '읍면동' 기준으로 필터링하기
+      // 지역코드로 불러온 아파트 매매 실거래가 내림차순 정렬
       onSuccess: (APTRealPriceList: any) => {
         setDongList(
-          APTRealPriceList?.filter((item: any) =>
-            (detail.HSSPLY_ADRES.split('(').length > 1
-              ? detail.HSSPLY_ADRES.split('(')[1].slice(0, 3)
-              : detail.HSSPLY_ADRES.split(' ')[2]
-            ).includes(
-              item.법정동.split(' ')[0] === ''
-                ? item.법정동.split(' ')[1]
-                : item.법정동.split(' ')[0],
-            ),
-          ).reverse(),
+          APTRealPriceList.sort((a: any, b: any) => b.dealDay - a.dealDay),
         );
       },
     },
