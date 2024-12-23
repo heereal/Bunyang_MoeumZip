@@ -2,22 +2,6 @@ import NoResult from '@/components/GlobalComponents/NoResult/NoResult';
 import * as S from './style';
 
 const APTRealPrice = ({ dongList }: any) => {
-  // 유효성 검사 위한 주석이니 삭제하지 말아 주세요😇
-  // console.log(
-  //   '디테일 페이지 동 주소:',
-  //   detail.HSSPLY_ADRES.split('(').length > 1
-  //     ? detail.HSSPLY_ADRES.split('(')[1].slice(0, 3)
-  //     : detail.HSSPLY_ADRES.split(' ')[2],
-  // );
-
-  // 유효성 검사 위한 주석이니 삭제하지 말아 주세요😇
-  // APTRealPriceList?.map((item: any) =>
-  //   console.log(
-  //     item.법정동.split(' ')[0] === ''
-  //       ? item.법정동.split(' ')[1]
-  //       : item.법정동.split(' ')[0],
-  //   ),
-  // );
 
   return (
     <S.Wrapper>
@@ -34,7 +18,7 @@ const APTRealPrice = ({ dongList }: any) => {
             <S.TableRow>
               <S.TableHead>계약일</S.TableHead>
               <S.TableHead>아파트명</S.TableHead>
-              <S.TableHead>주소</S.TableHead>
+              <S.TableHead>법정동</S.TableHead>
               <S.TableHead>전용면적</S.TableHead>
               <S.TableHead>거래금액</S.TableHead>
             </S.TableRow>
@@ -43,18 +27,19 @@ const APTRealPrice = ({ dongList }: any) => {
             <tbody key={index}>
               <S.TableRow>
                 <S.TableData>
-                  {item.년}-
-                  {item.월.toString().length === 1 ? `0${item.월}` : item.월}-
-                  {item.일.toString().length === 1 ? `0${item.일}` : item.일}
+                  {item.dealYear}-
+                  {item.dealMonth.toString().length === 1 ? `0${item.dealMonth}` : item.dealMonth}-
+                  {item.dealDay.toString().length === 1 ? `0${item.dealDay}` : item.dealDay}
                 </S.TableData>
                 <S.TableData>
-                  <div>{item.아파트}</div> <span>({item.층}층)</span>
+                  <div>{item.aptNm}</div> <span>({item.floor}층)</span>
                 </S.TableData>
                 <S.TableData>
-                  {item.법정동} {item.도로명}
+                  {item.umdNm} 
+                  {/* {item.도로명} */}
                 </S.TableData>
-                <S.TableData>{item.전용면적}㎡</S.TableData>
-                <S.TableData>{item.거래금액}만원</S.TableData>
+                <S.TableData>{item.excluUseAr}㎡</S.TableData>
+                <S.TableData>{item.dealAmount}만 원</S.TableData>
               </S.TableRow>
             </tbody>
           ))}

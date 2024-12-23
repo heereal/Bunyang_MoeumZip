@@ -93,7 +93,7 @@ export const getProfile = async (email: string | null | undefined) => {
 export const getAPTRealPriceList = async (id: any, contractMonth: string) => {
   const data = await axios
     .get(`/api/APTRealPrice/${id?.split(':')[0]}/${contractMonth}`)
-    .then((res) => res.data.response.body.items.item);
+    .then((res) => res.data.items);
   return data;
 };
 
