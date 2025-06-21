@@ -890,6 +890,7 @@ export const getStaticProps: GetStaticProps = async () => {
   const METHOD_LH_DETAIL = 'lhLeaseNoticeDtlInfo1/getLeaseNoticeDtlInfo1';
 
   const SERVICE_KEY = process.env.NEXT_PUBLIC_HOME_API_KEY;
+  const LH_SERVICE_KEY = process.env.NEXT_PUBLIC_LH_API_KEY;
 
   // 공고문 기본 정보 리스트 가져오기(2023년 이후 공고)
   // 청약홈
@@ -914,7 +915,7 @@ export const getStaticProps: GetStaticProps = async () => {
   // LH 기본 - 공고중 리스트
   const lhNoticeALLList = await axios
     .get(
-      `${LH_BASE_URL}/${METHOD_LH_DEFAULT}?serviceKey=${SERVICE_KEY}&PG_SZ=1000&PAGE=1&PAN_SS="공고중"
+      `${LH_BASE_URL}/${METHOD_LH_DEFAULT}?serviceKey=${LH_SERVICE_KEY}&PG_SZ=1000&PAGE=1&PAN_SS="공고중"
       `,
     )
     .then((res: any) => res.data[1].dsList);
@@ -930,13 +931,13 @@ export const getStaticProps: GetStaticProps = async () => {
   // LH 기본 - 접수중 리스트
   const lhRegisterALLList = await axios
     .get(
-      `${LH_BASE_URL}/${METHOD_LH_DEFAULT}?serviceKey=${SERVICE_KEY}&PG_SZ=1000&PAGE=1&PAN_SS="접수중"
-  `,
+      `${LH_BASE_URL}/${METHOD_LH_DEFAULT}?serviceKey=${LH_SERVICE_KEY}&PG_SZ=1000&PAGE=1&PAN_SS="접수중"
+        `,
     )
     .then((res: any) => res.data[1].dsList);
 
   // LH 기본 - 접수중 리스트에서 토지, 상가, 주거복지 제외한 리스트
-  const lhRegisterList = lhRegisterALLList.filter(
+  const lhRegisterList = lhRegisterALLList?.filter(
     (item: ItemJ) =>
       item.UPP_AIS_TP_CD !== '01' &&
       item.UPP_AIS_TP_CD !== '22' &&
@@ -946,7 +947,7 @@ export const getStaticProps: GetStaticProps = async () => {
   // LH 기본 - 공고중 + 접수중 리스트(토지, 상가, 주거복지 제외)
   const lhDefaultList: {}[] = [];
   lhNoticeList?.map((item: ItemJ) => lhDefaultList.push(item));
-  lhRegisterList.map((item: ItemJ) => lhDefaultList.push(item));
+  lhRegisterList?.map((item: ItemJ) => lhDefaultList.push(item));
 
   // 공고문 상세정보 리스트 가져오기
   // 청약홈 - 상세 정보 전체 가져오기
@@ -973,7 +974,7 @@ export const getStaticProps: GetStaticProps = async () => {
     lhDefaultList.map((item: any) =>
       axios
         .get(
-          `${LH_BASE_URL}/${METHOD_LH_DETAIL}?serviceKey=${SERVICE_KEY}&SPL_INF_TP_CD=${item.SPL_INF_TP_CD}&CCR_CNNT_SYS_DS_CD=${item.CCR_CNNT_SYS_DS_CD}&PAN_ID=${item.PAN_ID}`,
+          `${LH_BASE_URL}/${METHOD_LH_DETAIL}?serviceKey=${LH_SERVICE_KEY}&SPL_INF_TP_CD=${item.SPL_INF_TP_CD}&CCR_CNNT_SYS_DS_CD=${item.CCR_CNNT_SYS_DS_CD}&PAN_ID=${item.PAN_ID}`,
         )
         .then((res) => res.data),
     ),
